@@ -10,8 +10,14 @@ export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
 # ASSUMED: sets the size of the history file
-HISTFILESIZE=250000
+HISTFILESIZE=1000000
+HISTSIZE=1000000
+shopt -s histappend
 export HISTTIMEFORMAT="%y-%m-%d %T "
+HISTCONTROL=ignoredups
+HISTIGNORE='ls:bg:fg:history'
+shopt -s cmdhist
+PROMPT_COMMAND='history -a'
 
 # Sets vim shortcuts for bash
 set -o vi
