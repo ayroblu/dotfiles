@@ -1,0 +1,78 @@
+# This file handles things to do with colors: Mac OSX
+
+# ----------------------Print all colors:
+#for i in {0..255} ; do
+#    printf "\x1b[38;5;${i}mcolour${i}\n"
+#done
+
+BOLD_FONT='\x1B[1m'
+NORMAL_FONT='\x1B[0m'
+NC='\x1B[0m'
+BLACK='\x1B[0;30m'
+BLUE='\x1B[0;34m'
+GREEN='\x1B[0;32m'
+CYAN='\x1B[0;36m'
+RED='\x1B[0;31m'
+PURPLE='\x1B[0;35m'
+BROWN_ORANGE='\x1B[0;33m'
+LIGHT_GRAY='\x1B[0;37m'
+DARK_GRAY='\x1B[1;30m'
+LIGHT_BLUE='\x1B[1;34m'
+LIGHT_GREEN='\x1B[1;32m'
+LIGHT_CYAN='\x1B[1;36m'
+LIGHT_RED='\x1B[1;31m'
+LIGHT_PURPLE='\x1B[1;35m'
+YELLOW='\x1B[1;33m'
+WHITE='\x1B[1;37m'
+
+# ------------------------------------- Output stderr in red
+# command 2> >(while read line; do echo -e "\e[01;31m$line\e[0m" >&2; done)
+# find / -name 'hi' 2> >(while read line; do echo -e "$RED$line$NC" >&2; done)
+# - http://askubuntu.com/questions/135214/pipable-command-to-print-in-color
+function pRED {
+  # activate color passed as argument
+  echo -ne "`eval echo '$RED'`"
+  # read stdin (pipe) and print from it:
+  cat
+  # Note: if instead of reading from the pipe, you wanted to print
+  # the additional parameters of the function, you could do:
+  # shift; echo $*
+  # back to normal (no color)
+  echo -ne "${NC}"
+}
+function pCYAN {
+  echo -ne "`eval echo '$CYAN'`"
+  cat
+  echo -ne "${NC}"
+}
+function pCol {
+  if [ "${#}" -ne 1 ]; then
+    echo 'Need an argument'
+    return
+  fi
+  color=\$${1:-$@}
+  echo -ne "`eval echo ${color}`"
+  cat
+  echo -ne "${NC}"
+}
+function pColours {
+  echo 'BOLD_FONT    ' | pCol BOLD_FONT
+  echo 'NORMAL_FONT  ' | pCol NORMAL_FONT
+  echo 'NC           ' | pCol NC
+  echo 'BLACK        ' | pCol BLACK
+  echo 'BLUE         ' | pCol BLUE
+  echo 'GREEN        ' | pCol GREEN
+  echo 'CYAN         ' | pCol CYAN
+  echo 'RED          ' | pCol RED
+  echo 'PURPLE       ' | pCol PURPLE
+  echo 'BROWN_ORANGE ' | pCol BROWN_ORANGE
+  echo 'LIGHT_GRAY   ' | pCol LIGHT_GRAY
+  echo 'DARK_GRAY    ' | pCol DARK_GRAY
+  echo 'LIGHT_BLUE   ' | pCol LIGHT_BLUE
+  echo 'LIGHT_GREEN  ' | pCol LIGHT_GREEN
+  echo 'LIGHT_CYAN   ' | pCol LIGHT_CYAN
+  echo 'LIGHT_RED    ' | pCol LIGHT_RED
+  echo 'LIGHT_PURPLE ' | pCol LIGHT_PURPLE
+  echo 'YELLOW       ' | pCol YELLOW
+  echo 'WHITE        ' | pCol WHITE        
+}
