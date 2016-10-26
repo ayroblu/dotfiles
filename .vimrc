@@ -6,6 +6,7 @@ hi CursorLine   cterm=bold,underline ctermbg=NONE ctermfg=NONE guibg=blue guifg=
 set splitright splitbelow
 set backspace=indent,eol,start "Without this, you can't backspace an indent or line
 set scrolloff=1
+set smartindent
 "au BufNewFile,BufRead * if &syntax == '' | setf java | endif "Set syntax to java if none set initially
 
 " Tab completion, as much as possible, list options, then tab through each

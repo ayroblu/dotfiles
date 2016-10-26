@@ -1,0 +1,22 @@
+[user]
+  name = Ben Lu
+  email = ben@ben-l.com
+[merge]
+  tool = mvimdiff
+[color]
+  ui = true
+[alias]
+  ci = commit -am
+  ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset' -2 -U0
+  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %ad) %C(bold blue)<%an>%Creset' -500
+  p = push origin master
+  s = status
+  m = merge --no-ff
+[core]
+	pager = less -+$LESS -R
+	excludesfile = /Users/blu/.gitignore_global
+[push]
+	default = matching
+
+# git reset HEAD~
+# git push -f origin HEAD^:master
