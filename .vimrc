@@ -2,7 +2,8 @@
 " :so ~/_vimrc " reloads vimrc, use in vim, not here
 " ------------------------------------------------------------Main layout
 set sw=2 sts=2 ts=2 number et is ai hls ru sc cursorline mouse=a laststatus=2 "shiftwidth, softtabstop, tabstop, linenumbers, softtabs, incsearch, autoindent, highlight search, ruler line col number, showcmd
-hi CursorLine   cterm=bold,underline ctermbg=NONE ctermfg=NONE guibg=blue guifg=orange "Set cursor line highlight colours
+hi CursorLine   cterm=bold ctermbg=NONE ctermfg=NONE guibg=blue guifg=orange "Set cursor line highlight colours
+"hi CursorLine   cterm=bold,underline ctermbg=NONE ctermfg=NONE guibg=blue guifg=orange "Set cursor line highlight colours
 set splitright splitbelow
 set backspace=indent,eol,start "Without this, you can't backspace an indent or line
 set scrolloff=1
@@ -26,7 +27,7 @@ nnoremap <C-a> ggVG
 
 filetype plugin on
 " copy and pasting
-vmap <C-c> y:call system("pbcopy", getreg("\""))<CR> 
+vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
 nmap <C-v><C-v> :call setreg("\"",system("pbpaste"))<CR>p
 
 " Highlight rows and columns with \l and \c, 'l to move, :match to remove
@@ -60,6 +61,9 @@ if &diff == 'nodiff'
     set shellcmdflag=-ic
 endif
 
+" This is just annoying
+noremap K k
+
 "-----------------------------Set pasting to automatically go paste mode
 " - https://coderwall.com/p/if9mda
 let &t_SI .= "\<Esc>[?2004h"
@@ -79,6 +83,7 @@ noremap  <buffer> <silent> k gk
 noremap  <buffer> <silent> j gj
 noremap  <buffer> <silent> 0 g0
 noremap  <buffer> <silent> $ g$
+
 
 " --------------------------------Insert single character
 nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
@@ -126,38 +131,36 @@ let g:multi_cursor_quit_key='<Esc>'
 
 " Pathogen
 " let g:pathogen_disabled = ['syntastic','vim-gitgutter','vim-jade','vim-javascript','vim-markdown','vim-stylus','vim-surround']
-let g:pathogen_disabled = ['syntastic']
-execute pathogen#infect()
-
-" Enable a blacklisted plugin.
-fun! s:loadPlugin(plugin_name)
-  " Remove the plugin from Pathogen's blacklist
-  call filter(g:pathogen_disabled, "v:val !=? '" . a:plugin_name ."'")
-  " Update runtimepath
-  call pathogen#surround($HOME . "/.vim/bundle/" . tolower(a:plugin_name))
-  " Load the plugin
-  " Note that this loads only one file (which is usually fine):
-  runtime plugin/*.vim
-  " Note that this uses the plugin name as typed by the user:
-  execute 'runtime! after/plugin/**/' . a:plugin_name . '.vim'
-  " Plugin-specific activation
-  if tolower(a:plugin_name) == 'youcompleteme'
-    call youcompleteme#Enable()
-  endif
-endf
+"let g:pathogen_disabled = ['syntastic']
+"execute pathogen#infect()
+"
+"" Enable a blacklisted plugin.
+"fun! s:loadPlugin(plugin_name)
+"  " Remove the plugin from Pathogen's blacklist
+"  call filter(g:pathogen_disabled, "v:val !=? '" . a:plugin_name ."'")
+"  " Update runtimepath
+"  call pathogen#surround($HOME . "/.vim/bundle/" . tolower(a:plugin_name))
+"  " Load the plugin
+"  " Note that this loads only one file (which is usually fine):
+"  runtime plugin/*.vim
+"  " Note that this uses the plugin name as typed by the user:
+"  execute 'runtime! after/plugin/**/' . a:plugin_name . '.vim'
+"  " Plugin-specific activation
+"  if tolower(a:plugin_name) == 'youcompleteme'
+"    call youcompleteme#Enable()
+"  endif
+"endf
 
 " See h :command
-fun! s:loadPluginCompletion(argLead, cmdLine, cursorPos)
-  return filter(copy(g:pathogen_disabled), "v:val =~? '^" . a:argLead . "'")
-endf
+"fun! s:loadPluginCompletion(argLead, cmdLine, cursorPos)
+"  return filter(copy(g:pathogen_disabled), "v:val =~? '^" . a:argLead . "'")
+"endf
 
-command! -nargs=1 -complete=customlist,s:loadPluginCompletion LoadPlugin call <sid>loadPlugin(<q-args>)
+"command! -nargs=1 -complete=customlist,s:loadPluginCompletion LoadPlugin call <sid>loadPlugin(<q-args>)
 "
 "" --------------------------plugin settings
 runtime macros/matchit.vim
 
-let g:gitgutter_realtime = 0
-let g:gitgutter_eager = 0
 
 autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd FileType markdown setlocal expandtab shiftwidth=4 softtabstop=4
@@ -168,6 +171,41 @@ autocmd FileType markdown setlocal expandtab shiftwidth=4 softtabstop=4
 "    au!
 "    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
 "augroup END
+
+
+
+
+" Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
+call plug#begin('~/.vim/plugged')
+
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+Plug 'PeterRincker/vim-argumentative'
+Plug 'airblade/vim-gitgutter'
+Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'edkolev/tmuxline.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'mxw/vim-jsx'
+Plug 'plasticboy/vim-markdown'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-syntastic/syntastic'
+Plug 'wavded/vim-stylus'
+
+" Initialize plugin system
+call plug#end()
+
+
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 0
+
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
+    \ 'AcceptSelection("t")': ['<cr>'],
+    \ }
 
 " Syntastic settings
 nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
@@ -185,7 +223,10 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
 
+let g:jsx_ext_required = 0
+
 map <C-n> :NERDTreeToggle<CR>
+let NERDTreeMapOpenInTab='<ENTER>'
 
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#branch#empty_message='no repo'
@@ -200,3 +241,5 @@ let g:tmuxline_preset = {
   \'y'       : ['%a', '%Y-%m-%d', '%l:%M%p'],
   \'z'       : ['#(whoami)'],
   \'options' : {'status-justify': 'left'}}
+
+" set rtp+=/usr/local/opt/fzf

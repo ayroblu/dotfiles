@@ -1,5 +1,3 @@
-#. /Users/blu/.profile
-
 env shellshock="() { :; }; echo 'Shellshockable!'" bash -c "echo -n ''"
 
 # Makes homebrew stuff work first
@@ -125,3 +123,4 @@ function cto {
 # ----------------------------------------- bash quick adds
 . ~/.bashrc-extras
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -39,7 +39,7 @@ alias viuninotes='vim -p ~/Dropbox/"University of Auckland/2015 Quarter 2 Spring
 alias matlabterm='/Applications/MATLAB_R2014b.app/bin/matlab -nojvm -nodisplay -nosplash'
 alias matlabtermjvm='/Applications/MATLAB_R2014b.app/bin/matlab -nodesktop -nosplash'
 #alias gce='gcutil --service_version="v1" --project="velvety-renderer-404" ssh  --zone="us-central1-a" "base-instance"'
-alias adb='/Users/blu/Desktop/Software/ADT/sdk/platform-tools/adb'
+#alias adb='/Users/blu/Desktop/Software/ADT/sdk/platform-tools/adb'
 
 #Run achievement server
 alias achievement="dev_appserver.py --host=0.0.0.0 ~/Dropbox/Github/achievement/"
@@ -126,6 +126,11 @@ function nzproxy {
   proxywifioff
   fg
 }
+
+function pwdx {
+  lsof -a -p $1 -d cwd -n | tail -1 | awk '{print $NF}'
+}
+
 #---------------------- Matlab
 function matlab {
   if [ "${#}" -lt 1 ]; then
@@ -154,9 +159,11 @@ function convertVideos {
 
 
 # -------------------------------------------------------- Quick add bash aliases
-set -o history -o histexpand
 
 function addbashfunc {
+  # I'm not sure what this line is doing, but I think I need it, however its like 500ms to run soooo in func it goes
+  set -o history -o histexpand
+
   if [ "${#} " -ne 1 ]; then
     echo "Need a single aliasname"
   else
@@ -169,14 +176,16 @@ alias addbash='TEMPCMD="$(history -p !!)"; addbashfunc'
 source ~/codes/git-completion.bash
 
 #-----------------------------------------------------------------------------RVM
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+function loadNVM {
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+}
 
 #----------------found on: http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
 
-
+export PATH="$PATH:/Users/blu/Library/Android/sdk/platform-tools"
 
