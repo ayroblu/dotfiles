@@ -2,7 +2,7 @@
   name = Ben Lu
   email = ben@ben-l.com
 [merge]
-  tool = mvimdiff
+  tool = vimdiff
 [color]
   ui = true
 [alias]
@@ -12,6 +12,7 @@
   p = push origin master
   s = status
   m = merge --no-ff
+	d = difftool
 [core]
 	pager = less -+$LESS -R
 	excludesfile = /Users/blu/.gitignore_global
@@ -20,3 +21,10 @@
 
 # git reset HEAD~
 # git push -f origin HEAD^:master
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[diff]
+	tool = vimdiff
