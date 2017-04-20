@@ -184,7 +184,12 @@ Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'
 "Plug 'edkolev/tmuxline.vim'
 Plug 'junegunn/vim-easy-align'
+" vipga= " Visual Inner Paragraph (ga) align =
+" gaip= " (ga) align Inner Paragraph =
+
+Plug 'keith/swift.vim'
 Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
@@ -230,6 +235,8 @@ let NERDTreeMapOpenInTab='<ENTER>'
 
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#branch#empty_message='no repo'
+let g:airline_theme='solarized'
+
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_preset = {
   \'a'       : '#S:#I',
@@ -243,3 +250,5 @@ let g:tmuxline_preset = {
   \'options' : {'status-justify': 'left'}}
 
 " set rtp+=/usr/local/opt/fzf
+" I don't like vim-jsx messing with my indentation in line
+autocmd FileType javascript.jsx setlocal inde=
