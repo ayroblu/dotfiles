@@ -2,8 +2,7 @@
 " :so ~/_vimrc " reloads vimrc, use in vim, not here
 " ------------------------------------------------------------Main layout
 set sw=2 sts=2 ts=2 number et is ai hls ru sc cursorline mouse=a laststatus=2 "shiftwidth, softtabstop, tabstop, linenumbers, softtabs, incsearch, autoindent, highlight search, ruler line col number, showcmd
-hi CursorLine   cterm=bold ctermbg=NONE ctermfg=NONE guibg=blue guifg=orange "Set cursor line highlight colours
-"hi CursorLine   cterm=bold,underline ctermbg=NONE ctermfg=NONE guibg=blue guifg=orange "Set cursor line highlight colours
+hi CursorLine   cterm=bold,underline ctermbg=NONE ctermfg=NONE guibg=blue guifg=orange "Set cursor line highlight colours
 set splitright splitbelow
 set backspace=indent,eol,start "Without this, you can't backspace an indent or line
 set scrolloff=1
@@ -252,3 +251,4 @@ let g:tmuxline_preset = {
 " set rtp+=/usr/local/opt/fzf
 " I don't like vim-jsx messing with my indentation in line
 autocmd FileType javascript.jsx setlocal inde=
+hi Search cterm=NONE ctermfg=grey ctermbg=blue
