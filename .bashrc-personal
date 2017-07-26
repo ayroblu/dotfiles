@@ -188,4 +188,5 @@ function loadNVM {
 #----------------found on: http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
 
 export PATH="$PATH:/Users/blu/Library/Android/sdk/platform-tools"
+export ANDROID_HOME=/Users/blu/Library/Android/sdk/
 
