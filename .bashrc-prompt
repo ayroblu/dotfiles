@@ -50,7 +50,8 @@ function setPrompt {
   #PS1="${TITLEBAR}${dash_open}${cwd}${spacer}${root_or_not}${dash_close}\n${dash_open}${jobs_and_history}${spacer}${host}${dash_close}${NO_COLOR} "
   #PS2="${COLOR2}--${COLOR1}- ${NO_COLOR}"
   #PS1="${TITLEBAR}${COLOR1}"'${NEW_PWD}'"${COLOR2}:\$${NO_COLOR} "
-  PS1="${TITLEBAR}${COLOR1}"'\h \w'"${COLOR2}:\$${NO_COLOR} "
+  #PS1="${TITLEBAR}${COLOR1}"'\h \w'"${COLOR2}:\$${NO_COLOR} "
+  PS1="${TITLEBAR}${COLOR1}"'\w'"${COLOR2}:\$${NO_COLOR} "
   #PS2="$spacer$dash_close$NO_COLOR "
 }
 
