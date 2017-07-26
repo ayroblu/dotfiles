@@ -19,6 +19,7 @@ syntax on
 set fdm=manual fdl=4 "foldmethod fdc=1 foldcolumn
 "set shellcmdflag=-ic " Makes shell interactive, :! now runs all system calls
 " set spell spelllang=en_nz " ]s [s ]S [S " next spelling error
+nnoremap <Leader>s      :setl spell! spelllang=en_nz<CR> " ]s [s ]S [S " next spelling error
 imap <S-space> <Esc>
 imap jj <Esc>l
 imap jk <Esc>
@@ -187,6 +188,12 @@ Plug 'junegunn/vim-easy-align'
 " gaip= " (ga) align Inner Paragraph =
 
 Plug 'keith/swift.vim'
+
+Plug 'tomtom/tlib_vim'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
@@ -197,6 +204,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "Plug 'vim-syntastic/syntastic'
 Plug 'wavded/vim-stylus'
+Plug 'zeekay/vim-beautify'
 
 " Initialize plugin system
 call plug#end()
