@@ -27,7 +27,7 @@ alias fin='find . -name'
 alias tree='tree -C'
 alias less='less -r'
 alias iip='ifconfig | grep inet'
-alias exip='curl ip.appspot.com'
+alias exip='curl ipecho.net/plain'
 alias vibashrc='vi ~/.profile' # change to bashrc on other computers
 alias lbashrc='. ~/.profile'
 alias top='top -o cpu'
@@ -78,6 +78,9 @@ alias epoch='date +%s'
 
 # For find and replace in files, recursive: 
 # find . -type f -name '*' -exec sed -i '' 's/this/that/' {} +
+# Sort files by number of lines:
+# find . -type f -exec wc -l {} + | sort -rn
+
 #export LC_CTYPE=C 
 #export LANG=C
 # For find and replace of filenames: - only removes front - look these up
