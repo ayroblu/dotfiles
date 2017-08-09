@@ -7,6 +7,7 @@ set splitright splitbelow
 set backspace=indent,eol,start "Without this, you can't backspace an indent or line
 set scrolloff=1
 set smartindent
+set lazyredraw
 "au BufNewFile,BufRead * if &syntax == '' | setf java | endif "Set syntax to java if none set initially
 
 " Tab completion, as much as possible, list options, then tab through each
@@ -182,7 +183,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'PeterRincker/vim-argumentative'
 Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'
-"Plug 'edkolev/tmuxline.vim'
+Plug 'edkolev/tmuxline.vim'
 Plug 'junegunn/vim-easy-align'
 " vipga= " Visual Inner Paragraph (ga) align =
 " gaip= " (ga) align Inner Paragraph =
@@ -225,9 +226,9 @@ let g:syntastic_mode_map = { 'mode': 'passive',
                             \ 'active_filetypes': [],
                             \ 'passive_filetypes': [] }
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -240,6 +241,7 @@ let g:jsx_ext_required = 0
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeMapOpenInTab='<ENTER>'
 
+let g:airline_extensions = []
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#branch#empty_message='no repo'
 let g:airline_theme='solarized'
