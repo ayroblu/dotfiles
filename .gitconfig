@@ -28,3 +28,5 @@
 	required = true
 [diff]
 	tool = vimdiff
+[pull]
+	rebase = true

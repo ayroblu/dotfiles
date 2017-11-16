@@ -40,10 +40,10 @@ nnoremap <silent> <Leader>c :execute 'match Search /\%'.virtcol('.').'v/'<CR>
 " tab navigation like firefox
 nnoremap {         :tabprevious<CR>
 nnoremap }         :tabnext<CR>
-nnoremap <C-t>     :tabnew<CR>
+"nnoremap <C-t>     :tabnew<CR>
 "inoremap <C-{>     <Esc>:tabprevious<CR>
 "inoremap <C-}>     <Esc>:tabnext<CR>
-inoremap <C-t>     <Esc>:tabnew<CR>
+"inoremap <C-t>     <Esc>:tabnew<CR>
 nnoremap (         :tabmove -1<cr>
 nnoremap )         :tabmove +1<cr>
 
@@ -182,30 +182,40 @@ call plug#begin('~/.vim/plugged')
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'PeterRincker/vim-argumentative'
 Plug 'airblade/vim-gitgutter'
-Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'ctrlpvim/ctrlp.vim'
 Plug 'edkolev/tmuxline.vim'
-Plug 'junegunn/vim-easy-align'
+"Plug 'junegunn/vim-easy-align'
 " vipga= " Visual Inner Paragraph (ga) align =
 " gaip= " (ga) align Inner Paragraph =
 
-Plug 'keith/swift.vim'
+"Plug 'keith/swift.vim'
 
-Plug 'tomtom/tlib_vim'
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'garbas/vim-snipmate'
-Plug 'honza/vim-snippets'
+"Plug 'tomtom/tlib_vim'
+"Plug 'MarcWeber/vim-addon-mw-utils'
+"Plug 'garbas/vim-snipmate'
+"Plug 'honza/vim-snippets'
 
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
-Plug 'plasticboy/vim-markdown'
+"Plug 'plasticboy/vim-markdown'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"Plug 'vim-syntastic/syntastic'
-Plug 'wavded/vim-stylus'
+""Plug 'vim-syntastic/syntastic'
+"Plug 'wavded/vim-stylus'
 Plug 'zeekay/vim-beautify'
+"
+" New based on: https://statico.github.io/vim3.html
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+
+Plug 'mileszs/ack.vim'
+Plug 'w0rp/ale'
+Plug 'leafgarland/typescript-vim'
+Plug 'mhartington/nvim-typescript'
+Plug 'Quramy/tsuquyomi'
 
 " Initialize plugin system
 call plug#end()
@@ -262,3 +272,16 @@ let g:tmuxline_preset = {
 " I don't like vim-jsx messing with my indentation in line
 autocmd FileType javascript.jsx setlocal inde=
 hi Search cterm=NONE ctermfg=grey ctermbg=blue
+
+" fzf
+let mapleader=","
+nmap ; :Buffers<CR>
+nmap <Leader>t :Files<CR>
+nmap <Leader>r :Tags<CR>
+
+" ack -> ag
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+autocmd FileType typescript nmap <buffer> <Leader>, : <C-u>echo tsuquyomi#hint()<CR>

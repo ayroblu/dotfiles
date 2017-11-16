@@ -126,7 +126,7 @@ function cto {
 # ----------------------------------------- bash quick adds
 . ~/.bashrc-extras
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+#[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # added by travis gem
-[ -f /Users/blu/.travis/travis.sh ] && source /Users/blu/.travis/travis.sh
+#[ -f /Users/blu/.travis/travis.sh ] && source /Users/blu/.travis/travis.sh
