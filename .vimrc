@@ -8,6 +8,8 @@ set backspace=indent,eol,start "Without this, you can't backspace an indent or l
 set scrolloff=1
 set smartindent
 set lazyredraw
+set nobackup
+set noswapfile
 "au BufNewFile,BufRead * if &syntax == '' | setf java | endif "Set syntax to java if none set initially
 
 " Tab completion, as much as possible, list options, then tab through each
@@ -214,7 +216,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
 Plug 'leafgarland/typescript-vim'
-Plug 'mhartington/nvim-typescript'
+"Plug 'mhartington/nvim-typescript'
 Plug 'Quramy/tsuquyomi'
 
 " Initialize plugin system
