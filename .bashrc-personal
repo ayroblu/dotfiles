@@ -111,7 +111,8 @@ function lonproxy {
   fg
 }
 function sfproxy {
-  ssh -ND 9876 qpdroplet &
+  #ssh -ND 9876 qpdroplet &
+  ssh -ND 9876 rgu &
   proxywifion
   read -p "Press enter to turn off proxy: " 
   proxywifioff
@@ -120,7 +121,7 @@ function sfproxy {
 function nzproxy {
   #ssh -ND 9876 blu@benlu.co &
   #ssh -ND 9876 blu@202.169.196.28 &
-  ssh -ND 9876 nz &
+  ssh -ND 9876 mezap &
   proxywifion
   read -p "Press enter to turn off proxy: " 
   proxywifioff
