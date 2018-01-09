@@ -1,6 +1,6 @@
 [user]
   name = Ben Lu
-  email = ben@ben-l.com
+  email = ayroblu@gmail.com
 [merge]
   tool = vimdiff
 [color]
@@ -12,21 +12,22 @@
   p = push origin master
   s = status
   m = merge --no-ff
-	d = difftool
+  d = difftool
+  tc = rev-list -n 1
 [core]
-	pager = less -+$LESS -R
-	excludesfile = /Users/blu/.gitignore_global
+  pager = less -+$LESS -R
+  excludesfile = /Users/blu/.gitignore_global
 [push]
-	default = matching
+  default = matching
 
 # git reset HEAD~
 # git push -f origin HEAD^:master
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 [diff]
-	tool = vimdiff
+  tool = vimdiff
 [pull]
-	rebase = true
+  rebase = true
