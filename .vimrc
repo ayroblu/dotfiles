@@ -181,6 +181,7 @@ autocmd FileType markdown setlocal expandtab shiftwidth=4 softtabstop=4
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
 
+Plug 'altercation/vim-colors-solarized'
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'PeterRincker/vim-argumentative'
 Plug 'airblade/vim-gitgutter'
@@ -287,3 +288,7 @@ if executable('ag')
 endif
 
 autocmd FileType typescript nmap <buffer> <Leader>, : <C-u>echo tsuquyomi#hint()<CR>
+
+syntax enable
+set background=light
+colorscheme solarized
