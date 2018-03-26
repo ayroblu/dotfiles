@@ -187,6 +187,7 @@ Plug 'PeterRincker/vim-argumentative'
 Plug 'airblade/vim-gitgutter'
 "Plug 'ctrlpvim/ctrlp.vim'
 Plug 'edkolev/tmuxline.vim'
+Plug 'terryma/vim-multiple-cursors'
 "Plug 'junegunn/vim-easy-align'
 " vipga= " Visual Inner Paragraph (ga) align =
 " gaip= " (ga) align Inner Paragraph =
@@ -274,6 +275,7 @@ let g:tmuxline_preset = {
 " set rtp+=/usr/local/opt/fzf
 " I don't like vim-jsx messing with my indentation in line
 autocmd FileType javascript.jsx setlocal inde=
+autocmd FileType yaml setlocal inde=
 hi Search cterm=NONE ctermfg=grey ctermbg=blue
 
 " fzf

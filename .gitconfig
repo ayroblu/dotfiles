@@ -7,8 +7,9 @@
   ui = true
 [alias]
   ci = commit -am
-  ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset' -2 -U0 --stat
+  ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset' -10 -U0 --stat
   l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %ad) %C(bold blue)<%an>%Creset' -500
+  lf = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %ad) %C(bold blue)<%an>%Creset' --author-date-order  --no-merges -500
   p = push origin master
   s = status
   m = merge --no-ff
@@ -29,5 +30,5 @@
   required = true
 [diff]
   tool = vimdiff
-[pull]
-  rebase = true
+[mergetool]
+  keepBackup = false
