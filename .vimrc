@@ -10,6 +10,7 @@ set smartindent
 set lazyredraw
 set nobackup
 set noswapfile
+set tabpagemax=100
 "au BufNewFile,BufRead * if &syntax == '' | setf java | endif "Set syntax to java if none set initially
 
 " Tab completion, as much as possible, list options, then tab through each
