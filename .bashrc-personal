@@ -2,7 +2,8 @@
 # export DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}/Applications/MATLAB/MATLAB_Compiler_Runtime/v83/runtime/maci64:/Applications/MATLAB/MATLAB_Compiler_Runtime/v83/sys/os/maci64:/Applications/MATLAB/MATLAB_Compiler_Runtime/v83/bin/maci64:
 export ECLIPSE_HOME=/Users/blu/Desktop/Software/eclipse
 #export PATH=$PATH:/usr/local/opt/go/libexec/bin
-export GOPATH=$HOME/Google_Drive/ws/temp/thing
+export GOPATH=$HOME/ws/go
+export PATH=$PATH:$(go env GOPATH)/bin
 
 #-------------- personal aliases
 #alias vi='/Applications/MacVim.app/Contents/MacOS/Vim'
