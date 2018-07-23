@@ -188,6 +188,7 @@ Plug 'airblade/vim-gitgutter'
 "Plug 'ctrlpvim/ctrlp.vim'
 Plug 'edkolev/tmuxline.vim'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-unimpaired'
 "Plug 'junegunn/vim-easy-align'
 " vipga= " Visual Inner Paragraph (ga) align =
 " gaip= " (ga) align Inner Paragraph =
@@ -215,11 +216,14 @@ Plug 'zeekay/vim-beautify'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
+Plug 'prettier/vim-prettier', {
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
 Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
 Plug 'leafgarland/typescript-vim'
 "Plug 'mhartington/nvim-typescript'
 Plug 'Quramy/tsuquyomi'
+Plug 'flowtype/vim-flow'
 
 " Initialize plugin system
 call plug#end()
@@ -272,6 +276,11 @@ let g:tmuxline_preset = {
   \'z'       : ['#(whoami)'],
   \'options' : {'status-justify': 'left'}}
 
+" Stop tsuquyomi freezing on save, why do this in vim 8 though...
+" let g:tsuquyomi_use_vimproc=1
+let g:tsuquyomi_single_quote_import=1
+let g:tsuquyomi_shortest_import_path = 1
+
 " set rtp+=/usr/local/opt/fzf
 " I don't like vim-jsx messing with my indentation in line
 autocmd FileType javascript.jsx setlocal inde=
@@ -290,6 +299,28 @@ if executable('ag')
 endif
 
 autocmd FileType typescript nmap <buffer> <Leader>, : <C-u>echo tsuquyomi#hint()<CR>
+"Use locally installed flow
+let local_flow = finddir('node_modules', '.;') . '/.bin/flow'
+if matchstr(local_flow, "^\/\\w") == ''
+    let local_flow= getcwd() . "/" . local_flow
+endif
+if executable(local_flow)
+  let g:flow#flowpath = local_flow
+endif
+let g:flow#enable = 0
+autocmd FileType javascript nmap <buffer> <Leader>, :FlowType<CR>
+
+let g:prettier#exec_cmd_async = 1
+let g:prettier#autoformat = 0
+
+" http://vim.wikia.com/wiki/Project_specific_settings
+function! SetupEnvironment()
+  let l:path = expand('%:p')
+  if l:path =~ 'aiden/typescript'
+    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+  endif
+endfunction
+autocmd! BufReadPost,BufNewFile * call SetupEnvironment()
 
 syntax enable
 set background=light
