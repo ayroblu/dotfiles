@@ -2,7 +2,8 @@
 # export DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}/Applications/MATLAB/MATLAB_Compiler_Runtime/v83/runtime/maci64:/Applications/MATLAB/MATLAB_Compiler_Runtime/v83/sys/os/maci64:/Applications/MATLAB/MATLAB_Compiler_Runtime/v83/bin/maci64:
 export ECLIPSE_HOME=/Users/blu/Desktop/Software/eclipse
 #export PATH=$PATH:/usr/local/opt/go/libexec/bin
-export GOPATH=$HOME/Google_Drive/ws/temp/thing
+export GOPATH=$HOME/ws/go
+export PATH=$PATH:$(go env GOPATH)/bin
 
 #-------------- personal aliases
 #alias vi='/Applications/MacVim.app/Contents/MacOS/Vim'
@@ -10,6 +11,7 @@ export GOPATH=$HOME/Google_Drive/ws/temp/thing
 alias superrmrm='rm'
 alias rm='echo "Please use rmtrash! (superrmrm for normal rm)"'
 
+alias brew='HOMEBREW_NO_AUTO_UPDATE=1 brew'
 alias ampl='/Users/blu/Documents/amplide-demo/ampl'
 alias eclim='$ECLIPSE_HOME/eclimd -Dosgi.instance.area.default=@user.home/Dropbox/Programming/javaWorkspace'
 alias o='figlet -cw'`tput cols`
@@ -51,6 +53,8 @@ alias proxywifioff='sudo networksetup -setsocksfirewallproxystate Wi-Fi off' #on
 # Show/Hide Hidden files in Finder
 alias showhidden='defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder'
 alias hidehidden='defaults write com.apple.finder AppleShowAllFiles FALSE; killall Finder'
+
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
 
 # compile latex
@@ -127,6 +131,9 @@ function nzproxy {
   proxywifioff
   fg
 }
+function iosProxy {
+  ssh -N -gv -D 1080 mezap
+}
 
 function pwdx {
   lsof -a -p $1 -d cwd -n | tail -1 | awk '{print $NF}'
@@ -191,3 +198,4 @@ function loadNVM {
 export PATH="$PATH:/Users/blu/Library/Android/sdk/platform-tools"
 export ANDROID_HOME=/Users/blu/Library/Android/sdk/
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
