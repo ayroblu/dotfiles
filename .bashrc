@@ -53,6 +53,7 @@ alias headerc='curl -I --compress' # find out if remote server supports gzip / m
 alias wget='wget -c' #27 Resume wget by default
 alias df='df -H'
 alias du='du -ch'
+alias gitnearest='git show-branch | grep '"'"'*'"'"' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed '"'"'s/.*\[\(.*\)\].*/\1/'"'"' | sed '"'"'s/[\^~].*//'"'"''
 
 # show epoch time
 alias epoch='date +%s'
