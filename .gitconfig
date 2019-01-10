@@ -7,19 +7,25 @@
   ui = true
 [alias]
   ci = commit -am
+  co = checkout
   ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset' -10 -U0 --stat
   l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %ad) %C(bold blue)<%an>%Creset' -500
   lf = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %ad) %C(bold blue)<%an>%Creset' --author-date-order  --no-merges --first-parent -500
   md = diff master...HEAD
   p = push origin HEAD
   pu = push -u origin HEAD
+  pf = push -f origin HEAD
+  pt = push --tags origin HEAD
   s = status
   m = merge --no-ff
   d = difftool
   tc = rev-list -n 1
   # Removes deleted branches from cache: https://stackoverflow.com/questions/32147093/git-delete-remotes-remote-refs-do-not-exist
   pbranch = fetch -p origin
-  changes = diff master...HEAD
+  # https://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
+  b = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+  bo = for-each-ref --sort=committerdate refs/heads/ refs/origin/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+
 [core]
   pager = less -+$LESS -R
   excludesfile = /Users/blu/.gitignore_global

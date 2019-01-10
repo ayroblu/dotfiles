@@ -30,6 +30,7 @@ imap jk <Esc>
 nnoremap <C-a> ggVG
 
 filetype plugin on
+filetype plugin indent on
 " copy and pasting
 vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
 nmap <C-v><C-v> :call setreg("\"",system("pbpaste"))<CR>p
@@ -92,6 +93,9 @@ noremap  <buffer> <silent> $ g$
 " --------------------------------Insert single character
 nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
 nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
+
+" --------------------------------Reload on focus
+au FocusGained,BufEnter * :silent! !
 
 " -------------------------------Extras
 "/[^\x00-\x7F]
@@ -222,6 +226,7 @@ Plug 'prettier/vim-prettier', {
 Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
 Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 "Plug 'mhartington/nvim-typescript'
 Plug 'Quramy/tsuquyomi'
 Plug 'flowtype/vim-flow'
@@ -285,6 +290,7 @@ let g:tsuquyomi_shortest_import_path = 1
 " set rtp+=/usr/local/opt/fzf
 " I don't like vim-jsx messing with my indentation in line
 autocmd FileType javascript.jsx setlocal inde=
+autocmd FileType typescript setlocal inde=
 autocmd FileType yaml setlocal inde=
 hi Search cterm=NONE ctermfg=grey ctermbg=blue
 
@@ -317,7 +323,7 @@ let g:prettier#autoformat = 0
 " http://vim.wikia.com/wiki/Project_specific_settings
 function! SetupEnvironment()
   let l:path = expand('%:p')
-  if l:path =~ 'aiden/typescript'
+  if l:path =~ 'aiden'
     autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
   endif
 endfunction

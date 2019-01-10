@@ -115,6 +115,29 @@ function cto {
   fi
 }
 
+function encrypt {
+  FNAME=$1
+
+  if [[ -z "$FNAME" ]]; then
+      echo "encrypt <name of file>"
+      echo "  - encrypt is a script to encrypt files using des3"
+      exit;
+  fi
+
+  openssl des3 -md sha256 -salt -in "$FNAME" -out "$FNAME.des3"
+}
+function decrypt {
+  FNAME=$1
+
+  if [[ -z "$FNAME" ]]; then
+      echo "decrypt <name of file>"
+      echo "  - decrypt is a script to decrypt des3 encrypted files"
+      exit;
+  fi
+
+  openssl des3 -md sha256 -d -salt -in "$FNAME" -out "${FNAME%.[^.]*}"
+}
+
 # ----------------------------------------- Macbook
 . ~/.bashrc-personal
 
