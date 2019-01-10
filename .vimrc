@@ -29,6 +29,9 @@ imap jj <Esc>l
 imap jk <Esc>
 nnoremap <C-a> ggVG
 
+"xnoremap p pgvy
+xnoremap <silent> p p:let @"=@0<CR>
+
 filetype plugin on
 filetype plugin indent on
 " copy and pasting
