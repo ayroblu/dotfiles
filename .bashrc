@@ -60,6 +60,10 @@ alias df='df -H'
 alias du='du -ch'
 alias gitnearest='git show-branch | grep '"'"'*'"'"' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed '"'"'s/.*\[\(.*\)\].*/\1/'"'"' | sed '"'"'s/[\^~].*//'"'"''
 
+alias ip="curl ipinfo.io/ip"
+alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+alias speedtest="wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip"
+
 # show epoch time
 alias epoch='date +%s'
 
