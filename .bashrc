@@ -17,6 +17,11 @@ HISTIGNORE='ls:bg:fg:history'
 shopt -s cmdhist
 PROMPT_COMMAND='history -a'
 
+# Set view
+view () {
+  eval "$*" --color | less -RFX
+}
+
 # Sets vim shortcuts for bash
 set -o vi
 

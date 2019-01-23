@@ -11,6 +11,7 @@
   ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset' -10 -U0 --stat
   l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %ad) %C(bold blue)<%an>%Creset' -500
   lf = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %ad) %C(bold blue)<%an>%Creset' --author-date-order  --no-merges --first-parent -500
+  bl = log --branches --oneline --no-walk --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset'
   md = diff master...HEAD
   p = push origin HEAD
   pu = push -u origin HEAD
