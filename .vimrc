@@ -219,6 +219,7 @@ Plug 'vim-airline/vim-airline-themes'
 ""Plug 'vim-syntastic/syntastic'
 "Plug 'wavded/vim-stylus'
 Plug 'zeekay/vim-beautify'
+Plug 'mzlogin/vim-markdown-toc'
 "
 " New based on: https://statico.github.io/vim3.html
 Plug '/usr/local/opt/fzf'

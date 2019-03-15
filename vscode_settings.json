@@ -1,0 +1,110 @@
+{
+  "editor.tabSize": 2,
+  "window.zoomLevel": 0,
+  "workbench.editor.enablePreview": false,
+  "editor.autoClosingBrackets": "never",
+  "editor.formatOnSave": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.wordWrap": "on",
+  "window.title": "${activeEditorLong}${separator}${rootName}",
+  "vim.normalModeKeyBindingsNonRecursive": [],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "y"],
+      "after": ["\"", "0", "y"]
+    },
+    {
+      "before": ["<leader>", "p"],
+      "after": ["\"", "0", "p"]
+    }
+  ],
+  "vim.normalModeKeyBindings": [
+    {
+      "before": ["("],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.moveEditorLeftInGroup"
+        }
+      ]
+    },
+    {
+      "before": [")"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.moveEditorRightInGroup"
+        }
+      ]
+    },
+    {
+      "before": ["{"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.previousEditor"
+        }
+      ]
+    },
+    {
+      "before": ["}"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.nextEditor"
+        }
+      ]
+    },
+    {
+      "before": ["<C-h>"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.focusPreviousGroup"
+        }
+      ]
+    },
+    {
+      "before": ["<C-l>"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.focusNextGroup"
+        }
+      ]
+    },
+    {
+      "before": ["u"],
+      "after": [],
+      "commands": [
+        {
+          "command": "undo"
+        }
+      ]
+    },
+    {
+      "before": ["<C-r>"],
+      "after": [],
+      "commands": [
+        {
+          "command": "redo"
+        }
+      ]
+    }
+  ],
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
+    },
+    {
+      "before": ["j", "k"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "gitlens.defaultDateStyle": "absolute",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "workbench.colorTheme": "Solarized Light"
+}

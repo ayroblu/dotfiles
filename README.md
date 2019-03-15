@@ -45,3 +45,30 @@ Install all these plugins:
 ### Syntax Completion
 * YouCompleteMe
 * tern_for_vim - tied together
+
+VS Code Setup
+-------------
+First create symlink to the settings file
+```bash
+# https://code.visualstudio.com/docs/getstarted/settings#_settings-file-locations
+# ln -s <dest> <link-file-name>
+rmtrash $HOME/Library/Application Support/Code/User/settings.json
+ln -s vscode_settings.json $HOME/Library/Application Support/Code/User/settings.json
+```
+
+```bash
+~/ws/aiden:$ code --list-extensions
+adamwalzer.scss-lint
+amatiasq.sort-imports
+eamodio.gitlens
+eg2.tslint
+esbenp.prettier-vscode
+GrapeCity.gc-excelviewer
+Gruntfuggly.shifter
+mechatroner.rainbow-csv
+mrmlnc.vscode-scss
+ms-python.python
+PeterJausovec.vscode-docker
+RoscoP.ActiveFileInStatusBar
+vscodevim.vim
+```
