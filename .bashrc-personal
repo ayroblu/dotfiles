@@ -165,6 +165,17 @@ function convertVideos {
   done
 }
 
+# ------------------------------------ Tmux script
+function createPanes {
+  local SESSION=dev
+  tmux new-session -d -s $SESSION
+  tmux new-window -t $SESSION:1 -n 'test'
+  tmux select-window -t $SESSION:1
+  tmux split-window -h
+  tmux send-keys 'echo "hi"' C-m
+  tmux attach -t $SESSION
+}
+
 
 # -------------------------------------------------------- Quick add bash aliases
 
@@ -199,3 +210,10 @@ export PATH="$PATH:/Users/blu/Library/Android/sdk/platform-tools"
 export ANDROID_HOME=/Users/blu/Library/Android/sdk/
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export FZF_DEFAULT_COMMAND='ag -g ""'
+#export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# Homebrew sbin
+export PATH="/usr/local/sbin:$PATH"
+export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+
