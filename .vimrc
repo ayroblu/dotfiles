@@ -19,6 +19,7 @@ set autoread "detect if file has changed
 set display+=lastline "long lines show to the end instead of @ sign
 set complete+=kspell " autocomplete includes the dictionary if enabled
 set fdm=manual fdl=4 "foldmethod fdc=1 foldcolumn
+set updatetime=1000 "event when cursor stops moving for a second, for swp normally, but now is for checktime call below
 
 " Tab completion, as much as possible, list options, then tab through each option
 set wildmode=longest,list,full
@@ -95,6 +96,9 @@ vnoremap ˚ :m '<-2<CR>gv=gv
 
 " This is just annoying
 noremap K k
+
+" ----------------------------- Reload page on change
+au CursorHold * checktime
 
 "-----------------------------Functions
 function Prof()
@@ -299,3 +303,4 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 syntax enable
 set background=light
 colorscheme solarized
+hi Normal ctermbg=NONE " we want vim to follow terminal background
