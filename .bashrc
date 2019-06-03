@@ -11,11 +11,11 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 HISTFILESIZE=1000000
 HISTSIZE=1000000
 shopt -s histappend
-export HISTTIMEFORMAT="%y-%m-%d %T "
-HISTCONTROL=ignoredups
+HISTTIMEFORMAT="%y-%m-%d %T "
+HISTCONTROL=ignoredups:erasedups
 HISTIGNORE='ls:bg:fg:history'
-shopt -s cmdhist
-PROMPT_COMMAND='history -a'
+shopt -s cmdhist # Multiline history editing
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$';'}history -a" # append command to history
 
 # Sets vim shortcuts for bash
 set -o vi
