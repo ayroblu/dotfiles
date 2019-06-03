@@ -214,6 +214,7 @@ Plug 'vim-airline/vim-airline-themes'
 "Plug 'zeekay/vim-beautify'
 Plug 'vim-scripts/ReplaceWithRegister' "griw to replace inner word with register
 Plug 'christoomey/vim-sort-motion' "sort with gsip
+Plug 'mzlogin/vim-markdown-toc'
 "
 " New based on: https://statico.github.io/vim3.html
 Plug '/usr/local/opt/fzf'

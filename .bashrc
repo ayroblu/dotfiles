@@ -17,6 +17,11 @@ HISTIGNORE='ls:bg:fg:history'
 shopt -s cmdhist # Multiline history editing
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$';'}history -a" # append command to history
 
+# Set view
+view () {
+  eval "$*" --color | less -RFX
+}
+
 # Sets vim shortcuts for bash
 set -o vi
 
