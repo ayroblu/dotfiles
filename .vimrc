@@ -72,6 +72,9 @@ endif
 " This is just annoying
 noremap K k
 
+" Want to write a function I think
+":call delete(expand('%')) | bdelete!
+
 "-----------------------------Set pasting to automatically go paste mode
 " - https://coderwall.com/p/if9mda
 let &t_SI .= "\<Esc>[?2004h"
