@@ -89,4 +89,4 @@ promptCmd() {
     print_prompt_time
 }
 
-PROMPT_COMMAND=promptCmd
+PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND$';'}promptCmd

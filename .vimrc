@@ -1,39 +1,60 @@
 " Ben Lu, vimrc
 " :so ~/_vimrc " reloads vimrc, use in vim, not here
 " ------------------------------------------------------------Main layout
-set sw=2 sts=2 ts=2 number et is ai hls ru sc cursorline mouse=a laststatus=2 "shiftwidth, softtabstop, tabstop, linenumbers, softtabs, incsearch, autoindent, highlight search, ruler line col number, showcmd
+set sw=2 sts=2 ts=2 "shiftwidth, softtabstop, tabstop
+set number et is ai hls ru sc "linenumbers, softtabs, incsearch, autoindent, highlight search, ruler line col number, showcmd
+set cursorline mouse=a
+set laststatus=2 " Always show a status bar
 hi CursorLine   cterm=bold,underline ctermbg=NONE ctermfg=NONE guibg=blue guifg=orange "Set cursor line highlight colours
 set splitright splitbelow
 set backspace=indent,eol,start "Without this, you can't backspace an indent or line
 set scrolloff=1
 set smartindent
-set lazyredraw
-set nobackup
-set noswapfile
-set tabpagemax=100
-"au BufNewFile,BufRead * if &syntax == '' | setf java | endif "Set syntax to java if none set initially
+set lazyredraw "perf
+set nobackup " swap files are relatively pointless
+set noswapfile " swap files are relatively pointless
+set tabpagemax=100 "normally 10
+set relativenumber
+set autoread "detect if file has changed
+set display+=lastline "long lines show to the end instead of @ sign
+set complete+=kspell " autocomplete includes the dictionary if enabled
+set fdm=manual fdl=4 "foldmethod fdc=1 foldcolumn
+set updatetime=1000 "event when cursor stops moving for a second, for swp normally, but now is for checktime call below
 
-" Tab completion, as much as possible, list options, then tab through each
-" option
+" Tab completion, as much as possible, list options, then tab through each option
 set wildmode=longest,list,full
 set wildmenu
 
+" Add characters for tabs and spaces on the end of lines
+if &listchars ==# 'eol:$'
+  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+endif
+set list
+
+" https://stackoverflow.com/questions/25233859/vimdiff-immediately-becomes-stopped-job-crashes-terminal-when-i-try-to-fg-it-b
+if &diff == 'nodiff'
+    set shellcmdflag=-ic
+endif
+
+
+"enable's syntax highlighting, corrollary: https://stackoverflow.com/questions/33380451/is-there-a-difference-between-syntax-on-and-syntax-enable-in-vimscript
+syntax enable
+
+" https://vi.stackexchange.com/questions/10124/what-is-the-difference-between-filetype-plugin-indent-on-and-filetype-indent
+" filetype - detection - detect type of syntax by filetype
+" plugin - allow plugins (not sure this is necessary as we use vim-plug)
+" indent - indent file helps with indenting
+filetype plugin indent on
+
 " ------------------------------------------------------------------Mappings
-syntax on
-set fdm=manual fdl=4 "foldmethod fdc=1 foldcolumn
-"set shellcmdflag=-ic " Makes shell interactive, :! now runs all system calls
 " set spell spelllang=en_nz " ]s [s ]S [S " next spelling error
-nnoremap <Leader>s      :setl spell! spelllang=en_nz<CR> " ]s [s ]S [S " next spelling error
+"nnoremap <Leader>s      :setl spell! spelllang=en_nz<CR> " ]s [s ]S [S " next spelling error
+
+" Doesn't do anything for macOS
 imap <S-space> <Esc>
 imap jj <Esc>l
 imap jk <Esc>
-nnoremap <C-a> ggVG
 
-"xnoremap p pgvy
-xnoremap <silent> p p:let @"=@0<CR>
-
-filetype plugin on
-filetype plugin indent on
 " copy and pasting
 vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
 nmap <C-v><C-v> :call setreg("\"",system("pbpaste"))<CR>p
@@ -60,20 +81,41 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Move line up or down with alt key
+" <A-j>: ∆, <A-k>: ˚
+nnoremap ∆ :m .+1<CR>==
+nnoremap ˚ :m .-2<CR>==
+" inoremap <A-j> <Esc>:m .+1<CR>==gi
+" inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap ∆ :m '>+1<CR>gv=gv
+vnoremap ˚ :m '<-2<CR>gv=gv
+
 " Scroll mappings
 :map <ScrollWheelUp> <C-Y>
 :map <ScrollWheelDown> <C-E>
 
-" set directory=~/tmp//,.,/var/tmp//,/tmp//
-if &diff == 'nodiff'
-    set shellcmdflag=-ic
-endif
-
 " This is just annoying
 noremap K k
 
-" Want to write a function I think
-":call delete(expand('%')) | bdelete!
+" ----------------------------- Reload page on change
+au CursorHold * checktime
+
+"-----------------------------Functions
+function Prof()
+  profile start profile.log
+  profile func *
+  profile file *
+endfunction
+
+function EndProf()
+  profile pause
+  noautocmd qall!
+endfunction
+command! Prof :call Prof()
+command! EndProf :call EndProf()
+
+" Delete current file
+command! DeleteFile :call delete(expand('%')) | bdelete!
 
 "-----------------------------Set pasting to automatically go paste mode
 " - https://coderwall.com/p/if9mda
@@ -100,94 +142,48 @@ noremap  <buffer> <silent> $ g$
 nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
 nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
 
-" --------------------------------Reload on focus
-au FocusGained,BufEnter * :silent! !
-
-" -------------------------------Extras
-"/[^\x00-\x7F]
-"p`[
-noremap p p`[
-nnoremap å <C-a>
-nnoremap ≈ <C-x>
-
 " ---------------------------------------------Stuff I don't really understand
-"  Cursor Color
-" if &term =~ "xterm\\|rxvt"
-"   " use an orange cursor in insert mode
-"   let &t_SI = "\<Esc>]12;orange\x7"
-"   " use a red cursor otherwise
-"   let &t_EI = "\<Esc>]12;red\x7"
-"   silent !echo -ne "\033]12;red\007"
-"   " reset cursor when vim exits
-"   autocmd VimLeave * silent !echo -ne "\033]112\007"
-"   " use \003]12;gray\007 for gnome-terminal
-" endif
 
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
 \ if ! exists("g:leave_my_cursor_position_alone") |
-\ if line("'\"") > 0 && line ("'\"") <= line("$") |
-\ exe "normal g'\"" |
-\ endif |
+  \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+    \ exe "normal g'\"" |
+  \ endif |
 \ endif
 
-" Default mapping for mutli cursor (change at will)
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
+" Comparing the file with what's saved on disk for conflicts
+" From https://www.reddit.com/r/vim/comments/2rnraa/indicator_if_a_saved_file_has_changed/
+" Press \d to diff buffer with saved file
+" Not used:
+" - https://vi.stackexchange.com/questions/1971/is-it-possible-to-have-the-output-of-a-command-in-a-split-rather-than-the-who
+"   - creates a command RSplit with explicit commands
+" - https://stackoverflow.com/questions/3619146/vimdiff-two-subroutines-in-same-file
+"   - Diff two buffers
+" - https://github.com/AndrewRadev/linediff.vim
+"   - Specify two blocks to diff
+function! s:DiffGitWithSaved()
+  " Current file full path, see :help filename-modifiers
+  let filename = expand('%:p')
+  let diffname = tempname()
+  execute 'silent w! '.diffname
+  " Horizontal split (perhaps quickfix window is better?)
+  new
+  " No more "+" on the file name, won't ask for saving on exit
+  setlocal buftype=nowrite
+  " eval a string as vimscript, '0read' reads the following command, '!' runs
+  " shell, git diff no index -- does a diff (not sure why git, doesn't need
+  " it, then the two files, one is saved as a temporary file, then || true
+  " makes the exit code 0 so that it doesn't print a weird thing
+  execute '0read !git diff --no-index -- '.shellescape(filename).' '.diffname.' || true'
+  setf diff
+endfunction
+com! DiffGitSaved call s:DiffGitWithSaved()
+nmap <leader>d :DiffGitSaved<CR>
 
-" This watches for changes and reloads vimrc where are changes
-" augroup myvimrc
-"     au!
-"     au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-" augroup END
-
-" Pathogen
-" let g:pathogen_disabled = ['syntastic','vim-gitgutter','vim-jade','vim-javascript','vim-markdown','vim-stylus','vim-surround']
-"let g:pathogen_disabled = ['syntastic']
-"execute pathogen#infect()
-"
-"" Enable a blacklisted plugin.
-"fun! s:loadPlugin(plugin_name)
-"  " Remove the plugin from Pathogen's blacklist
-"  call filter(g:pathogen_disabled, "v:val !=? '" . a:plugin_name ."'")
-"  " Update runtimepath
-"  call pathogen#surround($HOME . "/.vim/bundle/" . tolower(a:plugin_name))
-"  " Load the plugin
-"  " Note that this loads only one file (which is usually fine):
-"  runtime plugin/*.vim
-"  " Note that this uses the plugin name as typed by the user:
-"  execute 'runtime! after/plugin/**/' . a:plugin_name . '.vim'
-"  " Plugin-specific activation
-"  if tolower(a:plugin_name) == 'youcompleteme'
-"    call youcompleteme#Enable()
-"  endif
-"endf
-
-" See h :command
-"fun! s:loadPluginCompletion(argLead, cmdLine, cursorPos)
-"  return filter(copy(g:pathogen_disabled), "v:val =~? '^" . a:argLead . "'")
-"endf
-
-"command! -nargs=1 -complete=customlist,s:loadPluginCompletion LoadPlugin call <sid>loadPlugin(<q-args>)
-"
 "" --------------------------plugin settings
 runtime macros/matchit.vim
-
-
-autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4
-autocmd FileType markdown setlocal expandtab shiftwidth=4 softtabstop=4
-"autocmd FileType tex :SyntasticToggleMode " disable syntastic for tex (slow)
-"au FileType tex setlocal nocursorline
-
-"augroup markdown
-"    au!
-"    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
-"augroup END
-
-
-
+"autocmd FileType markdown setlocal expandtab shiftwidth=4 softtabstop=4
 
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
@@ -196,32 +192,31 @@ Plug 'altercation/vim-colors-solarized'
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'PeterRincker/vim-argumentative'
 Plug 'airblade/vim-gitgutter'
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 0
 "Plug 'ctrlpvim/ctrlp.vim'
 Plug 'edkolev/tmuxline.vim'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-unimpaired'
+"Plug 'tpope/vim-unimpaired'
+Plug 'sheerun/vim-polyglot'
 "Plug 'junegunn/vim-easy-align'
 " vipga= " Visual Inner Paragraph (ga) align =
 " gaip= " (ga) align Inner Paragraph =
 
-"Plug 'keith/swift.vim'
-
-"Plug 'tomtom/tlib_vim'
-"Plug 'MarcWeber/vim-addon-mw-utils'
 "Plug 'garbas/vim-snipmate'
 "Plug 'honza/vim-snippets'
 
-Plug 'mxw/vim-jsx'
-Plug 'pangloss/vim-javascript'
-"Plug 'plasticboy/vim-markdown'
-Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+"Plug 'tpope/vim-vinegar' " Making file management easier
+"Plug 'tpope/vim-speeddating' "Understand dates if you want
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-""Plug 'vim-syntastic/syntastic'
-"Plug 'wavded/vim-stylus'
-Plug 'zeekay/vim-beautify'
+"Plug 'zeekay/vim-beautify'
+Plug 'vim-scripts/ReplaceWithRegister' "griw to replace inner word with register
+Plug 'christoomey/vim-sort-motion' "sort with gsip
 Plug 'mzlogin/vim-markdown-toc'
 "
 " New based on: https://statico.github.io/vim3.html
@@ -229,7 +224,8 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
 Plug 'prettier/vim-prettier', {
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
 Plug 'leafgarland/typescript-vim'
@@ -240,37 +236,6 @@ Plug 'flowtype/vim-flow'
 
 " Initialize plugin system
 call plug#end()
-
-
-let g:gitgutter_realtime = 0
-let g:gitgutter_eager = 0
-
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
-    \ 'AcceptSelection("t")': ['<cr>'],
-    \ }
-
-" Syntastic settings
-nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
-let g:syntastic_mode_map = { 'mode': 'passive',
-                            \ 'active_filetypes': [],
-                            \ 'passive_filetypes': [] }
-
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['eslint']
-
-let g:jsx_ext_required = 0
-
-map <C-n> :NERDTreeToggle<CR>
-let NERDTreeMapOpenInTab='<ENTER>'
 
 let g:airline_extensions = []
 let g:airline#extensions#branch#enabled=1
@@ -296,6 +261,7 @@ let g:tsuquyomi_shortest_import_path = 1
 
 " set rtp+=/usr/local/opt/fzf
 " I don't like vim-jsx messing with my indentation in line
+autocmd FileType markdown setlocal inde=
 autocmd FileType javascript.jsx setlocal inde=
 autocmd FileType typescript setlocal inde=
 autocmd FileType yaml setlocal inde=
@@ -303,7 +269,7 @@ hi Search cterm=NONE ctermfg=grey ctermbg=blue
 
 " fzf
 let mapleader=","
-nmap ; :Buffers<CR>
+" nmap ; :Buffers<CR>
 nmap <Leader>t :Files<CR>
 nmap <Leader>r :Tags<CR>
 
@@ -328,14 +294,17 @@ let g:prettier#exec_cmd_async = 1
 let g:prettier#autoformat = 0
 
 " http://vim.wikia.com/wiki/Project_specific_settings
-function! SetupEnvironment()
-  let l:path = expand('%:p')
-  if l:path =~ 'aiden'
-    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
-  endif
-endfunction
-autocmd! BufReadPost,BufNewFile * call SetupEnvironment()
+" function! SetupEnvironment()
+"   let l:path = expand('%:p')
+"   if l:path =~ 'aiden'
+"     autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+"   endif
+" endfunction
+" autocmd! BufReadPost,BufNewFile * call SetupEnvironment()
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
+" --------------- Finally colour scheme
 syntax enable
 set background=light
 colorscheme solarized
+hi Normal ctermbg=NONE " we want vim to follow terminal background
