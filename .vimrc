@@ -36,6 +36,7 @@ if &diff == 'nodiff'
     set shellcmdflag=-ic
 endif
 
+let mapleader=","
 
 "enable's syntax highlighting, corrollary: https://stackoverflow.com/questions/33380451/is-there-a-difference-between-syntax-on-and-syntax-enable-in-vimscript
 syntax enable
@@ -116,6 +117,9 @@ command! EndProf :call EndProf()
 
 " Delete current file
 command! DeleteFile :call delete(expand('%')) | bdelete!
+
+" Strip file whitespace before saving
+autocmd BufWritePre * %s/\s\+$//e
 
 "-----------------------------Set pasting to automatically go paste mode
 " - https://coderwall.com/p/if9mda
@@ -223,20 +227,36 @@ Plug 'mzlogin/vim-markdown-toc'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-"Plug 'mhartington/nvim-typescript'
+autocmd! FileType typescript let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': ['']}
+
+let g:ale_fixers = {
+\ 'typescript': ['tslint', 'prettier'],
+\}
+let g:ale_fix_on_save = 1
+let g:ale_javascript_prettier_use_local_config = 1
+
+"Plug 'peitalin/vim-jsx-typescript'
 Plug 'Quramy/tsuquyomi'
+let g:tsuquyomi_single_quote_import=1
+let g:tsuquyomi_shortest_import_path = 1
+" Stop tsuquyomi freezing on save, why do this in vim 8 though...
+let g:tsuquyomi_disable_quickfix = 1
+autocmd! FileType typescript nmap <buffer> <Leader>, : <C-u>echo tsuquyomi#hint()<CR>
+autocmd FileType typescript
+    \ autocmd BufWritePost <buffer> :TsuquyomiAsyncGeterr
+
 Plug 'flowtype/vim-flow'
+
+" Dependency for ConflictMotions
+Plug 'vim-scripts/CountJump'
+Plug 'vim-scripts/ConflictMotions'
 
 " Initialize plugin system
 call plug#end()
 
+" --------------------------------- Old extension config (to clean)
 let g:airline_extensions = []
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#branch#empty_message='no repo'
@@ -254,21 +274,16 @@ let g:tmuxline_preset = {
   \'z'       : ['#(whoami)'],
   \'options' : {'status-justify': 'left'}}
 
-" Stop tsuquyomi freezing on save, why do this in vim 8 though...
-" let g:tsuquyomi_use_vimproc=1
-let g:tsuquyomi_single_quote_import=1
-let g:tsuquyomi_shortest_import_path = 1
 
 " set rtp+=/usr/local/opt/fzf
 " I don't like vim-jsx messing with my indentation in line
-autocmd FileType markdown setlocal inde=
-autocmd FileType javascript.jsx setlocal inde=
-autocmd FileType typescript setlocal inde=
-autocmd FileType yaml setlocal inde=
+"autocmd FileType markdown setlocal inde=
+"autocmd FileType javascript.jsx setlocal inde=
+"autocmd FileType typescript setlocal inde=
+"autocmd FileType yaml setlocal inde=
 hi Search cterm=NONE ctermfg=grey ctermbg=blue
 
 " fzf
-let mapleader=","
 " nmap ; :Buffers<CR>
 nmap <Leader>t :Files<CR>
 nmap <Leader>r :Tags<CR>
@@ -278,7 +293,6 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
-autocmd FileType typescript nmap <buffer> <Leader>, : <C-u>echo tsuquyomi#hint()<CR>
 "Use locally installed flow
 let local_flow = finddir('node_modules', '.;') . '/.bin/flow'
 if matchstr(local_flow, "^\/\\w") == ''
@@ -289,19 +303,6 @@ if executable(local_flow)
 endif
 let g:flow#enable = 0
 autocmd FileType javascript nmap <buffer> <Leader>, :FlowType<CR>
-
-let g:prettier#exec_cmd_async = 1
-let g:prettier#autoformat = 0
-
-" http://vim.wikia.com/wiki/Project_specific_settings
-" function! SetupEnvironment()
-"   let l:path = expand('%:p')
-"   if l:path =~ 'aiden'
-"     autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
-"   endif
-" endfunction
-" autocmd! BufReadPost,BufNewFile * call SetupEnvironment()
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
 " --------------- Finally colour scheme
 syntax enable

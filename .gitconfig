@@ -29,6 +29,7 @@
   # Include remote branches
   bo = for-each-ref --sort=committerdate refs/heads/ refs/remotes/origin/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
   sb = !grecent
+  mt = mergetool
 
 [core]
   pager = less -+$LESS -R
