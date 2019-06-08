@@ -21,6 +21,9 @@ set complete+=kspell " autocomplete includes the dictionary if enabled
 set fdm=manual fdl=4 "foldmethod fdc=1 foldcolumn
 set updatetime=1000 "event when cursor stops moving for a second, for swp normally, but now is for checktime call below
 
+" https://stackoverflow.com/questions/26708822/why-do-vim-experts-prefer-buffers-over-tabs
+set hidden " can switch to another buffer when you have unsaved changes
+
 " Tab completion, as much as possible, list options, then tab through each option
 set wildmode=longest,list,full
 set wildmenu
@@ -120,6 +123,8 @@ command! DeleteFile :call delete(expand('%')) | bdelete!
 
 " Strip file whitespace before saving
 autocmd BufWritePre * %s/\s\+$//e
+
+" Switch to last buffer :b#
 
 "-----------------------------Set pasting to automatically go paste mode
 " - https://coderwall.com/p/if9mda
@@ -226,6 +231,7 @@ Plug 'mzlogin/vim-markdown-toc'
 " New based on: https://statico.github.io/vim3.html
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+noremap <Tab> :Buf<CR>
 
 Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
