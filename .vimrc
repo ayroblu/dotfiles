@@ -35,8 +35,10 @@ endif
 set list
 
 " https://stackoverflow.com/questions/25233859/vimdiff-immediately-becomes-stopped-job-crashes-terminal-when-i-try-to-fg-it-b
+" set shell=/bin/zsh\ -l
+" Why do I want this?
 if &diff == 'nodiff'
-    set shellcmdflag=-ic
+    "set shellcmdflag=-ic
 endif
 
 let mapleader=","
@@ -95,8 +97,11 @@ vnoremap ∆ :m '>+1<CR>gv=gv
 vnoremap ˚ :m '<-2<CR>gv=gv
 
 " Scroll mappings
-:map <ScrollWheelUp> <C-Y>
-:map <ScrollWheelDown> <C-E>
+map <ScrollWheelUp> <C-Y>
+map <ScrollWheelDown> <C-E>
+
+" <A-n> shows number of matches
+nnoremap ˜ :%s///gn
 
 " This is just annoying
 noremap K k
@@ -124,7 +129,23 @@ command! DeleteFile :call delete(expand('%')) | bdelete!
 " Strip file whitespace before saving
 autocmd BufWritePre * %s/\s\+$//e
 
+" Nummaches
+command NumMatch :%s///gn
+
 " Switch to last buffer :b#
+
+" Normally you can open a url with gx, doesnt work so use ,u
+" Hint, can also open files with gf
+function! HandleURL()
+  let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
+  echo s:uri
+  if s:uri != ""
+    silent exec "!open '".s:uri."'"
+  else
+    echo "No URI found in line."
+  endif
+endfunction
+map <leader>u :call HandleURL()<cr>
 
 "-----------------------------Set pasting to automatically go paste mode
 " - https://coderwall.com/p/if9mda
@@ -219,6 +240,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
+" gc to comment
 "Plug 'tpope/vim-vinegar' " Making file management easier
 "Plug 'tpope/vim-speeddating' "Understand dates if you want
 Plug 'vim-airline/vim-airline'
@@ -227,6 +249,19 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/ReplaceWithRegister' "griw to replace inner word with register
 Plug 'christoomey/vim-sort-motion' "sort with gsip
 Plug 'mzlogin/vim-markdown-toc'
+
+Plug 'osyo-manga/vim-anzu' " show search progress
+" mapping
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+
+" clear status
+nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+"
+" Show in search status - will override file name so kinda meh
+"let g:airline_section_c='%{anzu#search_status()}'
 "
 " New based on: https://statico.github.io/vim3.html
 Plug '/usr/local/opt/fzf'
@@ -235,7 +270,7 @@ noremap <Tab> :Buf<CR>
 
 Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
-autocmd! FileType typescript let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': ['']}
+autocmd! FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': ['']}
 
 let g:ale_fixers = {
 \ 'typescript': ['tslint', 'prettier'],
@@ -249,7 +284,7 @@ let g:tsuquyomi_single_quote_import=1
 let g:tsuquyomi_shortest_import_path = 1
 " Stop tsuquyomi freezing on save, why do this in vim 8 though...
 let g:tsuquyomi_disable_quickfix = 1
-autocmd! FileType typescript nmap <buffer> <Leader>, : <C-u>echo tsuquyomi#hint()<CR>
+autocmd! FileType typescript,typescript.jsx nmap <buffer> <Leader>, : <C-u>echo tsuquyomi#hint()<CR>
 autocmd FileType typescript
     \ autocmd BufWritePost <buffer> :TsuquyomiAsyncGeterr
 
