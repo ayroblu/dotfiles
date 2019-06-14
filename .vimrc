@@ -89,6 +89,8 @@ nnoremap <C-l> <C-w>l
 
 " Move line up or down with alt key
 " <A-j>: ∆, <A-k>: ˚
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
 nnoremap ∆ :m .+1<CR>==
 nnoremap ˚ :m .-2<CR>==
 " inoremap <A-j> <Esc>:m .+1<CR>==gi
@@ -249,6 +251,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/ReplaceWithRegister' "griw to replace inner word with register
 Plug 'christoomey/vim-sort-motion' "sort with gsip
 Plug 'mzlogin/vim-markdown-toc'
+
+Plug 'edkolev/tmuxline.vim'
+let g:airline#extensions#tmuxline#enabled = 0
 
 Plug 'osyo-manga/vim-anzu' " show search progress
 " mapping
