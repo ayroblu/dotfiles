@@ -63,6 +63,10 @@ alias gitnearest='git show-branch | grep '"'"'*'"'"' | grep -v "$(git rev-parse 
 alias ip="curl ipinfo.io/ip"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 alias speedtest="wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip"
+alias cvim='vi ~/.vimrc'
+alias ctmux='vi ~/.tmux.conf'
+alias cbash="vi ~/.bashrc*"
+alias czsh="vi ~/.zshrc*"
 
 # show epoch time
 alias epoch='date +%s'
@@ -86,12 +90,12 @@ alias epoch='date +%s'
 # z folders
 #. `brew --prefix`/etc/profile.d/z.sh
 
-# For find and replace in files, recursive: 
+# For find and replace in files, recursive:
 # find . -type f -name '*' -exec sed -i '' 's/this/that/' {} +
 # Sort files by number of lines:
 # find . -type f -exec wc -l {} + | sort -rn
 
-#export LC_CTYPE=C 
+#export LC_CTYPE=C
 #export LANG=C
 # For find and replace of filenames: - only removes front - look these up
 # find . -name '123*.txt' -type f -exec bash -c 'mv "$1" "${1/\/123_//}"' -- {} \;
@@ -99,7 +103,7 @@ alias epoch='date +%s'
 # Convert crlf to lf
 # find ./ -type f -exec dos2unix {} \;
 
-# Delete files older than x days 
+# Delete files older than x days
 # find ~/log-20* -mtime +3 -exec rm {} \;
 
 # Inputrc type, Bash completion
@@ -154,7 +158,7 @@ function decrypt {
 . ~/.bashrc-colors
 
 # ----------------------------------------- Bash prompt
-. ~/.bashrc-prompt 
+. ~/.bashrc-prompt
 
 # ----------------------------------------- bash quick adds
 . ~/.bashrc-extras
