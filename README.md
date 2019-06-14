@@ -8,7 +8,7 @@ I'd like to setup some curses stuff too cause that's cool stuff! (rather than re
 If you run a `.bash_profile` then you should probably add this:
 
 ```bash
-if [ -f ~/.bashrc ]; then . ~/.bashrc; fi 
+if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
 ```
 
 Tmux Setup
@@ -23,28 +23,7 @@ Vim Setup
 ---------
 Install all these plugins:
 
-### Looks
-* vim-airline
-* vim-gitgutter
-* tmuxline.vim 
-
-### Functions
-* ctrlp.vim 
-* nerdtree 
-* syntastic - off by default...
-* vim-argumentative - >,
-* vim-fugitive - I only use it for gitgutter and git blame
-* vim-surround - so many shortcuts - cs'"
-
-### Languages
-* vim-jade 
-* vim-javascript 
-* vim-markdown
-* vim-stylus
-
-### Syntax Completion
-* YouCompleteMe
-* tern_for_vim - tied together
+Run plug install
 
 VS Code Setup
 -------------
@@ -71,4 +50,8 @@ ms-python.python
 PeterJausovec.vscode-docker
 RoscoP.ActiveFileInStatusBar
 vscodevim.vim
+```
+
+```sh
+cp "$HOME/Library/Application Support/Code/User/settings.json" vscode_settings.json
 ```

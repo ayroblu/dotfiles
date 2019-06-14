@@ -1,14 +1,45 @@
 {
   "editor.tabSize": 2,
+  "editor.minimap.enabled": false,
   "window.zoomLevel": 0,
-  "workbench.editor.enablePreview": false,
+  "editor.wordWrap": "on",
+  "workbench.colorTheme": "Solarized Light",
+  "breadcrumbs.enabled": true,
+  "workbench.settings.editor": "json",
+  "editor.cursorSmoothCaretAnimation": true,
+  // "editor.renderWhitespace": "boundary",
+  "workbench.startupEditor": "none",
+  "workbench.statusBar.feedback.visible": false,
+  "editor.quickSuggestions": {
+    "other": false, // Intellisense makes everything slow so disable it for other as well
+    "comments": false,
+    "strings": false
+  },
+  // Show file path if file is a window
+  "window.title": "${activeEditorLong}${separator}${rootName}",
+
+  // Plugins
+  "gitlens.defaultDateStyle": "absolute",
+  "gitlens.codeLens.authors.enabled": false,
+
+  // Disable IDE actions
   "editor.autoClosingBrackets": "never",
   "editor.formatOnSave": true,
+  "emmet.showExpandedAbbreviation": "never",
+  "html.autoClosingTags": false,
+  "javascript.autoClosingTags": false,
+  "typescript.autoClosingTags": false,
+  "workbench.editor.enablePreview": false,
+
+  // Auto fix
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
   "editor.acceptSuggestionOnCommitCharacter": false,
-  "editor.wordWrap": "on",
-  "window.title": "${activeEditorLong}${separator}${rootName}",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  // Vim like settings
+  "editor.lineNumbers": "relative",
   "vim.normalModeKeyBindingsNonRecursive": [],
   "vim.visualModeKeyBindingsNonRecursive": [
     {
@@ -92,6 +123,15 @@
           "command": "redo"
         }
       ]
+    },
+    {
+      "before": ["<C-w>", "<C-]>"],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.revealDefinitionAside"
+        }
+      ]
     }
   ],
   "vim.insertModeKeyBindings": [
@@ -104,7 +144,11 @@
       "after": ["<Esc>"]
     }
   ],
-  "gitlens.defaultDateStyle": "absolute",
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "workbench.colorTheme": "Solarized Light"
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "python.jediEnabled": false,
+  "workbench.editor.showTabs": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
