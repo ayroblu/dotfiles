@@ -102,9 +102,6 @@ vnoremap ˚ :m '<-2<CR>gv=gv
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
 
-" <A-n> shows number of matches
-nnoremap ˜ :%s///gn
-
 " This is just annoying
 noremap K k
 
@@ -112,6 +109,7 @@ noremap K k
 au CursorHold * checktime
 
 "-----------------------------Functions
+" For profiling:
 function Prof()
   profile start profile.log
   profile func *
@@ -125,18 +123,15 @@ endfunction
 command! Prof :call Prof()
 command! EndProf :call EndProf()
 
-" Delete current file
+" Delete current file:
 command! DeleteFile :call delete(expand('%')) | bdelete!
 
 " Strip file whitespace before saving
 autocmd BufWritePre * %s/\s\+$//e
 
-" Nummaches
-command NumMatch :%s///gn
-
 " Switch to last buffer :b#
 
-" Normally you can open a url with gx, doesnt work so use ,u
+" Normally you can open a url with gx, doesnt work so use <leader>u
 " Hint, can also open files with gf
 function! HandleURL()
   let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
@@ -251,6 +246,15 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/ReplaceWithRegister' "griw to replace inner word with register
 Plug 'christoomey/vim-sort-motion' "sort with gsip
 Plug 'mzlogin/vim-markdown-toc'
+Plug 'davidhalter/jedi-vim'
+" We change these to be similar to tsuquyomi
+let g:jedi#goto_command = "<C-]>"
+let g:jedi#goto_assignments_command = ""
+let g:jedi#goto_definitions_command = "<C-}>"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-x><C-o>"
+let g:jedi#rename_command = "<leader>r"
 
 Plug 'edkolev/tmuxline.vim'
 let g:airline#extensions#tmuxline#enabled = 0
@@ -275,7 +279,8 @@ noremap <Tab> :Buf<CR>
 
 Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
-autocmd! FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': ['']}
+autocmd! FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
+autocmd! FileType python let g:ale_linters = {'python': []}
 
 let g:ale_fixers = {
 \ 'typescript': ['tslint', 'prettier'],
@@ -332,12 +337,8 @@ hi Search cterm=NONE ctermfg=grey ctermbg=blue
 " fzf
 " nmap ; :Buffers<CR>
 nmap <Leader>t :Files<CR>
+" Don't really use this
 nmap <Leader>r :Tags<CR>
-
-" ack -> ag
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
 
 "Use locally installed flow
 let local_flow = finddir('node_modules', '.;') . '/.bin/flow'
