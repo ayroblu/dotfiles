@@ -5,3 +5,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='--height 40% --reverse'
 export NODE_OPTIONS=--max-old-space-size=8192
 
+# Aliases
+alias vis='vi -c OpenSession'
+alias viallnotes='vi ~/Dropbox/Notes.md ~/Dropbox/Notes/*.md'
+

@@ -16,6 +16,7 @@
   bl = log --branches --oneline --no-walk --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset'
   bs = !git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf | xargs git co
   ci = commit -am
+  cim = commit -m
   co = checkout
   cof = !git status -s | sed s/^...// | fzf -m | xargs git co
   d = diff
