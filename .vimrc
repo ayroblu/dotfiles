@@ -28,9 +28,12 @@ set hidden " can switch to another buffer when you have unsaved changes
 set wildmode=longest,list,full
 set wildmenu
 
+" Project vimrcs: https://andrew.stwrt.ca/posts/project-specific-vimrc/
+set exrc
+
 " Add characters for tabs and spaces on the end of lines
 if &listchars ==# 'eol:$'
-  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+  set listchars=tab:>\ ,trail:·,extends:>,precedes:<,nbsp:+
 endif
 set list
 
@@ -105,6 +108,8 @@ map <ScrollWheelDown> <C-E>
 " This is just annoying
 noremap K k
 
+" nnoremap <C-L> :redraw!
+
 " ----------------------------- Reload page on change
 au CursorHold * checktime
 
@@ -143,6 +148,9 @@ function! HandleURL()
   endif
 endfunction
 map <leader>u :call HandleURL()<cr>
+
+" Restore cursor position horizontally when switching buffer
+autocmd BufEnter * silent! normal! g`"
 
 "-----------------------------Set pasting to automatically go paste mode
 " - https://coderwall.com/p/if9mda
@@ -276,14 +284,23 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 noremap <Tab> :Buf<CR>
+" https://github.com/junegunn/fzf
+" sbtrkt	fuzzy-match	Items that match sbtrkt
+" 'wild	exact-match (quoted)	Items that include wild
+" ^music	prefix-exact-match	Items that start with music
+" .mp3$	suffix-exact-match	Items that end with .mp3
+" !fire	inverse-exact-match	Items that do not include fire
+" !^music	inverse-prefix-exact-match	Items that do not start with music
+" !.mp3$	inverse-suffix-exact-match	Items that do not end with .mp3
 
 Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
 autocmd! FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
-autocmd! FileType python let g:ale_linters = {'python': []}
+
 
 let g:ale_fixers = {
 \ 'typescript': ['tslint', 'prettier'],
+\ 'python': ['black'],
 \}
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
@@ -356,3 +373,6 @@ syntax enable
 set background=light
 colorscheme solarized
 hi Normal ctermbg=NONE " we want vim to follow terminal background
+
+" Disable unsafe commands in project specific vimrc's
+set secure
