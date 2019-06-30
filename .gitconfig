@@ -16,6 +16,7 @@
   bl = log --branches --oneline --no-walk --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset'
   bs = !grecent
   ci = commit -am
+  cim = commit -m
   co = checkout
   d = difftool
   l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %ad) %C(bold blue)<%an>%Creset' -500
