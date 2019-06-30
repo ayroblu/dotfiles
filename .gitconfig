@@ -14,14 +14,23 @@
   boq = for-each-ref --sort=committerdate refs/remotes/origin/ --format='%(refname:lstrip=-1)'
   # Local branches
   bl = log --branches --oneline --no-walk --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset'
-  bs = !grecent
+  bs = !git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf | xargs git co
   ci = commit -am
   co = checkout
-  d = difftool
-  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %ad) %C(bold blue)<%an>%Creset' -500
-  la = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %ad) %C(bold blue)<%an>%Creset' --all
-  lf = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %ad) %C(bold blue)<%an>%Creset' --author-date-order  --no-merges --first-parent -500
-  ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset' -10 -U0 --stat
+  cof = !git status -s | sed s/^...// | fzf -m | xargs git co
+  d = diff
+  ds = diff --staged
+  dh = diff HEAD
+  dt = difftool
+  lbase = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset'
+  l = lbase --graph -500
+  ls = l --stat
+  ll = ls -10 -U0
+  la = lbase --all
+  lf = l --first-parent --stat
+  lfs = l -c --first-parent --stat
+  llf = ll -c --first-parent --stat
+  #lfa = lf --author-date-order  --no-merges
   m = merge --no-ff
   md = diff master...HEAD
   mt = mergetool
