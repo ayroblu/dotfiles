@@ -30,7 +30,7 @@ set wildmenu
 
 " Add characters for tabs and spaces on the end of lines
 if &listchars ==# 'eol:$'
-  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+  set listchars=tab:>\ ,trail:·,extends:>,precedes:<,nbsp:+
 endif
 set list
 
@@ -45,6 +45,7 @@ let mapleader=","
 
 "enable's syntax highlighting, corrollary: https://stackoverflow.com/questions/33380451/is-there-a-difference-between-syntax-on-and-syntax-enable-in-vimscript
 syntax enable
+" Use `vim -u None file.txt` if big
 
 " https://vi.stackexchange.com/questions/10124/what-is-the-difference-between-filetype-plugin-indent-on-and-filetype-indent
 " filetype - detection - detect type of syntax by filetype
@@ -105,10 +106,30 @@ map <ScrollWheelDown> <C-E>
 " This is just annoying
 noremap K k
 
+" delete without yanking
+nnoremap d "_d
+vnoremap d "_d
+" replace currently selected text with default register
+" without yanking it
+vnoremap p "_dP
+
+" Moving cursor by display lines
+" -  http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping
+noremap  <buffer> <silent> k gk
+noremap  <buffer> <silent> j gj
+noremap  <buffer> <silent> 0 g0
+noremap  <buffer> <silent> $ g$
+
+
+" Insert single character
+nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
+nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
+
+
 " ----------------------------- Reload page on change
 au CursorHold * checktime
 
-"-----------------------------Functions
+"-----------------------------Functions and commands
 " For profiling:
 function Prof()
   profile start profile.log
@@ -144,6 +165,40 @@ function! HandleURL()
 endfunction
 map <leader>u :call HandleURL()<cr>
 
+command Cvim :n ~/.vimrc
+command Czsh :n ~/.zshrc*
+command Cbash :n ~/.bashrc*
+command Ctmux :n ~/.tmux.conf
+command Cnotes :n ~/Dropbox/Notes.md ~/Dropbox/Notes/*
+
+" Displays buffer list, prompts for buffer numbers and ranges and deletes
+" associated buffers. Example input: 2 5,9 12
+" Hit Enter alone to exit.
+function! InteractiveBufDelete()
+  let l:prompt = "Specify buffers to delete: "
+
+  ls | let bufnums = input(l:prompt)
+  while strlen(bufnums)
+    echo "\n"
+    let buflist = split(bufnums)
+    for bufitem in buflist
+      if match(bufitem, '^\d\+,\d\+$') >= 0
+        exec ':' . bufitem . 'bd'
+      elseif match(bufitem, '^\d\+$') >= 0
+        exec ':bd ' . bufitem
+      else
+        echohl ErrorMsg | echo 'Not a number or range: ' . bufitem | echohl None
+      endif
+    endfor
+    ls | let bufnums = input(l:prompt)
+  endwhile
+endfunction
+nnoremap <silent> <leader>bd :call InteractiveBufDelete()<CR>
+
+" Close all except current buffer
+" https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one
+command BufOnly :%bd|e#
+
 "-----------------------------Set pasting to automatically go paste mode
 " - https://coderwall.com/p/if9mda
 let &t_SI .= "\<Esc>[?2004h"
@@ -156,19 +211,6 @@ function! XTermPasteBegin()
   set paste
   return ""
 endfunction
-
-"---------------------------- Moving cursor by display lines
-" -  http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping
-noremap  <buffer> <silent> k gk
-noremap  <buffer> <silent> j gj
-noremap  <buffer> <silent> 0 g0
-noremap  <buffer> <silent> $ g$
-
-
-" --------------------------------Insert single character
-nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
-nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
-
 " ---------------------------------------------Stuff I don't really understand
 
 " When editing a file, always jump to the last cursor position
@@ -235,6 +277,11 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+" cs'" - for change existing
+" dst - for delete surrounding tags
+" ysiw] - for insert no space square bracket, use `[` for with space
+" ysiw<em> - for insert tags
+" <VISUAL> S<p class="important"> - insert p tag around
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 " gc to comment
@@ -275,7 +322,7 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 " New based on: https://statico.github.io/vim3.html
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-noremap <Tab> :Buf<CR>
+noremap <leader><Tab> :Buf<CR>
 
 Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
@@ -303,6 +350,28 @@ Plug 'flowtype/vim-flow'
 " Dependency for ConflictMotions
 Plug 'vim-scripts/CountJump'
 Plug 'vim-scripts/ConflictMotions'
+
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
+let g:session_autosave = 'yes'
+let g:session_autoload = 'no'
+let g:session_default_overwrite = 1
+" Basically you just care about :OpenSession, don't worry about anything else
+
+Plug 'bkad/CamelCaseMotion'
+let g:camelcasemotion_key = '<leader>'
+" Use leader as camel case word object: i.e. ci,w
+
+Plug 'vim-scripts/argtextobj.vim'
+" Adds argument (a) so caa, cia
+" func(a, b[asdf]) -> func(a, .) or -> func(a) (inner or outer)
+
+Plug 'michaeljsmith/vim-indent-object'
+" Key bindings	Description
+" <count>ai	An Indentation level and line above.
+" <count>ii	Inner Indentation level (no line above).
+" <count>aI	An Indentation level and lines above/below.
+" <count>iI	Inner Indentation level (no lines above/below).
 
 " Initialize plugin system
 call plug#end()

@@ -2,3 +2,8 @@ export PATH="/usr/local/opt/node@8/bin:$PATH"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# Aliases
+alias vis='vi -c OpenSession'
+alias viallnotes='vi ~/Dropbox/Notes.md ~/Dropbox/Notes/*.md'
+
