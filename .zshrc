@@ -17,6 +17,8 @@ compinit
 
 # ---------------------------------------- Custom
 bindkey -v
+# So that backspace deletes more things in insert -> normal -> insert mode
+bindkey -v '^?' backward-delete-char
 
 [ -f ~/.zshrc-personal ] && source ~/.zshrc-personal
 [ -f ~/.zshrc-prompt ] && source ~/.zshrc-prompt
@@ -27,3 +29,4 @@ alias cvim='vi ~/.vimrc'
 alias ctmux='vi ~/.tmux.conf'
 alias cbash="vi ~/.bashrc*"
 alias czsh="vi ~/.zshrc*"
+export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
