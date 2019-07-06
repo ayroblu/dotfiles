@@ -6,6 +6,9 @@
 [color]
   ui = true
 [alias]
+  # To checkout a file from another branch, git co <branch> -- file
+  # To show a file from another branch, git show <branch>:file
+  #
   # https://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
   b = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
   # Include remote branches
@@ -23,14 +26,19 @@
   ds = diff --staged
   dh = diff HEAD
   dt = difftool
+  # Chain things on to this
+  f = !git status -s | sed s/^...// | fzf -m
+  fcp = !git f | pbcopy
   lbase = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset'
   l = lbase --graph -500
   ls = l --stat
   ll = ls -10 -U0
   la = lbase --all
-  lf = l --first-parent --stat
-  lfs = l -c --first-parent --stat
-  llf = ll -c --first-parent --stat
+  lf = l --first-parent
+  lfs = l --first-parent --stat
+  # -c shows merge commit diff too
+  lfsc = l -c --first-parent --stat
+  llfsc = ll -c --first-parent --stat
   #lfa = lf --author-date-order  --no-merges
   m = merge --no-ff
   md = diff master...HEAD
