@@ -7,9 +7,10 @@
   "breadcrumbs.enabled": true,
   "workbench.settings.editor": "json",
   "editor.cursorSmoothCaretAnimation": true,
-  // "editor.renderWhitespace": "boundary",
   "workbench.startupEditor": "none",
-  "workbench.statusBar.feedback.visible": false,
+  "typescript.experimental.useSeparateSyntaxServer": true,
+  "workbench.tree.renderIndentGuides": "always",
+  "workbench.tree.indent": 12, // 8 is a little too fine
   "editor.quickSuggestions": {
     "other": false, // Intellisense makes everything slow so disable it for other as well
     "comments": false,
@@ -17,10 +18,6 @@
   },
   // Show file path if file is a window
   "window.title": "${activeEditorLong}${separator}${rootName}",
-
-  // Plugins
-  "gitlens.defaultDateStyle": "absolute",
-  "gitlens.codeLens.authors.enabled": false,
 
   // Disable IDE actions
   "editor.autoClosingBrackets": "never",
@@ -31,15 +28,24 @@
   "typescript.autoClosingTags": false,
   "workbench.editor.enablePreview": false,
 
-  // Auto fix
+  // Plugins
+  "gitlens.defaultDateStyle": "absolute",
+  "gitlens.codeLens.authors.enabled": false,
+
+  // Auto fix (also use plugins)
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
   "editor.acceptSuggestionOnCommitCharacter": false,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "typescript.updateImportsOnFileMove.enabled": "always",
 
-  // Vim like settings
+  // Vim like settings from vim plugin
   "editor.lineNumbers": "relative",
+  "vim.leader": "<space>",
+  "vim.easymotion": true,
+  "vim.sneak": true,
+  "vim.camelCaseMotion.enable": true,
+  "vim.hlsearch": true,
   "vim.normalModeKeyBindingsNonRecursive": [],
   "vim.visualModeKeyBindingsNonRecursive": [
     {
@@ -132,7 +138,42 @@
           "command": "editor.action.revealDefinitionAside"
         }
       ]
+    },
+    {
+      "before": ["[", "x"],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.marker.prevInFiles"
+        }
+      ]
+    },
+    {
+      "before": ["]", "x"],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.marker.nextInFiles"
+        }
+      ]
     }
+    // I don't use these cause they don't go well up and down
+    // {
+    //   "before": ["j"],
+    //   "after": ["g", "j"]
+    // },
+    // {
+    //   "before": ["k"],
+    //   "after": ["g", "k"]
+    // },
+    // {
+    //   "before": ["$"],
+    //   "after": ["g", "$"]
+    // },
+    // {
+    //   "before": ["^"],
+    //   "after": ["g", "$"]
+    // }
   ],
   "vim.insertModeKeyBindings": [
     {
@@ -144,6 +185,26 @@
       "after": ["<Esc>"]
     }
   ],
+  // "vim.visualModeKeyBindings": [
+  //   {
+  //     "before": ["j"],
+  //     "after": ["g", "j"]
+  //   },
+  //   {
+  //     "before": ["k"],
+  //     "after": ["g", "k"]
+  //   },
+  //   {
+  //     "before": ["$"],
+  //     "after": ["g", "$"]
+  //   },
+  //   {
+  //     "before": ["^"],
+  //     "after": ["g", "$"]
+  //   }
+  // ],
+  "vim.easymotionMarkerFontFamily": "Helvetica Neue",
+  "vim.easymotionMarkerHeight": 18,
   "editor.suggestSelection": "first",
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "python.jediEnabled": false,
