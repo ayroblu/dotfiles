@@ -1,5 +1,8 @@
 " Ben Lu, vimrc
-" :so ~/_vimrc " reloads vimrc, use in vim, not here
+" :so ~/_vimrc " reloads vimrc, use in vim, not here, or quit and use `vis` if
+" you have sessions setup
+" Use `vim -u None file.txt` if big
+" Use `gq` to format comments at textwidth
 " ------------------------------------------------------------Main layout
 set sw=2 sts=2 ts=2 "shiftwidth, softtabstop, tabstop
 set number et is ai hls ru sc "linenumbers, softtabs, incsearch, autoindent, highlight search, ruler line col number, showcmd
@@ -20,6 +23,8 @@ set display+=lastline "long lines show to the end instead of @ sign
 set complete+=kspell " autocomplete includes the dictionary if enabled
 set fdm=manual fdl=4 "foldmethod fdc=1 foldcolumn
 set updatetime=1000 "event when cursor stops moving for a second, for swp normally, but now is for checktime call below
+" Ignore case except when there atleast one capital
+set smartcase
 
 " https://stackoverflow.com/questions/26708822/why-do-vim-experts-prefer-buffers-over-tabs
 set hidden " can switch to another buffer when you have unsaved changes
@@ -48,7 +53,6 @@ let mapleader=","
 
 "enable's syntax highlighting, corrollary: https://stackoverflow.com/questions/33380451/is-there-a-difference-between-syntax-on-and-syntax-enable-in-vimscript
 syntax enable
-" Use `vim -u None file.txt` if big
 
 " https://vi.stackexchange.com/questions/10124/what-is-the-difference-between-filetype-plugin-indent-on-and-filetype-indent
 " filetype - detection - detect type of syntax by filetype
@@ -112,8 +116,8 @@ noremap K k
 " nnoremap <C-L> :redraw!
 
 " delete without yanking
-nnoremap d "_d
-vnoremap d "_d
+"nnoremap d "_d
+"vnoremap d "_d
 " replace currently selected text with default register
 " without yanking it
 vnoremap p "_dP
@@ -129,6 +133,16 @@ noremap  <buffer> <silent> $ g$
 " Insert single character
 nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
 nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
+
+" --------------- from https://sanctum.geek.nz/arabesque/vim-annoyances/
+" always middle on next, needs to be remaped as per plugin FYI, see below
+" (anzu), but the zz removes the anzu output so this does nothing for now
+nnoremap N Nzz
+nnoremap n nzz
+
+" Disable Ex mode on Q
+nnoremap Q <nop>
+"nnoremap K <nop> " already remaped elsewhere
 
 " ----------------------------- Reload page on change
 au CursorHold * checktime
@@ -271,10 +285,10 @@ Plug 'PeterRincker/vim-argumentative'
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
-"Plug 'ctrlpvim/ctrlp.vim'
 Plug 'edkolev/tmuxline.vim'
 Plug 'terryma/vim-multiple-cursors'
-"Plug 'tpope/vim-unimpaired'
+" I only download this for the conflict mapping ]n and [n
+Plug 'tpope/vim-unimpaired'
 Plug 'sheerun/vim-polyglot'
 "Plug 'junegunn/vim-easy-align'
 " vipga= " Visual Inner Paragraph (ga) align =
@@ -284,6 +298,7 @@ Plug 'sheerun/vim-polyglot'
 "Plug 'honza/vim-snippets'
 
 Plug 'tpope/vim-fugitive'
+" Move between changes with [c and ]c
 Plug 'tpope/vim-surround'
 " cs'" - for change existing
 " dst - for delete surrounding tags
@@ -330,7 +345,7 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 " New based on: https://statico.github.io/vim3.html
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-noremap <leader><Tab> :Buf<CR>
+noremap <leader><Tab> :Buffers<CR>
 " https://github.com/junegunn/fzf
 " sbtrkt	fuzzy-match	Items that match sbtrkt
 " 'wild	exact-match (quoted)	Items that include wild
@@ -342,11 +357,15 @@ noremap <leader><Tab> :Buf<CR>
 
 Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
-autocmd! FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
+"autocmd! FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
+autocmd! FileType typescript,typescript.tsx let g:ale_linters = {'typescript': ['eslint']}
+nmap <silent> ]j :ALENextWrap<cr>
+nmap <silent> [j :ALEPreviousWrap<cr>
 
 
 let g:ale_fixers = {
 \ 'typescript': ['tslint', 'prettier'],
+\ 'javascript': ['eslint', 'prettier'],
 \ 'python': ['black'],
 \}
 let g:ale_fix_on_save = 1
@@ -359,14 +378,12 @@ let g:tsuquyomi_shortest_import_path = 1
 " Stop tsuquyomi freezing on save, why do this in vim 8 though...
 let g:tsuquyomi_disable_quickfix = 1
 autocmd! FileType typescript,typescript.jsx nmap <buffer> <Leader>, : <C-u>echo tsuquyomi#hint()<CR>
-autocmd FileType typescript
-    \ autocmd BufWritePost <buffer> :TsuquyomiAsyncGeterr
+" It takes like 30+ seconds gets kinda pointless
+" autocmd FileType typescript
+"     \ autocmd BufWritePost <buffer> :TsuquyomiAsyncGeterr
 
 Plug 'flowtype/vim-flow'
 
-" Dependency for ConflictMotions
-Plug 'vim-scripts/CountJump'
-Plug 'vim-scripts/ConflictMotions'
 
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
