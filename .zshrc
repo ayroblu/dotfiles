@@ -7,6 +7,7 @@ HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
 unsetopt beep
+unsetopt sharehistory # set by omz
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '/Users/blu/.zshrc'
@@ -29,4 +30,5 @@ alias cvim='vi ~/.vimrc'
 alias ctmux='vi ~/.tmux.conf'
 alias cbash="vi ~/.bashrc*"
 alias czsh="vi ~/.zshrc*"
+alias cgit="vi ~/.gitconfig*"
 export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
