@@ -7,6 +7,9 @@
 " :%s#regex/path#replacement#g)
 " For practice you may want to run on the current line with :s/ and then run
 " g& afterwards when you're sure it's right
+" g; to go to last change in the change list, g, to go to a newer
+" gf opens file under cursor
+" :X - Use encryption with current file
 " ------------------------------------------------------------Main layout
 set sw=2 sts=2 ts=2 "shiftwidth, softtabstop, tabstop
 set number et is ai hls ru sc "linenumbers, softtabs, incsearch, autoindent, highlight search, ruler line col number, showcmd
@@ -36,6 +39,9 @@ set hidden " can switch to another buffer when you have unsaved changes
 " Tab completion, as much as possible, list options, then tab through each option
 set wildmode=longest,list,full
 set wildmenu
+
+" Encryption method, defaults to super weak
+set cm=blowfish2
 
 " Project vimrcs: https://andrew.stwrt.ca/posts/project-specific-vimrc/
 set exrc
@@ -319,6 +325,9 @@ Plug 'tpope/vim-unimpaired'
 Plug 'sheerun/vim-polyglot'
 "au BufNewFile,BufReadPost *.md set filetype=markdown
 let g:vim_markdown_new_list_item_indent = 0
+
+Plug 'bronson/vim-visual-star-search'
+" Use * in visual mode
 
 "Plug 'junegunn/vim-easy-align'
 " vipga= " Visual Inner Paragraph (ga) align =
