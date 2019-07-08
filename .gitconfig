@@ -18,6 +18,8 @@
   # Local branches
   bl = log --branches --oneline --no-walk --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset'
   bs = !git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf | xargs git co
+  # To clean everything
+  cfd = clean -fd
   ci = commit -am
   cim = commit -m
   co = checkout
