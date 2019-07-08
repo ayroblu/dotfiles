@@ -3,6 +3,10 @@
 " you have sessions setup
 " Use `vim -u None file.txt` if big
 " Use `gq` to format comments at textwidth
+" Find and replace: use :%s/regex/replacement/g (or
+" :%s#regex/path#replacement#g)
+" For practice you may want to run on the current line with :s/ and then run
+" g& afterwards when you're sure it's right
 " ------------------------------------------------------------Main layout
 set sw=2 sts=2 ts=2 "shiftwidth, softtabstop, tabstop
 set number et is ai hls ru sc "linenumbers, softtabs, incsearch, autoindent, highlight search, ruler line col number, showcmd
@@ -42,6 +46,17 @@ if &listchars ==# 'eol:$'
 endif
 set list
 
+" Turns off the bell (audible)
+set visualbell t_vb=
+" sets default font to what is in macos terminal
+set guifont=Monaco:h12
+" No blinking cursor
+set guicursor+=a:blinkon0
+" Randomly pulled from https://github.com/lifepillar/vim-solarized8/issues/45
+" cause defaults aren't good
+let g:terminal_ansi_colors = ['#073642', '#dc322f', '#859900', '#b58900', '#268bd2', '#d33682', '#2aa198', '#eee8d5',
+      \ '#002b36', '#cb4b16', '#93a1a1', '#839496', '#657b83', '#6c71c4', '#586e75', '#fdf6e3']
+
 " https://stackoverflow.com/questions/25233859/vimdiff-immediately-becomes-stopped-job-crashes-terminal-when-i-try-to-fg-it-b
 " set shell=/bin/zsh\ -l
 " Why do I want this?
@@ -49,7 +64,7 @@ if &diff == 'nodiff'
     "set shellcmdflag=-ic
 endif
 
-let mapleader=","
+let mapleader=" "
 
 "enable's syntax highlighting, corrollary: https://stackoverflow.com/questions/33380451/is-there-a-difference-between-syntax-on-and-syntax-enable-in-vimscript
 syntax enable
@@ -65,9 +80,15 @@ filetype plugin indent on
 "nnoremap <Leader>s      :setl spell! spelllang=en_nz<CR> " ]s [s ]S [S " next spelling error
 
 " Doesn't do anything for macOS
-imap <S-space> <Esc>
+"imap <S-space> <Esc>
 imap jj <Esc>l
-imap jk <Esc>
+imap jk <Esc>l
+
+" movement in insert mode is nice to have
+imap <c-l> <right>
+imap <c-h> <left>
+imap <c-j> <down>
+imap <c-k> <up>
 
 " copy and pasting
 vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
@@ -145,7 +166,10 @@ nnoremap Q <nop>
 "nnoremap K <nop> " already remaped elsewhere
 
 " ----------------------------- Reload page on change
-au CursorHold * checktime
+"Before
+"au CursorHold * checktime
+"After with https://vi.stackexchange.com/questions/14315/how-can-i-tell-if-im-in-the-command-window
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
 
 "-----------------------------Functions and commands
 " For profiling:
@@ -192,6 +216,9 @@ command Czsh :n ~/.zshrc*
 command Cbash :n ~/.bashrc*
 command Ctmux :n ~/.tmux.conf
 command Cnotes :n ~/Dropbox/Notes.md ~/Dropbox/Notes/*
+
+" clear auto commands with !au (if you want) and reload vim, can use RestartVim in MacVim?
+command Reload :so ~/.vimrc
 
 " Displays buffer list, prompts for buffer numbers and ranges and deletes
 " associated buffers. Example input: 2 5,9 12
@@ -290,6 +317,9 @@ Plug 'terryma/vim-multiple-cursors'
 " I only download this for the conflict mapping ]n and [n
 Plug 'tpope/vim-unimpaired'
 Plug 'sheerun/vim-polyglot'
+"au BufNewFile,BufReadPost *.md set filetype=markdown
+let g:vim_markdown_new_list_item_indent = 0
+
 "Plug 'junegunn/vim-easy-align'
 " vipga= " Visual Inner Paragraph (ga) align =
 " gaip= " (ga) align Inner Paragraph =
@@ -358,7 +388,7 @@ noremap <leader><Tab> :Buffers<CR>
 Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
 "autocmd! FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
-autocmd! FileType typescript,typescript.tsx let g:ale_linters = {'typescript': ['eslint']}
+"autocmd! FileType typescript,typescript.tsx let g:ale_linters = {'typescript': ['eslint']}
 nmap <silent> ]j :ALENextWrap<cr>
 nmap <silent> [j :ALEPreviousWrap<cr>
 
@@ -377,7 +407,7 @@ let g:tsuquyomi_single_quote_import=1
 let g:tsuquyomi_shortest_import_path = 1
 " Stop tsuquyomi freezing on save, why do this in vim 8 though...
 let g:tsuquyomi_disable_quickfix = 1
-autocmd! FileType typescript,typescript.jsx nmap <buffer> <Leader>, : <C-u>echo tsuquyomi#hint()<CR>
+autocmd! FileType typescript,typescript.tsx nmap <buffer> <Leader><space> : <C-u>echo tsuquyomi#hint()<CR>
 " It takes like 30+ seconds gets kinda pointless
 " autocmd FileType typescript
 "     \ autocmd BufWritePost <buffer> :TsuquyomiAsyncGeterr
