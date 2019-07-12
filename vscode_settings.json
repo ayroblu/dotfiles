@@ -46,18 +46,7 @@
   "vim.sneak": true,
   "vim.camelCaseMotion.enable": true,
   "vim.hlsearch": true,
-  "vim.normalModeKeyBindingsNonRecursive": [],
-  "vim.visualModeKeyBindingsNonRecursive": [
-    {
-      "before": ["<leader>", "y"],
-      "after": ["\"", "0", "y"]
-    },
-    {
-      "before": ["<leader>", "p"],
-      "after": ["\"", "0", "p"]
-    }
-  ],
-  "vim.normalModeKeyBindings": [
+  "vim.normalModeKeyBindingsNonRecursive": [
     {
       "before": ["("],
       "after": [],
@@ -140,7 +129,7 @@
       ]
     },
     {
-      "before": ["[", "x"],
+      "before": ["[", "j"],
       "after": [],
       "commands": [
         {
@@ -149,11 +138,29 @@
       ]
     },
     {
-      "before": ["]", "x"],
+      "before": ["]", "j"],
       "after": [],
       "commands": [
         {
           "command": "editor.action.marker.nextInFiles"
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", ","],
+      "after": [],
+      "commands": [
+        {
+          "command": "argumentative.shiftArgLeft"
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "."],
+      "after": [],
+      "commands": [
+        {
+          "command": "argumentative.shiftArgRight"
         }
       ]
     }
@@ -174,6 +181,16 @@
     //   "before": ["^"],
     //   "after": ["g", "$"]
     // }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "y"],
+      "after": ["\"", "0", "y"]
+    },
+    {
+      "before": ["<leader>", "p"],
+      "after": ["\"", "0", "p"]
+    }
   ],
   "vim.insertModeKeyBindings": [
     {

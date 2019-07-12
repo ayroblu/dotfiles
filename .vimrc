@@ -416,7 +416,7 @@ let g:tsuquyomi_single_quote_import=1
 let g:tsuquyomi_shortest_import_path = 1
 " Stop tsuquyomi freezing on save, why do this in vim 8 though...
 let g:tsuquyomi_disable_quickfix = 1
-autocmd! FileType typescript,typescript.tsx nmap <buffer> <Leader><space> : <C-u>echo tsuquyomi#hint()<CR>
+autocmd! FileType typescript,typescript.tsx nmap <buffer> <Leader>k : <C-u>echo tsuquyomi#hint()<CR>
 " It takes like 30+ seconds gets kinda pointless
 " autocmd FileType typescript
 "     \ autocmd BufWritePost <buffer> :TsuquyomiAsyncGeterr
@@ -445,6 +445,11 @@ Plug 'michaeljsmith/vim-indent-object'
 " <count>ii	Inner Indentation level (no line above).
 " <count>aI	An Indentation level and lines above/below.
 " <count>iI	Inner Indentation level (no lines above/below).
+
+Plug 'easymotion/vim-easymotion'
+" Mainly use this to search
+" <leader><leader>f<char>
+" <leader><leader>F<char>
 
 " Initialize plugin system
 call plug#end()
