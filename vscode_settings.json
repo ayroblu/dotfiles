@@ -163,6 +163,24 @@
           "command": "argumentative.shiftArgRight"
         }
       ]
+    },
+    {
+      "before": ["∆"],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.moveLinesDownAction"
+        }
+      ]
+    },
+    {
+      "before": ["˚"],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.moveLinesUpAction"
+        }
+      ]
     }
     // I don't use these cause they don't go well up and down
     // {
@@ -184,12 +202,28 @@
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
     {
-      "before": ["<leader>", "y"],
-      "after": ["\"", "0", "y"]
+      "before": ["∆"],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.moveLinesDownAction"
+        }
+      ]
     },
     {
-      "before": ["<leader>", "p"],
-      "after": ["\"", "0", "p"]
+      "before": ["˚"],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.moveLinesUpAction"
+        }
+      ]
+    },
+    // vnoremap p "_dP
+    // paste without yanking
+    {
+      "before": ["p"],
+      "after": ["\"", "_", "d", "P"]
     }
   ],
   "vim.insertModeKeyBindings": [

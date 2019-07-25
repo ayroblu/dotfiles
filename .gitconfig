@@ -23,13 +23,14 @@
   ci = commit -am
   cim = commit -m
   co = checkout
-  cof = !git status -s | sed s/^...// | fzf -m | xargs git co
   d = diff
   ds = diff --staged
   dh = diff HEAD
   dt = difftool
   # Chain things on to this
   f = !git status -s | sed s/^...// | fzf -m
+  fco = !git f | xargs git co
+  fadd = !git f | xargs git add
   fcp = !git f | pbcopy
   lbase = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset'
   l = lbase --graph -500
@@ -54,6 +55,9 @@
   s = status
   si = status --ignored
   tc = rev-list -n 1
+  # From https://stackoverflow.com/questions/8475448/find-merge-commit-which-include-a-specific-commit
+  find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+  show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
 
 [core]
   pager = less -+$LESS -R
