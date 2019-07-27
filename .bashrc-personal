@@ -36,7 +36,6 @@ alias cdbenlu.co='cd ~/Dropbox/Github/benlu.co/'
 alias cdmamp='cd /Applications/MAMP/htdocs'
 
 # misc
-alias vihome='vim -p ~/Dropbox/Notes.txt ~/.vimrc ~/.bashrc*'
 alias viuninotes='vim -p ~/Dropbox/"University of Auckland/2015 Quarter 2 Spring"/fin{435,453,450,457}notes.md'
 alias matlabterm='/Applications/MATLAB_R2014b.app/bin/matlab -nojvm -nodisplay -nosplash'
 alias matlabtermjvm='/Applications/MATLAB_R2014b.app/bin/matlab -nodesktop -nosplash'
@@ -60,7 +59,7 @@ alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 # compile latex
 function mklatex {
   #local tempdir=/Users/blu/ws/comptex
-  if [[ ! $@ =~ .*\.tex ]]; then echo $@ ' is not TeX file!'; return; fi 
+  if [[ ! $@ =~ .*\.tex ]]; then echo $@ ' is not TeX file!'; return; fi
   local tempdir=comptex
   mkdir $tempdir/
   latexmk -bibtex -output-directory=$tempdir -pdf -interaction=nonstopmode $@ 2>&1 | grep --color=auto "Error\|Warning\|Run"
@@ -74,7 +73,7 @@ function mklatex {
   open "${cwd}.pdf"
 }
 
-# rsync 
+# rsync
 function rsink {
   if [ "${#}" -ne 2 ]; then
     echo "Need a two directories"
@@ -103,14 +102,14 @@ function email {
 function unyproxy {
   ssh -ND 9876 uny &
   proxywifion
-  read -p "Press enter to turn off proxy: " 
+  read -p "Press enter to turn off proxy: "
   proxywifioff
   fg
 }
 function lonproxy {
   ssh -ND 9876 hndroplet &
   proxywifion
-  read -p "Press enter to turn off proxy: " 
+  read -p "Press enter to turn off proxy: "
   proxywifioff
   fg
 }
@@ -118,7 +117,7 @@ function sfproxy {
   #ssh -ND 9876 qpdroplet &
   ssh -ND 9876 rgu &
   proxywifion
-  read -p "Press enter to turn off proxy: " 
+  read -p "Press enter to turn off proxy: "
   proxywifioff
   fg
 }
@@ -127,7 +126,7 @@ function nzproxy {
   #ssh -ND 9876 blu@202.169.196.28 &
   ssh -ND 9876 mezap &
   proxywifion
-  read -p "Press enter to turn off proxy: " 
+  read -p "Press enter to turn off proxy: "
   proxywifioff
   fg
 }

@@ -8,4 +8,4 @@ export NODE_OPTIONS=--max-old-space-size=8192
 # Aliases
 alias vis='vi -c OpenSession'
 alias mvis='mvim -c OpenSession'
-alias viallnotes='vi ~/Dropbox/Notes.md ~/Dropbox/Notes/*.md'
+alias viallnotes='vi ~/Dropbox/Notes/*.md'

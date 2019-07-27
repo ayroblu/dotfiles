@@ -221,7 +221,7 @@ command Cvim :n ~/.vimrc
 command Czsh :n ~/.zshrc*
 command Cbash :n ~/.bashrc*
 command Ctmux :n ~/.tmux.conf
-command Cnotes :n ~/Dropbox/Notes.md ~/Dropbox/Notes/*
+command Cnotes :n ~/Dropbox/Notes/*
 
 " clear auto commands with !au (if you want) and reload vim, can use RestartVim in MacVim?
 command Reload :so ~/.vimrc
@@ -344,6 +344,12 @@ Plug 'tpope/vim-surround'
 " ysiw] - for insert no space square bracket, use `[` for with space
 " ysiw<em> - for insert tags
 " <VISUAL> S<p class="important"> - insert p tag around
+
+" See issue: https://github.com/tpope/vim-surround/issues/276
+nmap ysa' ys2i'
+nmap ysa" ys2i"
+nmap ysa` ys2i`
+
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 " gc to comment
