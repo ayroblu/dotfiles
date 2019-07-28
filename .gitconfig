@@ -61,7 +61,7 @@
 
 [core]
   pager = less -+$LESS -R
-  excludesfile = /Users/blu/.gitignore_global
+  excludesfile = ~/.gitignore_global
 [push]
   default = matching
 
@@ -76,3 +76,7 @@
   tool = vimdiff
 [mergetool]
   keepBackup = false
+[rerere]
+  enabled = true
+[fetch]
+  prune = true
