@@ -40,6 +40,14 @@ set hidden " can switch to another buffer when you have unsaved changes
 set wildmode=longest,list,full
 set wildmenu
 
+" Set spelling settings, use ]s [s for next previous spelling error, zg to add
+" to spellfile, z= to see similar words
+" Includes all the regions such as en_us en_nz
+set spelllang=en
+set spellfile=~/.spellfile.utf-8.add
+" set spellsuggest=double " if you want to use a super slow but phoentic
+" version v normal just edit distance
+
 " Encryption method, defaults to super weak
 set cm=blowfish2
 
@@ -83,7 +91,8 @@ filetype plugin indent on
 
 " ------------------------------------------------------------------Mappings
 " set spell spelllang=en_nz " ]s [s ]S [S " next spelling error
-"nnoremap <Leader>s      :setl spell! spelllang=en_nz<CR> " ]s [s ]S [S " next spelling error
+"nnoremap <Leader>s setl spell!
+nnoremap <Leader>s :setl spell!<CR>
 
 " Doesn't do anything for macOS
 "imap <S-space> <Esc>
