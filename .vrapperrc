@@ -1,0 +1,27 @@
+set autoindent
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+set number
+set shiftround
+
+" Tabs are spaces with width 2
+set sw=2
+set sts=2
+set ts=2
+set gvimpath=/usr/local/bin/mvim
+
+" ----------- Mappings
+"ESC
+imap jj <esc>l
+imap jk <esc>l
+
+" Paste doesn't cut
+vnoremap p "_dP
+
+" Move up and down a line
+nnoremap ∆ :m .+1<CR>==
+nnoremap ˚ :m .-2<CR>==
+vnoremap ∆ :m '>+1<CR>gv=gv
+vnoremap ˚ :m '<-2<CR>gv=gv
