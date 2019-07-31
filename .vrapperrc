@@ -20,6 +20,10 @@ imap jk <esc>l
 " Paste doesn't cut
 vnoremap p "_dP
 
+" Switch tabs
+nnoremap {         :tabprevious<CR>
+nnoremap }         :tabnext<CR>
+
 " Move up and down a line
 nnoremap ∆ :m .+1<CR>==
 nnoremap ˚ :m .-2<CR>==
