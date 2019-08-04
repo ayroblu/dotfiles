@@ -223,7 +223,8 @@ endfunction
 map <leader>u :call HandleURL()<cr>
 
 " Restore cursor position horizontally when switching buffer
-autocmd BufEnter * silent! normal! g`"
+" Switching tabs this is weird??
+"autocmd BufEnter * silent! normal! g`"
 
 " A few personal aliases that make editing certain files easier
 command Cvim :n ~/.vimrc
