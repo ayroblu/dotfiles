@@ -1,11 +1,36 @@
+alias cvim='vi ~/.vimrc'
+alias ctmux='vi ~/.tmux.conf'
+alias cbash="vi ~/.bashrc*"
+alias czsh="vi ~/.zshrc*"
+alias cgit="vi ~/.gitconfig*"
+
+export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+
 export PATH="/usr/local/opt/node@8/bin:$PATH"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='--height 40% --reverse --preview="head -$LINES {}"'
 export NODE_OPTIONS=--max-old-space-size=8192
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # Aliases
 alias vis='vi -c OpenSession'
 alias mvis='mvim -c OpenSession'
 alias viallnotes='vi ~/Dropbox/Notes/*.md'
+alias octave='octave -W -q'
+
+# Proxy stuff
+alias proxywifion='sudo networksetup -setsocksfirewallproxystate Wi-Fi on' #on / off
+alias proxywifioff='sudo networksetup -setsocksfirewallproxystate Wi-Fi off' #on / off
+
+function nzproxy {
+  #ssh -ND 9876 blu@benlu.co &
+  #ssh -ND 9876 blu@202.169.196.28 &
+  ssh -ND 9876 mezap &
+  proxywifion
+  read -p "Press enter to turn off proxy: "
+  proxywifioff
+  fg
+}
+
