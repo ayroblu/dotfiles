@@ -10,6 +10,13 @@
 " g; to go to last change in the change list, g, to go to a newer
 " gf opens file under cursor
 " :X - Use encryption with current file
+"
+" Thoughts on how to do interactive shell:
+" 1. yank current selection to 'interactive' buffer
+" 2. run current selection in interactive shell: https://stackoverflow.com/questions/40289706/execute-selection-from-script-in-vim
+"   - :'<,'>w !python
+" 3. Do a setup in a project vimrc
+" 4. Run buffer in interactive shell
 " ------------------------------------------------------------Main layout
 set sw=2 sts=2 ts=2 "shiftwidth, softtabstop, tabstop
 set number et is ai hls ru sc "linenumbers, softtabs, incsearch, autoindent, highlight search, ruler line col number, showcmd
@@ -31,6 +38,7 @@ set complete+=kspell " autocomplete includes the dictionary if enabled
 set fdm=manual fdl=4 "foldmethod fdc=1 foldcolumn
 set updatetime=1000 "event when cursor stops moving for a second, for swp normally, but now is for checktime call below
 " Ignore case except when there atleast one capital
+set ignorecase
 set smartcase
 
 " https://stackoverflow.com/questions/26708822/why-do-vim-experts-prefer-buffers-over-tabs
@@ -170,6 +178,22 @@ noremap  <buffer> <silent> $ g$
 nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
 nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
 
+" https://stackoverflow.com/questions/40289706/execute-selection-from-script-in-vim
+autocmd FileType javascript xnoremap <leader>e :w !node<cr>
+autocmd FileType python xnoremap <leader>e :w !python<cr>
+autocmd FileType matlab xnoremap <leader>e :w !octave<cr>
+" Execute clipboard in node
+autocmd FileType javascript nnoremap <leader>e :echo system('node', @")<cr>
+
+" Cycle 2 registers: https://vim.fandom.com/wiki/Comfortable_handling_of_registers
+nnoremap <Leader>j :let @x=@" \| let @"=@a \| let @a=@x<CR>
+" nnoremap <Leader>k :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x \| reg "ab<CR>
+
+" Appending to register
+nnoremap Y :let @C=@" \| let @"=@c<CR>
+" Clear
+nnoremap YY :let @c=@"<CR>
+
 " --------------- from https://sanctum.geek.nz/arabesque/vim-annoyances/
 " always middle on next, needs to be remaped as per plugin FYI, see below
 " (anzu), but the zz removes the anzu output so this does nothing for now
@@ -263,6 +287,15 @@ nnoremap <silent> <leader>bd :call InteractiveBufDelete()<CR>
 " Close all except current buffer
 " https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one
 command BufOnly :%bd|e#
+
+" https://stackoverflow.com/questions/19430200/how-to-clear-vim-registers-effectively
+function ClearReg()
+  let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
+  for r in regs
+    call setreg(r, [])
+  endfor
+endfunction
+command! ClearReg :call ClearReg()
 
 "-----------------------------Set pasting to automatically go paste mode
 " - https://coderwall.com/p/if9mda
@@ -371,6 +404,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/ReplaceWithRegister' "griw to replace inner word with register
 Plug 'christoomey/vim-sort-motion' "sort with gsip
 Plug 'mzlogin/vim-markdown-toc'
+Plug 'rust-lang/rust.vim'
+
 Plug 'davidhalter/jedi-vim'
 " We change these to be similar to tsuquyomi
 let g:jedi#goto_command = "<C-]>"
@@ -410,7 +445,7 @@ noremap <leader><Tab> :Buffers<CR>
 " !^music	inverse-prefix-exact-match	Items that do not start with music
 " !.mp3$	inverse-suffix-exact-match	Items that do not end with .mp3
 
-Plug 'mileszs/ack.vim'
+"Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
 "autocmd! FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
 "autocmd! FileType typescript,typescript.tsx let g:ale_linters = {'typescript': ['eslint']}
@@ -437,7 +472,7 @@ autocmd! FileType typescript,typescript.tsx nmap <buffer> <Leader>k : <C-u>echo 
 " autocmd FileType typescript
 "     \ autocmd BufWritePost <buffer> :TsuquyomiAsyncGeterr
 
-Plug 'flowtype/vim-flow'
+" Plug 'flowtype/vim-flow'
 
 
 Plug 'xolox/vim-misc'
