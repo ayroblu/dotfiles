@@ -6,6 +6,7 @@
   "workbench.colorTheme": "Solarized Light",
   "breadcrumbs.enabled": true,
   "workbench.settings.editor": "json",
+  "editor.cursorBlinking": "solid",
   "editor.cursorSmoothCaretAnimation": true,
   "workbench.startupEditor": "none",
   "typescript.experimental.useSeparateSyntaxServer": true,
@@ -21,6 +22,7 @@
 
   // Disable IDE actions
   "editor.autoClosingBrackets": "never",
+  "editor.autoClosingQuotes": "never",
   "editor.formatOnSave": true,
   "emmet.showExpandedAbbreviation": "never",
   "html.autoClosingTags": false,
@@ -181,6 +183,15 @@
           "command": "editor.action.moveLinesUpAction"
         }
       ]
+    },
+    {
+      "before": ["<leader>", "t"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.quickOpen"
+        }
+      ]
     }
     // I don't use these cause they don't go well up and down
     // {
@@ -201,6 +212,15 @@
     // }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "t"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.quickOpen"
+        }
+      ]
+    },
     {
       "before": ["∆"],
       "after": [],
