@@ -38,3 +38,4 @@ Thumbs.db
 *.sw?
 # Ripgrep needs this
 .git
+tags

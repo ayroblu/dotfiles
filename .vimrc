@@ -366,6 +366,8 @@ Plug 'terryma/vim-multiple-cursors'
 " I only download this for the conflict mapping ]n and [n
 Plug 'tpope/vim-unimpaired'
 Plug 'sheerun/vim-polyglot'
+" Rust vim specific
+let g:rustfmt_autosave = 1
 "au BufNewFile,BufReadPost *.md set filetype=markdown
 let g:vim_markdown_new_list_item_indent = 0
 
@@ -404,7 +406,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/ReplaceWithRegister' "griw to replace inner word with register
 Plug 'christoomey/vim-sort-motion' "sort with gsip
 Plug 'mzlogin/vim-markdown-toc'
-Plug 'rust-lang/rust.vim'
+
+Plug 'craigemery/vim-autotag'
+" Requires python support, but refreshes ctags if it's there
 
 Plug 'davidhalter/jedi-vim'
 " We change these to be similar to tsuquyomi

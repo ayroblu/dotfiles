@@ -1,3 +1,7 @@
+// import keyboard shortcuts to know after vim
+// cmd b - toggle sidebar
+// cmd j - toggle side panel
+// cmd p - toggle file search
 {
   "editor.tabSize": 2,
   "editor.minimap.enabled": false,
@@ -19,7 +23,6 @@
   },
   // Show file path if file is a window
   "window.title": "${activeEditorLong}${separator}${rootName}",
-
   // Disable IDE actions
   "editor.autoClosingBrackets": "never",
   "editor.autoClosingQuotes": "never",
@@ -29,18 +32,15 @@
   "javascript.autoClosingTags": false,
   "typescript.autoClosingTags": false,
   "workbench.editor.enablePreview": false,
-
   // Plugins
   "gitlens.defaultDateStyle": "absolute",
   "gitlens.codeLens.authors.enabled": false,
-
   // Auto fix (also use plugins)
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
   "editor.acceptSuggestionOnCommitCharacter": false,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "typescript.updateImportsOnFileMove.enabled": "always",
-
   // Vim like settings from vim plugin
   "editor.lineNumbers": "relative",
   "vim.leader": "<space>",
@@ -50,7 +50,9 @@
   "vim.hlsearch": true,
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": ["("],
+      "before": [
+        "("
+      ],
       "after": [],
       "commands": [
         {
@@ -59,7 +61,9 @@
       ]
     },
     {
-      "before": [")"],
+      "before": [
+        ")"
+      ],
       "after": [],
       "commands": [
         {
@@ -68,7 +72,9 @@
       ]
     },
     {
-      "before": ["{"],
+      "before": [
+        "{"
+      ],
       "after": [],
       "commands": [
         {
@@ -77,7 +83,9 @@
       ]
     },
     {
-      "before": ["}"],
+      "before": [
+        "}"
+      ],
       "after": [],
       "commands": [
         {
@@ -86,7 +94,9 @@
       ]
     },
     {
-      "before": ["<C-h>"],
+      "before": [
+        "<C-h>"
+      ],
       "after": [],
       "commands": [
         {
@@ -95,7 +105,9 @@
       ]
     },
     {
-      "before": ["<C-l>"],
+      "before": [
+        "<C-l>"
+      ],
       "after": [],
       "commands": [
         {
@@ -104,7 +116,9 @@
       ]
     },
     {
-      "before": ["u"],
+      "before": [
+        "u"
+      ],
       "after": [],
       "commands": [
         {
@@ -113,7 +127,9 @@
       ]
     },
     {
-      "before": ["<C-r>"],
+      "before": [
+        "<C-r>"
+      ],
       "after": [],
       "commands": [
         {
@@ -122,7 +138,10 @@
       ]
     },
     {
-      "before": ["<C-w>", "<C-]>"],
+      "before": [
+        "<C-w>",
+        "<C-]>"
+      ],
       "after": [],
       "commands": [
         {
@@ -131,7 +150,10 @@
       ]
     },
     {
-      "before": ["[", "j"],
+      "before": [
+        "[",
+        "j"
+      ],
       "after": [],
       "commands": [
         {
@@ -140,7 +162,10 @@
       ]
     },
     {
-      "before": ["]", "j"],
+      "before": [
+        "]",
+        "j"
+      ],
       "after": [],
       "commands": [
         {
@@ -149,7 +174,10 @@
       ]
     },
     {
-      "before": ["<leader>", ","],
+      "before": [
+        "<leader>",
+        ","
+      ],
       "after": [],
       "commands": [
         {
@@ -158,7 +186,10 @@
       ]
     },
     {
-      "before": ["<leader>", "."],
+      "before": [
+        "<leader>",
+        "."
+      ],
       "after": [],
       "commands": [
         {
@@ -167,7 +198,9 @@
       ]
     },
     {
-      "before": ["∆"],
+      "before": [
+        "∆"
+      ],
       "after": [],
       "commands": [
         {
@@ -176,7 +209,9 @@
       ]
     },
     {
-      "before": ["˚"],
+      "before": [
+        "˚"
+      ],
       "after": [],
       "commands": [
         {
@@ -185,7 +220,10 @@
       ]
     },
     {
-      "before": ["<leader>", "t"],
+      "before": [
+        "<leader>",
+        "t"
+      ],
       "after": [],
       "commands": [
         {
@@ -213,7 +251,10 @@
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
     {
-      "before": ["<leader>", "t"],
+      "before": [
+        "<leader>",
+        "t"
+      ],
       "after": [],
       "commands": [
         {
@@ -222,7 +263,9 @@
       ]
     },
     {
-      "before": ["∆"],
+      "before": [
+        "∆"
+      ],
       "after": [],
       "commands": [
         {
@@ -231,7 +274,9 @@
       ]
     },
     {
-      "before": ["˚"],
+      "before": [
+        "˚"
+      ],
       "after": [],
       "commands": [
         {
@@ -242,18 +287,35 @@
     // vnoremap p "_dP
     // paste without yanking
     {
-      "before": ["p"],
-      "after": ["\"", "_", "d", "P"]
+      "before": [
+        "p"
+      ],
+      "after": [
+        "\"",
+        "_",
+        "d",
+        "P"
+      ]
     }
   ],
   "vim.insertModeKeyBindings": [
     {
-      "before": ["j", "j"],
-      "after": ["<Esc>"]
+      "before": [
+        "j",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
     },
     {
-      "before": ["j", "k"],
-      "after": ["<Esc>"]
+      "before": [
+        "j",
+        "k"
+      ],
+      "after": [
+        "<Esc>"
+      ]
     }
   ],
   // "vim.visualModeKeyBindings": [

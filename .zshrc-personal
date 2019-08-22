@@ -19,6 +19,7 @@ alias vis='vi -c OpenSession'
 alias mvis='mvim -c OpenSession'
 alias viallnotes='vi ~/Dropbox/Notes/*.md'
 alias octave='octave -W -q'
+alias ctags="rg --files | ctags --links=no -L-"
 
 # Proxy stuff
 alias proxywifion='sudo networksetup -setsocksfirewallproxystate Wi-Fi on' #on / off
