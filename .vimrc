@@ -355,73 +355,40 @@ runtime macros/matchit.vim
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
 
+" === Theme
 Plug 'altercation/vim-colors-solarized'
-" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-Plug 'PeterRincker/vim-argumentative'
+"Plug 'edkolev/tmuxline.vim'
+let g:tmuxline_powerline_separators = 0
+let g:tmuxline_preset = {
+  \'a'       : '#S:#I',
+  \'b disabled'       : '',
+  \'c disabled'       : '',
+  \'win'     : ['#I', '#W'],
+  \'cwin'    : ['#I', '#W'],
+  \'x disabled'       : '',
+  \'y'       : ['%a', '%Y-%m-%d', '%l:%M%p'],
+  \'z'       : ['#(whoami)'],
+  \'options' : {'status-justify': 'left'}}
+let g:airline#extensions#tmuxline#enabled = 0
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_extensions = []
+let g:airline#extensions#branch#enabled=1
+let g:airline#extensions#branch#empty_message='no repo'
+let g:airline_theme='solarized'
+
+
+" === Hooks
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
-Plug 'edkolev/tmuxline.vim'
-Plug 'terryma/vim-multiple-cursors'
-" I only download this for the conflict mapping ]n and [n
-Plug 'tpope/vim-unimpaired'
-Plug 'sheerun/vim-polyglot'
-" Rust vim specific
-let g:rustfmt_autosave = 1
-"au BufNewFile,BufReadPost *.md set filetype=markdown
-let g:vim_markdown_new_list_item_indent = 0
-
-Plug 'bronson/vim-visual-star-search'
-" Use * in visual mode
-
-"Plug 'junegunn/vim-easy-align'
-" vipga= " Visual Inner Paragraph (ga) align =
-" gaip= " (ga) align Inner Paragraph =
-
-"Plug 'garbas/vim-snipmate'
-"Plug 'honza/vim-snippets'
 
 Plug 'tpope/vim-fugitive'
 " Move between changes with [c and ]c
-Plug 'tpope/vim-surround'
-" cs'" - for change existing
-" dst - for delete surrounding tags
-" ysiw] - for insert no space square bracket, use `[` for with space
-" ysiw<em> - for insert tags
-" <VISUAL> S<p class="important"> - insert p tag around
-
-" See issue: https://github.com/tpope/vim-surround/issues/276
-nmap ysa' ys2i'
-nmap ysa" ys2i"
-nmap ysa` ys2i`
-
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-commentary'
-" gc to comment
-"Plug 'tpope/vim-vinegar' " Making file management easier
-"Plug 'tpope/vim-speeddating' "Understand dates if you want
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-"Plug 'zeekay/vim-beautify'
-Plug 'vim-scripts/ReplaceWithRegister' "griw to replace inner word with register
-Plug 'christoomey/vim-sort-motion' "sort with gsip
-Plug 'mzlogin/vim-markdown-toc'
 
 Plug 'craigemery/vim-autotag'
 " Requires python support, but refreshes ctags if it's there
-
-Plug 'davidhalter/jedi-vim'
-" We change these to be similar to tsuquyomi
-let g:jedi#goto_command = "<C-]>"
-let g:jedi#goto_assignments_command = ""
-let g:jedi#goto_definitions_command = "<C-}>"
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#completions_command = "<C-x><C-o>"
-let g:jedi#rename_command = "<leader>r"
-
-Plug 'edkolev/tmuxline.vim'
-let g:airline#extensions#tmuxline#enabled = 0
 
 Plug 'osyo-manga/vim-anzu' " show search progress
 " mapping
@@ -435,11 +402,45 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 "
 " Show in search status - will override file name so kinda meh
 "let g:airline_section_c='%{anzu#search_status()}'
-"
-" New based on: https://statico.github.io/vim3.html
+
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
+let g:session_autosave = 'yes'
+let g:session_autoload = 'no'
+let g:session_default_overwrite = 1
+" Basically you just care about :OpenSession, don't worry about anything else
+
+" === Commands and functions
+Plug 'PeterRincker/vim-argumentative'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-unimpaired'
+" I only download this for the conflict mapping ]n and [n
+
+Plug 'bronson/vim-visual-star-search'
+" Use * in visual mode
+
+Plug 'tpope/vim-surround'
+" cs'" - for change existing
+" dst - for delete surrounding tags
+" ysiw] - for insert no space square bracket, use `[` for with space
+" ysiw<em> - for insert tags
+" <VISUAL> S<p class="important"> - insert p tag around
+" See issue: https://github.com/tpope/vim-surround/issues/276
+nmap ysa' ys2i'
+nmap ysa" ys2i"
+nmap ysa` ys2i`
+
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+" gc to comment
+
+"Plug 'vim-scripts/ReplaceWithRegister' "griw to replace inner word with register
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 noremap <leader><Tab> :Buffers<CR>
+nmap <Leader>t :Files<CR>
+" Don't really use this
+nmap <Leader>r :Tags<CR>
 " https://github.com/junegunn/fzf
 " sbtrkt	fuzzy-match	Items that match sbtrkt
 " 'wild	exact-match (quoted)	Items that include wild
@@ -449,43 +450,12 @@ noremap <leader><Tab> :Buffers<CR>
 " !^music	inverse-prefix-exact-match	Items that do not start with music
 " !.mp3$	inverse-suffix-exact-match	Items that do not end with .mp3
 
-"Plug 'mileszs/ack.vim'
-Plug 'w0rp/ale'
-"autocmd! FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
-"autocmd! FileType typescript,typescript.tsx let g:ale_linters = {'typescript': ['eslint']}
-nmap <silent> ]j :ALENextWrap<cr>
-nmap <silent> [j :ALEPreviousWrap<cr>
+Plug 'easymotion/vim-easymotion'
+" Mainly use this to search
+" <leader><leader>f<char>
+" <leader><leader>F<char>
 
-
-let g:ale_fixers = {
-\ 'typescript': ['tslint', 'prettier'],
-\ 'javascript': ['eslint', 'prettier'],
-\ 'python': ['black'],
-\}
-let g:ale_fix_on_save = 1
-let g:ale_javascript_prettier_use_local_config = 1
-
-"Plug 'peitalin/vim-jsx-typescript'
-Plug 'Quramy/tsuquyomi'
-let g:tsuquyomi_single_quote_import=1
-let g:tsuquyomi_shortest_import_path = 1
-" Stop tsuquyomi freezing on save, why do this in vim 8 though...
-let g:tsuquyomi_disable_quickfix = 1
-autocmd! FileType typescript,typescript.tsx nmap <buffer> <Leader>k : <C-u>echo tsuquyomi#hint()<CR>
-" It takes like 30+ seconds gets kinda pointless
-" autocmd FileType typescript
-"     \ autocmd BufWritePost <buffer> :TsuquyomiAsyncGeterr
-
-" Plug 'flowtype/vim-flow'
-
-
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
-let g:session_autosave = 'yes'
-let g:session_autoload = 'no'
-let g:session_default_overwrite = 1
-" Basically you just care about :OpenSession, don't worry about anything else
-
+" === Text objects
 Plug 'bkad/CamelCaseMotion'
 let g:camelcasemotion_key = '<leader>'
 " Use leader as camel case word object: i.e. ci,w
@@ -501,57 +471,66 @@ Plug 'michaeljsmith/vim-indent-object'
 " <count>aI	An Indentation level and lines above/below.
 " <count>iI	Inner Indentation level (no lines above/below).
 
-Plug 'easymotion/vim-easymotion'
-" Mainly use this to search
-" <leader><leader>f<char>
-" <leader><leader>F<char>
+"Plug 'christoomey/vim-sort-motion' "sort with gsip
+
+" === Language specific
+Plug 'sheerun/vim-polyglot'
+" Rust vim specific
+let g:rustfmt_autosave = 1
+"au BufNewFile,BufReadPost *.md set filetype=markdown
+let g:vim_markdown_new_list_item_indent = 0
+
+Plug 'mzlogin/vim-markdown-toc'
+Plug 'racer-rust/vim-racer'
+Plug 'davidhalter/jedi-vim'
+" We change these to be similar to tsuquyomi
+let g:jedi#goto_command = "<C-]>"
+let g:jedi#goto_assignments_command = ""
+let g:jedi#goto_definitions_command = "<C-}>"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-x><C-o>"
+let g:jedi#rename_command = "<leader>r"
+
+Plug 'w0rp/ale'
+"autocmd! FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
+"autocmd! FileType typescript,typescript.tsx let g:ale_linters = {'typescript': ['eslint']}
+nmap <silent> ]j :ALENextWrap<cr>
+nmap <silent> [j :ALEPreviousWrap<cr>
+let g:ale_fixers = {
+\ 'typescript': ['tslint', 'prettier'],
+\ 'javascript': ['eslint', 'prettier'],
+\ 'python': ['black'],
+\}
+let g:ale_fix_on_save = 1
+let g:ale_javascript_prettier_use_local_config = 1
+
+Plug 'Quramy/tsuquyomi'
+let g:tsuquyomi_single_quote_import=1
+let g:tsuquyomi_shortest_import_path = 1
+" Stop tsuquyomi freezing on save, why do this in vim 8 though...
+let g:tsuquyomi_disable_quickfix = 1
+autocmd! FileType typescript,typescript.tsx nmap <buffer> <Leader>k : <C-u>echo tsuquyomi#hint()<CR>
+" It takes like 30+ seconds gets kinda pointless
+" autocmd FileType typescript
+"     \ autocmd BufWritePost <buffer> :TsuquyomiAsyncGeterr
+
+" === old
+
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+"Plug 'junegunn/vim-easy-align'
+" vipga= " Visual Inner Paragraph (ga) align =
+" gaip= " (ga) align Inner Paragraph =
+
+"Plug 'garbas/vim-snipmate'
+"Plug 'honza/vim-snippets'
+
+"Plug 'tpope/vim-vinegar' " Making file management easier
+"Plug 'tpope/vim-speeddating' "Understand dates if you want
+"Plug 'zeekay/vim-beautify'
 
 " Initialize plugin system
 call plug#end()
-
-" --------------------------------- Old extension config (to clean)
-let g:airline_extensions = []
-let g:airline#extensions#branch#enabled=1
-let g:airline#extensions#branch#empty_message='no repo'
-let g:airline_theme='solarized'
-
-let g:tmuxline_powerline_separators = 0
-let g:tmuxline_preset = {
-  \'a'       : '#S:#I',
-  \'b disabled'       : '',
-  \'c disabled'       : '',
-  \'win'     : ['#I', '#W'],
-  \'cwin'    : ['#I', '#W'],
-  \'x disabled'       : '',
-  \'y'       : ['%a', '%Y-%m-%d', '%l:%M%p'],
-  \'z'       : ['#(whoami)'],
-  \'options' : {'status-justify': 'left'}}
-
-
-" set rtp+=/usr/local/opt/fzf
-" I don't like vim-jsx messing with my indentation in line
-"autocmd FileType markdown setlocal inde=
-"autocmd FileType javascript.jsx setlocal inde=
-"autocmd FileType typescript setlocal inde=
-"autocmd FileType yaml setlocal inde=
-hi Search cterm=NONE ctermfg=grey ctermbg=blue
-
-" fzf
-" nmap ; :Buffers<CR>
-nmap <Leader>t :Files<CR>
-" Don't really use this
-nmap <Leader>r :Tags<CR>
-
-"Use locally installed flow
-let local_flow = finddir('node_modules', '.;') . '/.bin/flow'
-if matchstr(local_flow, "^\/\\w") == ''
-    let local_flow= getcwd() . "/" . local_flow
-endif
-if executable(local_flow)
-  let g:flow#flowpath = local_flow
-endif
-let g:flow#enable = 0
-autocmd FileType javascript nmap <buffer> <Leader>, :FlowType<CR>
 
 " --------------- Finally colour scheme
 syntax enable
