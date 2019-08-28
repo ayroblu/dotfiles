@@ -1,14 +1,26 @@
-Bash Configuration
-==================
-
-This is just my bashrc configuration, plus some setup scripts
-
-I'd like to setup some curses stuff too cause that's cool stuff! (rather than read or whatever bash runs for waiting for file input)
+Dotfiles
+========
 
 If you run a `.bash_profile` then you should probably add this:
 
 ```bash
 if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
+```
+
+Making symlinks
+---------------
+```bash
+ln -s ~/ws/dotfiles/.bashrc ~/.bashrc
+```
+
+Write some code to do this:
+```bash
+for file in .*; do
+  if [[ -f $file ]]; then
+    echo ln -s $(pwd)/$file ~/$file
+    ln -s $(pwd)/$file ~/$file
+  fi
+done
 ```
 
 Tmux Setup
@@ -23,7 +35,7 @@ Vim Setup
 ---------
 Install all these plugins:
 
-Run plug install
+Run PlugInstall
 
 VS Code Setup
 -------------
