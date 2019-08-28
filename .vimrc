@@ -133,22 +133,23 @@ nnoremap }         :tabnext<CR>
 nnoremap (         :tabmove -1<cr>
 nnoremap )         :tabmove +1<cr>
 
-" Window mappings
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" Window mappings (use alt hjkl)
+nnoremap ˙ <C-w>h
+nnoremap ∆ <C-w>j
+nnoremap ˚ <C-w>k
+nnoremap ¬ <C-w>l
 
-" Move line up or down with alt key
+" Move line up or down with alt key not really useful, given to window
+" mappings
 " <A-j>: ∆, <A-k>: ˚
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-nnoremap ∆ :m .+1<CR>==
-nnoremap ˚ :m .-2<CR>==
-" inoremap <A-j> <Esc>:m .+1<CR>==gi
-" inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap ∆ :m '>+1<CR>gv=gv
-vnoremap ˚ :m '<-2<CR>gv=gv
+" nnoremap <A-j> :m .+1<CR>==
+" nnoremap <A-k> :m .-2<CR>==
+" nnoremap ∆ :m .+1<CR>==
+" nnoremap ˚ :m .-2<CR>==
+" " inoremap <A-j> <Esc>:m .+1<CR>==gi
+" " inoremap <A-k> <Esc>:m .-2<CR>==gi
+" vnoremap ∆ :m '>+1<CR>gv=gv
+" vnoremap ˚ :m '<-2<CR>gv=gv
 
 " Scroll mappings
 map <ScrollWheelUp> <C-Y>
@@ -182,6 +183,9 @@ nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
 autocmd FileType javascript xnoremap <leader>e :w !node<cr>
 autocmd FileType python xnoremap <leader>e :w !python<cr>
 autocmd FileType matlab xnoremap <leader>e :w !octave<cr>
+autocmd FileType rust xnoremap <leader>e :w !echo 'fn main() {' "$(cat)" '}' > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
+autocmd FileType rust xnoremap <leader><leader>e :w !echo "$(cat)" > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
+autocmd FileType rust nnoremap <leader>e :RustRun<cr>
 " Execute clipboard in node
 autocmd FileType javascript nnoremap <leader>e :echo system('node', @")<cr>
 
@@ -378,7 +382,6 @@ let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#branch#empty_message='no repo'
 let g:airline_theme='solarized'
 
-
 " === Hooks
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_realtime = 0
@@ -389,6 +392,12 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'craigemery/vim-autotag'
 " Requires python support, but refreshes ctags if it's there
+" More info on tags generally:
+" https://andrew.stwrt.ca/posts/vim-ctags/
+" <c-x><c-]> for tag completion
+" <c-]> go to first match
+" g<c-]> got to match if only one, else, show list
+" g] show list of tags
 
 Plug 'osyo-manga/vim-anzu' " show search progress
 " mapping
@@ -475,13 +484,30 @@ Plug 'michaeljsmith/vim-indent-object'
 
 " === Language specific
 Plug 'sheerun/vim-polyglot'
+Plug 'mzlogin/vim-markdown-toc'
+
 " Rust vim specific
+" http://seenaburns.com/vim-setup-for-rust/
+"  - Cleaner
+" https://about.okhin.fr/2018/08/03/my-vim-setup-with-some-rust-specifities/
+"  - more ide
+" https://asquera.de/blog/2017-03-03/setting-up-a-rust-devenv/
+"  - vscode
 let g:rustfmt_autosave = 1
 "au BufNewFile,BufReadPost *.md set filetype=markdown
 let g:vim_markdown_new_list_item_indent = 0
 
-Plug 'mzlogin/vim-markdown-toc'
 Plug 'racer-rust/vim-racer'
+let g:racer_experimental_completer = 1
+let g:racer_insert_paren = 1
+" au FileType rust nmap <leader>k <Plug>(rust-def)
+au FileType rust nmap <leader><leader>k <Plug>(rust-def-split)
+" au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>k <Plug>(rust-doc)
+"au FileType rust au User ALELint lwindow
+nmap <c-l> :lwindow<cr>
+"au FileType rust au FocusGained,BufEnter,CursorHold,CursorHoldI * lwindow
+
 Plug 'davidhalter/jedi-vim'
 " We change these to be similar to tsuquyomi
 let g:jedi#goto_command = "<C-]>"
