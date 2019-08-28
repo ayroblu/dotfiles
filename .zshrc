@@ -1,4 +1,6 @@
 # ----------------------------------------- plugin setup
+#https://stackoverflow.com/questions/11378607/oh-my-zsh-disable-would-you-like-to-check-for-updates-prompt
+DISABLE_AUTO_UPDATE="true"
 [ -f ~/.zshrc-omz ] && source ~/.zshrc-omz
 
 # Init setup
