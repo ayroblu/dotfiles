@@ -33,9 +33,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 Vim Setup
 ---------
-Install all these plugins:
-
-Run PlugInstall
+Install plugins with vim-plug then run `:PlugInstall`
 
 VS Code Setup
 -------------
