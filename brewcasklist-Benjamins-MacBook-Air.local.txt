@@ -1,0 +1,11 @@
+caffeine
+clipy
+dropbox
+google-chrome
+handbrake
+hyperswitch
+macs-fan-control
+puush
+spectacle
+transmission
+vlc
