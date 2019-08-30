@@ -183,6 +183,7 @@ nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
 autocmd FileType javascript xnoremap <leader>e :w !node<cr>
 autocmd FileType python xnoremap <leader>e :w !python<cr>
 autocmd FileType matlab xnoremap <leader>e :w !octave<cr>
+autocmd FileType sh xnoremap <leader>e :w !sh<cr>
 autocmd FileType rust xnoremap <leader>e :w !echo 'fn main() {' "$(cat)" '}' > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
 autocmd FileType rust xnoremap <leader><leader>e :w !echo "$(cat)" > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
 autocmd FileType rust nnoremap <leader>e :RustRun<cr>

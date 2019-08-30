@@ -7,6 +7,24 @@ If you run a `.bash_profile` then you should probably add this:
 if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
 ```
 
+Setting up my mac
+-----------------
+1. Touchpad
+2. Keypress time
+3. alt left right spaces
+4. screen saver and screen off
+5. accessibility drag + reduce motion
+
+homebrew
+--------
+Install homebrew
+
+Install the packages that are listed in the brew lists
+
+zsh
+---
+Install oh my zsh
+
 Making symlinks
 ---------------
 ```bash
@@ -34,6 +52,14 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 Vim Setup
 ---------
 Install plugins with vim-plug then run `:PlugInstall`
+
+FZF setup
+---------
+After brew install fzf, make sure you run the key bindings setup
+
+```bash
+/usr/local/opt/fzf/install
+```
 
 VS Code Setup
 -------------
