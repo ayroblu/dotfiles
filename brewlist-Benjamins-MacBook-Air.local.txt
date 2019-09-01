@@ -10,6 +10,7 @@ octave: arpack cairo eigen epstool fftw fig2dev flac fltk fontconfig freetype fr
 p7zip: 
 ripgrep: pcre2
 rmtrash: 
+rustup-init: 
 tmux: libevent ncurses openssl
 tree: 
 vim: gdbm gettext libyaml lua openssl perl python readline ruby sqlite xz

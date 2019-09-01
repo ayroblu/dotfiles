@@ -139,6 +139,9 @@ nnoremap ∆ <C-w>j
 nnoremap ˚ <C-w>k
 nnoremap ¬ <C-w>l
 
+" show errors if you want (need to work out how to show automatically)
+nmap <c-l> :lwindow<cr>
+
 " Move line up or down with alt key not really useful, given to window
 " mappings
 " <A-j>: ∆, <A-k>: ˚
@@ -186,7 +189,6 @@ autocmd FileType matlab xnoremap <leader>e :w !octave<cr>
 autocmd FileType sh xnoremap <leader>e :w !sh<cr>
 autocmd FileType rust xnoremap <leader>e :w !echo 'fn main() {' "$(cat)" '}' > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
 autocmd FileType rust xnoremap <leader><leader>e :w !echo "$(cat)" > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
-autocmd FileType rust nnoremap <leader>e :RustRun<cr>
 " Execute clipboard in node
 autocmd FileType javascript nnoremap <leader>e :echo system('node', @")<cr>
 
@@ -467,8 +469,8 @@ Plug 'easymotion/vim-easymotion'
 
 " === Text objects
 Plug 'bkad/CamelCaseMotion'
-let g:camelcasemotion_key = '<leader>'
-" Use leader as camel case word object: i.e. ci,w
+let g:camelcasemotion_key = ','
+" Use , as camel case word object: i.e. ci,w
 
 Plug 'vim-scripts/argtextobj.vim'
 " Adds argument (a) so caa, cia
@@ -487,28 +489,6 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'sheerun/vim-polyglot'
 Plug 'mzlogin/vim-markdown-toc'
 
-" Rust vim specific
-" http://seenaburns.com/vim-setup-for-rust/
-"  - Cleaner
-" https://about.okhin.fr/2018/08/03/my-vim-setup-with-some-rust-specifities/
-"  - more ide
-" https://asquera.de/blog/2017-03-03/setting-up-a-rust-devenv/
-"  - vscode
-let g:rustfmt_autosave = 1
-"au BufNewFile,BufReadPost *.md set filetype=markdown
-let g:vim_markdown_new_list_item_indent = 0
-
-Plug 'racer-rust/vim-racer'
-let g:racer_experimental_completer = 1
-let g:racer_insert_paren = 1
-" au FileType rust nmap <leader>k <Plug>(rust-def)
-au FileType rust nmap <leader><leader>k <Plug>(rust-def-split)
-" au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>k <Plug>(rust-doc)
-"au FileType rust au User ALELint lwindow
-nmap <c-l> :lwindow<cr>
-"au FileType rust au FocusGained,BufEnter,CursorHold,CursorHoldI * lwindow
-
 Plug 'davidhalter/jedi-vim'
 " We change these to be similar to tsuquyomi
 let g:jedi#goto_command = "<C-]>"
@@ -520,8 +500,8 @@ let g:jedi#completions_command = "<C-x><C-o>"
 let g:jedi#rename_command = "<leader>r"
 
 Plug 'w0rp/ale'
-"autocmd! FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
-"autocmd! FileType typescript,typescript.tsx let g:ale_linters = {'typescript': ['eslint']}
+"autocmd FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
+"autocmd FileType typescript,typescript.tsx let g:ale_linters = {'typescript': ['eslint']}
 nmap <silent> ]j :ALENextWrap<cr>
 nmap <silent> [j :ALEPreviousWrap<cr>
 let g:ale_fixers = {
@@ -531,13 +511,36 @@ let g:ale_fixers = {
 \}
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
+let g:vim_markdown_new_list_item_indent = 0
+
+" Rust vim specific
+" http://seenaburns.com/vim-setup-for-rust/
+"  - Cleaner
+" https://about.okhin.fr/2018/08/03/my-vim-setup-with-some-rust-specifities/
+"  - more ide
+" https://asquera.de/blog/2017-03-03/setting-up-a-rust-devenv/
+"  - vscode
+let g:rustfmt_autosave = 1
+autocmd FileType rust let g:ale_linters = {'rust': ['rls']}
+autocmd FileType rust nnoremap <leader>e :RustRun<cr>
+"au BufNewFile,BufReadPost *.md set filetype=markdown
+
+Plug 'racer-rust/vim-racer'
+let g:racer_experimental_completer = 1
+let g:racer_insert_paren = 1
+" au FileType rust nmap <leader>k <Plug>(rust-def)
+au FileType rust nmap <leader><leader>k <Plug>(rust-def-split)
+" au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>k <Plug>(rust-doc)
+"au FileType rust au User ALELint lwindow
+"au FileType rust au FocusGained,BufEnter,CursorHold,CursorHoldI * lwindow
 
 Plug 'Quramy/tsuquyomi'
 let g:tsuquyomi_single_quote_import=1
 let g:tsuquyomi_shortest_import_path = 1
 " Stop tsuquyomi freezing on save, why do this in vim 8 though...
 let g:tsuquyomi_disable_quickfix = 1
-autocmd! FileType typescript,typescript.tsx nmap <buffer> <Leader>k : <C-u>echo tsuquyomi#hint()<CR>
+autocmd FileType typescript,typescript.tsx nmap <buffer> <Leader>k : <C-u>echo tsuquyomi#hint()<CR>
 " It takes like 30+ seconds gets kinda pointless
 " autocmd FileType typescript
 "     \ autocmd BufWritePost <buffer> :TsuquyomiAsyncGeterr

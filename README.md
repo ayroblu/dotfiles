@@ -14,6 +14,29 @@ Setting up my mac
 3. alt left right spaces
 4. screen saver and screen off
 5. accessibility drag + reduce motion
+6. Download chrome - disable third party cookies
+
+Rust setup
+----------
+```
+# Init
+brew install rustup
+rustup-init
+rmtrash ~/.zprofile
+rmtrash ~/.profile
+rustup component add rustfmt
+
+# Install racer
+rustup toolchain add nightly
+cargo +nightly install racer
+rustup component add rust-src
+racer complete std::io::B
+
+# Install rls (setup in vim)
+rustup component add rls
+```
+
+Checkout https://crates.io/crates/cargo-outdated for when your packages go out of date
 
 homebrew
 --------
