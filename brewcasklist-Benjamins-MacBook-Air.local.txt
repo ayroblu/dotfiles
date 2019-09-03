@@ -1,11 +1,14 @@
 caffeine
 clipy
+docker
 dropbox
 google-chrome
 handbrake
 hyperswitch
 macs-fan-control
+minikube
 puush
 spectacle
 transmission
+virtualbox
 vlc
