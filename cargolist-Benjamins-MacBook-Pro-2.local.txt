@@ -1,0 +1,5 @@
+cargo-script v0.2.8:
+    cargo-script
+    run-cargo-script
+racer v2.1.25:
+    racer
