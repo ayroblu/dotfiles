@@ -499,6 +499,9 @@ let g:jedi#usages_command = "<leader>n"
 let g:jedi#completions_command = "<C-x><C-o>"
 let g:jedi#rename_command = "<leader>r"
 
+Plug 'fisadev/vim-isort'
+" Need to call :Isort, it's not automatic
+
 Plug 'w0rp/ale'
 "autocmd FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
 "autocmd FileType typescript,typescript.tsx let g:ale_linters = {'typescript': ['eslint']}
