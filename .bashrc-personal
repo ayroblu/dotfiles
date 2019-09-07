@@ -1,9 +1,15 @@
+has() {
+  type "$1" &> /dev/null
+}
+
 #----------------------------------Personal to this computer
 # export DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}/Applications/MATLAB/MATLAB_Compiler_Runtime/v83/runtime/maci64:/Applications/MATLAB/MATLAB_Compiler_Runtime/v83/sys/os/maci64:/Applications/MATLAB/MATLAB_Compiler_Runtime/v83/bin/maci64:
 export ECLIPSE_HOME=/Users/blu/Desktop/Software/eclipse
 #export PATH=$PATH:/usr/local/opt/go/libexec/bin
-export GOPATH=$HOME/ws/go
-export PATH=$PATH:$(go env GOPATH)/bin
+if has go; then
+  export GOPATH=$HOME/ws/go
+  export PATH=$PATH:$(go env GOPATH)/bin
+fi
 
 #-------------- personal aliases
 #alias vi='/Applications/MacVim.app/Contents/MacOS/Vim'
@@ -191,7 +197,7 @@ function addbashfunc {
 alias addbash='TEMPCMD="$(history -p !!)"; addbashfunc'
 
 # ---------------------------------------------------------------------------Git completion
-source ~/codes/git-completion.bash
+#source ~/codes/git-completion.bash
 
 #-----------------------------------------------------------------------------RVM
 #export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
