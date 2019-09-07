@@ -1,0 +1,5 @@
+color "type=INPUT fg=BLACK bg=DEFAULT_COLOR"
+color "type=NORMAL fg=BLACK bg=DEFAULT_COLOR"
+color "type=WELCOME fg=BLACK bg=DEFAULT_COLOR"
+color "type=CELL_SELECTION_SC fg=WHITE bg=BLACK"
+color "type=MODE fg=BLACK bg=DEFAULT_COLOR"
