@@ -1,5 +1,26 @@
+## Configuration
+# number starts number input (0 is command repeat in vim)
+set numeric=1
+set xlsx_readformulas=1
+set tm_gmtoff=0
+
+#set ignorecase
+
+## Light theme issues
+# https://github.com/andmarti1424/sc-im/issues/297
 color "type=INPUT fg=BLACK bg=DEFAULT_COLOR"
 color "type=NORMAL fg=BLACK bg=DEFAULT_COLOR"
 color "type=WELCOME fg=BLACK bg=DEFAULT_COLOR"
-color "type=CELL_SELECTION_SC fg=WHITE bg=BLACK"
+#color "type=CELL_SELECTION_SC fg=WHITE bg=BLACK"
 color "type=MODE fg=BLACK bg=DEFAULT_COLOR"
+
+## Vim scroll (has to be capital C)
+set half_page_scroll=1
+nnoremap "<C-u>" "<C-b>"
+nnoremap "<C-d>" "<C-f>"
+nnoremap "<C-f>" "<C-d>"
+nnoremap "˙" "zH"
+nnoremap "¬" "zL"
+nnoremap "p" "Pc"
+nnoremap "Pc" "p"
+nnoremap "V" "g0v$"
