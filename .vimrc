@@ -139,6 +139,11 @@ nnoremap ∆ <C-w>j
 nnoremap ˚ <C-w>k
 nnoremap ¬ <C-w>l
 
+" Incrementing and decrementing visual blocks
+" https://stackoverflow.com/questions/23481635/how-to-use-vims-normal-mode-ctrl-a-number-increment-in-visual-block-mode
+xnoremap <C-a> :<C-u>let vcount = v:count ? v:count : 1 <bar> '<,'>s/\%V\d\+/\=submatch(0) + vcount <cr>gv
+xnoremap <C-x> :<C-u>let vcount = v:count ? v:count : 1 <bar> '<,'>s/\%V\d\+/\=submatch(0) - vcount <cr>gv
+
 " show errors if you want (need to work out how to show automatically)
 nmap <c-l> :lwindow<cr>
 
@@ -200,6 +205,12 @@ nnoremap <Leader>j :let @x=@" \| let @"=@a \| let @a=@x<CR>
 nnoremap Y :let @C=@" \| let @"=@c<CR>
 " Clear
 nnoremap YY :let @c=@"<CR>
+
+" ------ Allow undo in insert mode
+inoremap <c-u> <esc>ua
+" https://vi.stackexchange.com/questions/16773/how-to-undo-the-deletion-of-characters-in-insert-mode-caused-by-ctrl-u
+" Break on cr so that you can undo an enter with indenting
+inoremap <cr> <c-g>u<cr>
 
 " --------------- from https://sanctum.geek.nz/arabesque/vim-annoyances/
 " always middle on next, needs to be remaped as per plugin FYI, see below

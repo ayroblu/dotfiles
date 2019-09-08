@@ -8,6 +8,7 @@ hyperswitch
 macs-fan-control
 minikube
 puush
+slack
 spectacle
 transmission
 virtualbox
