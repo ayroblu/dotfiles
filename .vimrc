@@ -201,6 +201,12 @@ nnoremap Y :let @C=@" \| let @"=@c<CR>
 " Clear
 nnoremap YY :let @c=@"<CR>
 
+" ------ Allow undo in insert mode
+inoremap <c-u> <esc>ua
+" https://vi.stackexchange.com/questions/16773/how-to-undo-the-deletion-of-characters-in-insert-mode-caused-by-ctrl-u
+" Break on cr so that you can undo an enter with indenting
+inoremap <cr> <c-g>u<cr>
+
 " --------------- from https://sanctum.geek.nz/arabesque/vim-annoyances/
 " always middle on next, needs to be remaped as per plugin FYI, see below
 " (anzu), but the zz removes the anzu output so this does nothing for now
