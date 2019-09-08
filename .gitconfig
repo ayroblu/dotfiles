@@ -17,7 +17,7 @@
   boq = for-each-ref --sort=committerdate refs/remotes/origin/ --format='%(refname:lstrip=-1)'
   # Local branches
   bl = log --branches --oneline --no-walk --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset'
-  bs = !git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf | xargs git co
+  bs = !git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf --no-sort | xargs git co
   # To clean everything
   cfd = clean -fd
   ci = commit -am

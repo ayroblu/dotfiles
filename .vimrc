@@ -392,6 +392,7 @@ let g:gitgutter_eager = 0
 
 Plug 'tpope/vim-fugitive'
 " Move between changes with [c and ]c
+" Move files with :Gmove <c-r>%
 
 Plug 'craigemery/vim-autotag'
 " Requires python support, but refreshes ctags if it's there
@@ -500,7 +501,9 @@ let g:jedi#completions_command = "<C-x><C-o>"
 let g:jedi#rename_command = "<leader>r"
 
 Plug 'fisadev/vim-isort'
-" Need to call :Isort, it's not automatic
+let g:vim_isort_config_overrides = {'multi_line_output': 3}
+" python- Need to call :Isort, it's not automatic
+autocmd FileType python autocmd BufWritePre * Isort
 
 Plug 'w0rp/ale'
 "autocmd FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
