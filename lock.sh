@@ -31,3 +31,9 @@ if has cargo; then
   echo 'has cargo'
   cargo install --list > cargolist-"$HOSTNAME".txt
 fi
+
+# ----------- python pip
+if has python3; then
+  echo 'has pip3'
+  python3 -m pip list > piplist-"$HOSTNAME".txt
+fi
