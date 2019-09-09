@@ -1,0 +1,10 @@
+Package          Version   
+---------------- ----------
+certifi          2019.6.16 
+isort            4.3.21    
+pip              19.1.1    
+pipenv           2018.11.26
+setuptools       41.0.1    
+virtualenv       16.6.0    
+virtualenv-clone 0.5.3     
+wheel            0.33.4    
