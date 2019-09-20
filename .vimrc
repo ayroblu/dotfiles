@@ -165,6 +165,7 @@ map <ScrollWheelDown> <C-E>
 
 " This is just annoying
 noremap K k
+autocmd FileType c,cpp unmap K
 
 " nnoremap <C-L> :redraw!
 
