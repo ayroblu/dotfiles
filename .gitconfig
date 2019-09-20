@@ -23,10 +23,14 @@
   ci = commit -am
   cim = commit -m
   co = checkout
+  # git cod 'Dec 25 2018'
+  cod = !"f() { echo git checkout `git rev-list -1 --before=\"$1\" --first-parent master`; }; f"
   d = diff
   ds = diff --staged
   dh = diff HEAD
   dt = difftool
+  dw = d --color-words
+  dc = d --color-words=.
   # Chain things on to this
   f = !git status -s | sed s/^...// | fzf -m
   fco = !git f | xargs git co
@@ -37,6 +41,7 @@
   ls = l --stat
   ll = ls -10 -U0
   la = lbase --all
+  laa = lbase --all --author-date-order --author='Ben Lu'
   lf = l --first-parent
   lfs = l --first-parent --stat
   # -c shows merge commit diff too
