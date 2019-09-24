@@ -1,23 +1,28 @@
-awscli: gdbm openssl python readline sqlite xz
+awscli: gdbm openssl@1.1 python readline sqlite xz
 bash: 
 colordiff: 
 cpulimit: 
 ctags: 
-ffmpeg: aom cairo flac fontconfig freetype frei0r fribidi gdbm gettext giflib glib gmp gnutls graphite2 harfbuzz icu4c jpeg lame leptonica libass libbluray libevent libffi libidn2 libogg libpng libsamplerate libsndfile libsoxr libtasn1 libtiff libunistring libvorbis libvpx little-cms2 lzo nettle opencore-amr openjpeg openssl opus p11-kit pcre pixman python readline rtmpdump rubberband sdl2 snappy speex sqlite tesseract theora unbound webp x264 x265 xvid xz
+ffmpeg: aom cairo flac fontconfig freetype frei0r fribidi gdbm gettext giflib glib gmp gnutls graphite2 harfbuzz icu4c jpeg lame leptonica libass libbluray libevent libffi libidn2 libogg libpng libsamplerate libsndfile libsoxr libtasn1 libtiff libunistring libvorbis libvpx little-cms2 lzo nettle opencore-amr openjpeg openssl@1.1 opus p11-kit pcre pixman python readline rtmpdump rubberband sdl2 snappy speex sqlite tesseract theora unbound webp x264 x265 xvid xz
 fzf: 
 gawk: gettext gmp mpfr readline
 git: gettext pcre2
 htop: ncurses
+ipython: gdbm openssl@1.1 python readline sqlite xz zeromq
 kops: kubernetes-cli
-octave: arpack cairo eigen epstool fftw fig2dev flac fltk fontconfig freetype fribidi gcc gd gdbm gettext ghostscript gl2ps glib glpk gmp gnuplot graphicsmagick graphite2 harfbuzz hdf5 hwloc icu4c ilmbase imagemagick isl jasper jpeg libcerf libde265 libevent libffi libheif libmpc libogg libomp libpng libsndfile libtiff libtool libvorbis little-cms2 lua lzo metis mpfr netpbm open-mpi openblas openexr openjpeg openssl pango pcre pixman plotutils portaudio pstoedit python qhull qrupdate qt readline shared-mime-info sqlite suite-sparse sundials szip texinfo webp x265 xz
+lf: 
+macvim: cscope gdbm lua openssl@1.1 python readline sqlite xz
+octave: arpack cairo eigen epstool fftw fig2dev flac fltk fontconfig freetype fribidi gcc gd gdbm gettext ghostscript gl2ps glib glpk gmp gnuplot graphicsmagick graphite2 harfbuzz hdf5 hwloc icu4c ilmbase imagemagick isl jasper jpeg libcerf libde265 libevent libffi libheif libmpc libogg libomp libpng libsndfile libtiff libtool libvorbis little-cms2 lua lzo metis mpfr netpbm open-mpi openblas openexr openjpeg openssl@1.1 pango pcre pixman plotutils portaudio pstoedit python qhull qrupdate qt readline shared-mime-info sqlite suite-sparse sundials szip texinfo webp x265 xz
 p7zip: 
 ripgrep: pcre2
 rmtrash: 
 rustup-init: 
 sc-im: ncurses
-tmux: libevent ncurses openssl
+tmux: libevent ncurses openssl@1.1
 tree: 
-vim: gdbm gettext libyaml lua openssl perl python readline ruby sqlite xz
+vim: gdbm gettext libyaml lua openssl@1.1 perl python readline ruby sqlite xz
+watch: gettext
 yarn: icu4c node
 youtube-dl: 
 zsh: ncurses pcre
+zsh-syntax-highlighting: 

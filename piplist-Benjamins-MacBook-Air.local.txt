@@ -1,5 +1,10 @@
-Package    Version
----------- -------
-pip        19.1.1 
-setuptools 41.0.1 
-wheel      0.33.4 
+Package         Version
+--------------- -------
+numpy           1.17.2 
+pandas          0.25.1 
+pip             19.1.1 
+python-dateutil 2.8.0  
+pytz            2019.2 
+setuptools      41.0.1 
+six             1.12.0 
+wheel           0.33.4 

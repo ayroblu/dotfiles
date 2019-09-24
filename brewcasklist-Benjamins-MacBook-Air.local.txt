@@ -5,6 +5,8 @@ dropbox
 google-chrome
 handbrake
 hyperswitch
+iterm2
+keybase
 macs-fan-control
 minikube
 puush
