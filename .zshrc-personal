@@ -10,6 +10,8 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 # ---------- Aliases
+# macos doesn't auto sort by CPU
+alias top='top -o cpu'
 alias vis='vi -c OpenSession'
 alias mvis='mvim -c OpenSession'
 alias viallnotes='vi ~/Dropbox/Notes/*.md'
@@ -36,5 +38,22 @@ function nzproxy {
   read -p "Press enter to turn off proxy: "
   proxywifioff
   fg
+}
+
+# Use lf to switch directories and bind it to ctrl-o
+lfcd () {
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+bindkey -s '^o' 'lfcd\n'
+
+# Function to show colours
+function show_colours {
+  for i in {0..255}; do printf "\x1b[38;5;${i}mcolor%-5i\x1b[0m" $i ; if ! (( ($i + 1 ) % 8 )); then echo ; fi ; done
 }
 

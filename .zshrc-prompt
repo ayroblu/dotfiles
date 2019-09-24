@@ -25,23 +25,21 @@ function ssh_name() {
   fi
 }
 
-VIM_MODE='${${KEYMAP/vicmd/}/(main|viins)/-I-}'
 CURRENT_TIME="%{$fg[cyan]%}%D %*%{$reset_color%}"
 
 
-function zle-line-init zle-keymap-select {
+function zle-line-init {
   # last exit code needs to go first cause you call a func in get git
   EXIT_CODE=$(check_last_exit_code)
-  RPS1="$VIM_MODE$(get_git)$CURRENT_TIME $EXIT_CODE"
+  RPS1="$(get_git)$CURRENT_TIME $EXIT_CODE"
   RPS2=$RPS1
   zle reset-prompt
 }
 
 zle -N zle-line-init
-zle -N zle-keymap-select
 
 PROMPT="$(ssh_name)%(?,%{$fg[yellow]%},%{$fg[red]%})%4~>%{$reset_color%} "
-RPS1="$VIM_MODE$(get_git)$CURRENT_TIME $EXIT_CODE"
+RPS1="$(get_git)$CURRENT_TIME $EXIT_CODE"
 
 #ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[cyan]%}("
 #ZSH_THEME_GIT_PROMPT_SUFFIX=")%{$reset_color%}"

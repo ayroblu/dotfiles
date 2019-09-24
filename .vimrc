@@ -252,6 +252,16 @@ autocmd BufWritePre * %s/\s\+$//e
 
 " Switch to last buffer :b#
 
+"" Set cursor based on insert v normal mode
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
+" optional reset cursor on start:
+augroup myCmds
+au!
+autocmd VimEnter * silent !echo -ne "\e[2 q"
+augroup END
+
 " Normally you can open a url with gx, doesnt work so use <leader>u
 " Hint, can also open files with gf
 function! HandleURL()
