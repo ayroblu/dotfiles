@@ -18,6 +18,8 @@
   # Local branches
   bl = log --branches --oneline --no-walk --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset'
   bs = !git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf --no-sort | xargs git co
+  # All remote branches
+  blo = !git for-each-ref --sort=committerdate refs/heads/ refs/remotes/origin/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
   # To clean everything
   cfd = clean -fd
   ci = commit -am
@@ -63,6 +65,10 @@
   # From https://stackoverflow.com/questions/8475448/find-merge-commit-which-include-a-specific-commit
   find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
   show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+
+  # Delete old branches
+  dell = "!git branch --merged | egrep -v '(^\\*|master|dev)' | xargs git branch -d"
+  delo = "!git branch -r --merged | grep -v master | sed 's/origin\\///' | xargs git push --delete origin"
 
 [core]
   pager = less -+$LESS -R

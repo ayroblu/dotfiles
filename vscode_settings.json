@@ -344,5 +344,6 @@
   "workbench.editor.showTabs": true,
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "gitlens.views.repositories.files.layout": "list"
 }
