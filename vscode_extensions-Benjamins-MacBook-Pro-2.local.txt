@@ -1,4 +1,5 @@
 adamwalzer.scss-lint
+AlanWalk.markdown-toc
 ayroblu.argumentative
 ccimage.jsonviewer
 eamodio.gitlens

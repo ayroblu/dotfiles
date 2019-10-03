@@ -1,5 +1,6 @@
 awscli: gdbm openssl python readline sqlite xz
 bash: 
+cloc: 
 colordiff: 
 cpulimit: 
 ctags: 
