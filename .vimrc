@@ -490,6 +490,16 @@ Plug 'easymotion/vim-easymotion'
 " <leader><leader>f<char>
 " <leader><leader>F<char>
 
+Plug 'jalvesaq/vimcmdline'
+" vimcmdline mappings (local leader is \\)
+" let cmdline_map_start          = '<LocalLeader>s'
+" let cmdline_map_send           = '<Space>'
+" let cmdline_map_send_and_stay  = '<LocalLeader><Space>'
+" let cmdline_map_source_fun     = '<LocalLeader>f'
+" let cmdline_map_send_paragraph = '<LocalLeader>p'
+" let cmdline_map_send_block     = '<LocalLeader>b'
+" let cmdline_map_quit           = '<LocalLeader>q'
+
 " === Text objects
 Plug 'bkad/CamelCaseMotion'
 let g:camelcasemotion_key = ','
