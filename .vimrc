@@ -165,7 +165,7 @@ map <ScrollWheelDown> <C-E>
 
 " This is just annoying
 noremap K k
-autocmd FileType c,cpp unmap K
+autocmd FileType c,cpp unmap <buffer> K
 
 " nnoremap <C-L> :redraw!
 
@@ -189,14 +189,14 @@ nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
 nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
 
 " https://stackoverflow.com/questions/40289706/execute-selection-from-script-in-vim
-autocmd FileType javascript xnoremap <leader>e :w !node<cr>
-autocmd FileType python xnoremap <leader>e :w !python<cr>
-autocmd FileType matlab xnoremap <leader>e :w !octave<cr>
-autocmd FileType sh xnoremap <leader>e :w !sh<cr>
-autocmd FileType rust xnoremap <leader>e :w !echo 'fn main() {' "$(cat)" '}' > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
-autocmd FileType rust xnoremap <leader><leader>e :w !echo "$(cat)" > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
+autocmd FileType javascript xnoremap <buffer> <leader>e :w !node<cr>
+autocmd FileType python xnoremap <buffer> <leader>e :w !python<cr>
+autocmd FileType matlab xnoremap <buffer> <leader>e :w !octave<cr>
+autocmd FileType sh xnoremap <buffer> <leader>e :w !sh<cr>
+autocmd FileType rust xnoremap <buffer> <leader>e :w !echo 'fn main() {' "$(cat)" '}' > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
+autocmd FileType rust xnoremap <buffer> <leader><leader>e :w !echo "$(cat)" > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
 " Execute clipboard in node
-autocmd FileType javascript nnoremap <leader>e :echo system('node', @")<cr>
+autocmd FileType javascript nnoremap <buffer> <leader>e :echo system('node', @")<cr>
 
 " Cycle 2 registers: https://vim.fandom.com/wiki/Comfortable_handling_of_registers
 nnoremap <Leader>j :let @x=@" \| let @"=@a \| let @a=@x<CR>
@@ -511,21 +511,30 @@ Plug 'michaeljsmith/vim-indent-object'
 " === Language specific
 Plug 'sheerun/vim-polyglot'
 Plug 'mzlogin/vim-markdown-toc'
+Plug 'romainl/vim-devdocs'
+" :DD source name
+" If not for the language
 
 Plug 'davidhalter/jedi-vim'
 " We change these to be similar to tsuquyomi
 let g:jedi#goto_command = "<C-]>"
-let g:jedi#goto_assignments_command = ""
+"let g:jedi#goto_assignments_command = ""
 let g:jedi#goto_definitions_command = "<C-}>"
 let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>n"
 let g:jedi#completions_command = "<C-x><C-o>"
 let g:jedi#rename_command = "<leader>r"
+let g:jedi#popup_select_first = 0
 
 Plug 'fisadev/vim-isort'
 let g:vim_isort_config_overrides = {'multi_line_output': 3}
 " python- Need to call :Isort, it's not automatic
-autocmd FileType python autocmd BufWritePre * Isort
+" Warning, need to use Augroup soon
+" https://stackoverflow.com/questions/10969366/vim-automatically-formatting-golang-source-code-when-saving/10969574
+autocmd FileType python autocmd BufWritePre <buffer> Isort
+
+Plug 'mgedmin/python-imports.vim'
+" Use :ImportName, also ~/.vim/python-imports.cfg
 
 Plug 'w0rp/ale'
 "autocmd FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
@@ -551,7 +560,7 @@ let g:ale_open_list=1
 "  - vscode
 let g:rustfmt_autosave = 1
 autocmd FileType rust let g:ale_linters = {'rust': ['rls']}
-autocmd FileType rust nnoremap <leader>e :RustRun<cr>
+autocmd FileType rust nnoremap <buffer> <leader>e :RustRun<cr>
 "au BufNewFile,BufReadPost *.md set filetype=markdown
 
 Plug 'racer-rust/vim-racer'

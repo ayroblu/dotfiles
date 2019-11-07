@@ -25,6 +25,7 @@
   ci = commit -am
   cim = commit -m
   co = checkout
+  # git cherry-pick A^..B # A to B inclusive
   # git cod 'Dec 25 2018'
   cod = !"f() { echo git checkout `git rev-list -1 --before=\"$1\" --first-parent master`; }; f"
   d = diff
