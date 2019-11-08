@@ -536,6 +536,13 @@ let g:jedi#completions_command = "<C-x><C-o>"
 let g:jedi#rename_command = "<leader>r"
 let g:jedi#popup_select_first = 0
 
+Plug 'tell-k/vim-autoflake'
+" :Autoflake to remove unused imports
+let g:autoflake_remove_unused_variables=0
+"autocmd FileType python autocmd BufWritePre <buffer> Autoflake
+let g:autoflake_disable_show_diff=1
+command! Aflake :call Autoflake() | redraw!
+
 Plug 'fisadev/vim-isort'
 let g:vim_isort_config_overrides = {'multi_line_output': 3}
 " python- Need to call :Isort, it's not automatic
@@ -543,8 +550,9 @@ let g:vim_isort_config_overrides = {'multi_line_output': 3}
 " https://stackoverflow.com/questions/10969366/vim-automatically-formatting-golang-source-code-when-saving/10969574
 autocmd FileType python autocmd BufWritePre <buffer> Isort
 
-Plug 'mgedmin/python-imports.vim'
+Plug 'ayroblu/python-imports.vim'
 " Use :ImportName, also ~/.vim/python-imports.cfg
+autocmd FileType python nnoremap <buffer> <leader>i :ImportName<cr>
 
 Plug 'w0rp/ale'
 "autocmd FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
