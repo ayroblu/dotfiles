@@ -1,3 +1,4 @@
+android-platform-tools
 caffeine
 clipy
 docker
@@ -7,7 +8,6 @@ handbrake
 hyperswitch
 iterm2
 macs-fan-control
-minikube
 puush
 slack
 spectacle
