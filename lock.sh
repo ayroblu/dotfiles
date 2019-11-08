@@ -35,5 +35,5 @@ fi
 # ----------- python pip
 if has python3; then
   echo 'has pip3'
-  python3 -m pip list > piplist-"$HOSTNAME".txt
+  pipdeptree -fl > piplist-"$HOSTNAME".txt
 fi
