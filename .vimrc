@@ -539,6 +539,7 @@ let g:jedi#popup_select_first = 0
 Plug 'tell-k/vim-autoflake'
 " :Autoflake to remove unused imports
 let g:autoflake_remove_unused_variables=0
+let g:autoflake_remove_all_unused_imports=1
 "autocmd FileType python autocmd BufWritePre <buffer> Autoflake
 let g:autoflake_disable_show_diff=1
 command! Aflake :call Autoflake() | redraw!
