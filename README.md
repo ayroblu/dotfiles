@@ -7,6 +7,23 @@ If you run a `.bash_profile` then you should probably add this:
 if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
 ```
 
+Table of Contents
+-----------------
+<!-- vim-markdown-toc GFM -->
+
+* [Setting up my mac](#setting-up-my-mac)
+  * [How to setup packages](#how-to-setup-packages)
+* [Rust setup](#rust-setup)
+* [homebrew](#homebrew)
+* [zsh](#zsh)
+* [Making symlinks](#making-symlinks)
+* [Tmux Setup](#tmux-setup)
+* [Vim Setup](#vim-setup)
+* [FZF setup](#fzf-setup)
+* [VS Code Setup](#vs-code-setup)
+
+<!-- vim-markdown-toc -->
+
 Setting up my mac
 -----------------
 1. Touchpad
@@ -15,6 +32,22 @@ Setting up my mac
 4. screen saver and screen off
 5. accessibility drag + reduce motion
 6. Download chrome - disable third party cookies
+7. Download install packages
+
+### How to setup packages
+1. Install [homebrew](https://brew.sh/) `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+2. Install oh my zsh and revert it
+    ```bash
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    mv ~/.zshrc{,.bak}
+    mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc # probably not necessarily
+    ```
+3. Install tmux, clipy, fzf, ripgrep, zsh, zsh-syntax-highlighting
+4. Clone dotfiles repo `git clone git@github.com:ayroblu/dotfiles.git`
+5. cd in to it and run the run.sh file to symlink: `bash run.sh`
+6. Install [tpm](https://github.com/tmux-plugins/tpm), `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`, open tmux and run `ctrl-b + I`
+7. Install snappy from app store
+8. Open vim and run `:PlugInstall`
 
 Rust setup
 ----------

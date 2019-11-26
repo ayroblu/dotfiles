@@ -12,7 +12,7 @@ unsetopt beep
 unsetopt sharehistory # set by omz
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/Users/blu/.zshrc'
+zstyle :compinstall filename ~'/.zshrc'
 
 autoload -Uz compinit
 compinit
