@@ -14,7 +14,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 alias top='top -o cpu'
 alias vis='vi -c OpenSession'
 alias mvis='mvim -c OpenSession'
-alias viallnotes='vi ~/Dropbox/Notes/*.md'
+alias viallnotes='vi ~/Dropbox/Documents/twitter/notes.md ~/Dropbox/Notes/*.md'
 alias goctave='\octave -q'
 alias octave='octave -W -q'
 alias ctags="rg --files | ctags --links=no -L-"
