@@ -1,0 +1,16 @@
+## Checkout https://github.com/aaronbates/dotfiles/blob/master/macos/.macos
+
+# Show dotfiles in finder
+defaults write com.apple.finder AppleShowAllFiles YES
+
+# Full Keyboard Access mode - mainly to tab in dialogs
+# Toggle with ctrl-F7
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+# Disable press-and-hold for keys in favor of key repeat
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+# Automatically illuminate built-in MacBook keyboard in low light
+defaults write com.apple.BezelServices kDim -bool true
+# Turn off keyboard illumination when computer is not used for 15 seconds
+defaults write com.apple.BezelServices kDimTime -int 15

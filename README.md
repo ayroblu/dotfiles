@@ -26,13 +26,14 @@ Table of Contents
 
 Setting up my mac
 -----------------
-1. Touchpad
-2. Keypress time
-3. alt left right spaces
-4. screen saver and screen off
-5. accessibility drag + reduce motion
-6. Download chrome - disable third party cookies
-7. Download install packages
+1. Touchpad tap to click, keypress repeat time, alt left right to move spaces
+2. accessibility drag + reduce motion
+3. screen saver and screen off
+4. Download chrome - disable third party cookies
+5. Download install packages (see next section)
+6. Show on toolbar - full datetime, bluetooth, sound, battery percentage
+7. Adjust all the finder settings
+8. Migrate these changes to `.macos` file
 
 ### How to setup packages
 1. Install [homebrew](https://brew.sh/) `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
