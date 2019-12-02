@@ -1,0 +1,6 @@
+caffeine
+clipy
+dropbox
+macs-fan-control
+spectacle
+vlc

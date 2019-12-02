@@ -1,0 +1,3 @@
+/Users/benlu/.npm-global/lib
+└── gitree@1.2.0
+
