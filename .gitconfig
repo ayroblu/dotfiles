@@ -86,9 +86,13 @@
   required = true
 [diff]
   tool = vimdiff
+  # Default true
+  renames = true
 [mergetool]
   keepBackup = false
 [rerere]
   enabled = true
 [fetch]
   prune = true
+[http]
+  postBuffer = 524288000

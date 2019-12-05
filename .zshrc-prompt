@@ -10,6 +10,11 @@ function check_last_exit_code() {
 }
 function get_git() {
   #echo "%{$fg[yellow]%}$(git_prompt_info)%{$reset_color%}"
+  # For twitter source repo
+  if [[ "$PWD" = */source* ]]; then
+    echo '-ignoring-'
+    return
+  fi
   local ref
   if [[ "$(command git config --get oh-my-zsh.hide-status 2>/dev/null)" != "1" ]]; then
     ref=$(command git symbolic-ref HEAD 2> /dev/null) || \

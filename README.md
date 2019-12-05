@@ -26,7 +26,7 @@ Table of Contents
 
 Setting up my mac
 -----------------
-1. Touchpad tap to click, keypress repeat time, alt left right to move spaces
+1. Touchpad tap to click, keypress repeat time, alt left right to move spaces, don't auto rearrange spaces
 2. accessibility drag + reduce motion
 3. screen saver and screen off
 4. Download chrome - disable third party cookies
