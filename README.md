@@ -13,6 +13,7 @@ Table of Contents
 
 * [Setting up my mac](#setting-up-my-mac)
   * [How to setup packages](#how-to-setup-packages)
+* [Custom git setup](#custom-git-setup)
 * [Rust setup](#rust-setup)
 * [homebrew](#homebrew)
 * [zsh](#zsh)
@@ -49,6 +50,20 @@ Setting up my mac
 6. Install [tpm](https://github.com/tmux-plugins/tpm), `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`, open tmux and run `ctrl-b + I`
 7. Install snappy from app store
 8. Open vim and run `:PlugInstall`
+
+Custom git setup
+----------------
+If you need to customise git (email for example), consider using the following gitconfig instead:
+
+```ini
+# Make sure include is first
+[include]
+  path = ws/dotfiles/.gitconfig
+# All other settings
+[user]
+  name = Name Here
+  email = email@email.com
+```
 
 Rust setup
 ----------
