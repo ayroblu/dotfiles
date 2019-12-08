@@ -41,6 +41,21 @@ set updatetime=1000 "event when cursor stops moving for a second, for swp normal
 set ignorecase
 set smartcase
 
+" Always report the number of lines changed by a command
+set report=0
+
+" Sentances that end in period join with 1 space, not two
+set nojoinspaces
+
+" Do not move the cursor to the first non-blank when jumping (ctrl-d etc)
+set nostartofline
+
+" Default to 80 so that `gq` doesn't wrap at 79
+set textwidth=80
+
+" Display as much as possible of cut off lines rather than truncating
+set display=lastline
+
 " https://stackoverflow.com/questions/26708822/why-do-vim-experts-prefer-buffers-over-tabs
 set hidden " can switch to another buffer when you have unsaved changes
 
@@ -249,7 +264,7 @@ command! EndProf :call EndProf()
 command! DeleteFile :call delete(expand('%')) | bdelete!
 
 " Strip file whitespace before saving
-autocmd BufWritePre * %s/\s\+$//e
+autocmd BufWritePre * :keeppatterns %s/\s\+$//e
 
 " Switch to last buffer :b#
 
@@ -427,6 +442,10 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " g<c-]> got to match if only one, else, show list
   " g] show list of tags
 
+  "Plug 'tpope/vim-sleuth'
+  " Indentation detection
+  " Probably should take the faith one day
+
   Plug 'osyo-manga/vim-anzu' " show search progress
   " mapping
   nmap n <Plug>(anzu-n-with-echo)
@@ -436,9 +455,22 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
 
   " clear status
   nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
-  "
   " Show in search status - will override file name so kinda meh
   "let g:airline_section_c='%{anzu#search_status()}'
+
+  Plug 'Valloric/MatchTagAlways'
+  " Show closing tag
+  let g:mta_filetypes = {
+  \ 'html' : 1,
+  \ 'xhtml' : 1,
+  \ 'xml' : 1,
+  \ 'jinja' : 1,
+  \ 'typescript' : 1,
+  \ 'javascript' : 1,
+  \ 'javascript.jsx' : 1,
+  \ 'typescript.tsx' : 1,
+  \}
+  nnoremap <leader>% :MtaJumpToOtherTag<cr>
 
   Plug 'xolox/vim-misc'
   Plug 'xolox/vim-session'
@@ -449,9 +481,21 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
 
   " === Commands and functions
   Plug 'PeterRincker/vim-argumentative'
-  Plug 'terryma/vim-multiple-cursors'
+  " <, or >, for move argument left or right
+
+  " Plug 'terryma/vim-multiple-cursors'
+
   Plug 'tpope/vim-unimpaired'
   " I only download this for the conflict mapping ]n and [n
+
+  Plug 'tpope/vim-abolish'
+  " Press crs (coerce to snake_case). MixedCase (crm), camelCase (crc),
+  " snake_case (crs), UPPER_CASE (cru), dash-case (cr-), dot.case (cr.), space
+  " case (cr<space>), and Title Case (crt)
+
+  Plug 'FooSoft/vim-argwrap'
+  " Pointless given prettier, but can be useful?
+  nnoremap <silent> <leader>a :ArgWrap<CR>
 
   Plug 'bronson/vim-visual-star-search'
   " Use * in visual mode
@@ -503,6 +547,12 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " let cmdline_map_quit           = '<LocalLeader>q'
 
   " === Text objects
+  "Plug 'wellle/targets.vim'
+  " Doesn't work for me
+  " Has lots of text object things for brackets, quotes, commas arguments
+  " daa - delete argument with comma
+  " cIa - change in comma
+
   Plug 'bkad/CamelCaseMotion'
   let g:camelcasemotion_key = ','
   " Use , as camel case word object: i.e. ci,w
@@ -523,6 +573,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " === Language specific
   Plug 'sheerun/vim-polyglot'
   Plug 'mzlogin/vim-markdown-toc'
+  " :GenTocGFM
+
   Plug 'romainl/vim-devdocs'
   " :DD source name
   " If not for the language
@@ -566,6 +618,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   \ 'typescript': ['tslint', 'prettier'],
   \ 'javascript': ['eslint', 'prettier'],
   \ 'python': ['black'],
+  \ 'scala': ['scalafmt'],
   \}
   autocmd FileType javascript let b:ale_linters_ignore = ['tsserver']
   let g:ale_fix_on_save = 1
@@ -604,6 +657,11 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " It takes like 30+ seconds gets kinda pointless
   " autocmd FileType typescript
   "     \ autocmd BufWritePost <buffer> :TsuquyomiAsyncGeterr
+
+  " Twitter specific
+  "Plug 'jrozner/vim-antlr'
+  Plug 'pantsbuild/vim-pants'
+  Plug 'nkouevda/vim-thrift-syntax'
 
   " === old
 
