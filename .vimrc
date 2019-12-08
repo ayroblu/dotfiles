@@ -189,6 +189,7 @@ nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
 nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
 
 " https://stackoverflow.com/questions/40289706/execute-selection-from-script-in-vim
+autocmd FileType javascript nnoremap <buffer> <leader>e :w !node<cr>
 autocmd FileType javascript xnoremap <buffer> <leader>e :w !node<cr>
 autocmd FileType python xnoremap <buffer> <leader>e :w !python<cr>
 autocmd FileType matlab xnoremap <buffer> <leader>e :w !octave<cr>
@@ -196,7 +197,7 @@ autocmd FileType sh xnoremap <buffer> <leader>e :w !sh<cr>
 autocmd FileType rust xnoremap <buffer> <leader>e :w !echo 'fn main() {' "$(cat)" '}' > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
 autocmd FileType rust xnoremap <buffer> <leader><leader>e :w !echo "$(cat)" > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
 " Execute clipboard in node
-autocmd FileType javascript nnoremap <buffer> <leader>e :echo system('node', @")<cr>
+"autocmd FileType javascript nnoremap <buffer> <leader>e :echo system('node', @")<cr>
 
 " Cycle 2 registers: https://vim.fandom.com/wiki/Comfortable_handling_of_registers
 nnoremap <Leader>j :let @x=@" \| let @"=@a \| let @a=@x<CR>
@@ -565,6 +566,7 @@ let g:ale_fixers = {
 \ 'javascript': ['eslint', 'prettier'],
 \ 'python': ['black'],
 \}
+autocmd FileType javascript let b:ale_linters_ignore = ['tsserver']
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
 let g:vim_markdown_new_list_item_indent = 0
