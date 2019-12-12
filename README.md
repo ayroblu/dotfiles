@@ -22,6 +22,7 @@ Table of Contents
 * [Vim Setup](#vim-setup)
 * [FZF setup](#fzf-setup)
 * [VS Code Setup](#vs-code-setup)
+* [Vrapper Setup](#vrapper-setup)
 
 <!-- vim-markdown-toc -->
 
@@ -163,3 +164,9 @@ vscodevim.vim
 ```sh
 cp "$HOME/Library/Application Support/Code/User/settings.json" vscode_settings.json
 ```
+
+Vrapper Setup
+-------------
+In dbeaver, install vrapper: http://vrapper.sourceforge.net/documentation/?topic=basics
+
+It should automatically take the .vwrapperrc from home dir

@@ -571,6 +571,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   "Plug 'christoomey/vim-sort-motion' "sort with gsip
 
   " === Language specific
+  " Before polyglot overrides it
+  Plug 'nkouevda/vim-thrift-syntax'
   Plug 'sheerun/vim-polyglot'
   Plug 'mzlogin/vim-markdown-toc'
   " :GenTocGFM
@@ -661,7 +663,6 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " Twitter specific
   "Plug 'jrozner/vim-antlr'
   Plug 'pantsbuild/vim-pants'
-  Plug 'nkouevda/vim-thrift-syntax'
 
   " === old
 
