@@ -1,6 +1,8 @@
 caffeine
 clipy
+dbeaver-community
 dropbox
+freemind
 macs-fan-control
 spectacle
 vlc

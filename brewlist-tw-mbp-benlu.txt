@@ -4,8 +4,10 @@ fzf:
 git: gettext pcre2
 htop: ncurses
 macvim: cscope gdbm libyaml lua openssl@1.1 python readline ruby sqlite xz
+nailgun: 
 ripgrep: pcre2
 rmtrash: 
+olafurpg/scalafmt/scalafmt: 
 tmux: libevent ncurses openssl@1.1
 tree: 
 zsh: ncurses pcre

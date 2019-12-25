@@ -1,3 +1,4 @@
 /Users/benlu/.npm-global/lib
-└── gitree@1.2.0
+├── gitree@1.2.0
+└── json-to-freemind@1.0.2 -> /Users/benlu/ws/json-to-freemind
 
