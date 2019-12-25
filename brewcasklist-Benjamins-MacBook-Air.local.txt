@@ -1,12 +1,16 @@
+1password
+alfred
 android-platform-tools
 caffeine
 clipy
+disk-inventory-x
 docker
 dropbox
 google-chrome
 handbrake
 hyperswitch
 iterm2
+keybase
 macs-fan-control
 puush
 slack
