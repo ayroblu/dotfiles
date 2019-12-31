@@ -1,6 +1,8 @@
 1password
+adobe-acrobat-reader
 alfred
 android-platform-tools
+anki
 caffeine
 clipy
 disk-inventory-x
