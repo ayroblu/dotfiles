@@ -1,11 +1,11 @@
 [ -f /usr/local/opt/libffi/lib/pkgconfig ] && export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='rg --files --hidden 2> /dev/null'
+[ -x "$(command -v rg)" ] && export FZF_DEFAULT_COMMAND='rg --files --hidden 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #export FZF_DEFAULT_OPTS='--height 40% --reverse --preview="head -$LINES {}"'
 export FZF_DEFAULT_OPTS='--height 40% --reverse'
 export NODE_OPTIONS=--max-old-space-size=8192
-export PATH="$HOME/.cargo/bin:$PATH"
+[ -d ~/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
 export HOMEBREW_NO_AUTO_UPDATE=1
 [ -d ~/.poetry/bin ] && export PATH="$HOME/.poetry/bin:$PATH"
 [ -d /usr/local/opt/mysql-client/bin ] && export PATH="/usr/local/opt/mysql-client/bin:$PATH"
@@ -18,9 +18,9 @@ alias vis='vi -c OpenSession'
 alias mvis='mvim -c OpenSession'
 alias viallnotes='vi ~/Dropbox/Documents/twitter/notes.md ~/Dropbox/Notes/*.md'
 alias goctave='\octave -q'
-alias octave='octave -W -q'
-alias ctags="rg --files | ctags --links=no -L-"
-alias rg="rg --hidden"
+[ -x "$(command -v octave)" ] && alias octave='octave -W -q'
+[ -x "$(command -v rg)" ] && [ -x "$(command -v ctags)" ] && alias ctags="rg --files | ctags --links=no -L-"
+[ -x "$(command -v rg)" ] && alias rg="rg --hidden"
 
 # Editing aliases
 alias cvim='vi ~/.vimrc'
@@ -33,6 +33,7 @@ alias cgit="vi ~/.gitconfig*"
 alias proxywifion='sudo networksetup -setsocksfirewallproxystate Wi-Fi on' #on / off
 alias proxywifioff='sudo networksetup -setsocksfirewallproxystate Wi-Fi off' #on / off
 
+# ------------ Functions
 function nzproxy {
   #ssh -ND 9876 blu@benlu.co &
   #ssh -ND 9876 blu@202.169.196.28 &

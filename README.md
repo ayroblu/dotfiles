@@ -95,6 +95,14 @@ Install homebrew
 
 Install the packages that are listed in the brew lists
 
+To remove a package with depedencies:
+https://stackoverflow.com/questions/7323261/uninstall-remove-a-homebrew-package-including-all-its-dependencies
+
+```
+brew tap beeftornado/rmtree
+brew rmtree <package>
+```
+
 zsh
 ---
 Install oh my zsh
