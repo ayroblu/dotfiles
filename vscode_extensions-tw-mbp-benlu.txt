@@ -1,0 +1,7 @@
+ayroblu.argumentative
+esbenp.prettier-vscode
+ms-vscode.vscode-typescript-tslint-plugin
+prettier.prettier-vscode
+rbbit.typescript-hero
+vscodevim.vim
+wix.vscode-import-cost

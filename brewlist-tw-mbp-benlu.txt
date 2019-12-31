@@ -4,6 +4,7 @@ fzf:
 git: gettext pcre2
 htop: ncurses
 macvim: cscope gdbm libyaml lua openssl@1.1 python readline ruby sqlite xz
+mysql-client: openssl@1.1
 nailgun: 
 ripgrep: pcre2
 rmtrash: 
