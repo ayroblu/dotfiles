@@ -1,5 +1,4 @@
-export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
-export PATH="/usr/local/opt/node@8/bin:$PATH"
+[ -f /usr/local/opt/libffi/lib/pkgconfig ] && export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -8,6 +7,8 @@ export FZF_DEFAULT_OPTS='--height 40% --reverse'
 export NODE_OPTIONS=--max-old-space-size=8192
 export PATH="$HOME/.cargo/bin:$PATH"
 export HOMEBREW_NO_AUTO_UPDATE=1
+[ -d ~/.poetry/bin ] && export PATH="$HOME/.poetry/bin:$PATH"
+[ -d /usr/local/opt/mysql-client/bin ] && export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
 # ---------- Aliases
 # macos doesn't auto sort by CPU
