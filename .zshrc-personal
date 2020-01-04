@@ -1,9 +1,9 @@
 [ -f /usr/local/opt/libffi/lib/pkgconfig ] && export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -x "$(command -v rg)" ] && export FZF_DEFAULT_COMMAND='rg --files --hidden 2> /dev/null'
+[ -x "$(command -v rg)" ] && export FZF_DEFAULT_COMMAND='rg --files 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #export FZF_DEFAULT_OPTS='--height 40% --reverse --preview="head -$LINES {}"'
-export FZF_DEFAULT_OPTS='--height 40% --reverse'
+export FZF_DEFAULT_OPTS='--height 40% --reverse --hidden'
 export NODE_OPTIONS=--max-old-space-size=8192
 [ -d ~/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
 export HOMEBREW_NO_AUTO_UPDATE=1
