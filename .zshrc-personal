@@ -81,6 +81,14 @@ function cd() {
   fi
 }
 
+regexReplace() {
+  # Requires ripgrep: https://github.com/BurntSushi/ripgrep
+  BEFORE="$1"
+  AFTER="$2"
+  # Note, not sure the parameter expansion works outside of zsh
+  rg --pcre2 "$BEFORE" --files-with-matches | xargs perl -i -pe "s/${BEFORE/\/\\//}/$AFTER/g"
+}
+
 # For Arc, phabricator
 export VISUAL='/usr/local/bin/vim'
 export EDITOR="$VISUAL"
