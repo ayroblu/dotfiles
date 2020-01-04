@@ -443,9 +443,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " g<c-]> got to match if only one, else, show list
   " g] show list of tags
 
-  "Plug 'tpope/vim-sleuth'
+  Plug 'tpope/vim-sleuth'
   " Indentation detection
-  " Probably should take the faith one day
 
   Plug 'osyo-manga/vim-anzu' " show search progress
   " mapping
@@ -601,12 +600,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   let g:autoflake_disable_show_diff=1
   command! Aflake :call Autoflake() | redraw!
 
-  Plug 'fisadev/vim-isort'
-  let g:vim_isort_config_overrides = {'multi_line_output': 3}
-  " python- Need to call :Isort, it's not automatic
   " Warning, need to use Augroup soon
   " https://stackoverflow.com/questions/10969366/vim-automatically-formatting-golang-source-code-when-saving/10969574
-  autocmd FileType python autocmd BufWritePre <buffer> Isort
 
   Plug 'ayroblu/python-imports.vim'
   " Use :ImportName, also ~/.vim/python-imports.cfg
@@ -620,7 +615,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   let g:ale_fixers = {
   \ 'typescript': ['tslint', 'prettier'],
   \ 'javascript': ['eslint', 'prettier'],
-  \ 'python': ['black'],
+  \ 'python': ['autopep8', 'isort'],
   \ 'scala': ['scalafmt'],
   \}
   autocmd FileType javascript let b:ale_linters_ignore = ['tsserver']

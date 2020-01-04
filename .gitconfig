@@ -32,24 +32,24 @@
   ds = diff --staged
   dh = diff HEAD
   dt = difftool
-  dw = d --color-words
-  dc = d --color-words=.
+  dw = !git d --color-words
+  dc = !git d --color-words=.
   # Chain things on to this
   f = !git status -s | sed s/^...// | fzf -m
   fco = !git f | xargs git co
   fadd = !git f | xargs git add
   fcp = !git f | pbcopy
   lbase = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset'
-  l = lbase --graph -500
-  ls = l --stat
-  ll = ls -10 -U0
-  la = lbase --all
-  laa = lbase --all --author-date-order --author='Ben Lu'
-  lf = l --first-parent
-  lfs = l --first-parent --stat
+  l = !git lbase --graph -500
+  ls = !git l --stat
+  ll = !git ls -10 -U0
+  la = !git lbase --all
+  laa = !git lbase --all --author-date-order --author='Ben Lu'
+  lf = !git l --first-parent
+  lfs = !git l --first-parent --stat
   # -c shows merge commit diff too
-  lfsc = l -c --first-parent --stat
-  llfsc = ll -c --first-parent --stat
+  lfsc = !git l -c --first-parent --stat
+  llfsc = !git ll -c --first-parent --stat
   #lfa = lf --author-date-order  --no-merges
   m = merge --no-ff
   md = diff master...HEAD

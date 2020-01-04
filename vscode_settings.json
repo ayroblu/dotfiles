@@ -35,6 +35,23 @@
   // Plugins
   "gitlens.defaultDateStyle": "absolute",
   "gitlens.codeLens.authors.enabled": false,
+  // typescript hero plugin
+  // Don't organize on save, instead, just use alt shift o (vscode built in),
+  // leaving this cause the grouping is quite nice if run manually so it doesn't
+  // clash with prettier
+  "typescriptHero.imports.organizeOnSave": false,
+  "typescriptHero.imports.disableImportsSorting": true,
+  "typescriptHero.imports.grouping": [
+    // Ignore the errors, module isn't well maintained
+    // Non workspace modules (<start>a to z or @ with not aiden and then no periods will the end
+    "/^([a-zA-Z]|(@(?!aiden)))[^.]+$/",
+    // Workspace
+    "/^@aiden/",
+    // Relative
+    "/^\\./",
+    // Remaining
+    "Remaining"
+  ],
   // Auto fix (also use plugins)
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
