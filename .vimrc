@@ -64,6 +64,15 @@ set hidden " can switch to another buffer when you have unsaved changes
 set wildmode=longest,list,full
 set wildmenu
 
+" Maintain undo history between sessions
+" https://jovicailic.org/2017/04/vim-persistent-undo/
+" https://stackoverflow.com/questions/1549263/how-can-i-create-a-folder-if-it-doesnt-exist-from-vimrc
+if !isdirectory($HOME.'/.vim/undodir')
+  call mkdir($HOME.'/.vim/undodir', "p")
+endif
+set undodir=~/.vim/undodir
+set undofile
+
 " Set spelling settings, use ]s [s for next previous spelling error, zg to add
 " to spellfile, z= to see similar words
 " Includes all the regions such as en_us en_nz
@@ -207,6 +216,8 @@ nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
 " https://stackoverflow.com/questions/40289706/execute-selection-from-script-in-vim
 autocmd FileType javascript nnoremap <buffer> <leader>e :w !node<cr>
 autocmd FileType javascript xnoremap <buffer> <leader>e :w !node<cr>
+autocmd FileType typescript nnoremap <buffer> <leader>e :w !npx ts-node -T<cr>
+autocmd FileType typescript xnoremap <buffer> <leader>e :w !npx ts-node -T<cr>
 autocmd FileType python xnoremap <buffer> <leader>e :w !python<cr>
 autocmd FileType matlab xnoremap <buffer> <leader>e :w !octave<cr>
 autocmd FileType sh xnoremap <buffer> <leader>e :w !sh<cr>
@@ -305,6 +316,8 @@ command Cnotes :n ~/Dropbox/Notes/*
 
 " clear auto commands with !au (if you want) and reload vim, can use RestartVim in MacVim?
 command Reload :so ~/.vimrc
+
+command NoUndo :silent exec "!rmtrash ~/.vim/undodir" | redraw!
 
 " Displays buffer list, prompts for buffer numbers and ranges and deletes
 " associated buffers. Example input: 2 5,9 12
