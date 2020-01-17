@@ -218,6 +218,8 @@ autocmd FileType javascript nnoremap <buffer> <leader>e :w !node<cr>
 autocmd FileType javascript xnoremap <buffer> <leader>e :w !node<cr>
 autocmd FileType typescript nnoremap <buffer> <leader>e :w !npx ts-node -T<cr>
 autocmd FileType typescript xnoremap <buffer> <leader>e :w !npx ts-node -T<cr>
+autocmd FileType typescriptreact nnoremap <buffer> <leader>e :w !npx ts-node -T<cr>
+autocmd FileType typescriptreact xnoremap <buffer> <leader>e :w !npx ts-node -T<cr>
 autocmd FileType python xnoremap <buffer> <leader>e :w !python<cr>
 autocmd FileType matlab xnoremap <buffer> <leader>e :w !octave<cr>
 autocmd FileType sh xnoremap <buffer> <leader>e :w !sh<cr>
@@ -481,7 +483,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   \ 'typescript' : 1,
   \ 'javascript' : 1,
   \ 'javascript.jsx' : 1,
-  \ 'typescript.tsx' : 1,
+  \ 'typescriptreact' : 1,
   \}
   nnoremap <leader>% :MtaJumpToOtherTag<cr>
 
@@ -627,6 +629,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   nmap <silent> [j :ALEPreviousWrap<cr>
   let g:ale_fixers = {
   \ 'typescript': ['tslint', 'prettier'],
+  \ 'typescriptreact': ['tslint', 'prettier'],
   \ 'javascript': ['eslint', 'prettier'],
   \ 'python': ['autopep8', 'isort'],
   \ 'scala': ['scalafmt'],
@@ -664,7 +667,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   let g:tsuquyomi_shortest_import_path = 1
   " Stop tsuquyomi freezing on save, why do this in vim 8 though...
   let g:tsuquyomi_disable_quickfix = 1
-  autocmd FileType typescript,typescript.tsx nmap <buffer> <Leader>k : <C-u>echo tsuquyomi#hint()<CR>
+  autocmd FileType typescript,typescriptreact nmap <buffer> <Leader>k : <C-u>echo tsuquyomi#hint()<CR>
   " It takes like 30+ seconds gets kinda pointless
   " autocmd FileType typescript
   "     \ autocmd BufWritePost <buffer> :TsuquyomiAsyncGeterr
