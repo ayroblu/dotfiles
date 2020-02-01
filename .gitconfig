@@ -62,6 +62,8 @@
   pu = push -u origin HEAD
   s = status
   si = status --ignored
+  squash = !git rebase -i $(git merge-base HEAD origin/master)
+  squashrebase = !git squash && git rebase origin/master
   tc = rev-list -n 1
   # From https://stackoverflow.com/questions/8475448/find-merge-commit-which-include-a-specific-commit
   find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
