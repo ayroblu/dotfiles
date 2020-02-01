@@ -1,5 +1,6 @@
 ayroblu.argumentative
 esbenp.prettier-vscode
+ms-python.python
 ms-vscode.vscode-typescript-tslint-plugin
 prettier.prettier-vscode
 rbbit.typescript-hero

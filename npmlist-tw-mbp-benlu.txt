@@ -1,4 +1,7 @@
 /Users/benlu/.npm-global/lib
+├── @khanacademy/flow-to-ts@0.1.5
 ├── gitree@1.2.0
-└── json-to-freemind@1.0.2 -> /Users/benlu/ws/json-to-freemind
+├── json-to-freemind@1.0.2 -> /Users/benlu/ws/json-to-freemind
+├── ts-prune@0.3.0
+└── ts-unused-exports@5.3.0
 

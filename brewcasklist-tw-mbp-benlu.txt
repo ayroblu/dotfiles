@@ -1,9 +1,12 @@
 caffeine
 clipy
 dbeaver-community
+docker
 dropbox
 freemind
 macs-fan-control
+ngrok
 spectacle
+transmission
 visual-studio-code
 vlc
