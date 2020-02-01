@@ -588,6 +588,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " Before polyglot overrides it
   Plug 'nkouevda/vim-thrift-syntax'
   Plug 'sheerun/vim-polyglot'
+  " Conceal level is enabled for some random reason (indentLine)
+  let g:vim_markdown_conceal = 0
   Plug 'mzlogin/vim-markdown-toc'
   " :GenTocGFM
 
