@@ -9,6 +9,7 @@ export NODE_OPTIONS=--max-old-space-size=8192
 export HOMEBREW_NO_AUTO_UPDATE=1
 [ -d ~/.poetry/bin ] && export PATH="$HOME/.poetry/bin:$PATH"
 [ -d /usr/local/opt/mysql-client/bin ] && export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+[ -d /usr/local/opt/make/libexec/gnubin ] && export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
 
 # ---------- Aliases
 # macos doesn't auto sort by CPU

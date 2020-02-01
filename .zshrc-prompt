@@ -36,7 +36,7 @@ CURRENT_TIME="%{$fg[cyan]%}%D %*%{$reset_color%}"
 function zle-line-init {
   # last exit code needs to go first cause you call a func in get git
   EXIT_CODE=$(check_last_exit_code)
-  RPS1="$(get_git)$CURRENT_TIME $EXIT_CODE"
+  RPS1="$RIGHT_PROMPT $(get_git)$CURRENT_TIME $EXIT_CODE"
   RPS2=$RPS1
   zle reset-prompt
 }
@@ -51,3 +51,25 @@ RPS1="$(get_git)$CURRENT_TIME $EXIT_CODE"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}"
 
+preexec() {
+  if [ -x "$(command -v gdate)" ]; then
+    timer=$(($(gdate +%s%N)/1000000))
+  else
+    timer=$(date +%s)
+  fi
+}
+precmd() {
+  if [ $timer  ]; then
+    if [ -x "$(command -v gdate)" ]; then
+      local now=$(($(gdate +%s%N)/1000000))
+      local unit='ms'
+    else
+      local now=$(date +%s)
+      local unit='s'
+    fi
+    local elapsed=$(($now-$timer))
+    local elapsed_pretty=$(printf "%'d" $elapsed)
+    export RIGHT_PROMPT="%F{cyan}${elapsed_pretty}${unit}%{$reset_color%}"
+    unset timer
+  fi
+}
