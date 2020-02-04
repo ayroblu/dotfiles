@@ -1,0 +1,9 @@
+" Use in the wasavi chrome extension
+" https://github.com/akahuku/wasavi
+set noerrorbells
+set bellvolume=1
+set nolaunchbell
+set theme=solarized_dark
+set relativenumber
+map! jj <esc>
+map! jk <esc>
