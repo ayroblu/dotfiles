@@ -499,6 +499,11 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
 
   " Plug 'terryma/vim-multiple-cursors'
 
+  Plug 'junegunn/vim-easy-align'
+  xmap ga <Plug>(EasyAlign)
+  " vipga= " Visual Inner Paragraph (ga) align =
+  " Visually select what you want to align, `g``a``=` to align on equals sign
+
   Plug 'tpope/vim-unimpaired'
   " I only download this for the conflict mapping ]n and [n
 
@@ -549,6 +554,14 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " Mainly use this to search
   " <leader><leader>f<char>
   " <leader><leader>F<char>
+
+  Plug 'tpope/vim-vinegar' " Making netrw file management easier
+  " `-` to jump in
+  " `y``.` to yank absolute path
+  " `~` to go home
+  " `ctrl``shift``6` to go back to editing (doesn't work for me, just use :bd)
+  " `.` to auto prepopulate `:` command with file, `!` for shell:
+  " e.g. `!chmod +x` for `:!chmod +x path/to/file`
 
   Plug 'jalvesaq/vimcmdline'
   " vimcmdline mappings (local leader is \\)
@@ -633,7 +646,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   \ 'typescript.tsx': ['tslint', 'eslint', 'prettier'],
   \ 'typescriptreact': ['tslint', 'eslint', 'prettier'],
   \ 'javascript': ['eslint', 'prettier'],
-  \ 'python': ['autopep8', 'isort'],
+  \ 'python': ['isort'],
   \ 'scala': ['scalafmt'],
   \}
   autocmd FileType javascript let b:ale_linters_ignore = ['tsserver']
@@ -654,7 +667,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   autocmd FileType rust nnoremap <buffer> <leader>e :RustRun<cr>
   "au BufNewFile,BufReadPost *.md set filetype=markdown
 
-  Plug 'racer-rust/vim-racer'
+  "Plug 'racer-rust/vim-racer'
   let g:racer_experimental_completer = 1
   let g:racer_insert_paren = 1
   " au FileType rust nmap <leader>k <Plug>(rust-def)
@@ -686,14 +699,10 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " === old
 
   " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-  "Plug 'junegunn/vim-easy-align'
-  " vipga= " Visual Inner Paragraph (ga) align =
-  " gaip= " (ga) align Inner Paragraph =
 
   "Plug 'garbas/vim-snipmate'
   "Plug 'honza/vim-snippets'
 
-  "Plug 'tpope/vim-vinegar' " Making file management easier
   "Plug 'tpope/vim-speeddating' "Understand dates if you want
   "Plug 'zeekay/vim-beautify'
 

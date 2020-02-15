@@ -35,10 +35,9 @@
   dw = !git d --color-words
   dc = !git d --color-words=.
   # Chain things on to this
-  f = !git status -s | sed s/^...// | fzf -m
-  fco = !git f | xargs git co
-  fadd = !git f | xargs git add
-  fcp = !git f | pbcopy
+  fdirty = !git status -s | sed s/^...// | fzf -m
+  fb = !git fbranch
+  fbranch = !git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf --no-sort -m
   lbase = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset'
   l = !git lbase --graph -500
   ls = !git l --stat
@@ -52,7 +51,7 @@
   llfsc = !git ll -c --first-parent --stat
   #lfa = lf --author-date-order  --no-merges
   m = merge --no-ff
-  md = diff master...HEAD
+  md = !git diff $(git merge-base HEAD origin/master)...HEAD
   mt = mergetool
   p = push origin HEAD
   # Removes deleted branches from cache: https://stackoverflow.com/questions/32147093/git-delete-remotes-remote-refs-do-not-exist
