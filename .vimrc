@@ -81,6 +81,11 @@ set spellfile=~/.spellfile.utf-8.add
 " set spellsuggest=double " if you want to use a super slow but phoentic
 " version v normal just edit distance
 
+" netrw is kinda a plugin? Makes it a tree FYI
+" https://shapeshed.com/vim-netrw/#nerdtree-like-setup
+" Probably can remove vim-vinegar in favour of personalised setup
+let g:netrw_liststyle = 3
+
 " Encryption method, defaults to super weak
 set cm=blowfish2
 
