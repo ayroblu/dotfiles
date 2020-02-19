@@ -356,11 +356,12 @@
   "vim.easymotionMarkerFontFamily": "Helvetica Neue",
   "vim.easymotionMarkerHeight": 18,
   "editor.suggestSelection": "first",
-  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-  "python.jediEnabled": false,
+  "python.jediEnabled": true,
   "workbench.editor.showTabs": true,
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
   },
   "gitlens.views.repositories.files.layout": "list"
 }

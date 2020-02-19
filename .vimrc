@@ -651,6 +651,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   \ 'typescript.tsx': ['tslint', 'eslint', 'prettier'],
   \ 'typescriptreact': ['tslint', 'eslint', 'prettier'],
   \ 'javascript': ['eslint', 'prettier'],
+  \ 'css': ['prettier'],
+  \ 'json': ['prettier'],
   \ 'python': ['isort'],
   \ 'scala': ['scalafmt'],
   \}
