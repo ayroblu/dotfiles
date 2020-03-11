@@ -269,6 +269,21 @@
   "vim.visualModeKeyBindingsNonRecursive": [
     {
       "before": [
+        "y",
+      ],
+      "after": [
+        "<Esc>",
+        "m",
+        "a",
+        "g",
+        "v",
+        "y",
+        "`",
+        "a",
+      ]
+    },
+    {
+      "before": [
         "<leader>",
         "t"
       ],

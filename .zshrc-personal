@@ -86,9 +86,76 @@ regexReplace() {
   # Requires ripgrep: https://github.com/BurntSushi/ripgrep
   BEFORE="$1"
   AFTER="$2"
+  DIR="$3"
   # Note, not sure the parameter expansion works outside of zsh
-  rg --pcre2 "$BEFORE" --files-with-matches | xargs perl -i -pe "s/${BEFORE/\/\\//}/$AFTER/g"
+  rg --pcre2 "$BEFORE" --files-with-matches "$DIR" | xargs perl -i -pe "s/${BEFORE/\/\\//}/$AFTER/g"
 }
+
+# --------------------- fzf completion?
+# Checkout the .fzf.zsh -> /usr/local/opt/fzf/shell/key-bindings.zsh for more info
+# https://feltrac.co/environment/2020/01/18/build-your-own-shell-completion.html
+# Downfalls - can't do context aware (how do I figure out the cmd line? Perhaps $@?
+if [[ $- == *i* ]]; then
+
+__fany() {
+  local cmd="git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)'"
+  setopt localoptions pipefail no_aliases 2> /dev/null
+  eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS" $(__fzfcmd) -m "$@" | while read item; do
+    # This pushes the result to stdout, i.e. each item
+    echo -n "${(q)item} "
+  done
+  local ret=$?
+  # Doesn't seem necessary
+  echo
+  return $ret
+}
+
+fzf-custom-widget() {
+  LBUFFER="${LBUFFER}$(__fany)"
+  local ret=$?
+  zle reset-prompt
+  return $ret
+}
+zle     -N   fzf-custom-widget
+bindkey '^G' fzf-custom-widget
+
+fi
+
+## fzf examples - completion
+# https://github.com/junegunn/fzf/wiki/Examples-(completion)
+_fzf_complete_git() {
+  ARGS="$@"
+  if [[ $ARGS == 'git co '* ]]; then
+    local dirty_files="$(git status -s | sed s/^...//)"
+    _fzf_complete "--reverse --multi" "$@" < <(
+        echo $dirty_files
+    )
+  elif [[ $ARGS == 'git cob '* ]]; then
+    local branches="$(git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)')"
+    _fzf_complete "--no-sort" "$@" < <(
+        echo $branches
+    )
+  else
+    return 1
+  fi
+}
+_fzf_complete_brew() {
+  ARGS="$@"
+  if [[ $ARGS == 'brew install '* ]]; then
+    local brew_pkgs="$(brew search)"
+    _fzf_complete "--reverse --multi" "$@" < <(
+        echo $brew_pkgs
+    )
+  elif [[ $ARGS == 'brew cask install '* ]]; then
+    local cask_pkgs="$(brew search --casks)"
+    _fzf_complete "--no-sort" "$@" < <(
+        echo $cask_pkgs
+    )
+  else
+    return 1
+  fi
+}
+# --------------------- end
 
 # For Arc, phabricator
 export VISUAL='/usr/local/bin/vim'
