@@ -155,6 +155,18 @@ _fzf_complete_brew() {
     return 1
   fi
 }
+_fzf_complete_yarn() {
+  ARGS="$@"
+  if [[ $ARGS == 'yarn test'* ]]; then
+    local brew_pkgs="$(rg --files --hidden --glob "!.git" -g '*.test.ts' -g '*.test.js' -g '*.it.ts' -g '*.it.js' 2> /dev/null)"
+    _fzf_complete "--multi" "$@" < <(
+        echo $brew_pkgs
+    )
+  else
+    return 1
+  fi
+}
+export FZF_COMPLETION_TRIGGER=''
 # --------------------- end
 
 # For Arc, phabricator
