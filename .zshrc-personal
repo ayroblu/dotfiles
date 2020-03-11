@@ -121,51 +121,8 @@ bindkey '^G' fzf-custom-widget
 
 fi
 
-## fzf examples - completion
-# https://github.com/junegunn/fzf/wiki/Examples-(completion)
-_fzf_complete_git() {
-  ARGS="$@"
-  if [[ $ARGS == 'git co '* ]]; then
-    local dirty_files="$(git status -s | sed s/^...//)"
-    _fzf_complete "--reverse --multi" "$@" < <(
-        echo $dirty_files
-    )
-  elif [[ $ARGS == 'git cob '* ]]; then
-    local branches="$(git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)')"
-    _fzf_complete "--no-sort" "$@" < <(
-        echo $branches
-    )
-  else
-    return 1
-  fi
-}
-_fzf_complete_brew() {
-  ARGS="$@"
-  if [[ $ARGS == 'brew install '* ]]; then
-    local brew_pkgs="$(brew search)"
-    _fzf_complete "--reverse --multi" "$@" < <(
-        echo $brew_pkgs
-    )
-  elif [[ $ARGS == 'brew cask install '* ]]; then
-    local cask_pkgs="$(brew search --casks)"
-    _fzf_complete "--no-sort" "$@" < <(
-        echo $cask_pkgs
-    )
-  else
-    return 1
-  fi
-}
-_fzf_complete_yarn() {
-  ARGS="$@"
-  if [[ $ARGS == 'yarn test'* ]]; then
-    local brew_pkgs="$(rg --files --hidden --glob "!.git" -g '*.test.ts' -g '*.test.js' -g '*.it.ts' -g '*.it.js' 2> /dev/null)"
-    _fzf_complete "--multi" "$@" < <(
-        echo $brew_pkgs
-    )
-  else
-    return 1
-  fi
-}
+# More in the .zshrc-fzf
+# This removes the ** requirement, so can tab on random space to get auto complete
 export FZF_COMPLETION_TRIGGER=''
 # --------------------- end
 

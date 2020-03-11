@@ -73,6 +73,7 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 # ---------------------------------- Other
 
 [ -f ~/.zshrc-personal ] && source ~/.zshrc-personal
+[ -f ~/.zshrc-fzf ] && source ~/.zshrc-fzf
 [ -f ~/.zshrc-prompt ] && source ~/.zshrc-prompt
 
 # Has to be last
