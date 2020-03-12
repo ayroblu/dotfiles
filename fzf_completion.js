@@ -44,6 +44,13 @@ const allCmds = [{
     cmdListOptions: `rg --files --hidden --glob '!.git' -g '*.ts' -g '*.js' 2> /dev/null`,
     fzfOptions: '--multi',
   }]
+}, {
+  name: 'npx',
+  cmds: [{
+    cmdTrigger: 'npx gulp ',
+    cmdListOptions: "npx gulp --tasks --depth 1 | tail -n +3 | awk '{print $3}' | sort",
+    fzfOptions: '--multi',
+  }]
 }]
 
 function generateFunc(name, cmds) {
@@ -54,7 +61,7 @@ _fzf_complete_${name}() {
   `if [[ $ARGS == '${cmdTrigger}'* ]]; then
     local options="$(${cmdListOptions})"
     _fzf_complete "${fzfOptions}" "$@" < <(
-        echo $options
+      echo $options
     )`
   )).join('\n  el')}
   else

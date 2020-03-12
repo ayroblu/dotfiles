@@ -7,22 +7,22 @@ _fzf_complete_brew() {
   if [[ $ARGS == 'brew install '* ]]; then
     local options="$(brew search)"
     _fzf_complete "--multi" "$@" < <(
-        echo $options
+      echo $options
     )
   elif [[ $ARGS == 'brew cask install '* ]]; then
     local options="$(brew search --casks)"
     _fzf_complete "--multi" "$@" < <(
-        echo $options
+      echo $options
     )
   elif [[ $ARGS == 'brew uninstall '* ]]; then
     local options="$(brew list)"
     _fzf_complete "--multi" "$@" < <(
-        echo $options
+      echo $options
     )
   elif [[ $ARGS == 'brew cask uninstall '* ]]; then
     local options="$(brew cask list)"
     _fzf_complete "--multi" "$@" < <(
-        echo $options
+      echo $options
     )
   else
     return 1
@@ -33,12 +33,12 @@ _fzf_complete_git() {
   if [[ $ARGS == 'git co '* ]]; then
     local options="$(git status -s | sed s/^...//)"
     _fzf_complete "--reverse --multi" "$@" < <(
-        echo $options
+      echo $options
     )
   elif [[ $ARGS == 'git cob '* ]]; then
     local options="$(git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)')"
     _fzf_complete "--multi" "$@" < <(
-        echo $options
+      echo $options
     )
   else
     return 1
@@ -49,7 +49,7 @@ _fzf_complete_yarn() {
   if [[ $ARGS == 'yarn test'* ]]; then
     local options="$(rg --files --hidden --glob '!.git' -g '*.test.ts' -g '*.test.js' -g '*.it.ts' -g '*.it.js' 2> /dev/null)"
     _fzf_complete "--multi" "$@" < <(
-        echo $options
+      echo $options
     )
   else
     return 1
@@ -60,7 +60,18 @@ _fzf_complete_node() {
   if [[ $ARGS == 'node '* ]]; then
     local options="$(rg --files --hidden --glob '!.git' -g '*.ts' -g '*.js' 2> /dev/null)"
     _fzf_complete "--multi" "$@" < <(
-        echo $options
+      echo $options
+    )
+  else
+    return 1
+  fi
+}
+_fzf_complete_npx() {
+  ARGS="$@"
+  if [[ $ARGS == 'npx gulp '* ]]; then
+    local options="$(npx gulp --tasks --depth 1 | tail -n +3 | awk '{print $3}' | sort)"
+    _fzf_complete "--multi" "$@" < <(
+      echo $options
     )
   else
     return 1
