@@ -10,6 +10,14 @@ const allCmds = [{
     cmdTrigger: 'brew cask install ',
     cmdListOptions: 'brew search --casks',
     fzfOptions: '--multi',
+  }, {
+    cmdTrigger: 'brew uninstall ',
+    cmdListOptions: 'brew list',
+    fzfOptions: '--multi',
+  }, {
+    cmdTrigger: 'brew cask uninstall ',
+    cmdListOptions: 'brew cask list',
+    fzfOptions: '--multi',
   }]
 }, {
   name: 'git',

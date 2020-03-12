@@ -14,6 +14,16 @@ _fzf_complete_brew() {
     _fzf_complete "--multi" "$@" < <(
         echo $options
     )
+  elif [[ $ARGS == 'brew uninstall '* ]]; then
+    local options="$(brew list)"
+    _fzf_complete "--multi" "$@" < <(
+        echo $options
+    )
+  elif [[ $ARGS == 'brew cask uninstall '* ]]; then
+    local options="$(brew cask list)"
+    _fzf_complete "--multi" "$@" < <(
+        echo $options
+    )
   else
     return 1
   fi
