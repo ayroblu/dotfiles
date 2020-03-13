@@ -1,5 +1,8 @@
+AlanWalk.markdown-toc
 ayroblu.argumentative
 esbenp.prettier-vscode
+hbenl.vscode-mocha-test-adapter
+hbenl.vscode-test-explorer
 ms-python.python
 ms-vscode.vscode-typescript-tslint-plugin
 prettier.prettier-vscode

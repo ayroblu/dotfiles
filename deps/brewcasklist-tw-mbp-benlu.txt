@@ -1,11 +1,13 @@
 caffeine
 clipy
+coconutbattery
 dbeaver-community
 docker
 dropbox
 freemind
+hyperswitch
 macs-fan-control
-ngrok
+macvim
 spectacle
 transmission
 visual-studio-code
