@@ -22,6 +22,10 @@ const allCmds = [{
 }, {
   name: 'git',
   cmds: [{
+    cmdTrigger: 'git add ',
+    cmdListOptions: 'git status -s | sed s/^...//',
+    fzfOptions: '--reverse --multi',
+  }, {
     cmdTrigger: 'git co ',
     cmdListOptions: 'git status -s | sed s/^...//',
     fzfOptions: '--reverse --multi',

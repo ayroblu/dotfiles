@@ -124,6 +124,23 @@ fi
 # More in the .zshrc-fzf
 # This removes the ** requirement, so can tab on random space to get auto complete
 export FZF_COMPLETION_TRIGGER=''
+bindkey '^F' fzf-completion
+bindkey '^I' $fzf_default_completion
+
+## Hashtables
+# Storage type: {
+#   [absoluteFile: string]: {
+#     timestamp: string,
+#     result: string,
+#   }
+# }
+# Can't do nested hashtables though so you have to do:
+# hash_table = {
+#   [absoluteFile: string]: timestamp
+# }
+# hash_table_result = {
+#   [absoluteFile: string]: result
+# }
 # --------------------- end
 
 # For Arc, phabricator
