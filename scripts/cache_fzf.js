@@ -60,11 +60,6 @@ function runCmd(cacheDef, arg) {
     if (!stored[cmd]) stored[cmd] = {timestamps: {}, result: ''}
 
     const files = cacheDef.getCmdFiles().map(file => path.resolve(file));
-    const filesSet = new Set(files);
-    const keysToDelete = Object.keys(stored[cmd].timestamps).filter(file => !filesSet.has(file))
-    keysToDelete.forEach(key => {
-      delete stored[cmd].timestamps[key]
-    })
     const newFiles = files.filter(file => {
       const fileDate =  fs.statSync(file).mtime
       if (!stored[cmd].timestamps[file] || (new Date(stored[cmd].timestamps[file]) < fileDate)) {
@@ -74,7 +69,7 @@ function runCmd(cacheDef, arg) {
       return false;
     });
 
-    if (newFiles.length || !files.length || (!cacheDef.shouldCache || !cacheDef.shouldCache())) {
+    if (newFiles.length || !files.length || (cacheDef.shouldCache && !cacheDef.shouldCache())) {
       console.log('no cache!');
       const result = execSync(cacheDef.getListOptions, {encoding: 'utf-8'});
       stored[cmd].result = result.trim();

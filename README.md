@@ -14,6 +14,7 @@ Table of Contents
 * [Setting up my mac](#setting-up-my-mac)
   * [How to setup packages](#how-to-setup-packages)
 * [Custom git setup](#custom-git-setup)
+* [Custom Caching setup](#custom-caching-setup)
 * [Rust setup](#rust-setup)
 * [homebrew](#homebrew)
 * [zsh](#zsh)
@@ -65,6 +66,14 @@ If you need to customise git (email for example), consider using the following g
 [user]
   name = Name Here
   email = email@email.com
+```
+
+Custom Caching setup
+--------------------
+I have a bespoke caching function here. This adds it to your path
+
+```bash
+ln -s $(pwd)/scripts/cache_fzf.js /usr/local/bin/cache_fzf.js
 ```
 
 Rust setup
