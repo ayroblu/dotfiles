@@ -74,7 +74,7 @@ _fzf_complete_node() {
 _fzf_complete_npx() {
   ARGS="$@"
   if [[ $ARGS == 'npx gulp '* ]]; then
-    local options="$(npx gulp --tasks --depth 1 | tail -n +3 | awk '{print $3}' | sort)"
+    local options="$(cache_fzf.js 'npx gulp')"
     _fzf_complete "--multi" "$@" < <(
       echo $options
     )

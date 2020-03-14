@@ -52,7 +52,7 @@ const allCmds = [{
   name: 'npx',
   cmds: [{
     cmdTrigger: 'npx gulp ',
-    cmdListOptions: "npx gulp --tasks --depth 1 | tail -n +3 | awk '{print $3}' | sort",
+    cmdListOptions: "cache_fzf.js 'npx gulp'",
     fzfOptions: '--multi',
   }]
 }]
