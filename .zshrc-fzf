@@ -5,12 +5,12 @@
 _fzf_complete_brew() {
   ARGS="$@"
   if [[ $ARGS == 'brew install '* ]]; then
-    local options="$(brew search)"
+    local options="$(cache_fzf.js "brew install")"
     _fzf_complete "--multi" "$@" < <(
       echo $options
     )
   elif [[ $ARGS == 'brew cask install '* ]]; then
-    local options="$(brew search --casks)"
+    local options="$(cache_fzf.js "brew cask install")"
     _fzf_complete "--multi" "$@" < <(
       echo $options
     )
@@ -31,13 +31,13 @@ _fzf_complete_brew() {
 _fzf_complete_git() {
   ARGS="$@"
   if [[ $ARGS == 'git add '* ]]; then
-    local options="$(git status -s | sed s/^...//)"
-    _fzf_complete "--reverse --multi" "$@" < <(
+    local options="$(cache_fzf.js "git co")"
+    _fzf_complete "--multi" "$@" < <(
       echo $options
     )
   elif [[ $ARGS == 'git co '* ]]; then
-    local options="$(git status -s | sed s/^...//)"
-    _fzf_complete "--reverse --multi" "$@" < <(
+    local options="$(cache_fzf.js "git co")"
+    _fzf_complete "--multi" "$@" < <(
       echo $options
     )
   elif [[ $ARGS == 'git cob '* ]]; then

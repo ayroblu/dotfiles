@@ -4,11 +4,13 @@ const allCmds = [{
   name: 'brew',
   cmds: [{
     cmdTrigger: 'brew install ',
-    cmdListOptions: 'brew search',
+    // cmdListOptions: 'brew search',
+    cmdListOptions: 'cache_fzf.js "brew install"',
     fzfOptions: '--multi',
   }, {
     cmdTrigger: 'brew cask install ',
-    cmdListOptions: 'brew search --casks',
+    // cmdListOptions: 'brew search --casks',
+    cmdListOptions: 'cache_fzf.js "brew cask install"',
     fzfOptions: '--multi',
   }, {
     cmdTrigger: 'brew uninstall ',
@@ -23,12 +25,14 @@ const allCmds = [{
   name: 'git',
   cmds: [{
     cmdTrigger: 'git add ',
-    cmdListOptions: 'git status -s | sed s/^...//',
-    fzfOptions: '--reverse --multi',
+    cmdListOptions: 'cache_fzf.js "git co"',
+    // cmdListOptions: 'git status -s | sed s/^...//',
+    fzfOptions: '--multi',
   }, {
     cmdTrigger: 'git co ',
-    cmdListOptions: 'git status -s | sed s/^...//',
-    fzfOptions: '--reverse --multi',
+    cmdListOptions: 'cache_fzf.js "git co"',
+    // cmdListOptions: 'git status -s | sed s/^...//',
+    fzfOptions: '--multi',
   }, {
     cmdTrigger: 'git cob ',
     cmdListOptions: "git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)'",
@@ -53,6 +57,7 @@ const allCmds = [{
   cmds: [{
     cmdTrigger: 'npx gulp ',
     cmdListOptions: "cache_fzf.js 'npx gulp'",
+    // cmdListOptions: "npx gulp --tasks --depth 1 | tail -n +3 | awk '{print $3}' | sort",
     fzfOptions: '--multi',
   }]
 }]
