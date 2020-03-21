@@ -1,6 +1,8 @@
+bat: 
 colordiff: 
 coreutils: 
 ctags: 
+fd: 
 fzf: 
 git: gettext pcre2
 htop: ncurses
@@ -9,12 +11,13 @@ macvim: cscope gdbm libyaml lua openssl@1.1 python readline ruby sqlite xz
 make: 
 mysql-client: openssl@1.1
 nailgun: 
+node: icu4c
+perl: 
 ripgrep: pcre2
 rmtrash: 
 rustup-init: 
 olafurpg/scalafmt/scalafmt: 
 tmux: libevent ncurses openssl@1.1
 tree: 
-vim: gdbm gettext libyaml lua openssl@1.1 perl python readline ruby sqlite xz
 zsh: ncurses pcre
 zsh-syntax-highlighting: 
