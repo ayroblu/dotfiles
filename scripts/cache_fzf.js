@@ -21,11 +21,11 @@ if (args.length !== 1) {
 const cacheDefs = [{
   cmd: 'brew install',
   getListOptions: "brew search",
-  getCmdFiles: () => ['/usr/local/Homebrew/bin/brew'],
+  getCmdFiles: () => ['/usr/local/Homebrew/.git/HEAD'],
 }, {
   cmd: 'brew cask install',
   getListOptions: "brew search --casks",
-  getCmdFiles: () => ['/usr/local/Homebrew/bin/brew'],
+  getCmdFiles: () => ['/usr/local/Homebrew/.git/HEAD'],
 }, {
   cmd: 'npx gulp',
   getListOptions: "npx gulp --tasks --depth 1 | tail -n +3 | awk '{print $3}' | sort",

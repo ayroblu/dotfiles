@@ -86,6 +86,9 @@ set spellfile=~/.spellfile.utf-8.add
 " Probably can remove vim-vinegar in favour of personalised setup
 let g:netrw_liststyle = 3
 
+" Not sure this really works
+set encoding=UTF-8
+
 " Encryption method, defaults to super weak
 set cm=blowfish2
 
@@ -546,6 +549,13 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   nmap <Leader>t :Files<CR>
   " Don't really use this
   nmap <Leader>r :Tags<CR>
+  " Custom setup for previews on Rg and Files
+  command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+  command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
   " https://github.com/junegunn/fzf
   " sbtrkt	fuzzy-match	Items that match sbtrkt
   " 'wild	exact-match (quoted)	Items that include wild
