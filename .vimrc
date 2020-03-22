@@ -24,6 +24,8 @@ function ShowPersonalHelp()
         \\nClose all buffers: :bufdo bd
         \\nSpelling: <leader>s ]s [s ]S [S
         \\n<insert> <c-u> to undo in insert mode
+        \\n<leader>o to open the tagbar
+        \\n<leader><leader>f<char> easy motion find (F for reverse)
         \\n\nfzf:
         \\n<leader>t to fzf show files
         \\n<leader><leader>t to fzf show tags
@@ -651,6 +653,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " let cmdline_map_quit           = '<LocalLeader>q'
 
   Plug 'majutsushi/tagbar'
+  " Kinda works for python, not really working for typescript
   " See the following for ctag setups per file type
   " https://github.com/majutsushi/tagbar/wiki#typescript
   let g:tagbar_type_typescript = {
@@ -666,6 +669,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
       \ 'e:enums',
     \ ]
   \ }
+  nnoremap <leader>o :TagbarToggle<cr>
   "autocmd VimEnter * nested :call tagbar#autoopen(1)
 
   " === Text objects
@@ -734,22 +738,24 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
 
   Plug 'w0rp/ale'
   "autocmd FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
-  "autocmd FileType typescript,typescript.tsx let g:ale_linters = {'typescript': ['eslint']}
-  nmap <silent> ]j :ALENextWrap<cr>
-  nmap <silent> [j :ALEPreviousWrap<cr>
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact let b:ale_linters = []
+  "nmap <silent> ]j :ALENextWrap<cr>
+  "nmap <silent> [j :ALEPreviousWrap<cr>
+
+  "\ 'typescript': ['tslint', 'eslint', 'prettier'],
+  "\ 'typescript.tsx': ['tslint', 'eslint', 'prettier'],
+  "\ 'typescriptreact': ['tslint', 'eslint', 'prettier'],
+  "\ 'javascript': ['eslint', 'prettier'],
+  "\ 'css': ['prettier'],
+  "\ 'json': ['prettier'],
+  " Still use ale for python
   let g:ale_fixers = {
-  \ 'typescript': ['tslint', 'eslint', 'prettier'],
-  \ 'typescript.tsx': ['tslint', 'eslint', 'prettier'],
-  \ 'typescriptreact': ['tslint', 'eslint', 'prettier'],
-  \ 'javascript': ['eslint', 'prettier'],
-  \ 'css': ['prettier'],
-  \ 'json': ['prettier'],
   \ 'python': ['isort'],
   \ 'scala': ['scalafmt'],
   \}
   autocmd FileType javascript let b:ale_linters_ignore = ['tsserver']
   let g:ale_fix_on_save = 1
-  let g:ale_javascript_prettier_use_local_config = 1
+  "let g:ale_javascript_prettier_use_local_config = 1
   let g:vim_markdown_new_list_item_indent = 0
   let g:ale_open_list=1
 
@@ -765,6 +771,65 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   autocmd FileType rust nnoremap <buffer> <leader>e :RustRun<cr>
   "au BufNewFile,BufReadPost *.md set filetype=markdown
 
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  " Hopefully this will replace ale and some of the others
+  let g:coc_global_extensions = [
+        \'coc-tsserver',
+        \'coc-prettier',
+        \'coc-tslint',
+        \'coc-eslint',
+        \'coc-json',
+        \'coc-css'
+        \]
+  inoremap <silent><expr> <c-x><c-o> coc#refresh()
+  " Checkout the following as <c-space> is interpreted as <c-@>
+  " https://stackoverflow.com/questions/24983372/what-does-ctrlspace-do-in-vim
+  inoremap <silent><expr> <c-@> coc#refresh()
+  inoremap <silent><expr> <c-space> coc#refresh()
+  " Use `[g` and `]g` to navigate diagnostics
+  nmap <silent> [j <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]j <Plug>(coc-diagnostic-next)
+
+  " GoTo code navigation.
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+
+  " Use K to show documentation in preview window.
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+  " Remap keys for applying codeAction to the current line.
+  nmap <leader>ac  <Plug>(coc-codeaction)
+
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
+  endfunction
+
+  augroup typescript
+    au!
+    " Tag like go to definition
+    autocmd FileType typescript,javascript,typescriptreact,javascriptreact nmap <silent> <c-]> <Plug>(coc-definition)
+
+    " Symbol renaming.
+    autocmd FileType typescript,javascript,typescriptreact,javascriptreact nmap <leader>r <Plug>(coc-rename)
+  augroup END
+
+  " Highlight the symbol and its references when holding the cursor.
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+
+  " Introduce function text object
+  " " NOTE: Requires 'textDocument.documentSymbol' support from the language
+  " server.
+  xmap if <Plug>(coc-funcobj-i)
+  xmap af <Plug>(coc-funcobj-a)
+  omap if <Plug>(coc-funcobj-i)
+  omap af <Plug>(coc-funcobj-a)
+
   "Plug 'racer-rust/vim-racer'
   let g:racer_experimental_completer = 1
   let g:racer_insert_paren = 1
@@ -775,7 +840,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   "au FileType rust au User ALELint lwindow
   "au FileType rust au FocusGained,BufEnter,CursorHold,CursorHoldI * lwindow
 
-  Plug 'Quramy/tsuquyomi'
+  "Plug 'Quramy/tsuquyomi'
   let g:tsuquyomi_single_quote_import=1
   let g:tsuquyomi_shortest_import_path = 1
   " Stop tsuquyomi freezing on save, why do this in vim 8 though...
