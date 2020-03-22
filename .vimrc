@@ -17,6 +17,32 @@
 "   - :'<,'>w !python
 " 3. Do a setup in a project vimrc
 " 4. Run buffer in interactive shell
+" ----------------------------------------------------------- Personal Help
+function ShowPersonalHelp()
+  echo "<leader>? for this help
+        \\nalign: <visual> ga=
+        \\nClose all buffers: :bufdo bd
+        \\n<leader>t to fzf show files
+        \\n<leader><leader>t to fzf show tags
+        \\n<leader><leader>r to fzf show tags in current buffer
+        \"
+  if &filetype == 'python'
+    echo "\npython:
+          \\n<leader>r to rename
+          \\n<c-}> to go to definition
+          \\nK to show documentation
+          \\n<leader>i to try auto imports
+          \\n<leader>n to show usages (<leader>b to close)
+          \\n<leader>g to go to assignment (low use)
+          \\n:AFlake to remove unused imports (requires autoflake)
+          \"
+  endif
+  if &filetype == 'markdown'
+    echo "\nmarkdown:
+          \\nGenerate markdown: :GenTocGFM
+          \"
+  endif
+endfunction
 " ------------------------------------------------------------Main layout
 set sw=2 sts=2 ts=2 "shiftwidth, softtabstop, tabstop
 set number et is ai hls ru sc "linenumbers, softtabs, incsearch, autoindent, highlight search, ruler line col number, showcmd
@@ -547,9 +573,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   Plug 'junegunn/fzf.vim'
   noremap <leader><Tab> :Buffers<CR>
   nmap <Leader>t :Files<CR>
-  " Don't really use this
-  nmap <Leader>r :BTags<CR>
-  nmap <Leader><Leader>r :Tags<CR>
+  nmap <Leader><leader>r :BTags<CR>
+  nmap <Leader><Leader>t :Tags<CR>
   " Custom setup for previews on Rg and Files
   command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -559,12 +584,13 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
   " https://github.com/junegunn/fzf.vim/issues/800#issuecomment-533801609
   " Sorting issue: https://github.com/junegunn/fzf.vim/pull/620
+  " !i$ for imports - mainly python
   command! -bang BTags
-  \ call fzf#vim#buffer_tags(<q-args>, {
+  \ call fzf#vim#buffer_tags('!i$ '.<q-args>, {
   \   'down': '40%',
   \   'options': '
   \     --with-nth 1,4
-  \     --nth 1
+  \     --nth 1,2
   \     --delimiter "\t"
   \     --reverse
   \     --preview-window="70%"
@@ -685,6 +711,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   let g:jedi#completions_command = "<C-x><C-o>"
   let g:jedi#rename_command = "<leader>r"
   let g:jedi#popup_select_first = 0
+  autocmd FileType python nnoremap <buffer> <leader>b :cclose<cr>
 
   Plug 'tell-k/vim-autoflake'
   " :Autoflake to remove unused imports
@@ -765,8 +792,6 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
 
   " === old
 
-  " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-
   "Plug 'garbas/vim-snipmate'
   "Plug 'honza/vim-snippets'
 
@@ -787,6 +812,9 @@ try
 catch /^Vim(colorscheme):/
 endtry
 hi Normal ctermbg=NONE " we want vim to follow terminal background
+
+" Have to set this last
+nnoremap <leader>? :call ShowPersonalHelp()<cr>
 
 " Disable unsafe commands in project specific vimrc's
 set secure
