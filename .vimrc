@@ -548,7 +548,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   noremap <leader><Tab> :Buffers<CR>
   nmap <Leader>t :Files<CR>
   " Don't really use this
-  nmap <Leader>r :Tags<CR>
+  nmap <Leader>r :BTags<CR>
+  nmap <Leader><Leader>r :Tags<CR>
   " Custom setup for previews on Rg and Files
   command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -556,6 +557,37 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   \   fzf#vim#with_preview(), <bang>0)
   command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+  " https://github.com/junegunn/fzf.vim/issues/800#issuecomment-533801609
+  " Sorting issue: https://github.com/junegunn/fzf.vim/pull/620
+  command! -bang BTags
+  \ call fzf#vim#buffer_tags(<q-args>, {
+  \   'down': '40%',
+  \   'options': '
+  \     --with-nth 1,4
+  \     --nth 1
+  \     --delimiter "\t"
+  \     --reverse
+  \     --preview-window="70%"
+  \     --preview "
+  \       tail -n +\$(echo {3} | tr -d \";\\\"\") {2} |
+  \       head -n 16 |
+  \       bat -l '.expand('%:e').' --color=always --decorations=never
+  \     "
+  \   '
+  \ })
+  command! -bang Tags
+  \ call fzf#vim#tags(<q-args>, {
+  \   'down': '40%',
+  \   'options': '
+  \     --with-nth 1..2
+  \     --reverse
+  \     --preview "
+  \       tail -n +\$(echo {3} | tr -d \";\\\"\") {2} |
+  \       head -n 16 |
+  \       bat -l '.expand('%:e').' --color=always --decorations=never
+  \     "
+  \   '
+  \ })
   " https://github.com/junegunn/fzf
   " sbtrkt	fuzzy-match	Items that match sbtrkt
   " 'wild	exact-match (quoted)	Items that include wild
@@ -587,6 +619,24 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " let cmdline_map_send_paragraph = '<LocalLeader>p'
   " let cmdline_map_send_block     = '<LocalLeader>b'
   " let cmdline_map_quit           = '<LocalLeader>q'
+
+  Plug 'majutsushi/tagbar'
+  " See the following for ctag setups per file type
+  " https://github.com/majutsushi/tagbar/wiki#typescript
+  let g:tagbar_type_typescript = {
+    \ 'ctagstype': 'typescript',
+    \ 'kinds': [
+      \ 'c:classes',
+      \ 'n:modules',
+      \ 'f:functions',
+      \ 'v:variables',
+      \ 'v:varlambdas',
+      \ 'm:members',
+      \ 'i:interfaces',
+      \ 'e:enums',
+    \ ]
+  \ }
+  "autocmd VimEnter * nested :call tagbar#autoopen(1)
 
   " === Text objects
   "Plug 'wellle/targets.vim'
