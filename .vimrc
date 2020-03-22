@@ -22,9 +22,13 @@ function ShowPersonalHelp()
   echo "<leader>? for this help
         \\nalign: <visual> ga=
         \\nClose all buffers: :bufdo bd
+        \\nSpelling: <leader>s ]s [s ]S [S
+        \\n<insert> <c-u> to undo in insert mode
+        \\n\nfzf:
         \\n<leader>t to fzf show files
         \\n<leader><leader>t to fzf show tags
         \\n<leader><leader>r to fzf show tags in current buffer
+        \\n`:Rg query` to search with ripgrep
         \"
   if &filetype == 'python'
     echo "\npython:
@@ -320,8 +324,8 @@ let &t_EI = "\e[2 q"
 
 " optional reset cursor on start:
 augroup myCmds
-au!
-autocmd VimEnter * silent !echo -ne "\e[2 q"
+  autocmd!
+  autocmd VimEnter * silent !echo -ne "\e[2 q"
 augroup END
 
 " Normally you can open a url with gx, doesnt work so use <leader>u
@@ -349,7 +353,7 @@ command Ctmux :n ~/.tmux.conf
 command Cnotes :n ~/Dropbox/Notes/*
 
 " clear auto commands with !au (if you want) and reload vim, can use RestartVim in MacVim?
-command Reload :so ~/.vimrc
+command Reload :au! | so ~/.vimrc
 
 command NoUndo :silent exec "!rmtrash ~/.vim/undodir" | redraw!
 
