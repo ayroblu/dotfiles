@@ -10,9 +10,9 @@ exists() {
 # -------------- Misc env vars
 [ -f /usr/local/opt/libffi/lib/pkgconfig ] && export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 exists node && export NODE_OPTIONS=--max-old-space-size=8192
-exists cargo && [ -d ~/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
+[ -d ~/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
 exists brew && export HOMEBREW_NO_AUTO_UPDATE=1
-exists poetry && [ -d ~/.poetry/bin ] && export PATH="$HOME/.poetry/bin:$PATH"
+[ -d ~/.poetry/bin ] && export PATH="$HOME/.poetry/bin:$PATH"
 [ -d /usr/local/opt/mysql-client/bin ] && export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 [ -d /usr/local/opt/make/libexec/gnubin ] && export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
 #
@@ -148,8 +148,8 @@ default-fzf-cmd() {
 #Can't use default-fzf-cmd because no functions in vim
 #export FZF_DEFAULT_COMMAND='default-fzf-cmd'
 exists rg && export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" 2> /dev/null'
-#export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_COMMAND='default-fzf-cmd'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+#export FZF_CTRL_T_COMMAND='default-fzf-cmd'
 export FZF_DEFAULT_OPTS="--height 60% --reverse --bind 'up:preview-up,down:preview-down,ctrl-d:preview-page-down,ctrl-u:preview-page-up,ctrl-f:half-page-down,ctrl-b:half-page-up'"
 export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} | head -500'"
 # (EXPERIMENTAL) Advanced customization of fzf options via _fzf_comprun function
@@ -192,10 +192,9 @@ fzf_gf() {
 
 fzf_gb() {
   is_in_git_repo || return
-  git branch --color=always | grep -v '/HEAD\s' | sort |
-  fzf-down --ansi --multi --tac --preview-window right:70% \
-    --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
-  sed 's/^..//' | cut -d' ' -f1 |
+  git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' |
+  fzf-down --ansi --multi --no-sort --preview-window right:70% \
+    --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" {} | head -'$LINES |
   sed 's#^remotes/##'
 }
 

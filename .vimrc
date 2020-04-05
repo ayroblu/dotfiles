@@ -26,6 +26,8 @@ function ShowPersonalHelp()
         \\n<insert> <c-u> to undo in insert mode
         \\n<leader>o to open the tagbar
         \\n<leader><leader>f<char> easy motion find (F for reverse)
+        \\n\nnetrw:
+        \\ngn for changing root
         \\n\nfzf:
         \\n<leader>t to fzf show files
         \\n<leader><leader>t to fzf show tags
@@ -703,6 +705,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " Conceal level is enabled for some random reason (indentLine)
   let g:vim_markdown_conceal = 0
   Plug 'mzlogin/vim-markdown-toc'
+  let g:vmt_list_item_char='-'
   " :GenTocGFM
 
   Plug 'romainl/vim-devdocs'
@@ -748,10 +751,12 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   "\ 'javascript': ['eslint', 'prettier'],
   "\ 'css': ['prettier'],
   "\ 'json': ['prettier'],
+  "\ 'scala': ['scalafmt'],
   " Still use ale for python
+  " ALE uses prettier only if it's installed - preferred for markdown
   let g:ale_fixers = {
   \ 'python': ['isort'],
-  \ 'scala': ['scalafmt'],
+  \ 'markdown': ['prettier'],
   \}
   autocmd FileType javascript let b:ale_linters_ignore = ['tsserver']
   let g:ale_fix_on_save = 1
@@ -774,6 +779,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   " Hopefully this will replace ale and some of the others
   let g:coc_global_extensions = [
+        \'coc-metals',
         \'coc-tsserver',
         \'coc-prettier',
         \'coc-tslint',
