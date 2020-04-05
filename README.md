@@ -11,20 +11,20 @@ Table of Contents
 -----------------
 <!-- vim-markdown-toc GFM -->
 
-* [Setting up my mac](#setting-up-my-mac)
-  * [How to setup packages](#how-to-setup-packages)
-* [Custom git setup](#custom-git-setup)
-* [Custom Caching setup](#custom-caching-setup)
-* [Rust setup](#rust-setup)
-* [homebrew](#homebrew)
-* [zsh](#zsh)
-* [Making symlinks](#making-symlinks)
-* [Tmux Setup](#tmux-setup)
-* [Vim Setup](#vim-setup)
-* [FZF setup](#fzf-setup)
-* [VS Code Setup](#vs-code-setup)
-  * [History](#history)
-* [Vrapper Setup](#vrapper-setup)
+- [Setting up my mac](#setting-up-my-mac)
+  - [How to setup packages](#how-to-setup-packages)
+- [Custom git setup](#custom-git-setup)
+- [Custom Caching setup](#custom-caching-setup)
+- [Rust setup](#rust-setup)
+- [homebrew](#homebrew)
+- [zsh](#zsh)
+- [Making symlinks](#making-symlinks)
+- [Tmux Setup](#tmux-setup)
+- [Vim Setup](#vim-setup)
+- [FZF setup](#fzf-setup)
+- [VS Code Setup](#vs-code-setup)
+  - [History](#history)
+- [Vrapper Setup](#vrapper-setup)
 
 <!-- vim-markdown-toc -->
 
@@ -78,7 +78,7 @@ ln -s $(pwd)/scripts/cache_fzf.js /usr/local/bin/cache_fzf.js
 
 Rust setup
 ----------
-```
+```bash
 # Init
 brew install rustup
 rustup-init
@@ -107,7 +107,7 @@ Install the packages that are listed in the brew lists
 To remove a package with depedencies:
 https://stackoverflow.com/questions/7323261/uninstall-remove-a-homebrew-package-including-all-its-dependencies
 
-```
+```bash
 brew tap beeftornado/rmtree
 brew rmtree <package>
 ```

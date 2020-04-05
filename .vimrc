@@ -1,4 +1,4 @@
-" Ben Lu, vimrc
+scriptencoding utf-8
 " :so ~/_vimrc " reloads vimrc, use in vim, not here, or quit and use `vis` if
 " you have sessions setup
 " Use `vim -u None file.txt` if big
@@ -26,6 +26,7 @@ function ShowPersonalHelp()
         \\n<insert> <c-u> to undo in insert mode
         \\n<leader>o to open the tagbar
         \\n<leader><leader>f<char> easy motion find (F for reverse)
+        \\n<leader>u to open links under the cursor
         \\n\nnetrw:
         \\ngn for changing root
         \\n\nfzf:
@@ -34,7 +35,7 @@ function ShowPersonalHelp()
         \\n<leader><leader>r to fzf show tags in current buffer
         \\n`:Rg query` to search with ripgrep
         \"
-  if &filetype == 'python'
+  if &filetype ==# 'python'
     echo "\npython:
           \\n<leader>r to rename
           \\n<c-}> to go to definition
@@ -45,15 +46,25 @@ function ShowPersonalHelp()
           \\n:AFlake to remove unused imports (requires autoflake)
           \"
   endif
-  if &filetype == 'markdown'
+  if &filetype ==# 'markdown'
     echo "\nmarkdown:
           \\nGenerate markdown: :GenTocGFM
           \"
   endif
 endfunction
 " ------------------------------------------------------------Main layout
-set sw=2 sts=2 ts=2 "shiftwidth, softtabstop, tabstop
-set number et is ai hls ru sc "linenumbers, softtabs, incsearch, autoindent, highlight search, ruler line col number, showcmd
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+
+set number
+set expandtab
+set incsearch
+set autoindent
+set hlsearch
+set ruler
+set showcmd
+
 set cursorline mouse=a
 set laststatus=2 " Always show a status bar
 hi CursorLine   cterm=bold,underline ctermbg=NONE ctermfg=NONE guibg=blue guifg=orange "Set cursor line highlight colours
@@ -69,7 +80,7 @@ set relativenumber
 set autoread "detect if file has changed
 set display+=lastline "long lines show to the end instead of @ sign
 set complete+=kspell " autocomplete includes the dictionary if enabled
-set fdm=manual fdl=4 "foldmethod fdc=1 foldcolumn
+set foldmethod=manual fdl=4 "foldmethod fdc=1 foldcolumn
 set updatetime=1000 "event when cursor stops moving for a second, for swp normally, but now is for checktime call below
 " Ignore case except when there atleast one capital
 set ignorecase
@@ -102,7 +113,7 @@ set wildmenu
 " https://jovicailic.org/2017/04/vim-persistent-undo/
 " https://stackoverflow.com/questions/1549263/how-can-i-create-a-folder-if-it-doesnt-exist-from-vimrc
 if !isdirectory($HOME.'/.vim/undodir')
-  call mkdir($HOME.'/.vim/undodir', "p")
+  call mkdir($HOME.'/.vim/undodir', 'p')
 endif
 set undodir=~/.vim/undodir
 set undofile
@@ -120,11 +131,8 @@ set spellfile=~/.spellfile.utf-8.add
 " Probably can remove vim-vinegar in favour of personalised setup
 let g:netrw_liststyle = 3
 
-" Not sure this really works
-set encoding=UTF-8
-
 " Encryption method, defaults to super weak
-set cm=blowfish2
+set cryptmethod=blowfish2
 
 " Project vimrcs: https://andrew.stwrt.ca/posts/project-specific-vimrc/
 set exrc
@@ -149,11 +157,11 @@ let g:terminal_ansi_colors = ['#073642', '#dc322f', '#859900', '#b58900', '#268b
 " https://stackoverflow.com/questions/25233859/vimdiff-immediately-becomes-stopped-job-crashes-terminal-when-i-try-to-fg-it-b
 " set shell=/bin/zsh\ -l
 " Why do I want this?
-if &diff == 'nodiff'
+if &diff ==# 'nodiff'
     "set shellcmdflag=-ic
 endif
 
-let mapleader=" "
+let mapleader=' '
 
 "enable's syntax highlighting, corrollary: https://stackoverflow.com/questions/33380451/is-there-a-difference-between-syntax-on-and-syntax-enable-in-vimscript
 syntax enable
@@ -335,15 +343,15 @@ augroup END
 " Normally you can open a url with gx, doesnt work so use <leader>u
 " Hint, can also open files with gf
 function! HandleURL()
-  let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
+  let s:uri = matchstr(getline('.'), '[a-z]*:\/\/[^ >,;]*')
   echo s:uri
-  if s:uri != ""
+  if s:uri !=# ''
     silent exec "!open '".s:uri."'"
   else
-    echo "No URI found in line."
+    echo 'No URI found in line.'
   endif
 endfunction
-map <leader>u :call HandleURL()<cr>
+map <leader>u :call HandleURL()<cr> | redraw!
 
 " Restore cursor position horizontally when switching buffer
 " Switching tabs this is weird??
@@ -365,7 +373,7 @@ command NoUndo :silent exec "!rmtrash ~/.vim/undodir" | redraw!
 " associated buffers. Example input: 2 5,9 12
 " Hit Enter alone to exit.
 function! InteractiveBufDelete()
-  let l:prompt = "Specify buffers to delete: "
+  let l:prompt = 'Specify buffers to delete: '
 
   ls | let bufnums = input(l:prompt)
   while strlen(bufnums)
@@ -408,7 +416,7 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 function! XTermPasteBegin()
   set pastetoggle=<Esc>[201~
   set paste
-  return ""
+  return ''
 endfunction
 " ---------------------------------------------Stuff I don't really understand
 
@@ -534,6 +542,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   let g:session_autoload = 'no'
   let g:session_default_overwrite = 1
   " Basically you just care about :OpenSession, don't worry about anything else
+  " Sometimes you need to worry about :DeleteSession
 
   " === Commands and functions
   Plug 'PeterRincker/vim-argumentative'
@@ -702,8 +711,10 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " Before polyglot overrides it
   Plug 'nkouevda/vim-thrift-syntax'
   Plug 'sheerun/vim-polyglot'
-  " Conceal level is enabled for some random reason (indentLine)
-  let g:vim_markdown_conceal = 0
+  " autocmd chaining: https://vi.stackexchange.com/questions/3968/is-there-a-way-to-and-events-in-the-autocmd
+  " jedi sets conceal level, so set it back for markdown files
+  autocmd FileType markdown autocmd BufReadPost,CursorHold <buffer> set conceallevel=0
+
   Plug 'mzlogin/vim-markdown-toc'
   let g:vmt_list_item_char='-'
   " :GenTocGFM
@@ -714,13 +725,13 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
 
   Plug 'davidhalter/jedi-vim'
   " We change these to be similar to tsuquyomi
-  let g:jedi#goto_command = "<C-]>"
+  let g:jedi#goto_command = '<C-]>'
   "let g:jedi#goto_assignments_command = ""
-  let g:jedi#goto_definitions_command = "<C-}>"
-  let g:jedi#documentation_command = "K"
-  let g:jedi#usages_command = "<leader>n"
-  let g:jedi#completions_command = "<C-x><C-o>"
-  let g:jedi#rename_command = "<leader>r"
+  let g:jedi#goto_definitions_command = '<C-}>'
+  let g:jedi#documentation_command = 'K'
+  let g:jedi#usages_command = '<leader>n'
+  let g:jedi#completions_command = '<C-x><C-o>'
+  let g:jedi#rename_command = '<leader>r'
   let g:jedi#popup_select_first = 0
   autocmd FileType python nnoremap <buffer> <leader>b :cclose<cr>
 
@@ -742,8 +753,9 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   Plug 'w0rp/ale'
   "autocmd FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
   autocmd FileType javascript,javascriptreact,typescript,typescriptreact let b:ale_linters = []
-  "nmap <silent> ]j :ALENextWrap<cr>
-  "nmap <silent> [j :ALEPreviousWrap<cr>
+  " Enable ale for things coc doesn't support yet
+  autocmd FileType vim nmap <silent> ]j :ALENextWrap<cr>
+  autocmd FileType vim nmap <silent> [j :ALEPreviousWrap<cr>
 
   "\ 'typescript': ['tslint', 'eslint', 'prettier'],
   "\ 'typescript.tsx': ['tslint', 'eslint', 'prettier'],
