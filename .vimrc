@@ -80,7 +80,10 @@ set relativenumber
 set autoread "detect if file has changed
 set display+=lastline "long lines show to the end instead of @ sign
 set complete+=kspell " autocomplete includes the dictionary if enabled
-set foldmethod=manual fdl=4 "foldmethod fdc=1 foldcolumn
+
+set foldmethod=manual
+set foldlevel=4
+
 set updatetime=1000 "event when cursor stops moving for a second, for swp normally, but now is for checktime call below
 " Ignore case except when there atleast one capital
 set ignorecase
@@ -350,8 +353,9 @@ function! HandleURL()
   else
     echo 'No URI found in line.'
   endif
+  redraw!
 endfunction
-map <leader>u :call HandleURL()<cr> | redraw!
+map <leader>u :call HandleURL()<cr>
 
 " Restore cursor position horizontally when switching buffer
 " Switching tabs this is weird??
