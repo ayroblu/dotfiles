@@ -189,4 +189,6 @@ Vrapper Setup
 -------------
 In dbeaver, install vrapper: http://vrapper.sourceforge.net/documentation/?topic=basics
 
+> http://vrapper.sourceforge.net/update-site/stable
+
 It should automatically take the .vwrapperrc from home dir
