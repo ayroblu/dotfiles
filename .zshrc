@@ -75,6 +75,7 @@ function zle-keymap-select {
 [ -f ~/.zshrc-personal ] && source ~/.zshrc-personal
 [ -f ~/.zshrc-fzf ] && source ~/.zshrc-fzf
 [ -f ~/.zshrc-prompt ] && source ~/.zshrc-prompt
+[ -f ~/.zshrc-extras ] && source ~/.zshrc-extras
 
 # Has to be last
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters

@@ -11,7 +11,7 @@ function check_last_exit_code() {
 function get_git() {
   #echo "%{$fg[yellow]%}$(git_prompt_info)%{$reset_color%}"
   # For twitter source repo
-  if [[ "$PWD" = */source* ]]; then
+  if [[ "$PWD" = *source* ]]; then
     echo '-ignoring-'
     return
   fi
