@@ -20,36 +20,40 @@ scriptencoding utf-8
 " ----------------------------------------------------------- Personal Help
 function ShowPersonalHelp()
   echo "<leader>? for this help
-        \\nalign: <visual> ga=
-        \\nClose all buffers: :bufdo bd
-        \\nSpelling: <leader>s ]s [s ]S [S
-        \\n<insert> <c-u> to undo in insert mode
-        \\n<leader>o to open the tagbar
-        \\n<leader><leader>f<char> easy motion find (F for reverse)
-        \\n<leader>u to open links under the cursor
-        \\n\nnetrw:
-        \\ngn for changing root
-        \\n\nfzf:
-        \\n<leader>t to fzf show files
-        \\n<leader><leader>t to fzf show tags
-        \\n<leader><leader>r to fzf show tags in current buffer
-        \\n`:Rg query` to search with ripgrep
-        \"
+    \\n align: <visual> ga=
+    \\n Close all buffers: :bufdo bd
+    \\n Spelling: <leader>s ]s [s ]S [S
+    \\n <insert> <c-u> to undo in insert mode
+    \\n <leader>o to open the tagbar
+    \\n <leader><leader>f<char> easy motion find (F for reverse)
+    \\n <leader>u to open links under the cursor
+    \\n :BufDelete to interactively close buffers
+    \\n :BufOnly for closing all except current buffer
+    \\n
+    \\n netrw:
+    \\n gn for changing root
+    \\n
+    \\n fzf:
+    \\n <leader>t to fzf show files
+    \\n <leader><leader>t to fzf show tags
+    \\n <leader><leader>r to fzf show tags in current buffer
+    \\n `:Rg query` to search with ripgrep
+    \"
   if &filetype ==# 'python'
     echo "\npython:
-          \\n<leader>r to rename
-          \\n<c-}> to go to definition
-          \\nK to show documentation
-          \\n<leader>i to try auto imports
-          \\n<leader>n to show usages (<leader>b to close)
-          \\n<leader>g to go to assignment (low use)
-          \\n:AFlake to remove unused imports (requires autoflake)
-          \"
+      \\n <leader>r to rename
+      \\n <c-}> to go to definition
+      \\n K to show documentation
+      \\n <leader>i to try auto imports
+      \\n <leader>n to show usages (<leader>b to close)
+      \\n <leader>g to go to assignment (low use)
+      \\n :AFlake to remove unused imports (requires autoflake)
+      \"
   endif
   if &filetype ==# 'markdown'
     echo "\nmarkdown:
-          \\nGenerate markdown: :GenTocGFM
-          \"
+      \\n Generate markdown: :GenTocGFM
+      \"
   endif
 endfunction
 " ------------------------------------------------------------Main layout
@@ -395,7 +399,7 @@ function! InteractiveBufDelete()
     ls | let bufnums = input(l:prompt)
   endwhile
 endfunction
-nnoremap <silent> <leader>bd :call InteractiveBufDelete()<CR>
+command! BufDelete :call InteractiveBufDelete()
 
 " Close all except current buffer
 " https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one
@@ -496,6 +500,11 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   Plug 'airblade/vim-gitgutter'
   let g:gitgutter_realtime = 0
   let g:gitgutter_eager = 0
+
+  Plug 'tpope/vim-dispatch'
+  " Use :Dispatch <run test/build cmd> (or :Make but that's make specific?)
+  " :Focus <cmd> to pin a command so that you can just call :Dispatch without
+  " args everytime
 
   Plug 'tpope/vim-fugitive'
   " Move between changes with [c and ]c
@@ -761,7 +770,6 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " Enable ale for things coc doesn't support yet
   autocmd FileType vim nmap <silent> ]j :ALENextWrap<cr>
   autocmd FileType vim nmap <silent> [j :ALEPreviousWrap<cr>
-
   "\ 'typescript': ['tslint', 'eslint', 'prettier'],
   "\ 'typescript.tsx': ['tslint', 'eslint', 'prettier'],
   "\ 'typescriptreact': ['tslint', 'eslint', 'prettier'],
@@ -781,7 +789,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   let g:ale_fix_on_save = 1
   "let g:ale_javascript_prettier_use_local_config = 1
   let g:vim_markdown_new_list_item_indent = 0
-  let g:ale_open_list=1
+  " Disable the loclist (just annoying right now) can be opened with :lopen
+  let g:ale_open_list=0
 
   " Rust vim specific
   " http://seenaburns.com/vim-setup-for-rust/
