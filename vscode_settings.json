@@ -3,26 +3,21 @@
 // cmd j - toggle side panel
 // cmd p - toggle file search
 {
-  "editor.tabSize": 2,
-  "editor.minimap.enabled": false,
-  "window.zoomLevel": 0,
-  "editor.wordWrap": "on",
   "workbench.colorTheme": "Solarized Light",
-  "breadcrumbs.enabled": true,
   "workbench.settings.editor": "json",
-  "editor.cursorBlinking": "solid",
-  "editor.cursorSmoothCaretAnimation": true,
   "workbench.startupEditor": "none",
-  "typescript.experimental.useSeparateSyntaxServer": true,
   "workbench.tree.renderIndentGuides": "always",
   "workbench.tree.indent": 12, // 8 is a little too fine
+  "editor.tabSize": 2,
+  "editor.minimap.enabled": false,
+  "editor.wordWrap": "on",
+  "editor.cursorBlinking": "solid",
+  "editor.cursorSmoothCaretAnimation": true,
   "editor.quickSuggestions": {
     "other": false, // Intellisense makes everything slow so disable it for other as well
     "comments": false,
     "strings": false
   },
-  // Show file path if file is a window
-  "window.title": "${activeEditorLong}${separator}${rootName}",
   // Disable IDE actions
   "editor.autoClosingBrackets": "never",
   "editor.autoClosingQuotes": "never",
@@ -32,9 +27,14 @@
   "javascript.autoClosingTags": false,
   "typescript.autoClosingTags": false,
   "workbench.editor.enablePreview": false,
+  // Show file path if file is a window
+  "window.title": "${activeEditorLong}${separator}${rootName}",
+  "window.zoomLevel": 0,
+  "breadcrumbs.enabled": true,
   // Plugins
   "gitlens.defaultDateStyle": "absolute",
   "gitlens.codeLens.authors.enabled": false,
+  "gitlens.views.repositories.files.layout": "list",
   // typescript hero plugin
   // Don't organize on save, instead, just use alt shift o (vscode built in),
   // leaving this cause the grouping is quite nice if run manually so it doesn't
@@ -67,9 +67,7 @@
   "vim.hlsearch": true,
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": [
-        "("
-      ],
+      "before": ["("],
       "after": [],
       "commands": [
         {
@@ -78,9 +76,7 @@
       ]
     },
     {
-      "before": [
-        ")"
-      ],
+      "before": [")"],
       "after": [],
       "commands": [
         {
@@ -89,9 +85,7 @@
       ]
     },
     {
-      "before": [
-        "{"
-      ],
+      "before": ["{"],
       "after": [],
       "commands": [
         {
@@ -100,9 +94,7 @@
       ]
     },
     {
-      "before": [
-        "}"
-      ],
+      "before": ["}"],
       "after": [],
       "commands": [
         {
@@ -111,9 +103,7 @@
       ]
     },
     {
-      "before": [
-        "<C-h>"
-      ],
+      "before": ["<C-h>"],
       "after": [],
       "commands": [
         {
@@ -122,9 +112,7 @@
       ]
     },
     {
-      "before": [
-        "<C-l>"
-      ],
+      "before": ["<C-l>"],
       "after": [],
       "commands": [
         {
@@ -133,9 +121,7 @@
       ]
     },
     {
-      "before": [
-        "u"
-      ],
+      "before": ["u"],
       "after": [],
       "commands": [
         {
@@ -144,9 +130,7 @@
       ]
     },
     {
-      "before": [
-        "<C-r>"
-      ],
+      "before": ["<C-r>"],
       "after": [],
       "commands": [
         {
@@ -155,10 +139,7 @@
       ]
     },
     {
-      "before": [
-        "<C-w>",
-        "<C-]>"
-      ],
+      "before": ["<C-w>", "<C-]>"],
       "after": [],
       "commands": [
         {
@@ -167,10 +148,7 @@
       ]
     },
     {
-      "before": [
-        "[",
-        "j"
-      ],
+      "before": ["[", "j"],
       "after": [],
       "commands": [
         {
@@ -179,10 +157,7 @@
       ]
     },
     {
-      "before": [
-        "]",
-        "j"
-      ],
+      "before": ["]", "j"],
       "after": [],
       "commands": [
         {
@@ -191,10 +166,7 @@
       ]
     },
     {
-      "before": [
-        "<leader>",
-        ","
-      ],
+      "before": ["<leader>", ","],
       "after": [],
       "commands": [
         {
@@ -203,10 +175,7 @@
       ]
     },
     {
-      "before": [
-        "<leader>",
-        "."
-      ],
+      "before": ["<leader>", "."],
       "after": [],
       "commands": [
         {
@@ -215,9 +184,7 @@
       ]
     },
     {
-      "before": [
-        "∆"
-      ],
+      "before": ["∆"],
       "after": [],
       "commands": [
         {
@@ -226,9 +193,7 @@
       ]
     },
     {
-      "before": [
-        "˚"
-      ],
+      "before": ["˚"],
       "after": [],
       "commands": [
         {
@@ -237,10 +202,7 @@
       ]
     },
     {
-      "before": [
-        "<leader>",
-        "t"
-      ],
+      "before": ["<leader>", "t"],
       "after": [],
       "commands": [
         {
@@ -268,25 +230,11 @@
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
     {
-      "before": [
-        "y",
-      ],
-      "after": [
-        "<Esc>",
-        "m",
-        "a",
-        "g",
-        "v",
-        "y",
-        "`",
-        "a",
-      ]
+      "before": ["y"],
+      "after": ["<Esc>", "m", "a", "g", "v", "y", "`", "a"]
     },
     {
-      "before": [
-        "<leader>",
-        "t"
-      ],
+      "before": ["<leader>", "t"],
       "after": [],
       "commands": [
         {
@@ -295,9 +243,7 @@
       ]
     },
     {
-      "before": [
-        "∆"
-      ],
+      "before": ["∆"],
       "after": [],
       "commands": [
         {
@@ -306,9 +252,7 @@
       ]
     },
     {
-      "before": [
-        "˚"
-      ],
+      "before": ["˚"],
       "after": [],
       "commands": [
         {
@@ -319,35 +263,18 @@
     // vnoremap p "_dP
     // paste without yanking
     {
-      "before": [
-        "p"
-      ],
-      "after": [
-        "\"",
-        "_",
-        "d",
-        "P"
-      ]
+      "before": ["p"],
+      "after": ["\"", "_", "d", "P"]
     }
   ],
   "vim.insertModeKeyBindings": [
     {
-      "before": [
-        "j",
-        "j"
-      ],
-      "after": [
-        "<Esc>"
-      ]
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
     },
     {
-      "before": [
-        "j",
-        "k"
-      ],
-      "after": [
-        "<Esc>"
-      ]
+      "before": ["j", "k"],
+      "after": ["<Esc>"]
     }
   ],
   // "vim.visualModeKeyBindings": [
@@ -371,12 +298,29 @@
   "vim.easymotionMarkerFontFamily": "Helvetica Neue",
   "vim.easymotionMarkerHeight": 18,
   "editor.suggestSelection": "first",
-  "python.jediEnabled": true,
   "workbench.editor.showTabs": true,
+  // Python
+  // Example with flake8 and mypy and black (put this in your workspace settings)
+  // "python.linting.pylintEnabled": false,
+  // "python.linting.mypyEnabled": true,
+  // "python.linting.flake8Enabled": true,
+  // "python.linting.flake8Args": ["--config=flake8.ini"],
+  // "python.linting.enabled": true,
+  // "python.pythonPath": "${workspaceFolder}/env/bin/python",
+  // "python.testing.pytestArgs": ["aipy"],
+  // "python.testing.unittestEnabled": false,
+  // "python.testing.nosetestsEnabled": false,
+  // "python.testing.pytestEnabled": true,
+  // "python.linting.mypyArgs": [],
+  // "python.formatting.provider": "black",
+  // "python.formatting.blackArgs": ["-l 100"],
+  // "python.formatting.blackPath": "cblack",
+  "python.jediEnabled": false,
+  "python.sortImports.args": ["--settings-path=${workspaceFolder}"],
   "[python]": {
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true
+      "source.organizeImports": false
     }
-  },
-  "gitlens.views.repositories.files.layout": "list"
+  }
 }
+

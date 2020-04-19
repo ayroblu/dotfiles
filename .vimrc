@@ -757,6 +757,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   Plug 'w0rp/ale'
   "autocmd FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
   autocmd FileType javascript,javascriptreact,typescript,typescriptreact let b:ale_linters = []
+  autocmd FileType javascript let b:ale_linters_ignore = ['tsserver']
   " Enable ale for things coc doesn't support yet
   autocmd FileType vim nmap <silent> ]j :ALENextWrap<cr>
   autocmd FileType vim nmap <silent> [j :ALEPreviousWrap<cr>
@@ -774,7 +775,9 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   \ 'python': ['isort'],
   \ 'markdown': ['prettier'],
   \}
-  autocmd FileType javascript let b:ale_linters_ignore = ['tsserver']
+  let g:ale_pattern_options = {
+  \   '.*\.json$': {'ale_enabled': 0},
+  \}
   let g:ale_fix_on_save = 1
   "let g:ale_javascript_prettier_use_local_config = 1
   let g:vim_markdown_new_list_item_indent = 0
@@ -788,7 +791,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " https://asquera.de/blog/2017-03-03/setting-up-a-rust-devenv/
   "  - vscode
   let g:rustfmt_autosave = 1
-  autocmd FileType rust let g:ale_linters = {'rust': ['rls']}
+  autocmd FileType rust let b:ale_linters = {'rust': ['rls']}
   autocmd FileType rust nnoremap <buffer> <leader>e :RustRun<cr>
   "au BufNewFile,BufReadPost *.md set filetype=markdown
 
@@ -803,6 +806,9 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
         \'coc-json',
         \'coc-css'
         \]
+  " vscode + coc config uses jsonc
+  " https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
+  autocmd FileType json syntax match Comment +\/\/.\+$+
   inoremap <silent><expr> <c-x><c-o> coc#refresh()
   " Checkout the following as <c-space> is interpreted as <c-@>
   " https://stackoverflow.com/questions/24983372/what-does-ctrlspace-do-in-vim

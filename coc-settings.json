@@ -1,0 +1,20 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": ["scala", "typescript", "typescriptreact", "css", "json", "html"],
+  "tslint.autoFixOnSave": true,
+  "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.autoFixOnSave": true,
+
+  // Python only
+  // "python.jediEnabled": false,
+  // "python.linting.pylintEnabled": false,
+  // "python.linting.mypyEnabled": true,
+  // "python.linting.flake8Enabled": true,
+  // "python.linting.flake8Args": ["--config=flake8.ini"],
+  // "python.linting.enabled": true,
+  // "python.pythonPath": "${workspaceFolder}/aiden/env/bin/python",
+  // "python.linting.mypyArgs": [],
+  // "python.formatting.provider": "black",
+  // "python.formatting.blackArgs": ["-l 100"],
+  // "python.formatting.blackPath": "cblack",
+  // "python.sortImports.args": ["--settings-path=${workspaceFolder}"],
+}
