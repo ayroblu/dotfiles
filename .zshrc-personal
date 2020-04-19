@@ -42,6 +42,8 @@ alias cgit="vi ~/.gitconfig*"
 alias proxywifion='sudo networksetup -setsocksfirewallproxystate Wi-Fi on' #on / off
 alias proxywifioff='sudo networksetup -setsocksfirewallproxystate Wi-Fi off' #on / off
 
+alias gulp='TS_NODE_TRANSPILE_ONLY=true npx gulp'
+
 # ------------ Functions
 
 function nzproxy {
@@ -106,141 +108,141 @@ regexReplace() {
 # Downfalls - can't do context aware (how do I figure out the cmd line? Perhaps $@?
 if exists fzf; then
 
-# More in the .zshrc-fzf
+  # More in the .zshrc-fzf
 
-## Completion triggers with ^F
-# This removes the ** requirement, so can tab on random space to get auto complete
-#export FZF_COMPLETION_TRIGGER=''
-# If you've ever set the trigger in the past, just removing it is not enough, need to unset
-unset FZF_COMPLETION_TRIGGER
-fzf-completion-notrigger() {
-  FZF_COMPLETION_TRIGGER='' fzf-completion
-}
-zle -N fzf-completion-notrigger
-bindkey '^F' fzf-completion-notrigger
-_fzf_complete_git_notrigger() {
-    FZF_COMPLETION_TRIGGER='' _fzf_complete_ssh
-}
-#bindkey '^I' $fzf_default_completion
-#bindkey '^I' expand-or-complete
-#### supported command prefixes: ####
-# Most commands: files
-# cd: directories
-# kill: processes
-# ssh, telnet: hosts
-# unset, export: env vars
-# unalias: aliases
-## For files and directories
-_fzf_compgen_path() {
-  #fd --hidden --follow --exclude ".git" . "$1"
-  rg --files --hidden --glob "!.git" "$1"
-}
-# Use fd to generate the list for directory completion
-_fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
-}
+  ## Completion triggers with ^F
+  # This removes the ** requirement, so can tab on random space to get auto complete
+  #export FZF_COMPLETION_TRIGGER=''
+  # If you've ever set the trigger in the past, just removing it is not enough, need to unset
+  unset FZF_COMPLETION_TRIGGER
+  fzf-completion-notrigger() {
+    FZF_COMPLETION_TRIGGER='' fzf-completion
+  }
+  zle -N fzf-completion-notrigger
+  bindkey '^F' fzf-completion-notrigger
+  _fzf_complete_git_notrigger() {
+      FZF_COMPLETION_TRIGGER='' _fzf_complete_ssh
+  }
+  #bindkey '^I' $fzf_default_completion
+  #bindkey '^I' expand-or-complete
+  #### supported command prefixes: ####
+  # Most commands: files
+  # cd: directories
+  # kill: processes
+  # ssh, telnet: hosts
+  # unset, export: env vars
+  # unalias: aliases
+  ## For files and directories
+  _fzf_compgen_path() {
+    #fd --hidden --follow --exclude ".git" . "$1"
+    rg --files --hidden --glob "!.git" "$1"
+  }
+  # Use fd to generate the list for directory completion
+  _fzf_compgen_dir() {
+    fd --type d --hidden --follow --exclude ".git" . "$1"
+  }
 
-## FZF setup variables - use git ls-files cause it's way faster
-default-fzf-cmd() {
-  git ls-files 2> /dev/null || rg --files --hidden --glob "!.git" 2> /dev/null
-}
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-#Can't use default-fzf-cmd because no functions in vim
-#export FZF_DEFAULT_COMMAND='default-fzf-cmd'
-exists rg && export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" 2> /dev/null'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-#export FZF_CTRL_T_COMMAND='default-fzf-cmd'
-export FZF_DEFAULT_OPTS="--height 60% --reverse --bind 'up:preview-up,down:preview-down,ctrl-d:preview-page-down,ctrl-u:preview-page-up,ctrl-f:half-page-down,ctrl-b:half-page-up'"
-export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} | head -500'"
-# (EXPERIMENTAL) Advanced customization of fzf options via _fzf_comprun function
-# - The first argument to the function is the name of the command.
-# - You should make sure to pass the rest of the arguments to fzf.
-_fzf_comprun() {
-  local command=$1
-  shift
+  ## FZF setup variables - use git ls-files cause it's way faster
+  default-fzf-cmd() {
+    git ls-files 2> /dev/null || rg --files --hidden --glob "!.git" 2> /dev/null
+  }
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+  #Can't use default-fzf-cmd because no functions in vim
+  #export FZF_DEFAULT_COMMAND='default-fzf-cmd'
+  exists rg && export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" 2> /dev/null'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  #export FZF_CTRL_T_COMMAND='default-fzf-cmd'
+  export FZF_DEFAULT_OPTS="--height 60% --reverse --bind 'up:preview-up,down:preview-down,ctrl-d:preview-page-down,ctrl-u:preview-page-up,ctrl-f:half-page-down,ctrl-b:half-page-up'"
+  export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} | head -500'"
+  # (EXPERIMENTAL) Advanced customization of fzf options via _fzf_comprun function
+  # - The first argument to the function is the name of the command.
+  # - You should make sure to pass the rest of the arguments to fzf.
+  _fzf_comprun() {
+    local command=$1
+    shift
 
-  case "$command" in
-    cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
-    export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
-    ssh)          fzf "$@" --preview 'dig {}' ;;
-    # I tried aliases, didn't seem to work, not sure why - guessing it's not pulling the context (subshell?)
-    *)            fzf "$@" ;;
-  esac
-}
+    case "$command" in
+      cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
+      export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
+      ssh)          fzf "$@" --preview 'dig {}' ;;
+      # I tried aliases, didn't seem to work, not sure why - guessing it's not pulling the context (subshell?)
+      *)            fzf "$@" ;;
+    esac
+  }
 
 
-## Git shortcuts
-# Initial copy from:
-# https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
-# https://junegunn.kr/2016/07/fzf-git/
+  ## Git shortcuts
+  # Initial copy from:
+  # https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
+  # https://junegunn.kr/2016/07/fzf-git/
 
-is_in_git_repo() {
-  git rev-parse HEAD > /dev/null 2>&1
-}
+  is_in_git_repo() {
+    git rev-parse HEAD > /dev/null 2>&1
+  }
 
-fzf-down() {
-  fzf --height 50% "$@" --border
-}
+  fzf-down() {
+    fzf --height 50% "$@" --border
+  }
 
-fzf_gf() {
-  is_in_git_repo || return
-  git -c color.status=always status --short |
-  fzf-down -m --ansi --nth 2..,.. \
-    --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
-  cut -c4- | sed 's/.* -> //'
-}
+  fzf_gf() {
+    is_in_git_repo || return
+    git -c color.status=always status --short |
+    fzf-down -m --ansi --nth 2..,.. \
+      --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
+    cut -c4- | sed 's/.* -> //'
+  }
 
-fzf_gb() {
-  is_in_git_repo || return
-  git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' |
-  fzf-down --ansi --multi --no-sort --preview-window right:70% \
-    --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" {} | head -'$LINES |
-  sed 's#^remotes/##'
-}
+  fzf_gb() {
+    is_in_git_repo || return
+    git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' |
+    fzf-down --ansi --multi --no-sort --preview-window right:70% \
+      --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" {} | head -'$LINES |
+    sed 's#^remotes/##'
+  }
 
-fzf_gt() {
-  is_in_git_repo || return
-  git tag --sort -version:refname |
-  fzf-down --multi --preview-window right:70% \
-    --preview 'git show --color=always {} | head -'$LINES
-}
+  fzf_gt() {
+    is_in_git_repo || return
+    git tag --sort -version:refname |
+    fzf-down --multi --preview-window right:70% \
+      --preview 'git show --color=always {} | head -'$LINES
+  }
 
-fzf_gh() {
-  is_in_git_repo || return
-  git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
-  fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
-    --header 'Press CTRL-S to toggle sort' \
-    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
-  grep -o "[a-f0-9]\{7,\}"
-}
+  fzf_gh() {
+    is_in_git_repo || return
+    git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
+    fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+      --header 'Press CTRL-S to toggle sort' \
+      --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
+    grep -o "[a-f0-9]\{7,\}"
+  }
 
-fzf_gr() {
-  is_in_git_repo || return
-  git remote -v | awk '{print $1 "\t" $2}' | uniq |
-  fzf-down --tac \
-    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
-  cut -d$'\t' -f1
-}
-join-lines() {
-  local item
-  while read item; do
-    echo -n "${(q)item} "
-  done
-}
+  fzf_gr() {
+    is_in_git_repo || return
+    git remote -v | awk '{print $1 "\t" $2}' | uniq |
+    fzf-down --tac \
+      --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
+    cut -d$'\t' -f1
+  }
+  join-lines() {
+    local item
+    while read item; do
+      echo -n "${(q)item} "
+    done
+  }
 
-bind-git-helper() {
-  local c
-  for c in $@; do
-    eval "fzf-g$c-widget() { local result=\$(fzf_g$c | join-lines); zle reset-prompt; LBUFFER+=\$result }"
-    eval "zle -N fzf-g$c-widget"
-    eval "bindkey '^g^$c' fzf-g$c-widget"
-  done
-}
-# Remove default
-bindkey -r "^G"
-# Files, Branches, Tags, Remotes, commit Hashes
-bind-git-helper f b t r h
-unset -f bind-git-helper
+  bind-git-helper() {
+    local c
+    for c in $@; do
+      eval "fzf-g$c-widget() { local result=\$(fzf_g$c | join-lines); zle reset-prompt; LBUFFER+=\$result }"
+      eval "zle -N fzf-g$c-widget"
+      eval "bindkey '^g^$c' fzf-g$c-widget"
+    done
+  }
+  # Remove default
+  bindkey -r "^G"
+  # Files, Branches, Tags, Remotes, commit Hashes
+  bind-git-helper f b t r h
+  unset -f bind-git-helper
 
 fi
 # --------------------- end

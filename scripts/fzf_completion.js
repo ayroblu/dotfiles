@@ -53,10 +53,10 @@ const allCmds = [{
     fzfOptions: '--multi',
   }]
 }, {
-  name: 'npx',
+  name: 'gulp',
   cmds: [{
-    cmdTrigger: 'npx gulp ',
-    cmdListOptions: "cache_fzf.js 'npx gulp'",
+    cmdTrigger: 'gulp ',
+    cmdListOptions: "cache_fzf.js 'gulp'",
     // cmdListOptions: "npx gulp --tasks --depth 1 | tail -n +3 | awk '{print $3}' | sort",
     fzfOptions: '--multi',
   }]

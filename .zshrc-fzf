@@ -71,10 +71,10 @@ _fzf_complete_node() {
     return 1
   fi
 }
-_fzf_complete_npx() {
+_fzf_complete_gulp() {
   ARGS="$@"
-  if [[ $ARGS == 'npx gulp '* ]]; then
-    local options="$(cache_fzf.js 'npx gulp')"
+  if [[ $ARGS == 'gulp '* ]]; then
+    local options="$(cache_fzf.js 'gulp')"
     _fzf_complete "--multi" "$@" < <(
       echo $options
     )

@@ -27,7 +27,7 @@ const cacheDefs = [{
   getListOptions: "brew search --casks",
   getCmdFiles: () => ['/usr/local/Homebrew/.git/HEAD'],
 }, {
-  cmd: 'npx gulp',
+  cmd: 'gulp',
   getListOptions: "npx gulp --tasks --depth 1 | tail -n +3 | awk '{print $3}' | sort",
   getCmdFiles: () => ['gulpfile.ts'],
 }, {
