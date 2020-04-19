@@ -3,6 +3,7 @@
   "tslint.autoFixOnSave": true,
   "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "eslint.autoFixOnSave": true,
+  "coc.preferences.rootPatterns": [],
 
   // Python only
   // "python.jediEnabled": false,
