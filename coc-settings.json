@@ -3,7 +3,8 @@
   "tslint.autoFixOnSave": true,
   "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "eslint.autoFixOnSave": true,
-  "coc.preferences.rootPatterns": [],
+  // Top level things like scalafmt (but probably should just extend it in the sub repo)
+  //"coc.preferences.rootPatterns": [],
 
   // Python only
   // "python.jediEnabled": false,
