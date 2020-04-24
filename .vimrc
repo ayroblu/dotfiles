@@ -197,7 +197,7 @@ imap <c-k> <up>
 
 " copy and pasting
 vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
-nmap <C-v><C-v> :call setreg("\"",system("pbpaste"))<CR>p
+nmap <C-v><C-v> :call setreg("\"",system("pbpaste"))<CR>P
 
 " Highlight rows and columns with \l and \c, 'l to move, :match to remove
 " highlighting
@@ -256,7 +256,7 @@ autocmd FileType c,cpp unmap <buffer> K
 "vnoremap d "_d
 " replace currently selected text with default register
 " without yanking it
-vnoremap p "_dP
+vnoremap p "_dp
 
 " Moving cursor by display lines
 " -  http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping
@@ -284,13 +284,13 @@ autocmd FileType rust xnoremap <buffer> <leader><leader>e :w !echo "$(cat)" > __
 "autocmd FileType javascript nnoremap <buffer> <leader>e :echo system('node', @")<cr>
 
 " Cycle 2 registers: https://vim.fandom.com/wiki/Comfortable_handling_of_registers
-nnoremap <Leader>j :let @x=@" \| let @"=@a \| let @a=@x<CR>
+" DEPRECATED: Just use vim-yoink
+"nnoremap <Leader>j :let @x=@" \| let @"=@a \| let @a=@x<CR>
 " nnoremap <Leader>k :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x \| reg "ab<CR>
-
 " Appending to register
-nnoremap Y :let @C=@" \| let @"=@c<CR>
+"nnoremap Y :let @C=@" \| let @"=@c<CR>
 " Clear
-nnoremap YY :let @c=@"<CR>
+"nnoremap YY :let @c=@"<CR>
 
 " ------ Allow undo in insert mode
 inoremap <c-u> <esc>ua
@@ -500,6 +500,15 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   Plug 'airblade/vim-gitgutter'
   let g:gitgutter_realtime = 0
   let g:gitgutter_eager = 0
+
+  Plug 'svermeulen/vim-yoink'
+  nmap <c-n> <plug>(YoinkPostPasteSwapBack)
+  nmap <c-p> <plug>(YoinkPostPasteSwapForward)
+  nmap [y <plug>(YoinkRotateBack)
+  nmap ]y <plug>(YoinkRotateForward)
+  nmap p <plug>(YoinkPaste_p)
+  nmap P <plug>(YoinkPaste_P)
+  " :Yanks
 
   Plug 'tpope/vim-dispatch'
   " Use :Dispatch <run test/build cmd> (or :Make but that's make specific?)
