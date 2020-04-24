@@ -669,12 +669,15 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   Plug 'jalvesaq/vimcmdline'
   " vimcmdline mappings (local leader is \\)
   " let cmdline_map_start          = '<LocalLeader>s'
-  " let cmdline_map_send           = '<Space>'
+  let cmdline_map_send           = '<LocalLeader><Space>'
   " let cmdline_map_send_and_stay  = '<LocalLeader><Space>'
   " let cmdline_map_source_fun     = '<LocalLeader>f'
   " let cmdline_map_send_paragraph = '<LocalLeader>p'
   " let cmdline_map_send_block     = '<LocalLeader>b'
   " let cmdline_map_quit           = '<LocalLeader>q'
+  let cmdline_app = {
+    \  'typescript': 'npx ts-node -T',
+    \}
 
   Plug 'majutsushi/tagbar'
   " Kinda works for python, not really working for typescript
@@ -813,6 +816,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
         \'coc-tslint',
         \'coc-eslint',
         \'coc-json',
+        \'coc-vimlsp',
         \'coc-css'
         \]
   " vscode + coc config uses jsonc

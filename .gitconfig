@@ -35,6 +35,8 @@
   dt = difftool
   dw = !git d --color-words
   dc = !git d --color-words=.
+  # Delete push
+  dp = !git push -d origin $(git rev-parse --abbrev-ref HEAD) && git p
   # Chain things on to this
   fdirty = !git status -s | sed s/^...// | fzf -m
   fb = !git fbranch
