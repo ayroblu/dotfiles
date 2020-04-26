@@ -14,3 +14,8 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 defaults write com.apple.BezelServices kDim -bool true
 # Turn off keyboard illumination when computer is not used for 15 seconds
 defaults write com.apple.BezelServices kDimTime -int 15
+
+# Chrome: Disable left right to go back and forward in history
+# https://superuser.com/questions/840102/how-do-you-disable-swipe-history-navigation-in-chrome
+# defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
+
