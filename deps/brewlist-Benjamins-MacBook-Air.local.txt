@@ -1,11 +1,14 @@
-awscli: gdbm openssl@1.1 python readline sqlite xz
+awscli: gdbm openssl@1.1 python@3.8 readline sqlite xz
 bash: 
+bat: 
 colordiff: 
 cpulimit: 
 ctags: 
+fd: 
 ffmpeg: aom cairo flac fontconfig freetype frei0r fribidi gdbm gettext giflib glib gmp gnutls graphite2 harfbuzz icu4c jpeg lame leptonica libass libbluray libevent libffi libidn2 libogg libpng libsamplerate libsndfile libsoxr libtasn1 libtiff libunistring libvidstab libvorbis libvpx little-cms2 lzo nettle opencore-amr openjpeg openssl@1.1 opus p11-kit pcre pixman python readline rtmpdump rubberband sdl2 snappy speex sqlite tesseract theora unbound webp x264 x265 xvid xz
 fzf: 
 gawk: gettext gmp mpfr readline
+github/gh/gh: 
 git: gettext pcre2
 htop: ncurses
 ipython: gdbm openssl@1.1 python readline sqlite xz zeromq
@@ -15,14 +18,15 @@ macvim: cscope gdbm libyaml lua openssl@1.1 python readline ruby sqlite xz
 minikube: kubernetes-cli
 octave: arpack cairo eigen epstool fftw fig2dev flac fltk fontconfig freetype fribidi gcc gd gdbm gettext ghostscript gl2ps glib glpk gmp gnuplot graphicsmagick graphite2 harfbuzz hdf5 hwloc icu4c ilmbase imagemagick isl jasper jpeg libcerf libde265 libevent libffi libheif libmpc libogg libomp libpng libsndfile libtiff libtool libvorbis little-cms2 lua lzo metis mpfr netpbm open-mpi openblas openexr openjpeg openssl@1.1 pango pcre pixman plotutils portaudio pstoedit python qhull qrupdate qt readline shared-mime-info sqlite suite-sparse sundials szip texinfo webp x265 xz
 p7zip: 
+perl: 
+rclone: 
 ripgrep: pcre2
 rmtrash: 
 rustup-init: 
 sc-im: ncurses
-tmux: libevent ncurses openssl@1.1
+tmux: libevent ncurses openssl@1.1 utf8proc
 tree: 
-vim: gdbm gettext libyaml lua openssl@1.1 perl python readline ruby sqlite xz
-watch: gettext
+watch: ncurses
 yarn: icu4c node
 youtube-dl: 
 zsh: ncurses pcre
