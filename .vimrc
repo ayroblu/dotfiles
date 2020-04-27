@@ -32,6 +32,7 @@ function ShowPersonalHelp()
     \\n
     \\n netrw:
     \\n gn for changing root
+    \\n <c-s-6> for returning to writing buffer
     \\n
     \\n fzf:
     \\n <leader>t to fzf show files
