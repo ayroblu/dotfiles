@@ -198,4 +198,7 @@ vifm
 ----
 `brew install vifm`
 
-`ln -s ~/ws/dotfiles/vifm ~/.config/vifm`
+```bash
+ln -s ~/ws/dotfiles/vifmrc ~/.config/vifm/vifmrc
+ln -s ~/ws/dotfiles/solarized-light.vifm ~/.config/vifm/colors/solarized-light.vifm
+```
