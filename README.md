@@ -25,6 +25,7 @@ Table of Contents
 - [VS Code Setup](#vs-code-setup)
   - [History](#history)
 - [Vrapper Setup](#vrapper-setup)
+- [vifm](#vifm)
 
 <!-- vim-markdown-toc -->
 
@@ -192,3 +193,9 @@ In dbeaver, install vrapper: http://vrapper.sourceforge.net/documentation/?topic
 > http://vrapper.sourceforge.net/update-site/stable
 
 It should automatically take the .vwrapperrc from home dir
+
+vifm
+----
+`brew install vifm`
+
+`ln -s ~/ws/dotfiles/vifm ~/.config/vifm`
