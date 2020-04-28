@@ -134,15 +134,6 @@ set spellfile=~/.spellfile.utf-8.add
 " set spellsuggest=double " if you want to use a super slow but phoentic
 " version v normal just edit distance
 
-" netrw is kinda a plugin? Makes it a tree FYI
-" https://shapeshed.com/vim-netrw/#nerdtree-like-setup
-" Probably can remove vim-vinegar in favour of personalised setup
-let g:netrw_liststyle = 3
-
-" https://vi.stackexchange.com/questions/14622/how-can-i-close-the-netrw-buffer
-autocmd FileType netrw setl bufhidden=wipe
-let g:netrw_fastbrowse = 0
-
 " Encryption method, defaults to super weak
 set cryptmethod=blowfish2
 
@@ -183,6 +174,20 @@ syntax enable
 " plugin - allow plugins (not sure this is necessary as we use vim-plug)
 " indent - indent file helps with indenting
 filetype plugin indent on
+
+" ------------------------------------------------------------- netrw
+
+" netrw is kinda a plugin? Makes it a tree FYI
+" https://shapeshed.com/vim-netrw/#nerdtree-like-setup
+" Probably can remove vim-vinegar in favour of personalised setup
+let g:netrw_liststyle = 3
+
+" https://vi.stackexchange.com/questions/14622/how-can-i-close-the-netrw-buffer
+autocmd FileType netrw setl bufhidden=wipe
+let g:netrw_fastbrowse = 0
+autocmd FileType netrw nmap <buffer> h -
+autocmd FileType netrw nmap <buffer> l gn
+autocmd FileType netrw nmap <buffer> v :Vifm<cr>
 
 " ------------------------------------------------------------------Mappings
 " set spell spelllang=en_nz " ]s [s ]S [S " next spelling error
@@ -514,6 +519,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   nmap p <plug>(YoinkPaste_p)
   nmap P <plug>(YoinkPaste_P)
   " :Yanks
+
+  Plug 'vifm/vifm.vim'
 
   Plug 'tpope/vim-dispatch'
   " Use :Dispatch <run test/build cmd> (or :Make but that's make specific?)

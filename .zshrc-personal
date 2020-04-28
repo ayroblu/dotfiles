@@ -18,6 +18,7 @@ exists brew && export HOMEBREW_NO_AUTO_UPDATE=1
 #
 # Checkout bat --list-themes, Light themes: GitHub, Monokai Extended Light, OneHalfLight, ansi-light
 exists bat && export BAT_THEME="GitHub"
+export EDITOR='vi'
 
 # ---------- Aliases
 # macos doesn't auto sort by CPU
