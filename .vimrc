@@ -281,15 +281,10 @@ nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
 nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
 
 " https://stackoverflow.com/questions/40289706/execute-selection-from-script-in-vim
-autocmd FileType javascript nnoremap <buffer> <leader>e :w !node<cr>
-autocmd FileType javascript xnoremap <buffer> <leader>e :w !node<cr>
-autocmd FileType typescript,typescript.tsx,typescriptreact nnoremap <buffer> <leader>e :w !npx ts-node -T<cr>
-autocmd FileType typescript,typescript.tsx,typescriptreact xnoremap <buffer> <leader>e :w !npx ts-node -T<cr>
-autocmd FileType python xnoremap <buffer> <leader>e :w !python<cr>
-autocmd FileType matlab xnoremap <buffer> <leader>e :w !octave<cr>
-autocmd FileType sh xnoremap <buffer> <leader>e :w !sh<cr>
-autocmd FileType rust xnoremap <buffer> <leader>e :w !echo 'fn main() {' "$(cat)" '}' > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
-autocmd FileType rust xnoremap <buffer> <leader><leader>e :w !echo "$(cat)" > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
+"autocmd FileType javascript nnoremap <buffer> <leader>e :w !node<cr>
+"autocmd FileType typescript,typescript.tsx,typescriptreact nnoremap <buffer> <leader>e :w !npx ts-node -T<cr>
+"autocmd FileType rust xnoremap <buffer> <leader>e :w !echo 'fn main() {' "$(cat)" '}' > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
+"autocmd FileType rust xnoremap <buffer> <leader><leader>e :w !echo "$(cat)" > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
 " Execute clipboard in node
 "autocmd FileType javascript nnoremap <buffer> <leader>e :echo system('node', @")<cr>
 
@@ -424,6 +419,36 @@ function ClearReg()
 endfunction
 command! ClearReg :call ClearReg()
 
+" Based on https://github.com/NLKNguyen/pipe-mysql.vim/blob/master/plugin/pipe-mysql.vim
+autocmd FileType javascript,javascriptreact let b:pipe_shell_command = 'node'
+autocmd FileType typescript,typescriptreact let b:pipe_shell_command = 'npx ts-node -T'
+autocmd FileType python let b:pipe_shell_command = 'python'
+autocmd FileType matlab let b:pipe_shell_command = 'octave'
+autocmd FileType sh let b:pipe_shell_command = 'bash'
+fun! RunScript() range
+  if empty(b:pipe_shell_command)
+    echo 'No shell command'
+    return
+  endif
+  let s:tempfilename = tempname()
+  let l:shell_command = 'cat ' . s:tempfilename . ' | sed ''s/^/> /''' . " && "
+  let l:shell_command .= 'echo ''==================''' . " && "
+  let l:shell_command .= b:pipe_shell_command . ' < ' . s:tempfilename . " && "
+  let l:shell_command .= 'echo ''=================='''
+
+  let l:textlist = g:PipeGetSelectedTextAsList()
+  if len(l:textlist) == 0
+    let l:textlist = getline(1, '$')
+  endif
+  call writefile(l:textlist, s:tempfilename, 's')
+
+  call g:Pipe(l:shell_command)
+
+  call delete(s:tempfilename)
+endfun
+xnoremap <leader>e :call RunScript()<cr>
+nnoremap <leader>e :call RunScript()<cr>
+
 "-----------------------------Set pasting to automatically go paste mode
 " - https://coderwall.com/p/if9mda
 let &t_SI .= "\<Esc>[?2004h"
@@ -530,6 +555,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   Plug 'tpope/vim-fugitive'
   " Move between changes with [c and ]c
   " Move files with :Gmove <c-r>%
+
+  Plug 'NLKNguyen/pipe.vim'
 
   Plug 'craigemery/vim-autotag'
   " Requires python support, but refreshes ctags if it's there
