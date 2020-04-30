@@ -63,7 +63,6 @@ function GetActiveTmuxPane()
   endif
 endfunction
 
-let g:my_vim_pane = ''
 let g:my_repl_pane = ''
 
 function s:ReplStartTmux()
@@ -75,7 +74,7 @@ function s:ReplStartTmux()
     return
   endif
 
-  let g:my_vim_pane = GetActiveTmuxPane()
+  let my_vim_pane = GetActiveTmuxPane()
   let tcmd = "tmux split-window "
   let tcmd .= "-l 15"
   let tcmd .= " " . b:repl_shell_command
@@ -85,7 +84,7 @@ function s:ReplStartTmux()
     return
   endif
   let g:my_repl_pane = GetActiveTmuxPane()
-  let slog = system("tmux select-pane -t " . g:my_vim_pane)
+  let slog = system("tmux select-pane -t " . my_vim_pane)
   if v:shell_error
     exe 'echoerr ' . slog
     return
