@@ -29,6 +29,7 @@ function ShowPersonalHelp()
     \\n <leader>u to open links under the cursor
     \\n :BufDelete to interactively close buffers
     \\n :BufOnly for closing all except current buffer
+    \\n <leader>yp for yanking the path
     \\n
     \\n netrw:
     \\n gn for changing root
@@ -396,6 +397,13 @@ function ClearReg()
   endfor
 endfunction
 command! ClearReg :call ClearReg()
+
+function! s:CopyGitPath() range
+  execute 'silent !printf "\%s\#n' . a:firstline . '" "$(git ls-tree --name-only --full-name HEAD %)" | pbcopy'
+  redraw!
+endfunction
+
+nnoremap <Leader>yp :call <SID>CopyGitPath()<CR>
 
 " -------------------------------- REPL + code execution
 if !empty(glob("vimrcs/.vimrc-repl"))
