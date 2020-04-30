@@ -4,6 +4,9 @@ autocmd FileType javascript,javascriptreact let b:repl_startup_commands = [
       \'.load ' . expand('%'),
       \'console.clear()',
       \]
+" Optional here as a reference
+let b:repl_close_command = ''
+"autocmd FileType javascript,javascriptreact let b:repl_close_command = '.exit'
 autocmd FileType typescript,typescriptreact let b:repl_shell_command = 'npx ts-node -T'
 autocmd FileType typescript,typescriptreact let b:repl_startup_commands = [
       \'.load ' . expand('%'),
@@ -12,6 +15,7 @@ autocmd FileType typescript,typescriptreact let b:repl_startup_commands = [
 autocmd FileType python let b:repl_shell_command = 'python'
 autocmd FileType matlab let b:repl_shell_command = 'octave'
 autocmd FileType sh let b:repl_shell_command = 'bash'
+
 fun! RunScript() range
   if empty(b:repl_shell_command)
     echo 'No shell command'
@@ -94,8 +98,14 @@ function s:ReplStartTmux()
   endif
 endfunction
 function ReplClose()
-  call s:ReplSendCmd('.exit')
-  let g:my_repl_pane = ''
+  if !empty(g:my_repl_pane)
+    if !empty(b:repl_close_command)
+      call s:ReplSendCmd(b:repl_close_command)
+    else
+      call s:ReplSendCmd("\<C-D>")
+    endif
+    let g:my_repl_pane = ''
+  endif
 endfunction
 
 function s:ReplStartTmuxIfNotFound()
