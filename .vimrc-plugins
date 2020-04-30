@@ -1,0 +1,458 @@
+runtime macros/matchit.vim
+"autocmd FileType markdown setlocal expandtab shiftwidth=4 softtabstop=4
+
+" Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
+if filereadable(expand('~/.vim/autoload/plug.vim'))
+  call plug#begin('~/.vim/plugged')
+
+  " === Theme
+  Plug 'altercation/vim-colors-solarized'
+  "Plug 'edkolev/tmuxline.vim'
+  let g:tmuxline_powerline_separators = 0
+  let g:tmuxline_preset = {
+    \'a'       : '#S:#I',
+    \'b disabled'       : '',
+    \'c disabled'       : '',
+    \'win'     : ['#I', '#W'],
+    \'cwin'    : ['#I', '#W'],
+    \'x disabled'       : '',
+    \'y'       : ['%a', '%Y-%m-%d', '%l:%M%p'],
+    \'z'       : ['#(whoami)'],
+    \'options' : {'status-justify': 'left'}}
+  let g:airline#extensions#tmuxline#enabled = 0
+
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  let g:airline_extensions = []
+  let g:airline#extensions#branch#enabled=1
+  let g:airline#extensions#branch#empty_message='no repo'
+  let g:airline_theme='solarized'
+
+  " === Hooks
+  Plug 'airblade/vim-gitgutter'
+  let g:gitgutter_realtime = 0
+  let g:gitgutter_eager = 0
+
+  Plug 'svermeulen/vim-yoink'
+  nmap <c-n> <plug>(YoinkPostPasteSwapBack)
+  nmap <c-p> <plug>(YoinkPostPasteSwapForward)
+  nmap [y <plug>(YoinkRotateBack)
+  nmap ]y <plug>(YoinkRotateForward)
+  nmap p <plug>(YoinkPaste_p)
+  nmap P <plug>(YoinkPaste_P)
+  " :Yanks
+
+  Plug 'vifm/vifm.vim'
+
+  Plug 'tpope/vim-dispatch'
+  " Use :Dispatch <run test/build cmd> (or :Make but that's make specific?)
+  " :Focus <cmd> to pin a command so that you can just call :Dispatch without
+  " args everytime
+
+  Plug 'tpope/vim-fugitive'
+  " Move between changes with [c and ]c
+  " Move files with :Gmove <c-r>%
+
+  Plug 'NLKNguyen/pipe.vim'
+
+  Plug 'craigemery/vim-autotag'
+  " Requires python support, but refreshes ctags if it's there
+  " More info on tags generally:
+  " https://andrew.stwrt.ca/posts/vim-ctags/
+  " <c-x><c-]> for tag completion
+  " <c-]> go to first match
+  " g<c-]> got to match if only one, else, show list
+  " g] show list of tags
+
+  Plug 'tpope/vim-sleuth'
+  " Indentation detection
+
+  Plug 'osyo-manga/vim-anzu' " show search progress
+  " mapping
+  nmap n <Plug>(anzu-n-with-echo)
+  nmap N <Plug>(anzu-N-with-echo)
+  nmap * <Plug>(anzu-star-with-echo)
+  nmap # <Plug>(anzu-sharp-with-echo)
+
+  " clear status
+  nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+  " Show in search status - will override file name so kinda meh
+  "let g:airline_section_c='%{anzu#search_status()}'
+
+  Plug 'Valloric/MatchTagAlways'
+  " Show closing tag
+  let g:mta_filetypes = {
+  \ 'html' : 1,
+  \ 'xhtml' : 1,
+  \ 'xml' : 1,
+  \ 'jinja' : 1,
+  \ 'typescript' : 1,
+  \ 'typescript.tsx' : 1,
+  \ 'javascript' : 1,
+  \ 'javascript.jsx' : 1,
+  \ 'typescriptreact' : 1,
+  \}
+  nnoremap <leader>% :MtaJumpToOtherTag<cr>
+
+  Plug 'xolox/vim-misc'
+  Plug 'xolox/vim-session'
+  let g:session_autosave = 'yes'
+  let g:session_autoload = 'no'
+  let g:session_default_overwrite = 1
+  " Basically you just care about :OpenSession, don't worry about anything else
+  " Sometimes you need to worry about :DeleteSession
+
+  " === Commands and functions
+  Plug 'PeterRincker/vim-argumentative'
+  " <, or >, for move argument left or right
+
+  " Plug 'terryma/vim-multiple-cursors'
+
+  Plug 'junegunn/vim-easy-align'
+  xmap ga <Plug>(EasyAlign)
+  " vipga= " Visual Inner Paragraph (ga) align =
+  " Visually select what you want to align, `g``a``=` to align on equals sign
+
+  Plug 'tpope/vim-unimpaired'
+  " I only download this for the conflict mapping ]n and [n
+
+  Plug 'tpope/vim-abolish'
+  " Press crs (coerce to snake_case). MixedCase (crm), camelCase (crc),
+  " snake_case (crs), UPPER_CASE (cru), dash-case (cr-), dot.case (cr.), space
+  " case (cr<space>), and Title Case (crt)
+
+  Plug 'FooSoft/vim-argwrap'
+  " Pointless given prettier, but can be useful?
+  nnoremap <silent> <leader>a :ArgWrap<CR>
+
+  Plug 'bronson/vim-visual-star-search'
+  " Use * in visual mode
+
+  Plug 'tpope/vim-surround'
+  " cs'" - for change existing
+  " dst - for delete surrounding tags
+  " ysiw] - for insert no space square bracket, use `[` for with space
+  " ysiw<em> - for insert tags
+  " <VISUAL> S<p class="important"> - insert p tag around
+  " See issue: https://github.com/tpope/vim-surround/issues/276
+  nmap ysa' ys2i'
+  nmap ysa" ys2i"
+  nmap ysa` ys2i`
+
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-commentary'
+  " gc to comment
+
+  "Plug 'vim-scripts/ReplaceWithRegister' "griw to replace inner word with register
+  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf.vim'
+  noremap <leader><Tab> :Buffers<CR>
+  nmap <Leader>t :Files<CR>
+  nmap <Leader><leader>r :BTags<CR>
+  nmap <Leader><Leader>t :Tags<CR>
+  " Custom setup for previews on Rg and Files
+  command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+  command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+  " https://github.com/junegunn/fzf.vim/issues/800#issuecomment-533801609
+  " Sorting issue: https://github.com/junegunn/fzf.vim/pull/620
+  " !i$ for imports - mainly python
+  command! -bang BTags
+  \ call fzf#vim#buffer_tags('!i$ '.<q-args>, {
+  \   'down': '40%',
+  \   'options': '
+  \     --with-nth 1,4
+  \     --nth 1,2
+  \     --delimiter "\t"
+  \     --reverse
+  \     --preview-window="70%"
+  \     --preview "
+  \       tail -n +\$(echo {3} | tr -d \";\\\"\") {2} |
+  \       head -n 16 |
+  \       bat -l '.expand('%:e').' --color=always --decorations=never
+  \     "
+  \   '
+  \ })
+  command! -bang Tags
+  \ call fzf#vim#tags(<q-args>, {
+  \   'down': '40%',
+  \   'options': '
+  \     --with-nth 1..2
+  \     --reverse
+  \     --preview "
+  \       tail -n +\$(echo {3} | tr -d \";\\\"\") {2} |
+  \       head -n 16 |
+  \       bat -l '.expand('%:e').' --color=always --decorations=never
+  \     "
+  \   '
+  \ })
+  " https://github.com/junegunn/fzf
+  " sbtrkt	fuzzy-match	Items that match sbtrkt
+  " 'wild	exact-match (quoted)	Items that include wild
+  " ^music	prefix-exact-match	Items that start with music
+  " .mp3$	suffix-exact-match	Items that end with .mp3
+  " !fire	inverse-exact-match	Items that do not include fire
+  " !^music	inverse-prefix-exact-match	Items that do not start with music
+  " !.mp3$	inverse-suffix-exact-match	Items that do not end with .mp3
+
+  Plug 'easymotion/vim-easymotion'
+  " Mainly use this to search
+  " <leader><leader>f<char>
+  " <leader><leader>F<char>
+
+  Plug 'tpope/vim-vinegar' " Making netrw file management easier
+  " `-` to jump in
+  " `y``.` to yank absolute path
+  " `~` to go home
+  " `ctrl``shift``6` to go back to editing (doesn't work for me, just use :bd)
+  " `.` to auto prepopulate `:` command with file, `!` for shell:
+  " e.g. `!chmod +x` for `:!chmod +x path/to/file`
+
+  "Plug 'jalvesaq/vimcmdline'
+  " vimcmdline mappings (local leader is \\)
+  " let cmdline_map_start          = '<LocalLeader>s'
+  let cmdline_map_send           = '<LocalLeader><Space>'
+  " let cmdline_map_send_and_stay  = '<LocalLeader><Space>'
+  " let cmdline_map_source_fun     = '<LocalLeader>f'
+  " let cmdline_map_send_paragraph = '<LocalLeader>p'
+  " let cmdline_map_send_block     = '<LocalLeader>b'
+  " let cmdline_map_quit           = '<LocalLeader>q'
+  let cmdline_app = {
+    \  'typescript': 'npx ts-node -T',
+    \}
+
+  Plug 'majutsushi/tagbar'
+  " Kinda works for python, not really working for typescript
+  " See the following for ctag setups per file type
+  " https://github.com/majutsushi/tagbar/wiki#typescript
+  let g:tagbar_type_typescript = {
+    \ 'ctagstype': 'typescript',
+    \ 'kinds': [
+      \ 'c:classes',
+      \ 'n:modules',
+      \ 'f:functions',
+      \ 'v:variables',
+      \ 'v:varlambdas',
+      \ 'm:members',
+      \ 'i:interfaces',
+      \ 'e:enums',
+    \ ]
+  \ }
+  nnoremap <leader>o :TagbarToggle<cr>
+  "autocmd VimEnter * nested :call tagbar#autoopen(1)
+
+  " === Text objects
+  "Plug 'wellle/targets.vim'
+  " Doesn't work for me
+  " Has lots of text object things for brackets, quotes, commas arguments
+  " daa - delete argument with comma
+  " cIa - change in comma
+
+  Plug 'bkad/CamelCaseMotion'
+  let g:camelcasemotion_key = ','
+  " Use , as camel case word object: i.e. ci,w
+
+  Plug 'vim-scripts/argtextobj.vim'
+  " Adds argument (a) so caa, cia
+  " func(a, b[asdf]) -> func(a, .) or -> func(a) (inner or outer)
+
+  Plug 'michaeljsmith/vim-indent-object'
+  " Key bindings	Description
+  " <count>ai	An Indentation level and line above.
+  " <count>ii	Inner Indentation level (no line above).
+  " <count>aI	An Indentation level and lines above/below.
+  " <count>iI	Inner Indentation level (no lines above/below).
+
+  "Plug 'christoomey/vim-sort-motion' "sort with gsip
+
+  " === Language specific
+  " Before polyglot overrides it
+  Plug 'nkouevda/vim-thrift-syntax'
+  Plug 'sheerun/vim-polyglot'
+  " autocmd chaining: https://vi.stackexchange.com/questions/3968/is-there-a-way-to-and-events-in-the-autocmd
+  " jedi sets conceal level, so set it back for markdown files
+  autocmd FileType markdown autocmd BufReadPost,CursorHold <buffer> set conceallevel=0
+
+  Plug 'mzlogin/vim-markdown-toc'
+  let g:vmt_list_item_char='-'
+  " :GenTocGFM
+
+  Plug 'romainl/vim-devdocs'
+  " :DD source name
+  " If not for the language
+
+  Plug 'davidhalter/jedi-vim'
+  " We change these to be similar to tsuquyomi
+  let g:jedi#goto_command = '<C-]>'
+  "let g:jedi#goto_assignments_command = ""
+  let g:jedi#goto_definitions_command = '<C-}>'
+  let g:jedi#documentation_command = 'K'
+  let g:jedi#usages_command = '<leader>n'
+  let g:jedi#completions_command = '<C-x><C-o>'
+  let g:jedi#rename_command = '<leader>r'
+  let g:jedi#popup_select_first = 0
+  autocmd FileType python nnoremap <buffer> <leader>b :cclose<cr>
+
+  Plug 'tell-k/vim-autoflake'
+  " :Autoflake to remove unused imports
+  let g:autoflake_remove_unused_variables=0
+  let g:autoflake_remove_all_unused_imports=1
+  "autocmd FileType python autocmd BufWritePre <buffer> Autoflake
+  let g:autoflake_disable_show_diff=1
+  command! Aflake :call Autoflake() | redraw!
+
+  " Warning, need to use Augroup soon
+  " https://stackoverflow.com/questions/10969366/vim-automatically-formatting-golang-source-code-when-saving/10969574
+
+  Plug 'ayroblu/python-imports.vim'
+  " Use :ImportName, also ~/.vim/python-imports.cfg
+  autocmd FileType python nnoremap <buffer> <leader>i :ImportName<cr>
+
+  Plug 'w0rp/ale'
+  "autocmd FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact let b:ale_linters = []
+  autocmd FileType javascript let b:ale_linters_ignore = ['tsserver']
+  " Enable ale for things coc doesn't support yet
+  autocmd FileType vim nmap <silent> ]j :ALENextWrap<cr>
+  autocmd FileType vim nmap <silent> [j :ALEPreviousWrap<cr>
+  "\ 'typescript': ['tslint', 'eslint', 'prettier'],
+  "\ 'typescript.tsx': ['tslint', 'eslint', 'prettier'],
+  "\ 'typescriptreact': ['tslint', 'eslint', 'prettier'],
+  "\ 'javascript': ['eslint', 'prettier'],
+  "\ 'css': ['prettier'],
+  "\ 'json': ['prettier'],
+  "\ 'scala': ['scalafmt'],
+  " Still use ale for python
+  " ALE uses prettier only if it's installed - preferred for markdown
+  let g:ale_fixers = {
+  \ 'python': ['isort'],
+  \ 'markdown': ['prettier'],
+  \}
+  let g:ale_pattern_options = {
+  \   '.*\.json$': {'ale_enabled': 0},
+  \}
+  let g:ale_fix_on_save = 1
+  "let g:ale_javascript_prettier_use_local_config = 1
+  let g:vim_markdown_new_list_item_indent = 0
+  " Disable the loclist (just annoying right now) can be opened with :lopen
+  let g:ale_open_list=0
+
+  " Rust vim specific
+  " http://seenaburns.com/vim-setup-for-rust/
+  "  - Cleaner
+  " https://about.okhin.fr/2018/08/03/my-vim-setup-with-some-rust-specifities/
+  "  - more ide
+  " https://asquera.de/blog/2017-03-03/setting-up-a-rust-devenv/
+  "  - vscode
+  let g:rustfmt_autosave = 1
+  autocmd FileType rust let b:ale_linters = {'rust': ['rls']}
+  autocmd FileType rust nnoremap <buffer> <leader>e :RustRun<cr>
+  "au BufNewFile,BufReadPost *.md set filetype=markdown
+
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  " Hopefully this will replace ale and some of the others
+  let g:coc_global_extensions = [
+        \'coc-metals',
+        \'coc-tsserver',
+        \'coc-prettier',
+        \'coc-tslint',
+        \'coc-eslint',
+        \'coc-json',
+        \'coc-vimlsp',
+        \'coc-css'
+        \]
+  " vscode + coc config uses jsonc
+  " https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
+  autocmd FileType json syntax match Comment +\/\/.\+$+
+  inoremap <silent><expr> <c-x><c-o> coc#refresh()
+  " Checkout the following as <c-space> is interpreted as <c-@>
+  " https://stackoverflow.com/questions/24983372/what-does-ctrlspace-do-in-vim
+  inoremap <silent><expr> <c-@> coc#refresh()
+  inoremap <silent><expr> <c-space> coc#refresh()
+  " Use `[g` and `]g` to navigate diagnostics
+  nmap <silent> [j <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]j <Plug>(coc-diagnostic-next)
+
+  " GoTo code navigation.
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+
+  " Use K to show documentation in preview window.
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+  " Remap keys for applying codeAction to the current line.
+  nmap <leader>ac  <Plug>(coc-codeaction)
+
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
+  endfunction
+
+  augroup typescript
+    au!
+    " Tag like go to definition
+    autocmd FileType typescript,javascript,typescriptreact,javascriptreact nmap <silent> <c-]> <Plug>(coc-definition)
+
+    " Symbol renaming.
+    autocmd FileType typescript,javascript,typescriptreact,javascriptreact nmap <leader>r <Plug>(coc-rename)
+  augroup END
+
+  " Highlight the symbol and its references when holding the cursor.
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+
+  " Introduce function text object
+  " " NOTE: Requires 'textDocument.documentSymbol' support from the language
+  " server.
+  xmap if <Plug>(coc-funcobj-i)
+  xmap af <Plug>(coc-funcobj-a)
+  omap if <Plug>(coc-funcobj-i)
+  omap af <Plug>(coc-funcobj-a)
+
+  "Plug 'racer-rust/vim-racer'
+  let g:racer_experimental_completer = 1
+  let g:racer_insert_paren = 1
+  " au FileType rust nmap <leader>k <Plug>(rust-def)
+  au FileType rust nmap <leader><leader>k <Plug>(rust-def-split)
+  " au FileType rust nmap gx <Plug>(rust-def-vertical)
+  au FileType rust nmap <leader>k <Plug>(rust-doc)
+  "au FileType rust au User ALELint lwindow
+  "au FileType rust au FocusGained,BufEnter,CursorHold,CursorHoldI * lwindow
+
+  "Plug 'Quramy/tsuquyomi'
+  let g:tsuquyomi_single_quote_import=1
+  let g:tsuquyomi_shortest_import_path = 1
+  " Stop tsuquyomi freezing on save, why do this in vim 8 though...
+  let g:tsuquyomi_disable_quickfix = 1
+  autocmd FileType typescript,typescript.tsx,typescriptreact nmap <buffer> <Leader>k : <C-u>echo tsuquyomi#hint()<CR>
+  " It takes like 30+ seconds gets kinda pointless
+  " autocmd FileType typescript
+  "     \ autocmd BufWritePost <buffer> :TsuquyomiAsyncGeterr
+  " vim8.2 uses typescriptreact, not typescript.tsx
+  augroup typescriptreact
+    au!
+    autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+  augroup END
+
+  " Twitter specific
+  "Plug 'jrozner/vim-antlr'
+  Plug 'pantsbuild/vim-pants'
+
+  " === old
+
+  "Plug 'garbas/vim-snipmate'
+  "Plug 'honza/vim-snippets'
+
+  "Plug 'tpope/vim-speeddating' "Understand dates if you want
+  "Plug 'zeekay/vim-beautify'
+
+  " Initialize plugin system
+  call plug#end()
+endif
