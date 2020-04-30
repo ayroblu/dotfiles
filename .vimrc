@@ -436,18 +436,107 @@ fun! RunScript() range
   let l:shell_command .= b:pipe_shell_command . ' < ' . s:tempfilename . " && "
   let l:shell_command .= 'echo ''=================='''
 
-  let l:textlist = g:PipeGetSelectedTextAsList()
+  let l:textlist = GetSelectedTextAsList()
   if len(l:textlist) == 0
     let l:textlist = getline(1, '$')
   endif
+  let whitespace = matchstr(l:textlist[0], '^\s*')
+  call map(l:textlist, 'strpart(v:val, ' . strlen(whitespace) . ')')
   call writefile(l:textlist, s:tempfilename, 's')
 
+  " Depends on the pipe.vim package
   call g:Pipe(l:shell_command)
 
   call delete(s:tempfilename)
 endfun
+" @see original solution - http://stackoverflow.com/a/6271254/794380
+fun! GetSelectedTextAsList()
+  " Why is this not a built-in Vim script function?!
+  let [lnum1, col1] = getpos("'<")[1:2]
+  let [lnum2, col2] = getpos("'>")[1:2]
+  let lines = getline(lnum1, lnum2)
+  if len(lines) == 0
+    return []
+  endif
+  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][col1 - 1:]
+  return lines
+endfun
 xnoremap <leader>e :call RunScript()<cr>
 nnoremap <leader>e :call RunScript()<cr>
+
+" Tmux splitting
+function GetActiveTmuxPane()
+  let line = system("tmux list-panes | grep \'(active)$'")
+  let paneid = matchstr(line, '\v\%\d+ \(active\)')
+  if !empty(paneid)
+    return matchstr(paneid, '\v^\%\d+')
+  else
+    return matchstr(line, '\v^\d+')
+  endif
+endfunction
+
+let g:my_vim_pane = ''
+let g:my_repl_pane = ''
+
+function ReplStartTmux()
+  " Check if Tmux is running
+  if $TMUX == ""
+    echohl WarningMsg
+    echomsg "Cannot start interpreter because not inside a Tmux session."
+    echohl Normal
+    return
+  endif
+
+  let g:my_vim_pane = GetActiveTmuxPane()
+  let tcmd = "tmux split-window "
+  let tcmd .= "-l 15"
+  let tcmd .= " " . b:pipe_shell_command
+  echom tcmd
+  let slog = system(tcmd)
+  if v:shell_error
+    exe 'echoerr ' . slog
+    return
+  endif
+  let g:my_repl_pane = GetActiveTmuxPane()
+  let slog = system("tmux select-pane -t " . g:my_vim_pane)
+  if v:shell_error
+    exe 'echoerr ' . slog
+    return
+  endif
+endfunction
+
+function ReplSendCmd(line)
+  if empty(g:my_repl_pane)
+    call ReplStartTmux()
+  endif
+  let str = substitute(a:line, "'", "'\\\\''", "g")
+  let scmd = "tmux set-buffer '" . str . "\<C-M>' && tmux paste-buffer -t " . g:my_repl_pane
+  call system(scmd)
+  if v:shell_error
+    echohl WarningMsg
+    echomsg 'Failed to send command. Is "' . b:pipe_shell_command . '" running?'
+    echohl Normal
+    let g:my_repl_pane = ''
+  endif
+endfunction
+function ReplSendCmds(lines)
+  for line in a:lines
+    call ReplSendCmd(line)
+  endfor
+endfunction
+function ReplSendSelection() range
+  let lines = GetSelectedTextAsList()
+  call ReplSendCmds(lines)
+endfunction
+function ReplSendCurrentLine()
+  let line = getline(".")
+  call ReplSendCmd(line)
+endfunction
+
+xnoremap <leader>w :call ReplSendSelection()<cr>
+nnoremap <leader>w :call ReplSendCurrentLine()<cr>
+
 
 "-----------------------------Set pasting to automatically go paste mode
 " - https://coderwall.com/p/if9mda
