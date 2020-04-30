@@ -202,6 +202,11 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " Mainly use this to search
   " <leader><leader>f<char>
   " <leader><leader>F<char>
+  map  <Leader>f <Plug>(easymotion-f)
+  "nmap <Leader>f <Plug>(easymotion-overwin-f)
+  map  <Leader>F <Plug>(easymotion-F)
+  map  <Leader><leader>f <Plug>(easymotion-s)
+  let g:EasyMotion_do_mapping = 0
 
   Plug 'tpope/vim-vinegar' " Making netrw file management easier
   " `-` to jump in
