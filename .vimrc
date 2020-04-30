@@ -398,8 +398,8 @@ endfunction
 command! ClearReg :call ClearReg()
 
 " -------------------------------- REPL + code execution
-if !empty(glob(".vimrc-repl"))
-  so .vimrc-repl
+if !empty(glob("vimrcs/.vimrc-repl"))
+  so vimrcs/.vimrc-repl
 endif
 
 "-----------------------------Set pasting to automatically go paste mode
@@ -454,8 +454,8 @@ com! DiffGitSaved call s:DiffGitWithSaved()
 nmap <leader>d :DiffGitSaved<CR>
 
 "" --------------------------plugin settings
-if !empty(glob(".vimrc-plugins"))
-  so .vimrc-plugins
+if !empty(glob("vimrcs/.vimrc-plugins"))
+  so vimrcs/.vimrc-plugins
 endif
 
 " --------------- Finally colour scheme

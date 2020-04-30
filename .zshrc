@@ -1,7 +1,7 @@
 # ----------------------------------------- plugin setup
 #https://stackoverflow.com/questions/11378607/oh-my-zsh-disable-would-you-like-to-check-for-updates-prompt
 DISABLE_AUTO_UPDATE="true"
-[ -f ~/.zshrc-omz ] && source ~/.zshrc-omz
+[ -f zshrcs/.zshrc-omz ] && source zshrcs/.zshrc-omz
 
 # Init setup
 # Lines configured by zsh-newuser-install
@@ -72,9 +72,9 @@ function zle-keymap-select {
 
 # ---------------------------------- Other
 
-[ -f .zshrc-personal ] && source .zshrc-personal
-[ -f .zshrc-fzf ] && source .zshrc-fzf
-[ -f .zshrc-prompt ] && source .zshrc-prompt
+[ -f zshrcs/.zshrc-personal ] && source zshrcs/.zshrc-personal
+[ -f zshrcs/.zshrc-fzf ] && source zshrcs/.zshrc-fzf
+[ -f zshrcs/.zshrc-prompt ] && source zshrcs/.zshrc-prompt
 [ -f ~/.zshrc-extras ] && source ~/.zshrc-extras
 
 # Has to be last
