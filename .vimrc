@@ -266,7 +266,7 @@ autocmd FileType c,cpp unmap <buffer> K
 "vnoremap d "_d
 " replace currently selected text with default register
 " without yanking it
-vnoremap p "_dp
+vnoremap p "_dP
 
 " Moving cursor by display lines
 " -  http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping
@@ -419,21 +419,30 @@ function ClearReg()
 endfunction
 command! ClearReg :call ClearReg()
 
+" -------------------------------- REPL + code execution
 " Based on https://github.com/NLKNguyen/pipe-mysql.vim/blob/master/plugin/pipe-mysql.vim
-autocmd FileType javascript,javascriptreact let b:pipe_shell_command = 'node'
-autocmd FileType typescript,typescriptreact let b:pipe_shell_command = 'npx ts-node -T'
-autocmd FileType python let b:pipe_shell_command = 'python'
-autocmd FileType matlab let b:pipe_shell_command = 'octave'
-autocmd FileType sh let b:pipe_shell_command = 'bash'
+autocmd FileType javascript,javascriptreact let b:repl_shell_command = 'node'
+autocmd FileType javascript,javascriptreact let b:repl_startup_commands = [
+      \'.load ' . expand('%'),
+      \'console.clear()',
+      \]
+autocmd FileType typescript,typescriptreact let b:repl_shell_command = 'npx ts-node -T'
+autocmd FileType typescript,typescriptreact let b:repl_startup_commands = [
+      \'.load ' . expand('%'),
+      \'console.clear()',
+      \]
+autocmd FileType python let b:repl_shell_command = 'python'
+autocmd FileType matlab let b:repl_shell_command = 'octave'
+autocmd FileType sh let b:repl_shell_command = 'bash'
 fun! RunScript() range
-  if empty(b:pipe_shell_command)
+  if empty(b:repl_shell_command)
     echo 'No shell command'
     return
   endif
   let s:tempfilename = tempname()
   let l:shell_command = 'cat ' . s:tempfilename . ' | sed ''s/^/> /''' . " && "
   let l:shell_command .= 'echo ''==================''' . " && "
-  let l:shell_command .= b:pipe_shell_command . ' < ' . s:tempfilename . " && "
+  let l:shell_command .= b:repl_shell_command . ' < ' . s:tempfilename . " && "
   let l:shell_command .= 'echo ''=================='''
 
   let l:textlist = GetSelectedTextAsList()
@@ -479,7 +488,7 @@ endfunction
 let g:my_vim_pane = ''
 let g:my_repl_pane = ''
 
-function ReplStartTmux()
+function s:ReplStartTmux()
   " Check if Tmux is running
   if $TMUX == ""
     echohl WarningMsg
@@ -491,8 +500,7 @@ function ReplStartTmux()
   let g:my_vim_pane = GetActiveTmuxPane()
   let tcmd = "tmux split-window "
   let tcmd .= "-l 15"
-  let tcmd .= " " . b:pipe_shell_command
-  echom tcmd
+  let tcmd .= " " . b:repl_shell_command
   let slog = system(tcmd)
   if v:shell_error
     exe 'echoerr ' . slog
@@ -504,38 +512,75 @@ function ReplStartTmux()
     exe 'echoerr ' . slog
     return
   endif
+  if len(b:repl_startup_commands) > 0
+    call s:ReplSendCmds(b:repl_startup_commands)
+  endif
+endfunction
+function ReplClose()
+  call s:ReplSendCmd('.exit')
+  let g:my_repl_pane = ''
 endfunction
 
-function ReplSendCmd(line)
+function s:ReplStartTmuxIfNotFound()
   if empty(g:my_repl_pane)
-    call ReplStartTmux()
+    call s:ReplStartTmux()
   endif
+endfunction
+function s:ReplSendCmd(line, ...)
   let str = substitute(a:line, "'", "'\\\\''", "g")
   let scmd = "tmux set-buffer '" . str . "\<C-M>' && tmux paste-buffer -t " . g:my_repl_pane
   call system(scmd)
   if v:shell_error
-    echohl WarningMsg
-    echomsg 'Failed to send command. Is "' . b:pipe_shell_command . '" running?'
-    echohl Normal
     let g:my_repl_pane = ''
+    let callCount = get(a:, 1, 0)
+    if callCount == 0
+      call s:ReplStartTmuxIfNotFound()
+      call s:ReplSendCmd(a:line, 1)
+    else
+      echohl WarningMsg
+      echomsg 'Failed to send command. Is "' . b:repl_shell_command . '" running?'
+      echohl Normal
+    endif
   endif
 endfunction
-function ReplSendCmds(lines)
+function s:ReplSendCmds(lines)
   for line in a:lines
-    call ReplSendCmd(line)
+    call s:ReplSendCmd(line)
   endfor
 endfunction
 function ReplSendSelection() range
   let lines = GetSelectedTextAsList()
-  call ReplSendCmds(lines)
+  let whitespace = matchstr(lines[0], '^\s*')
+  call map(lines, 'strpart(v:val, ' . strlen(whitespace) . ')')
+  call s:ReplStartTmuxIfNotFound()
+  call s:ReplSendCmds(lines)
 endfunction
 function ReplSendCurrentLine()
   let line = getline(".")
-  call ReplSendCmd(line)
+  let whitespace = matchstr(line, '^\s*')
+  let line = strpart(line, strlen(whitespace))
+  call s:ReplStartTmuxIfNotFound()
+  call s:ReplSendCmd(line)
+endfunction
+function! s:ReplSetPaneTo(line)
+  let paneid = matchstr(a:line, '\v\%\d+')
+  let g:my_repl_pane = paneid
+endfunction
+function! ReplSetPane()
+  call fzf#run({
+        \'source': 'tmux list-panes | grep -v active',
+        \'sink': function('s:ReplSetPaneTo'),
+        \'down': '40%'
+        \})
 endfunction
 
 xnoremap <leader>w :call ReplSendSelection()<cr>
 nnoremap <leader>w :call ReplSendCurrentLine()<cr>
+nnoremap <leader>q :call ReplClose()<cr>
+nnoremap <leader>c :call ReplSetPane()<cr>
+"<leader>e: Run lines and output (selection or whole file)"
+"<leader>w: Run repl and push lines (selection or current line)"
+"<leader>q: Close repl"
 
 
 "-----------------------------Set pasting to automatically go paste mode
