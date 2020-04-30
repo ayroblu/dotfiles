@@ -406,8 +406,8 @@ endfunction
 nnoremap <Leader>yp :call <SID>CopyGitPath()<CR>
 
 " -------------------------------- REPL + code execution
-if !empty(glob("vimrcs/.vimrc-repl"))
-  so vimrcs/.vimrc-repl
+if !empty(glob("~/.vimrc-repl"))
+  so ~/.vimrc-repl
 endif
 
 "-----------------------------Set pasting to automatically go paste mode
@@ -462,8 +462,8 @@ com! DiffGitSaved call s:DiffGitWithSaved()
 nmap <leader>d :DiffGitSaved<CR>
 
 "" --------------------------plugin settings
-if !empty(glob("vimrcs/.vimrc-plugins"))
-  so vimrcs/.vimrc-plugins
+if !empty(glob("~/.vimrc-plugins"))
+  so ~/.vimrc-plugins
 endif
 
 " --------------- Finally colour scheme
