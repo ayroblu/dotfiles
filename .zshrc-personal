@@ -10,11 +10,21 @@ exists() {
 # -------------- Misc env vars
 [ -f /usr/local/opt/libffi/lib/pkgconfig ] && export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 exists node && export NODE_OPTIONS=--max-old-space-size=8192
-[ -d ~/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
 exists brew && export HOMEBREW_NO_AUTO_UPDATE=1
-[ -d ~/.poetry/bin ] && export PATH="$HOME/.poetry/bin:$PATH"
-[ -d /usr/local/opt/mysql-client/bin ] && export PATH="/usr/local/opt/mysql-client/bin:$PATH"
-[ -d /usr/local/opt/make/libexec/gnubin ] && export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
+
+# https://superuser.com/questions/39751/add-directory-to-path-if-its-not-already-there
+pathadd() {
+  if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+    PATH="$1${PATH:+":$PATH"}"
+  fi
+}
+pathadd ~/.cargo/bin
+pathadd ~/.poetry/bin
+pathadd /usr/local/opt/mysql-client/bin
+pathadd /usr/local/opt/mysql-client/bin
+pathadd /usr/local/opt/make/libexec/gnubin
+pathadd ~/bin
+
 #
 # Checkout bat --list-themes, Light themes: GitHub, Monokai Extended Light, OneHalfLight, ansi-light
 exists bat && export BAT_THEME="GitHub"
@@ -155,6 +165,29 @@ if exists fzf; then
   #export FZF_CTRL_T_COMMAND='default-fzf-cmd'
   export FZF_DEFAULT_OPTS="--height 60% --reverse --bind 'up:preview-up,down:preview-down,ctrl-d:preview-page-down,ctrl-u:preview-page-up,ctrl-f:half-page-down,ctrl-b:half-page-up,ctrl-k:toggle-preview'"
   export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} | head -500'"
+
+  fzf-yank-history-widget() {
+    local selected num
+    setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
+    selected=( $(fc -rl 1 |
+      FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
+    local ret=$?
+    echo ${selected:1} | pbcopy
+    echo yanked "'"${selected:1}"'"
+    # if [ -n "$selected" ]; then
+    #   num=$selected[1]
+    #   if [ -n "$num" ]; then
+    #     zle vi-fetch-history -n $num
+    #   fi
+    # fi
+    zle reset-prompt
+    return $ret
+  }
+  zle     -N   fzf-yank-history-widget
+  bindkey '^Y' fzf-yank-history-widget
+
+
+
   # (EXPERIMENTAL) Advanced customization of fzf options via _fzf_comprun function
   # - The first argument to the function is the name of the command.
   # - You should make sure to pass the rest of the arguments to fzf.
