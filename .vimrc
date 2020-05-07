@@ -211,7 +211,7 @@ imap <c-k> <up>
 
 " copy and pasting
 vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
-nmap <C-v><C-v> :call setreg("\"",system("pbpaste"))<CR>P
+nmap <C-v><C-v> :call setreg("\"",system("pbpaste"))<CR>p
 
 " Highlight rows and columns with \l and \c, 'l to move, :match to remove
 " highlighting
@@ -250,6 +250,10 @@ map <ScrollWheelDown> <C-E>
 " This is just annoying
 noremap K k
 autocmd FileType c,cpp unmap <buffer> K
+
+" Disable smart indenting for these langauges
+autocmd FileType yaml setl indentexpr=
+autocmd FileType html setl indentexpr=
 
 " nnoremap <C-L> :redraw!
 
