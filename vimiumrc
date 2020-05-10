@@ -1,0 +1,16 @@
+unmap <c-e>
+unmap <c-y>
+unmap r
+unmap p
+unmap P
+unmap gf
+unmap gF
+unmap t
+unmap H
+unmap L
+unmap J
+unmap K
+unmap gT
+unmap gt
+unmap x
+unmap X
