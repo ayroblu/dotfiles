@@ -21,9 +21,10 @@ pathadd() {
 pathadd ~/.cargo/bin
 pathadd ~/.poetry/bin
 pathadd /usr/local/opt/mysql-client/bin
-pathadd /usr/local/opt/mysql-client/bin
 pathadd /usr/local/opt/make/libexec/gnubin
 pathadd ~/bin
+[ -d /usr/local/opt/make/libexec/gnubin ] && export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
+
 
 #
 # Checkout bat --list-themes, Light themes: GitHub, Monokai Extended Light, OneHalfLight, ansi-light

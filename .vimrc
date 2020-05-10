@@ -254,6 +254,8 @@ autocmd FileType c,cpp unmap <buffer> K
 " Disable smart indenting for these langauges
 autocmd FileType yaml setl indentexpr=
 autocmd FileType html setl indentexpr=
+autocmd FileType make setl indentexpr=
+autocmd FileType sh setl indentexpr=
 
 " nnoremap <C-L> :redraw!
 
