@@ -1,0 +1,21 @@
+gh: https://github.com/search?q=%s GitHub
+hn: https://www.hnsearch.com/search#request/submissions&q=%s&start=0 HackerNews
+so: https://stackoverflow.com/search?q=%s StackOverflow
+w: https://www.wikipedia.org/w/index.php?title=Special:Search&search=%s Wikipedia
+wa: https://www.wolframalpha.com/input/?i=%s Wolfram|Alpha
+ip: https://whatismyipaddress.com/ip/%s What is my ip address
+
+# Shopping
+a: https://www.amazon.co.uk/s/?field-keywords=%s Amazon
+e: https://www.ebay.co.uk/sch/?_nkw=%s eBay
+
+# Google
+gi: https://www.google.com/search?tbm=isch&q=%s Google Images
+gm: https://www.google.com/maps?q=%s Google Maps
+recent: https://www.google.com/search?hl=en&tbo=1&tbs=qdr:y&q=%s Google (last year only)
+t: https://translate.google.com/?source=osdd#auto|auto|%s Google Translator
+y: https://www.youtube.com/results?search_query=%s Youtube
+# Use google to search the current site you're on
+site: javascript:location='https://www.google.com/search?num=100&q=site:'+escape(location.hostname)+'+%s'
+# Find your way from your home to places using Google Maps
+home: https://www.google.com/maps/dir/home/%s

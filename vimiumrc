@@ -1,10 +1,12 @@
+# Recommend: https://github.com/philc/vimium/wiki/Search-Engines
+# Insert your preferred key mappings here.
 unmap <c-e>
 unmap <c-y>
 unmap r
 unmap p
 unmap P
-unmap gf
-unmap gF
+#unmap gf
+#unmap gF
 unmap t
 unmap H
 unmap L
@@ -14,3 +16,18 @@ unmap gT
 unmap gt
 unmap x
 unmap X
+unmap <a-f>
+unmap <a-p>
+unmap <a-m>
+unmap <<
+unmap >>
+unmap ^
+unmap f
+
+map fo LinkHints.activateMode
+map fh LinkHints.activateMode action=hover
+map ff LinkHints.activateMode action=focus
+map fc LinkHints.activateMode action=copy-text
+
+map ( moveTabLeft
+map ) moveTabRight

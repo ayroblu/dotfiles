@@ -26,6 +26,8 @@ Table of Contents
   - [History](#history)
 - [Vrapper Setup](#vrapper-setup)
 - [vifm](#vifm)
+- [vimium](#vimium)
+  - [Kill sticky and similar bookmarks](#kill-sticky-and-similar-bookmarks)
 
 <!-- vim-markdown-toc -->
 
@@ -201,4 +203,23 @@ vifm
 ```bash
 ln -s ~/ws/dotfiles/vifmrc ~/.config/vifm/vifmrc
 ln -s ~/ws/dotfiles/solarized-light.vifm ~/.config/vifm/colors/solarized-light.vifm
+```
+
+vimium
+------
+https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=en
+
+- vimiumrc
+- vimiumsearch
+
+### Kill sticky and similar bookmarks
+Because you can trigger bookmarks with `b`, you can trigger these js bookmarks really easily. To make a change to them use:
+
+```js
+decodeURIComponent(`(function()%7B(function%20()%20%7Bvar%20i%2C%20elements%20%3D%20document.querySelectorAll('body%20*')%3Bfor%20(i%20%3D%200%3B%20i%20%3C%20elements.length%3B%20i%2B%2B)%20%7Bif%20(%5B'fixed'%2C%20'sticky'%5D.includes(getComputedStyle(elements%5Bi%5D).position))%20%7Belements%5Bi%5D.parentNode.removeChild(elements%5Bi%5D)%3B%7D%7D%7D)()%7D)()`)
+```
+
+```js
+const a = encodeURIComponent(`(function(){(function () {var i, elements = document.querySelectorAll('body *');for (i = 0; i < elements.length; i++) {if (['fixed', 'sticky'].includes(getComputedStyle(elements[i]).position)) {elements[i].parentNode.removeChild(elements[i]);}}})()})()`);
+console.log(`javascript:${a}`);
 ```
