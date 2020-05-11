@@ -256,6 +256,7 @@ autocmd FileType yaml setl indentexpr=
 autocmd FileType html setl indentexpr=
 autocmd FileType make setl indentexpr=
 autocmd FileType sh setl indentexpr=
+autocmd FileType scala setl indentexpr=
 
 " nnoremap <C-L> :redraw!
 

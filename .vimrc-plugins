@@ -401,13 +401,13 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     endif
   endfunction
 
-  augroup typescript
+  augroup supporteddefs
     au!
     " Tag like go to definition
-    autocmd FileType typescript,javascript,typescriptreact,javascriptreact nmap <silent> <c-]> <Plug>(coc-definition)
+    autocmd FileType scala,typescript,javascript,typescriptreact,javascriptreact nmap <silent> <c-]> <Plug>(coc-definition)
 
     " Symbol renaming.
-    autocmd FileType typescript,javascript,typescriptreact,javascriptreact nmap <leader>r <Plug>(coc-rename)
+    autocmd FileType scala,typescript,javascript,typescriptreact,javascriptreact nmap <leader>r <Plug>(coc-rename)
   augroup END
 
   " Highlight the symbol and its references when holding the cursor.
