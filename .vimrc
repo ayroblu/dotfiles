@@ -352,6 +352,23 @@ function! HandleURL()
 endfunction
 map <leader>u :call HandleURL()<cr>
 
+function! Colemak()
+  nnoremap n j
+  nnoremap e k
+  nnoremap i l
+  nnoremap j n
+  nnoremap k e
+  nnoremap l i
+
+  vnoremap n j
+  vnoremap e k
+  vnoremap i l
+  vnoremap j n
+  vnoremap k e
+  vnoremap l i
+endfunction
+"map <leader>u :call HandleURL()<cr>
+
 " Restore cursor position horizontally when switching buffer
 " Switching tabs this is weird??
 "autocmd BufEnter * silent! normal! g`"
