@@ -278,8 +278,19 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   Plug 'nkouevda/vim-thrift-syntax'
   Plug 'sheerun/vim-polyglot'
   " autocmd chaining: https://vi.stackexchange.com/questions/3968/is-there-a-way-to-and-events-in-the-autocmd
-  " jedi sets conceal level, so set it back for markdown files
-  autocmd FileType markdown autocmd BufReadPost,CursorHold <buffer> set conceallevel=0
+  "autocmd FileType markdown autocmd BufReadPost,CursorHold <buffer> set conceallevel=0
+  let g:vim_markdown_new_list_item_indent = 0
+  " Shrink :Toc to size
+  let g:vim_markdown_toc_autofit = 1
+  " Don't do more than one line emphasis (in review)
+  let g:vim_markdown_emphasis_multiline = 0
+  " Because python inside triggers conceallevel 2 - jedi sets conceal level, so set it back for markdown files
+  let g:vim_markdown_conceal = 0
+  " Use "ge" for following links
+  let g:vim_markdown_follow_anchor = 1
+  let g:vim_markdown_anchorexpr = 'substitute(v:anchor, "-", " ", "g")'
+  " <leader>o for show toc
+  autocmd FileType markdown nnoremap <buffer> <leader>o :Toc<cr>
 
   Plug 'mzlogin/vim-markdown-toc'
   let g:vmt_list_item_char='-'
@@ -341,7 +352,6 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   \}
   let g:ale_fix_on_save = 1
   "let g:ale_javascript_prettier_use_local_config = 1
-  let g:vim_markdown_new_list_item_indent = 0
   " Disable the loclist (just annoying right now) can be opened with :lopen
   let g:ale_open_list=0
 
