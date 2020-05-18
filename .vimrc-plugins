@@ -139,6 +139,10 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   nmap ysa" ys2i"
   nmap ysa` ys2i`
 
+  Plug 'tommcdo/vim-exchange'
+  " visual: X to select text to swap, same on the text to swap with
+  " cxc to cancel
+
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-commentary'
   " gc to comment
