@@ -13,6 +13,7 @@ unsetopt sharehistory # set by omz
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename ~'/.zshrc'
+fpath=(~/.zsh/completion $fpath)
 
 autoload -Uz compinit
 compinit

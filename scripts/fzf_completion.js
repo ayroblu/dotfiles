@@ -42,14 +42,25 @@ const allCmds = [{
   name: 'yarn',
   cmds: [{
     cmdTrigger: 'yarn test',
-    cmdListOptions: `rg --files --hidden --glob '!.git' -g '*.test.ts' -g '*.test.js' -g '*.it.ts' -g '*.it.js' 2> /dev/null`,
+    cmdListOptions: `rg --files --hidden --glob '!.git' -g '*.test.ts*' -g '*.test.js*' -g '*.it.ts*' -g '*.it.js*' 2> /dev/null`,
     fzfOptions: '--multi',
   }]
 }, {
   name: 'node',
   cmds: [{
     cmdTrigger: 'node ',
-    cmdListOptions: `rg --files --hidden --glob '!.git' -g '*.ts' -g '*.js' 2> /dev/null`,
+    cmdListOptions: `rg --files --hidden --glob '!.git' -g '*.ts*' -g '*.js*' 2> /dev/null`,
+    fzfOptions: '--multi',
+  }]
+}, {
+  name: 'bloop',
+  cmds: [{
+    cmdTrigger: 'bloop test ',
+    cmdListOptions: `bloop autocomplete --format zsh --mode projects 2> /dev/null`,
+    fzfOptions: '--multi',
+  }, {
+    cmdTrigger: 'bloop compile ',
+    cmdListOptions: `bloop autocomplete --format zsh --mode projects 2> /dev/null`,
     fzfOptions: '--multi',
   }]
 }, {

@@ -52,7 +52,7 @@ _fzf_complete_git() {
 _fzf_complete_yarn() {
   ARGS="$@"
   if [[ $ARGS == 'yarn test'* ]]; then
-    local options="$(rg --files --hidden --glob '!.git' -g '*.test.ts' -g '*.test.js' -g '*.it.ts' -g '*.it.js' 2> /dev/null)"
+    local options="$(rg --files --hidden --glob '!.git' -g '*.test.ts*' -g '*.test.js*' -g '*.it.ts*' -g '*.it.js*' 2> /dev/null)"
     _fzf_complete "--multi" "$@" < <(
       echo $options
     )
@@ -63,7 +63,23 @@ _fzf_complete_yarn() {
 _fzf_complete_node() {
   ARGS="$@"
   if [[ $ARGS == 'node '* ]]; then
-    local options="$(rg --files --hidden --glob '!.git' -g '*.ts' -g '*.js' 2> /dev/null)"
+    local options="$(rg --files --hidden --glob '!.git' -g '*.ts*' -g '*.js*' 2> /dev/null)"
+    _fzf_complete "--multi" "$@" < <(
+      echo $options
+    )
+  else
+    return 1
+  fi
+}
+_fzf_complete_bloop() {
+  ARGS="$@"
+  if [[ $ARGS == 'bloop test '* ]]; then
+    local options="$(bloop autocomplete --format zsh --mode projects 2> /dev/null)"
+    _fzf_complete "--multi" "$@" < <(
+      echo $options
+    )
+  elif [[ $ARGS == 'bloop compile '* ]]; then
+    local options="$(bloop autocomplete --format zsh --mode projects 2> /dev/null)"
     _fzf_complete "--multi" "$@" < <(
       echo $options
     )
