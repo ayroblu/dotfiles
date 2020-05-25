@@ -8,12 +8,12 @@
 	<string>workmanlike</string>
 	<key>CFBundleVersion</key>
 	<string></string>
-	<key>KLInfo_ABC copy</key>
+	<key>KLInfo_workmanlike</key>
 	<dict>
 		<key>TICapsLockLanguageSwitchCapable</key>
 		<false/>
 		<key>TISInputSourceID</key>
-		<string>org.sil.ukelele.keyboardlayout.workmanlike.abccopy</string>
+		<string>org.sil.ukelele.keyboardlayout.workmanlike.workmanlike</string>
 		<key>TISIntendedLanguage</key>
 		<string>en</string>
 	</dict>
