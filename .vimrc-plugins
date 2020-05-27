@@ -40,7 +40,11 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   nmap ]y <plug>(YoinkRotateForward)
   nmap p <plug>(YoinkPaste_p)
   nmap P <plug>(YoinkPaste_P)
+  " Preserve yank position
+  nmap y <plug>(YoinkYankPreserveCursorPosition)
+  xmap y <plug>(YoinkYankPreserveCursorPosition)
   " :Yanks
+  " Consider using 3[y when going back to the third on the list for example
 
   Plug 'vifm/vifm.vim'
 
