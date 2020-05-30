@@ -28,6 +28,7 @@ Table of Contents
 - [vifm](#vifm)
 - [vimium](#vimium)
   - [Kill sticky and similar bookmarks](#kill-sticky-and-similar-bookmarks)
+- [Keyboard Layout](#keyboard-layout)
 
 <!-- vim-markdown-toc -->
 
@@ -223,3 +224,11 @@ decodeURIComponent(`(function()%7B(function%20()%20%7Bvar%20i%2C%20elements%20%3
 const a = encodeURIComponent(`(function(){(function () {var i, elements = document.querySelectorAll('body *');for (i = 0; i < elements.length; i++) {if (['fixed', 'sticky'].includes(getComputedStyle(elements[i]).position)) {elements[i].parentNode.removeChild(elements[i]);}}})()})()`);
 console.log(`javascript:${a}`);
 ```
+
+Keyboard Layout
+---------------
+I wrote my own custom keyboard layout (workmanlike). Checkout workman's keyboard for more info and thoughts, but my reasoning was that COLEMAK has an extremely terrible vim (hjkl) layout, (dvorak is fine, but all the symbols are messed up), and I was annoyed at the seemingly useless key moves. My goal was to keep as many keys in the same place as possible while keeping similar performance numbers as colemak and workman. Another reason for this was that I hypothesised that I was likely to use a qwerty layout quite a lot so it would be good to maintain the skills.
+
+Consider: http://patorjk.com/keyboard-layout-analyzer/ as a way to test out a keyboard layout + project gutenburg raw text
+
+Theoretically I want to keylog my computer in the future.
