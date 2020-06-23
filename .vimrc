@@ -31,6 +31,12 @@ function ShowPersonalHelp()
     \\n :BufOnly for closing all except current buffer
     \\n <leader>yp for yanking the path
     \\n
+    \\n text-obj
+    \\n if, af for function
+    \\n ci,w for camel case
+    \\n cia for argument
+    \\n ai,ii,aI, iI for indentation
+    \\n
     \\n netrw:
     \\n gn for changing root
     \\n <c-s-6> for returning to writing buffer
@@ -49,6 +55,17 @@ function ShowPersonalHelp()
     \\n
     \\n vim-exchange
     \\n cxc to cancel
+    \\n
+    \\n coc.nvim
+    \\n <leader>[j for previous error
+    \\n <leader>]j for next error
+    \\n <leader>gd go definition
+    \\n <leader>gy go type definition
+    \\n <leader>gi go implementation
+    \\n <leader>gr go references
+    \\n K Show docs
+    \\n <leader>ac action (like imports)
+    \\n :call popup_clear()
     \"
   if &filetype ==# 'python'
     echo "\npython:
@@ -358,23 +375,6 @@ function! HandleURL()
   redraw!
 endfunction
 map <leader>u :call HandleURL()<cr>
-
-function! Colemak()
-  nnoremap n j
-  nnoremap e k
-  nnoremap i l
-  nnoremap j n
-  nnoremap k e
-  nnoremap l i
-
-  vnoremap n j
-  vnoremap e k
-  vnoremap i l
-  vnoremap j n
-  vnoremap k e
-  vnoremap l i
-endfunction
-"map <leader>u :call HandleURL()<cr>
 
 " Restore cursor position horizontally when switching buffer
 " Switching tabs this is weird??

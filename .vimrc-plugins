@@ -158,6 +158,10 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   nmap <Leader>t :Files<CR>
   nmap <Leader><leader>r :BTags<CR>
   nmap <Leader><Leader>t :Tags<CR>
+  " https://github.com/junegunn/fzf.vim/issues/360
+  nnoremap <silent> <Leader><Leader>t :QFiles <C-R>=expand('%:h')<CR><CR>
+  nnoremap <silent> <Leader><Leader><Leader>t :Files <C-R>=expand('%:h')<CR><CR>
+
   " Custom setup for previews on Rg and Files
   command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -165,6 +169,10 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   \   fzf#vim#with_preview(), <bang>0)
   command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+  " Same command just moved q args so that the local file query sticks around
+  " https://github.com/junegunn/fzf.vim/issues/538
+  command! -bang -nargs=? -complete=dir QFiles
+    \ call fzf#vim#files('', fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline', '--query', <q-args>]}), <bang>0)
   " https://github.com/junegunn/fzf.vim/issues/800#issuecomment-533801609
   " Sorting issue: https://github.com/junegunn/fzf.vim/pull/620
   " !i$ for imports - mainly python
@@ -354,6 +362,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   let g:ale_fixers = {
   \ 'python': ['isort'],
   \ 'markdown': ['prettier'],
+  \ 'terraform': ['terraform'],
   \}
   let g:ale_pattern_options = {
   \   '.*\.json$': {'ale_enabled': 0},
@@ -427,6 +436,9 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
 
     " Symbol renaming.
     autocmd FileType scala,typescript,javascript,typescriptreact,javascriptreact nmap <leader>r <Plug>(coc-rename)
+
+    " "Workspaces for different file types, defaults to []
+    autocmd FileType scala let b:coc_root_patterns = [".git"]
   augroup END
 
   " Highlight the symbol and its references when holding the cursor.
