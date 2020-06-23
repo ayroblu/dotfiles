@@ -46,6 +46,9 @@ function ShowPersonalHelp()
     \\n <leader>w: Run repl and push lines (selection or current line)
     \\n <leader>q: Close repl
     \\n <leader>p: Select pane target
+    \\n
+    \\n vim-exchange
+    \\n cxc to cancel
     \"
   if &filetype ==# 'python'
     echo "\npython:
@@ -257,6 +260,10 @@ autocmd FileType html setl indentexpr=
 autocmd FileType make setl indentexpr=
 autocmd FileType sh setl indentexpr=
 autocmd FileType scala setl indentexpr=
+
+" Handle special file types: https://vim.fandom.com/wiki/Forcing_Syntax_Coloring_for_files_with_odd_extensions
+autocmd BufNewFile,BufRead *.strato set syntax=scala
+autocmd BufNewFile,BufRead *.aurora set syntax=python
 
 " nnoremap <C-L> :redraw!
 

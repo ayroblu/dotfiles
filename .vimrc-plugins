@@ -51,7 +51,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   Plug 'tpope/vim-dispatch'
   " Use :Dispatch <run test/build cmd> (or :Make but that's make specific?)
   " :Focus <cmd> to pin a command so that you can just call :Dispatch without
-  " args everytime
+  " args everytime, :Dispatch! for background running, show output with :Copen
 
   Plug 'tpope/vim-fugitive'
   " Move between changes with [c and ]c
@@ -385,6 +385,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
         \'coc-eslint',
         \'coc-json',
         \'coc-vimlsp',
+        \'coc-flow',
         \'coc-css'
         \]
   " vscode + coc config uses jsonc

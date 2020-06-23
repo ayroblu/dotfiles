@@ -28,6 +28,7 @@ map fo LinkHints.activateMode
 map fh LinkHints.activateMode action=hover
 map ff LinkHints.activateMode action=focus
 map fc LinkHints.activateMode action=copy-text
+map t LinkHints.activateMode
 
 map ( moveTabLeft
 map ) moveTabRight

@@ -41,7 +41,7 @@ alias viallnotes='vi ~/Dropbox/Documents/twitter/notes.md ~/Dropbox/Notes/*.md'
 alias goctave='\octave -q'
 [ -x "$(command -v octave)" ] && alias octave='octave -W -q'
 [ -x "$(command -v rg)" ] && [ -x "$(command -v ctags)" ] && alias maketags="rg --files | ctags --links=no --excmd=number -L-"
-[ -x "$(command -v rg)" ] && alias rg="rg --hidden --glob \"!.git\""
+[ -x "$(command -v rg)" ] && alias rg="rg --hidden --glob \"!tags\" --glob \"!.git\""
 
 # Editing aliases
 alias cvim='vi ~/.vimrc'
