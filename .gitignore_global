@@ -39,3 +39,5 @@ Thumbs.db
 # Ripgrep needs this
 .git
 tags
+
+/apps/responsive-web/.vim

@@ -293,6 +293,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " Before polyglot overrides it
   Plug 'nkouevda/vim-thrift-syntax'
   Plug 'sheerun/vim-polyglot'
+  let g:polyglot_disabled = ['mathematica']
   " autocmd chaining: https://vi.stackexchange.com/questions/3968/is-there-a-way-to-and-events-in-the-autocmd
   "autocmd FileType markdown autocmd BufReadPost,CursorHold <buffer> set conceallevel=0
   let g:vim_markdown_new_list_item_indent = 0

@@ -279,8 +279,7 @@ autocmd FileType sh setl indentexpr=
 autocmd FileType scala setl indentexpr=
 
 " Handle special file types: https://vim.fandom.com/wiki/Forcing_Syntax_Coloring_for_files_with_odd_extensions
-autocmd BufNewFile,BufRead *.strato set syntax=scala
-autocmd BufNewFile,BufRead *.aurora set syntax=python
+"autocmd BufNewFile,BufRead PROJECT set syntax=yaml
 
 " nnoremap <C-L> :redraw!
 
@@ -289,7 +288,7 @@ autocmd BufNewFile,BufRead *.aurora set syntax=python
 "vnoremap d "_d
 " replace currently selected text with default register
 " without yanking it
-vnoremap p "_dP
+vnoremap p "_dp
 
 " Moving cursor by display lines
 " -  http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping
@@ -506,6 +505,9 @@ try
   colorscheme solarized
 catch /^Vim(colorscheme):/
 endtry
+" https://github.com/airblade/vim-gitgutter/issues/696
+highlight! link SignColumn LineNr
+
 hi Normal ctermbg=NONE " we want vim to follow terminal background
 
 " Have to set this last
