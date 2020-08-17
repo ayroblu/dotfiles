@@ -36,5 +36,9 @@ fi
 # ----------- python pip
 if has python3; then
   echo 'has pip3'
-  pipdeptree -fl > $DIR/piplist-"$HOSTNAME".txt
+  if has pipdeptree; then
+    pipdeptree -fl > $DIR/piplist-"$HOSTNAME".txt
+  else
+    echo "run: pip3 install pipdeptree"
+  fi
 fi

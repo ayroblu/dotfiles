@@ -3,6 +3,7 @@ adobe-acrobat-reader
 alfred
 android-platform-tools
 anki
+aws-vault
 caffeine
 charles
 clipy
@@ -15,14 +16,17 @@ google-chrome
 handbrake
 hyperswitch
 iterm2
+karabiner-elements
 keybase
 macs-fan-control
-music-manager
+ngrok
+polar-bookshelf
 puush
 skype
 slack
 spectacle
 transmission
+ukelele
 virtualbox
 vlc
 wireshark

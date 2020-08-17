@@ -1,5 +1,6 @@
 /usr/local/lib
 ├── create-react-app@3.1.1
 ├── gitree@1.2.0
-└── npm@6.13.7
+├── npm@6.14.4
+└── vercel@19.0.1
 
