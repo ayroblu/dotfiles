@@ -6,6 +6,7 @@
     "css",
     "json",
     "html",
+    "rust",
     "scss"
   ],
   "tslint.autoFixOnSave": true,

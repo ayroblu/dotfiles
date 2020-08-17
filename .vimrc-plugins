@@ -59,7 +59,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
 
   Plug 'NLKNguyen/pipe.vim'
 
-  Plug 'craigemery/vim-autotag'
+  "Plug 'craigemery/vim-autotag'
   " Requires python support, but refreshes ctags if it's there
   " More info on tags generally:
   " https://andrew.stwrt.ca/posts/vim-ctags/
@@ -380,9 +380,9 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   "  - more ide
   " https://asquera.de/blog/2017-03-03/setting-up-a-rust-devenv/
   "  - vscode
-  let g:rustfmt_autosave = 1
-  autocmd FileType rust let b:ale_linters = {'rust': ['rls']}
-  autocmd FileType rust nnoremap <buffer> <leader>e :RustRun<cr>
+  " let g:rustfmt_autosave = 1
+  " autocmd FileType rust let b:ale_linters = {'rust': ['rls']}
+  " autocmd FileType rust nnoremap <buffer> <leader>e :RustRun<cr>
   "au BufNewFile,BufReadPost *.md set filetype=markdown
 
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -396,6 +396,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
         \'coc-json',
         \'coc-vimlsp',
         \'coc-flow',
+        \'coc-rls',
         \'coc-css'
         \]
   " vscode + coc config uses jsonc
@@ -433,10 +434,10 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   augroup supporteddefs
     au!
     " Tag like go to definition
-    autocmd FileType scala,typescript,javascript,typescriptreact,javascriptreact nmap <silent> <c-]> <Plug>(coc-definition)
+    autocmd FileType rust,scala,typescript,javascript,typescriptreact,javascriptreact nmap <silent> <c-]> <Plug>(coc-definition)
 
     " Symbol renaming.
-    autocmd FileType scala,typescript,javascript,typescriptreact,javascriptreact nmap <leader>r <Plug>(coc-rename)
+    autocmd FileType rust,scala,typescript,javascript,typescriptreact,javascriptreact nmap <leader>r <Plug>(coc-rename)
 
     " "Workspaces for different file types, defaults to []
     autocmd FileType scala let b:coc_root_patterns = [".git"]
@@ -454,12 +455,12 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   omap af <Plug>(coc-funcobj-a)
 
   "Plug 'racer-rust/vim-racer'
-  let g:racer_experimental_completer = 1
-  let g:racer_insert_paren = 1
+  " let g:racer_experimental_completer = 1
+  " let g:racer_insert_paren = 1
   " au FileType rust nmap <leader>k <Plug>(rust-def)
-  au FileType rust nmap <leader><leader>k <Plug>(rust-def-split)
+  " au FileType rust nmap <leader><leader>k <Plug>(rust-def-split)
   " au FileType rust nmap gx <Plug>(rust-def-vertical)
-  au FileType rust nmap <leader>k <Plug>(rust-doc)
+  " au FileType rust nmap <leader>k <Plug>(rust-doc)
   "au FileType rust au User ALELint lwindow
   "au FileType rust au FocusGained,BufEnter,CursorHold,CursorHoldI * lwindow
 
