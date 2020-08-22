@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleIdentifier</key>
-	<string>org.sil.ukelele.keyboardlayout.</string>
+	<string>org.sil.ukelele.keyboardlayout.ayro</string>
 	<key>CFBundleName</key>
-	<string></string>
+	<string>ayro</string>
 	<key>CFBundleVersion</key>
 	<string></string>
-	<key>KLInfo_ABC copy</key>
+	<key>KLInfo_ayro</key>
 	<dict>
 		<key>TICapsLockLanguageSwitchCapable</key>
 		<false/>
 		<key>TISInputSourceID</key>
-		<string>org.sil.ukelele.keyboardlayout..abccopy</string>
+		<string>org.sil.ukelele.keyboardlayout.ayro.ayro</string>
 		<key>TISIntendedLanguage</key>
 		<string>en</string>
 	</dict>
