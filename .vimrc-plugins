@@ -310,6 +310,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   let g:vim_markdown_anchorexpr = 'substitute(v:anchor, "-", " ", "g")'
   " <leader>o for show toc
   autocmd FileType markdown nnoremap <buffer> <leader>o :Toc<cr>
+  Plug 'godlygeek/tabular'
+  " Necessary for vim-markdown TableFormat
 
   Plug 'mzlogin/vim-markdown-toc'
   let g:vmt_list_item_char='-'
