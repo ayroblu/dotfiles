@@ -228,8 +228,8 @@
       "shiftAltGr": -1
     },
     {
-      "primary": 104,
-      "shift": 72,
+      "primary": 100,
+      "shift": 68,
       "finger": 3,
       "id": 31,
       "altGr": -1,
@@ -426,4 +426,3 @@
     }
   ]
 }
-
