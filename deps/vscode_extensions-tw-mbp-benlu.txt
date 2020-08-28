@@ -1,6 +1,8 @@
 AlanWalk.markdown-toc
 ayroblu.argumentative
+dbaeumer.vscode-eslint
 esbenp.prettier-vscode
+flowtype.flow-for-vscode
 hbenl.vscode-mocha-test-adapter
 hbenl.vscode-test-explorer
 ms-python.python

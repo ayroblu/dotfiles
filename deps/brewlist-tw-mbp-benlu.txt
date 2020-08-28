@@ -1,23 +1,38 @@
+automake: autoconf
+awscli: gdbm openssl@1.1 python@3.8 readline sqlite xz
 bat: 
+bower: icu4c node
+cmake: 
 colordiff: 
 coreutils: 
 ctags: 
+docutils: gdbm openssl@1.1 python readline sqlite xz
 fd: 
+ffmpeg: aom cairo flac fontconfig freetype frei0r fribidi gdbm gettext giflib glib gmp gnutls graphite2 harfbuzz icu4c jpeg lame leptonica libass libbluray libevent libffi libidn2 libogg libpng libsamplerate libsndfile libsoxr libtasn1 libtiff libunistring libvidstab libvorbis libvpx little-cms2 lzo nettle opencore-amr openjpeg openssl@1.1 opus p11-kit pcre pixman python readline rtmpdump rubberband sdl2 snappy speex sqlite tesseract theora unbound webp x264 x265 xvid xz
 fzf: 
 git: gettext pcre2
+graphviz: fontconfig freetype gd gdbm gettext glib gts jasper jpeg libffi libpng libtiff libtool netpbm openssl@1.1 pcre python readline sqlite webp xz
 htop: ncurses
+imageoptim-cli: 
 irssi: gdbm gettext glib libffi openssl@1.1 pcre python readline sqlite xz
 macvim: cscope gdbm libyaml lua openssl@1.1 python readline ruby sqlite xz
 make: 
+mbedtls: 
 mysql-client: openssl@1.1
 nailgun: 
-node: icu4c
+openjdk: 
 perl: 
+pkg-config: 
+qt: 
 ripgrep: pcre2
 rmtrash: 
 rustup-init: 
 olafurpg/scalafmt/scalafmt: 
+swig: pcre
+thrift: boost icu4c openssl@1.1
 tmux: libevent ncurses openssl@1.1
+tokei: 
 tree: 
+vifm: 
 zsh: ncurses pcre
 zsh-syntax-highlighting: 

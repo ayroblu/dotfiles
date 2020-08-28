@@ -5,5 +5,9 @@ pipdeptree==0.13.2
   pip==20.0.2
 pycodestyle==2.5.0
 setuptools==46.0.0
+vim-vint==0.3.21
+  ansicolor==0.2.6
+  chardet==3.0.4
+  PyYAML==5.3.1
 virtualenv==16.7.9
 wheel==0.34.2
