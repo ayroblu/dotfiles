@@ -29,6 +29,7 @@ Table of Contents
 - [vimium](#vimium)
   - [Kill sticky and similar bookmarks](#kill-sticky-and-similar-bookmarks)
 - [Keyboard Layout](#keyboard-layout)
+- [Plover](#plover)
 
 <!-- vim-markdown-toc -->
 
@@ -232,3 +233,7 @@ I wrote my own custom keyboard layout (workmanlike). Checkout workman's keyboard
 Consider: http://patorjk.com/keyboard-layout-analyzer/ as a way to test out a keyboard layout + project gutenburg raw text
 
 Theoretically I want to keylog my computer in the future.
+
+Plover
+------
+In setting up plover, point at the dictionaries in the plover folder. Note that specifically, UK order must go first, others do not matter as much
