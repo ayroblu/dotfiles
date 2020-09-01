@@ -1,2 +1,6 @@
 {
+  "STP*R": "{#Shift_L(Return)}",
+  "-FRL": "{#Super_L(space)} {^}",
+  "KPHR*R": "{#command(return)}",
+  "SP-LT": "{#Control_L(space)}{^}"
 }
