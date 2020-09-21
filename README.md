@@ -237,3 +237,25 @@ Theoretically I want to keylog my computer in the future.
 Plover
 ------
 In setting up plover, point at the dictionaries in the plover folder. Note that specifically, UK order must go first, others do not matter as much
+
+Emacs
+-----
+I followed the [doom emacs setup docs](https://github.com/hlissner/doom-emacs). Check there for the latest instructions:
+
+``` bash
+git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+~/.emacs.d/bin/doom install
+# y to envvar and fonts
+# Add ~/.emacs.d/bin to path
+doom sync
+```
+
+Doom emacs files are in the `.doom.d` directory
+
+Add to your root dir like so (you may need to delete your existing one generated automatically)
+
+``` bash
+# cp -a ~/.doom.d .doom.d
+# rmtrash ~/.doom.d
+ln -s ~/ws/dotfiles/.doom.d ~/.doom.d
+```

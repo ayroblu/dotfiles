@@ -22,6 +22,7 @@ pathadd ~/.cargo/bin
 pathadd ~/.poetry/bin
 pathadd /usr/local/opt/mysql-client/bin
 pathadd /usr/local/opt/make/libexec/gnubin
+pathadd ~/.emacs.d/bin
 pathadd ~/bin
 [ -d /usr/local/opt/make/libexec/gnubin ] && export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
 # If you want nvm
@@ -38,6 +39,7 @@ export EDITOR='vi'
 # macos doesn't auto sort by CPU
 alias ls='ls -a'
 alias top='top -o cpu'
+alias e='emacs'
 alias vis='vi -c OpenSession'
 alias mvis='mvim -c OpenSession'
 alias viallnotes='vi ~/Dropbox/Documents/twitter/notes.md ~/Dropbox/Notes/*.md'
