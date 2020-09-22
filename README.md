@@ -30,6 +30,7 @@ Table of Contents
   - [Kill sticky and similar bookmarks](#kill-sticky-and-similar-bookmarks)
 - [Keyboard Layout](#keyboard-layout)
 - [Plover](#plover)
+- [Emacs](#emacs)
 
 <!-- vim-markdown-toc -->
 
@@ -243,6 +244,7 @@ Emacs
 I followed the [doom emacs setup docs](https://github.com/hlissner/doom-emacs). Check there for the latest instructions:
 
 ``` bash
+brew cask install emacs
 git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 ~/.emacs.d/bin/doom install
 # y to envvar and fonts
