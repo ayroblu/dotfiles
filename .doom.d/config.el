@@ -53,6 +53,4 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; https://www.reddit.com/r/emacs/comments/4ermj9/how_to_restore_last_window_size_in_emacs/
-(desktop-save-mode 1)
 
