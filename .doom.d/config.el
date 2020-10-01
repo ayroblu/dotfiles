@@ -54,3 +54,12 @@
 ;; they are implemented.
 
 (projectile-add-known-project "~/Dropbox/Documents/org")
+;; Disable clipboard https://github.com/hlissner/doom-emacs/issues/2855
+;; Also disables CMD+V though!
+;; (setq select-enable-clipboard nil)
+
+;; Org mode config
+(setq org-log-done t)
+
+;; Vim config: don't move back one character
+(setq evil-move-cursor-back nil)

@@ -435,6 +435,26 @@ endfunction
 
 nnoremap <Leader>yp :call <SID>CopyGitPath()<CR>
 
+" Search open buffers: https://vi.stackexchange.com/questions/2904/how-to-show-search-results-for-all-open-buffers
+function! BuffersList()
+  let all = range(0, bufnr('$'))
+  let res = []
+  for b in all
+    if buflisted(b)
+      call add(res, bufname(b))
+    endif
+  endfor
+  return res
+endfunction
+
+function! GrepBuffers (expression)
+  exec 'vimgrep/'.a:expression.'/ '.join(BuffersList())
+  " https://stackoverflow.com/questions/1747091/how-do-you-use-vims-quickfix-feature
+  copen
+endfunction
+
+command! -nargs=+ GrepBufs call GrepBuffers(<q-args>)
+
 " -------------------------------- REPL + code execution
 if !empty(glob("~/.vimrc-repl"))
   so ~/.vimrc-repl
