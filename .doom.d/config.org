@@ -1,0 +1,275 @@
+#+TITLE: My Config
+
+* Included with Doom
+#+BEGIN_SRC elisp
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+#+END_SRC
+
+Place your private configuration here! Remember, you do not need to run =doom
+sync= after modifying this file!
+
+Some functionality uses this to identify you, e.g. GPG configuration, email
+clients, file templates and snippets.
+#+BEGIN_SRC elisp
+(setq user-full-name "John Doe"
+      user-mail-address "john@doe.com")
+#+END_SRC
+
+Doom exposes five (optional) variables for controlling fonts in Doom. Here
+are the three important ones:
+
++ =doom-font=
++ =doom-variable-pitch-font=
++ =doom-big-font= -- used for =doom-big-font-mode=; use this for
+  presentations or streaming.
+
+They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
+font string. You generally only need these two:
+(setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "sans" :size 13))
+
+There are two ways to load a theme. Both assume the theme is installed and
+available. You can either set `doom-theme' or manually load a theme with the
+`load-theme' function. This is the default:
+(setq doom-theme 'doom-one)
+
+If you use `org' and don't want your org files in the default location below,
+change `org-directory'. It must be set before org loads!
+#+BEGIN_SRC elisp
+(setq org-directory "~/Dropbox/Documents/org/")
+#+END_SRC
+
+This determines the style of line numbers in effect. If set to `nil', line
+numbers are disabled. For relative line numbers, set this to `relative'.
+#+BEGIN_SRC elisp
+(setq display-line-numbers-type 'relative)
+#+END_SRC
+
+
+Here are some additional functions/macros that could help you configure Doom:
+
+- =load!= for loading external *.el files relative to this one
+- =use-package!= for configuring packages
+- =after!= for running code after a package has loaded
+- =add-load-path!= for adding directories to the =load-path=, relative to
+  this file. Emacs searches the =load-path= when you load packages with
+  =require= or =use-package=.
+- =map!= for binding new keys
+
+To get information about any of these functions/macros, move the cursor over
+the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+This will open documentation for it, including demos of how they are used.
+
+You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
+they are implemented.
+
+* Configure doom to be less doom
+** Disable smart parens
+#+BEGIN_SRC elisp
+(remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
+#+END_SRC
+
+** Use default org tab cycle
+#+begin_src elisp
+(after! evil-org
+  (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
+#+end_src
+
+* Org mode
+** Changing to done logs the time it was set to done
+#+begin_src elisp
+(setq org-log-done t)
+#+end_src
+
+** Disable link hiding
+Toggle with org-toggle-link-display.
+Hide emphasis markers as well when descriptive links (coupled)
+#+begin_src elisp
+(setq org-link-descriptive nil)
+(setq org-hide-emphasis-markers t)
+#+end_src
+
+* How to keep yank and paste separate from clipboard
+** Disable clipboard
+https://github.com/hlissner/doom-emacs/issues/2855
+Also disables CMD+V though!
+#+BEGIN_SRC elisp
+(setq select-enable-clipboard nil)
+#+END_SRC
+
+** Makes CMD-c and v work
+https://stackoverflow.com/questions/22849281/on-emacs-for-osx-how-to-keep-kill-ring-and-clipboard-separate/24249229
+#+BEGIN_SRC elisp
+(defun isolate-kill-ring()
+  "Isolate Emacs kill ring from OS X system pasteboard.
+This function is only necessary in window system."
+  (interactive)
+  (setq interprogram-cut-function nil)
+  (setq interprogram-paste-function nil))
+
+(defun pasteboard-copy()
+  "Copy region to OS X system pasteboard."
+  (interactive)
+  (shell-command-on-region
+   (region-beginning) (region-end) "pbcopy"))
+
+(defun pasteboard-paste()
+  "Paste from OS X system pasteboard via `pbpaste' to point."
+  (interactive)
+  (shell-command-on-region
+   (point) (if mark-active (mark) (point)) "pbpaste" nil t))
+
+(defun pasteboard-cut()
+  "Cut region and put on OS X system pasteboard."
+  (interactive)
+  (pasteboard-copy)
+  (delete-region (region-beginning) (region-end)))
+
+(if window-system
+    (progn
+      (isolate-kill-ring)
+      ;; bind CMD+C to pasteboard-copy
+      (global-set-key (kbd "s-c") 'pasteboard-copy)
+      ;; bind CMD+V to pasteboard-paste
+      (global-set-key (kbd "s-v") 'pasteboard-paste)
+      ;; bind CMD+X to pasteboard-cut
+      (global-set-key (kbd "s-x") 'pasteboard-cut)))
+#+END_SRC
+
+* Plugin enables
+** Just put all packages in here
+#+BEGIN_SRC elisp
+(require 'command-log-mode)
+(require 'elisp-format)
+#+END_SRC
+
+* Plugin related
+** Projectile needs hardcoded project directories?
+#+BEGIN_SRC elisp
+(projectile-add-known-project "~/Dropbox/Documents/org")
+#+END_SRC
+
+* Evil Vim Setup
+** Apparently need this setup function to get =general=
+#+BEGIN_SRC elisp
+(general-evil-setup)
+#+END_SRC
+
+** Setup insert mode jj and jk to return to normal mode
+https://github.com/noctuid/general.el#vim-like-definers
+#+BEGIN_SRC elisp
+(defun my-insert-j ()
+  (interactive)
+  (insert "j"))
+
+(general-imap "j" (general-key-dispatch 'my-insert-j
+                    :timeout 0.25
+                    "k" 'evil-normal-state))
+(general-imap "j" (general-key-dispatch 'my-insert-j
+                    :timeout 0.25
+                    "j" 'evil-normal-state))
+#+END_SRC
+
+** Don't move back one character
+#+BEGIN_SRC elisp
+(setq evil-move-cursor-back nil)
+#+END_SRC
+
+* Personal Functions
+** Kill all non visible buffers
+#+BEGIN_SRC elisp
+(defun kill-all-buffers-not-visible ()
+  "Kill all buffers not currently shown in a window somewhere."
+  (interactive)
+  (dolist (buf  (buffer-list))
+    (unless (get-buffer-window buf 'visible) (kill-buffer buf))))
+#+END_SRC
+
+** Unused
+*** Loading files
+#+begin_comment elisp
+; Took me a lot of work to figure this out, but not used as load! does the same thing
+;(defun load-file-relative (file-name)
+;  (load-file (expand-file-name file-name (file-name-directory (or load-file-name buffer-file-name)))))
+;(load! "./command-log-mode.el")
+#+end_comment
+
+*** Toggle LaTeX under cursor
+#+begin_comment elisp
+; http://kitchingroup.cheme.cmu.edu/blog/2015/10/09/Automatic-latex-image-toggling-when-cursor-is-on-a-fragment/
+;(defvar org-latex-fragment-last nil
+;  "Holds last fragment/environment you were on.")
+
+; (defun org-latex-fragment-toggle ()
+;   "Toggle a latex fragment image "
+;   (and (eq 'org-mode major-mode)
+;        (let* ((el (org-element-context))
+;               (el-type (car el)))
+;          (cond
+;           ;; were on a fragment and now on a new fragment
+;           ((and
+;             ;; fragment we were on
+;             org-latex-fragment-last
+;             ;; and are on a fragment now
+;             (or
+;              (eq 'latex-fragment el-type)
+;              (eq 'latex-environment el-type))
+;             ;; but not on the last one this is a little tricky. as you edit the
+;             ;; fragment, it is not equal to the last one. We use the begin
+;             ;; property which is less likely to change for the comparison.
+;             (not (= (org-element-property :begin el)
+;                     (org-element-property :begin org-latex-fragment-last))))
+;            ;; go back to last one and put image back
+;            (save-excursion
+;              (goto-char (org-element-property :begin org-latex-fragment-last))
+;              (org-preview-latex-fragment))
+;            ;; now remove current image
+;            (goto-char (org-element-property :begin el))
+;            (let ((ov (loop for ov in org-latex-fragment-image-overlays
+;                            if
+;                            (and
+;                             (<= (overlay-start ov) (point))
+;                             (>= (overlay-end ov) (point)))
+;                            return ov)))
+;              (when ov
+;                (delete-overlay ov)))
+;            ;; and save new fragment
+;            (setq org-latex-fragment-last el))
+;
+;           ;; were on a fragment and now are not on a fragment
+;           ((and
+;             ;; not on a fragment now
+;             (not (or
+;                   (eq 'latex-fragment el-type)
+;                   (eq 'latex-environment el-type)))
+;             ;; but we were on one
+;             org-latex-fragment-last)
+;            ;; put image back on
+;            (save-excursion
+;              (goto-char (org-element-property :begin org-latex-fragment-last))
+;              (org-preview-latex-fragment))
+;            ;; unset last fragment
+;            (setq org-latex-fragment-last nil))
+;
+;           ;; were not on a fragment, and now are
+;           ((and
+;             ;; we were not one one
+;             (not org-latex-fragment-last)
+;             ;; but now we are
+;             (or
+;              (eq 'latex-fragment el-type)
+;              (eq 'latex-environment el-type)))
+;            (goto-char (org-element-property :begin el))
+;            ;; remove image
+;            (let ((ov (loop for ov in org-latex-fragment-image-overlays
+;                            if
+;                            (and
+;                             (<= (overlay-start ov) (point))
+;                             (>= (overlay-end ov) (point)))
+;                            return ov)))
+;              (when ov
+;                (delete-overlay ov)))
+;            (setq org-latex-fragment-last el))))))
+;
+; (add-hook 'post-command-hook 'org-latex-fragment-toggle)
+#+end_comment
