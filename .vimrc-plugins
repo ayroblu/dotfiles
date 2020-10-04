@@ -313,6 +313,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   Plug 'godlygeek/tabular'
   " Necessary for vim-markdown TableFormat
 
+  Plug 'jceb/vim-orgmode'
+
   Plug 'mzlogin/vim-markdown-toc'
   let g:vmt_list_item_char='-'
   " :GenTocGFM

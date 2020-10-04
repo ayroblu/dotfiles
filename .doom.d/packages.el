@@ -52,3 +52,4 @@
 (package! elisp-format)
 (package! command-log-mode)
 (package! wrap-region)
+(package! solarized-theme)

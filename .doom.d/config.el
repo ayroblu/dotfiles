@@ -3,6 +3,10 @@
 (setq user-full-name "John Doe"
       user-mail-address "john@doe.com")
 
+(setq doom-theme 'doom-one)
+; I don't particularly like it, but solarized maybe?
+;(setq doom-theme 'solarized-light)
+
 (setq org-directory "~/Dropbox/Documents/org/")
 
 (setq display-line-numbers-type 'relative)
@@ -11,6 +15,8 @@
 
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
+
+(setq writegood-mode nil)
 
 (setq org-log-done t)
 

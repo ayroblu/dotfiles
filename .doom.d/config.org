@@ -1,6 +1,7 @@
 #+TITLE: My Config
 
 * Included with Doom
+Use lexical binding because perf reasons: [[https://github.com/hlissner/doom-emacs/blob/develop/docs/faq.org#use-lexical-binding-everywhere][faq]]
 #+BEGIN_SRC elisp
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 #+END_SRC
@@ -25,13 +26,19 @@ are the three important ones:
 
 They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 font string. You generally only need these two:
+#+begin_comment elisp
 (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+#+end_comment
 
 There are two ways to load a theme. Both assume the theme is installed and
 available. You can either set `doom-theme' or manually load a theme with the
 `load-theme' function. This is the default:
+#+BEGIN_SRC elisp
 (setq doom-theme 'doom-one)
+; I don't particularly like it, but solarized maybe?
+;(setq doom-theme 'solarized-light)
+#+END_SRC
 
 If you use `org' and don't want your org files in the default location below,
 change `org-directory'. It must be set before org loads!
@@ -74,6 +81,11 @@ they are implemented.
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
 #+end_src
+
+** Disable writegood-mode with grammar module
+#+BEGIN_SRC elisp
+(setq writegood-mode nil)
+#+END_SRC
 
 * Org mode
 ** Changing to done logs the time it was set to done
