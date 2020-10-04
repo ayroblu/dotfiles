@@ -16,7 +16,13 @@
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
 
-(setq writegood-mode nil)
+;(remove-hook '(org-hook markdown-mode rst-mode asciidoc-mode latex-mode) #'writegood-mode)
+;(writegood-mode 0)
+
+;(remove-hook 'text-mode-hook #'spell-fu-mode)
+;(spell-fu-mode 0)
+
+
 
 (setq org-log-done t)
 

@@ -313,6 +313,9 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   Plug 'godlygeek/tabular'
   " Necessary for vim-markdown TableFormat
 
+  " Plugins for org mode
+  Plug 'inkarkat/vim-SyntaxRange'
+  Plug 'tpope/vim-speeddating'
   Plug 'jceb/vim-orgmode'
 
   Plug 'mzlogin/vim-markdown-toc'

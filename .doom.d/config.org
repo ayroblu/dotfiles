@@ -82,9 +82,23 @@ they are implemented.
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
 #+end_src
 
-** Disable writegood-mode with grammar module
+** TODO Disable writegood-mode with grammar module
+Doesn't work
 #+BEGIN_SRC elisp
-(setq writegood-mode nil)
+;(remove-hook '(org-hook markdown-mode rst-mode asciidoc-mode latex-mode) #'writegood-mode)
+;(writegood-mode 0)
+#+END_SRC
+
+** TODO Disable spelling by default, turn on with SPC t s (spell-fu-mode)
+Doesn't work
+#+BEGIN_SRC elisp
+;(remove-hook 'text-mode-hook #'spell-fu-mode)
+;(spell-fu-mode 0)
+#+END_SRC
+
+** TODO Remember window size at start
+Doesn't work
+#+BEGIN_SRC elisp
 #+END_SRC
 
 * Org mode
@@ -93,8 +107,7 @@ they are implemented.
 (setq org-log-done t)
 #+end_src
 
-** Disable link hiding
-Toggle with org-toggle-link-display.
+** Disable link hiding, toggle with SPC m l t (org-toggle-link-display)
 Hide emphasis markers as well when descriptive links (coupled)
 #+begin_src elisp
 (setq org-link-descriptive nil)
