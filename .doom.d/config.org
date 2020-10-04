@@ -113,6 +113,36 @@ Hide emphasis markers as well when descriptive links (coupled)
 (setq org-link-descriptive nil)
 (setq org-hide-emphasis-markers t)
 #+end_src
+** Org capture
+I think it defaults to this already
+#+BEGIN_SRC elisp
+(setq org-default-notes-file (concat org-directory "/notes.org"))
+#+END_SRC
+
+Template definition
+#+begin_src elisp
+(defvar +org-capture-my-todo-file (concat org-directory "todo.org")
+  "Default target for todo entries.
+Is relative to `org-directory', unless it is absolute.")
+(defvar +org-capture-my-notes-file (concat org-directory "notes.org")
+  "Default target for notes entries.
+Is relative to `org-directory', unless it is absolute.")
+(defvar +org-capture-my-projects-file (concat org-directory "projects.org")
+  "Default target for project entries.
+Is relative to `org-directory', unless it is absolute.")
+(after! org
+  (setq org-capture-templates
+        '(("t" "Todo" entry
+           (file+headline +org-capture-my-todo-file "Ideas")
+           "* %U %?\n%i\n%a" :prepend t)
+          ("p" "Project" entry
+           (file+headline +org-capture-my-projects-file "Ideas")
+           "* %U %?\n%i\n%a" :prepend t)
+          ("n" "Note" entry
+           (file+headline +org-capture-my-notes-file "Ideas")
+           "* %U %?\n%i\n%a" :prepend t)
+          )))
+#+end_src
 
 * How to keep yank and paste separate from clipboard
 ** Disable clipboard
