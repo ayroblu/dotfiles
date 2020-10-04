@@ -404,6 +404,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
         \'coc-eslint',
         \'coc-json',
         \'coc-vimlsp',
+        "\'coc-python',
         \'coc-flow',
         \'coc-rls',
         \'coc-css'

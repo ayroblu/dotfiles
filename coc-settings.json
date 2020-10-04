@@ -22,18 +22,18 @@
   "coc.preferences.rootPatterns": []
 
   // Python only: MPLS takes 2 minutes to start right now, not usable, formatting and linting provided by ale
-  // "python.jediEnabled": false,
+  // ,"python.jediEnabled": false,
   // "python.linting.pylintEnabled": false,
   // "python.linting.mypyEnabled": false,
   // "python.linting.flake8Enabled": false,
   // "python.linting.flake8Args": ["--config=flake8.ini"],
   // "python.linting.enabled": true,
-  // "python.pythonPath": "${workspaceFolder}/aiden/env/bin/python",
+  // // "python.pythonPath": "${workspaceFolder}/aiden/env/bin/python",
   // "python.linting.mypyArgs": [],
   // "python.formatting.provider": "black",
   // "python.formatting.blackArgs": ["-l 100"],
   // "python.formatting.blackPath": "cblack",
-  // "python.sortImports.args": ["--settings-path=${workspaceFolder}"],
+  // "python.sortImports.args": ["--settings-path=${workspaceFolder}"]
 
   // "languageserver": {
   //   "terraform": {
