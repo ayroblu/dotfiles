@@ -404,11 +404,11 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
         \'coc-eslint',
         \'coc-json',
         \'coc-vimlsp',
-        "\'coc-python',
         \'coc-flow',
         \'coc-rls',
         \'coc-css'
         \]
+        "\"coc-python',
   " vscode + coc config uses jsonc
   " https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
   autocmd FileType json syntax match Comment +\/\/.\+$+
