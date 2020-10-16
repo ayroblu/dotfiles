@@ -318,6 +318,11 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   Plug 'tpope/vim-speeddating'
   Plug 'jceb/vim-orgmode'
 
+  Plug 'arecarn/vim-fold-cycle'
+  "Current mappings
+  "nmap <CR> <Plug>(fold-cycle-open)
+  "nmap <BS> <Plug>(fold-cycle-close)
+
   Plug 'mzlogin/vim-markdown-toc'
   let g:vmt_list_item_char='-'
   " :GenTocGFM
@@ -463,6 +468,11 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   xmap af <Plug>(coc-funcobj-a)
   omap if <Plug>(coc-funcobj-i)
   omap af <Plug>(coc-funcobj-a)
+
+  Plug 'antoinemadec/coc-fzf'
+  " :CocFzfList
+  " :CocFzfList diagnostics
+  " :CocFzfListResume (same as last fzf)
 
   "Plug 'racer-rust/vim-racer'
   " let g:racer_experimental_completer = 1

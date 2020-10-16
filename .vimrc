@@ -113,8 +113,8 @@ set autoread "detect if file has changed
 set display+=lastline "long lines show to the end instead of @ sign
 set complete+=kspell " autocomplete includes the dictionary if enabled
 
-set foldmethod=manual
-set foldlevel=4
+set foldmethod=syntax
+set foldlevel=20
 
 set updatetime=1000 "event when cursor stops moving for a second, for swp normally, but now is for checktime call below
 " Ignore case except when there atleast one capital
@@ -297,6 +297,8 @@ noremap  <buffer> <silent> j gj
 noremap  <buffer> <silent> 0 g0
 noremap  <buffer> <silent> $ g$
 
+" Yank current file path
+nnoremap yp :let @" = expand("%:p")<CR>
 
 " Insert single character
 nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
@@ -433,7 +435,7 @@ function! s:CopyGitPath() range
   redraw!
 endfunction
 
-nnoremap <Leader>yp :call <SID>CopyGitPath()<CR>
+nnoremap <Leader>ygp :call <SID>CopyGitPath()<CR>
 
 " Search open buffers: https://vi.stackexchange.com/questions/2904/how-to-show-search-results-for-all-open-buffers
 function! BuffersList()
