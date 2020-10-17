@@ -81,6 +81,10 @@ they are implemented.
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
 #+end_src
+** Disable workspace shortcut insert pound symbol:
+#+BEGIN_SRC elisp
+(define-key global-map (kbd "M-3") (lambda () (interactive) (insert "£")))
+#+END_SRC
 
 ** TODO Disable writegood-mode with grammar module
 Doesn't work
