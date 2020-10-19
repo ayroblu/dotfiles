@@ -269,7 +269,7 @@ map <ScrollWheelDown> <C-E>
 
 " This is just annoying
 noremap K k
-autocmd FileType c,cpp unmap <buffer> K
+"autocmd FileType c,cpp nunmap <buffer> K
 
 " Disable smart indenting for these langauges
 autocmd FileType yaml setl indentexpr=

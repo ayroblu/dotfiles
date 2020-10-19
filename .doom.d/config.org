@@ -216,17 +216,18 @@ This function is only necessary in window system."
 
 ** Setup insert mode jj and jk to return to normal mode
 https://github.com/noctuid/general.el#vim-like-definers
+Doesn't work in terminal mode?
 #+BEGIN_SRC elisp
-(defun my-insert-j ()
-  (interactive)
-  (insert "j"))
-
-(general-imap "j" (general-key-dispatch 'my-insert-j
-                    :timeout 0.25
-                    "k" 'evil-normal-state))
-(general-imap "j" (general-key-dispatch 'my-insert-j
-                    :timeout 0.25
-                    "j" 'evil-normal-state))
+;(defun my-insert-j ()
+;  (interactive)
+;  (insert "j"))
+;
+;(general-imap "j" (general-key-dispatch 'my-insert-j
+;                    :timeout 0.25
+;                    "k" 'evil-normal-state))
+;(general-imap "j" (general-key-dispatch 'my-insert-j
+;                    :timeout 0.25
+;                    "j" 'evil-normal-state))
 #+END_SRC
 
 ** Don't move back one character
@@ -242,6 +243,10 @@ https://github.com/noctuid/general.el#vim-like-definers
   (interactive)
   (dolist (buf  (buffer-list))
     (unless (get-buffer-window buf 'visible) (kill-buffer buf))))
+#+END_SRC
+** Toggle LaTeX under cursor
+#+BEGIN_SRC elisp
+(add-hook 'org-mode-hook 'org-fragtog-mode)
 #+END_SRC
 
 ** Unused

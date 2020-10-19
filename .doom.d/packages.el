@@ -53,3 +53,5 @@
 (package! command-log-mode)
 (package! wrap-region)
 (package! solarized-theme)
+(package! ob-typescript)
+(package! org-fragtog)
