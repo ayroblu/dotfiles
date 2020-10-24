@@ -326,6 +326,17 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   Plug 'godlygeek/tabular'
   " Necessary for vim-markdown TableFormat
 
+  Plug 'dhruvasagar/vim-table-mode'
+  ":TableModeToggle - <Leader>tm
+  " || for horizontal rule
+  " :Tableize - <Leader>tt to convert csv to table (:Tableize/\t for tsv)
+  " [|, ]|, {| & }| for moving left right up down
+  " <Leader>tdc delete column
+  " <Leader>tic or <Leader>tiC to insert a column
+  " :TableAddFormula or <Leader>tfa
+  " :TableEvalFormulaLine or <Leader>tfe or <Leader>t? for eval
+  let g:table_mode_map_prefix = ',t'
+
   " Plugins for org mode (disabled cause GetOrgFolding() is extremely slow)
   "Plug 'inkarkat/vim-SyntaxRange'
   "Plug 'tpope/vim-speeddating'
