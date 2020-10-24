@@ -49,7 +49,7 @@ alias viallnotes='vi ~/Dropbox/Documents/twitter/notes.md ~/Dropbox/Notes/*.md'
 alias goctave='\octave -q'
 [ -x "$(command -v octave)" ] && alias octave='octave -W -q'
 [ -x "$(command -v rg)" ] && [ -x "$(command -v ctags)" ] && alias maketags="rg --files | ctags --links=no --excmd=number -L-"
-[ -x "$(command -v rg)" ] && alias rg="rg --hidden --glob \"!tags\" --glob \"!.git\""
+[ -x "$(command -v rg)" ] && alias rg="rg --hidden --glob \"!tags\" --glob \"!.git\" -M 120"
 
 # Editing aliases
 alias cvim='vi ~/.vimrc'
@@ -164,7 +164,7 @@ if exists fzf; then
 
   ## FZF setup variables - use git ls-files cause it's way faster
   default-fzf-cmd() {
-    git ls-files 2> /dev/null || rg --files --hidden --glob "!.git" 2> /dev/null
+    git ls-files 2> /dev/null || rg --files --hidden --glob "!.git" -M 120 2> /dev/null
   }
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
   #Can't use default-fzf-cmd because no functions in vim
@@ -172,7 +172,7 @@ if exists fzf; then
   exists rg && export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" 2> /dev/null'
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   #export FZF_CTRL_T_COMMAND='default-fzf-cmd'
-  export FZF_DEFAULT_OPTS="--height 60% --reverse --bind 'up:preview-up,down:preview-down,ctrl-d:preview-page-down,ctrl-u:preview-page-up,ctrl-f:half-page-down,ctrl-b:half-page-up,ctrl-k:toggle-preview'"
+  export FZF_DEFAULT_OPTS="--height 60% --reverse --history=$HOME/.fzf_history --bind 'up:preview-up,down:preview-down,ctrl-d:preview-page-down,ctrl-u:preview-page-up,ctrl-f:half-page-down,ctrl-b:half-page-up,ctrl-t:toggle-preview'"
   export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} | head -500'"
 
   fzf-yank-history-widget() {

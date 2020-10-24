@@ -7,6 +7,9 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
 
   " === Theme
   Plug 'altercation/vim-colors-solarized'
+  " I couldn't figure out how to make the background not the same as the
+  " cursor
+  autocmd BufReadPost <buffer> hi MatchParen cterm=bold,underline ctermbg=none ctermfg=red
   "Plug 'edkolev/tmuxline.vim'
   let g:tmuxline_powerline_separators = 0
   let g:tmuxline_preset = {
@@ -305,7 +308,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " Before polyglot overrides it
   Plug 'nkouevda/vim-thrift-syntax'
   Plug 'sheerun/vim-polyglot'
-  let g:polyglot_disabled = ['mathematica']
+  let g:polyglot_disabled = ['mathematica', 'sh']
   " autocmd chaining: https://vi.stackexchange.com/questions/3968/is-there-a-way-to-and-events-in-the-autocmd
   "autocmd FileType markdown autocmd BufReadPost,CursorHold <buffer> set conceallevel=0
   let g:vim_markdown_new_list_item_indent = 0

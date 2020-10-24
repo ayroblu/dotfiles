@@ -96,7 +96,8 @@ set autoindent
 set hlsearch
 set ruler
 set showcmd
-
+" help foldtext, disable and `set fillchars?` to see default
+set fillchars=vert:\|
 set cursorline mouse=a
 set laststatus=2 " Always show a status bar
 hi CursorLine   cterm=bold,underline ctermbg=NONE ctermfg=NONE guibg=blue guifg=orange "Set cursor line highlight colours
