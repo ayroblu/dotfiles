@@ -441,6 +441,12 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " vscode + coc config uses jsonc
   " https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
   autocmd FileType json syntax match Comment +\/\/.\+$+
+
+  " Make <CR> auto-select the first completion item and notify coc.nvim to
+  " format on enter, <cr> could be remapped by other vim plugin
+  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
   inoremap <silent><expr> <c-x><c-o> coc#refresh()
   " Checkout the following as <c-space> is interpreted as <c-@>
   " https://stackoverflow.com/questions/24983372/what-does-ctrlspace-do-in-vim
@@ -459,39 +465,64 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " Use K to show documentation in preview window.
   nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-  " Remap keys for applying codeAction to the current line.
+  " Applying codeAction to the selected region.
+  " Example: `<leader>aap` for current paragraph
+  xmap <leader>a  <Plug>(coc-codeaction-selected)
+  nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+  " Remap keys for applying codeAction to the current buffer.
   nmap <leader>ac  <Plug>(coc-codeaction)
+  " Apply AutoFix to problem on the current line.
+  nmap <leader>qf  <Plug>(coc-fix-current)
+
+  command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
       execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+      call CocActionAsync('doHover')
     else
-      call CocAction('doHover')
+      execute '!' . &keywordprg . " " . expand('<cword>')
     endif
   endfunction
+
+  " Highlight the symbol and its references when holding the cursor.
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+
+  " Symbol renaming.
+  nmap <leader>rn <Plug>(coc-rename)
 
   augroup supporteddefs
     au!
     " Tag like go to definition
     autocmd FileType rust,scala,typescript,javascript,typescriptreact,javascriptreact nmap <silent> <c-]> <Plug>(coc-definition)
 
-    " Symbol renaming.
-    autocmd FileType rust,scala,typescript,javascript,typescriptreact,javascriptreact nmap <leader>r <Plug>(coc-rename)
-
     " "Workspaces for different file types, defaults to []
     autocmd FileType scala let b:coc_root_patterns = [".git"]
+
+    " Update signature help on jump placeholder. - have no clue what this does
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
   augroup END
 
-  " Highlight the symbol and its references when holding the cursor.
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-
-  " Introduce function text object
+  " Introduce function and class text objects
   " " NOTE: Requires 'textDocument.documentSymbol' support from the language
   " server.
   xmap if <Plug>(coc-funcobj-i)
   xmap af <Plug>(coc-funcobj-a)
   omap if <Plug>(coc-funcobj-i)
   omap af <Plug>(coc-funcobj-a)
+  xmap ic <Plug>(coc-classobj-i)
+  omap ic <Plug>(coc-classobj-i)
+  xmap ac <Plug>(coc-classobj-a)
+  omap ac <Plug>(coc-classobj-a)
+
+  " Remap <C-f> and <C-b> for scroll float windows/popups.
+  " Note coc#float#scroll works on neovim >= 0.4.3 or vim >= 8.2.0750
+  nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
   Plug 'antoinemadec/coc-fzf'
   " :CocFzfList

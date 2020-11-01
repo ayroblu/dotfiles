@@ -19,3 +19,6 @@ y: https://www.youtube.com/results?search_query=%s Youtube
 site: javascript:location='https://www.google.com/search?num=100&q=site:'+escape(location.hostname)+'+%s'
 # Find your way from your home to places using Google Maps
 home: https://www.google.com/maps/dir/home/%s
+mail: https://mail.google.com/mail/u/0/#search/%s
+mailj: https://mail.google.com/mail/u/2/#search/%s
+maila: https://mail.google.com/mail/u/1/#search/%s
