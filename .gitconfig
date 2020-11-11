@@ -37,10 +37,7 @@
   dc = d --color-words=.
   # Delete push
   dp = !git push -d origin $(git rev-parse --abbrev-ref HEAD) && git p
-  # Chain things on to this
-  fdirty = !git status -s | sed s/^...// | fzf -m
-  fb = fbranch
-  fbranch = !git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf --no-sort -m
+  f = fetch origin
   last-message = log -1 --pretty=%B
   lbase = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset'
   l = lbase --graph -500
