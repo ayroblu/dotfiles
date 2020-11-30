@@ -172,7 +172,7 @@ if exists fzf; then
   exists rg && export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" 2> /dev/null'
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   #export FZF_CTRL_T_COMMAND='default-fzf-cmd'
-  export FZF_DEFAULT_OPTS="--height 60% --reverse --history=$HOME/.fzf_history --bind 'up:preview-up,down:preview-down,ctrl-d:preview-page-down,ctrl-u:preview-page-up,ctrl-f:half-page-down,ctrl-b:half-page-up,ctrl-l:toggle-preview'"
+  export FZF_DEFAULT_OPTS="--height 60% --reverse --history=$HOME/.fzf_history --bind 'up:preview-up,down:preview-down,ctrl-d:preview-page-down,ctrl-u:preview-page-up,ctrl-f:half-page-down,ctrl-b:half-page-up,ctrl-e:toggle-preview'"
   export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} | head -500'"
 
   fzf-yank-history-widget() {

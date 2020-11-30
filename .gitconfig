@@ -10,6 +10,8 @@
   # To show a file from another branch, git show <branch>:file
   #
   # https://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
+
+  amend = commit -a --amend --no-edit
   b = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
   # Include remote branches
   bo = for-each-ref --sort=committerdate refs/heads/ refs/remotes/origin/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
@@ -37,7 +39,8 @@
   dc = d --color-words=.
   # Delete push
   dp = !git push -d origin $(git rev-parse --abbrev-ref HEAD) && git p
-  f = fetch origin
+  f = fetch
+  fo = fetch origin
   last-message = log -1 --pretty=%B
   lbase = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset'
   l = lbase --graph -500
