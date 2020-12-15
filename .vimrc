@@ -298,6 +298,10 @@ noremap  <buffer> <silent> j gj
 noremap  <buffer> <silent> 0 g0
 noremap  <buffer> <silent> $ g$
 
+" diffget for mergetool left and right is also local and remote
+nnoremap <buffer> dgl :diffget LO<cr>
+nnoremap <buffer> dgr :diffget RE<cr>
+
 " Yank current file path
 nnoremap yp :let @" = expand("%:p")<CR>
 

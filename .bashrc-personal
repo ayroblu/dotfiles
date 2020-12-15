@@ -12,44 +12,17 @@ if has go; then
 fi
 
 #-------------- personal aliases
-#alias vi='/Applications/MacVim.app/Contents/MacOS/Vim'
-#alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
-alias superrmrm='rm'
 alias rm='echo "Please use rmtrash! (superrmrm for normal rm)"'
 
 alias brew='HOMEBREW_NO_AUTO_UPDATE=1 brew'
 alias ampl='/Users/blu/Documents/amplide-demo/ampl'
-alias eclim='$ECLIPSE_HOME/eclimd -Dosgi.instance.area.default=@user.home/Dropbox/Programming/javaWorkspace'
 alias o='figlet -cw'`tput cols`
 alias cpwd='echo -n $(pwd) | pbcopy'
-alias uaicupdate='rsync -aPv ~/Dropbox/Github/uaic/html /Applications/MAMP/htdocs/'
 alias diff='colordiff' # install  colordiff package :) -------------Installed using brew install colordiff
 alias mount='mount |column -t' #7: Make mount command output pretty and human readable format
 
-# cd dirs
-alias cdsoftproj='cd ~/Dropbox/Programming/javaWorkspace/SOFTENG751/src/project/'
-alias cdsoftrep='cd ~/Dropbox/sharelatex/SOFTENG\ 751\ Project/'
-alias cdrep='cd ~/Dropbox/sharelatex/ENGSCI\ Part\ 4\ Project\ Report/'
-
-alias cduni='cd ~/Dropbox/University\ of\ Auckland/'
-alias cdentrep='cd ~/Dropbox/University\ of\ Auckland/2015\ Quarter\ 1\ Winter/ENTRE\ 370/'
-alias cdventure='cd ~/Dropbox/University\ of\ Auckland/2015\ Quarter\ 1\ Winter/ENTRE\ 459/'
-
-alias cdjava='cd ~/Dropbox/Programming/javaWorkspace/'
-alias cdsharelatex='cd ~/Dropbox/sharelatex'
-alias cduaic='cd ~/Google_Drive/Github/uaic/'
-alias cdbenlu.co='cd ~/Dropbox/Github/benlu.co/'
-alias cdmamp='cd /Applications/MAMP/htdocs'
-
 # misc
-alias viuninotes='vim -p ~/Dropbox/"University of Auckland/2015 Quarter 2 Spring"/fin{435,453,450,457}notes.md'
-alias matlabterm='/Applications/MATLAB_R2014b.app/bin/matlab -nojvm -nodisplay -nosplash'
-alias matlabtermjvm='/Applications/MATLAB_R2014b.app/bin/matlab -nodesktop -nosplash'
 #alias gce='gcutil --service_version="v1" --project="velvety-renderer-404" ssh  --zone="us-central1-a" "base-instance"'
-#alias adb='/Users/blu/Desktop/Software/ADT/sdk/platform-tools/adb'
-
-#Run achievement server
-alias achievement="dev_appserver.py --host=0.0.0.0 ~/Dropbox/Github/achievement/"
 
 # Proxy stuff
 alias proxywifion='sudo networksetup -setsocksfirewallproxystate Wi-Fi on' #on / off
@@ -59,7 +32,7 @@ alias proxywifioff='sudo networksetup -setsocksfirewallproxystate Wi-Fi off' #on
 alias showhidden='defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder'
 alias hidehidden='defaults write com.apple.finder AppleShowAllFiles FALSE; killall Finder'
 
-alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+#alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
 
 # compile latex
@@ -96,48 +69,12 @@ function srsink {
     rsync -aPvv --ignore-existing -e ssh ${2} ${1}
   fi
 }
-function email {
-  if [ "${#}" -eq 3 ]; then
-    echo curl -G --data-urlencode\ {to="\"${1}\"",subject="\"${2}\"",body="\"${3}\""} benlu.co/mail
-  elif [ "${#}" -eq 4 ]; then
-    echo curl -G --data-urlencode\ {from="\"${1}\"",to="\"${2}\"",subject="\"${3}\"",body="\"${4}\""} benlu.co/mail
-  else
-    echo "Need (from), to, subject, body"
-  fi
-}
-function unyproxy {
-  ssh -ND 9876 uny &
-  proxywifion
-  read -p "Press enter to turn off proxy: "
-  proxywifioff
-  fg
-}
-function lonproxy {
-  ssh -ND 9876 hndroplet &
-  proxywifion
-  read -p "Press enter to turn off proxy: "
-  proxywifioff
-  fg
-}
-function sfproxy {
-  #ssh -ND 9876 qpdroplet &
-  ssh -ND 9876 rgu &
-  proxywifion
-  read -p "Press enter to turn off proxy: "
-  proxywifioff
-  fg
-}
 function nzproxy {
-  #ssh -ND 9876 blu@benlu.co &
-  #ssh -ND 9876 blu@202.169.196.28 &
   ssh -ND 9876 mezap &
   proxywifion
   read -p "Press enter to turn off proxy: "
   proxywifioff
   fg
-}
-function iosProxy {
-  ssh -N -gv -D 1080 mezap
 }
 
 function pwdx {
@@ -145,20 +82,22 @@ function pwdx {
 }
 
 #---------------------- Matlab
-function matlab {
-  if [ "${#}" -lt 1 ]; then
-    matlabterm
-  else
-    cat "$@" | matlabterm
-  fi
-}
-function jmatlab {
-  if [ "${#}" -lt 1 ]; then
-    matlabtermjvm
-  else
-    cat "$@" | matlabtermjvm
-  fi
-}
+#alias matlabterm='/Applications/MATLAB_R2014b.app/bin/matlab -nojvm -nodisplay -nosplash'
+#alias matlabtermjvm='/Applications/MATLAB_R2014b.app/bin/matlab -nodesktop -nosplash'
+#function matlab {
+#  if [ "${#}" -lt 1 ]; then
+#    matlabterm
+#  else
+#    cat "$@" | matlabterm
+#  fi
+#}
+#function jmatlab {
+#  if [ "${#}" -lt 1 ]; then
+#    matlabtermjvm
+#  else
+#    cat "$@" | matlabtermjvm
+#  fi
+#}
 # ------------------------------------Convert video to mp3 using vlc
 function convertVideos {
   # list=$(find /path/to/some/files/ -mindepth 3 -maxdepth 3 -name '*.dat')
@@ -183,7 +122,6 @@ function createPanes {
 
 
 # -------------------------------------------------------- Quick add bash aliases
-
 function addbashfunc {
   # I'm not sure what this line is doing, but I think I need it, however its like 500ms to run soooo in func it goes
   set -o history -o histexpand
@@ -191,7 +129,7 @@ function addbashfunc {
   if [ "${#} " -ne 1 ]; then
     echo "Need a single aliasname"
   else
-    echo "alias ${1}='"$TEMPCMD"'" >> ~/.bashrc-extras
+    echo "alias ${1}='"$TEMPCMD"'" >> ~/.bashrc-personal
   fi
 }
 alias addbash='TEMPCMD="$(history -p !!)"; addbashfunc'
@@ -204,15 +142,9 @@ alias addbash='TEMPCMD="$(history -p !!)"; addbashfunc'
 
 #[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-function loadNVM {
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
-}
-
 #----------------found on: http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
-
-export PATH="$PATH:/Users/blu/Library/Android/sdk/platform-tools"
-export ANDROID_HOME=/Users/blu/Library/Android/sdk/
+#export PATH="$PATH:/Users/blu/Library/Android/sdk/platform-tools"
+#export ANDROID_HOME=/Users/blu/Library/Android/sdk/
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export FZF_DEFAULT_COMMAND='ag -g ""'

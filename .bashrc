@@ -152,16 +152,19 @@ function decrypt {
 }
 
 # ----------------------------------------- Macbook
-. ~/.bashrc-personal
+[ -f ~/.bashrc-personal ] && . ~/.bashrc-personal
 
 #------------------------------------------ colors
-. ~/.bashrc-colors
+[ -f ~/.bashrc-colors ] && . ~/.bashrc-colors
 
 # ----------------------------------------- Bash prompt
-. ~/.bashrc-prompt
+[ -f ~/.bashrc-prompt ] && . ~/.bashrc-prompt
 
 # ----------------------------------------- bash quick adds
-. ~/.bashrc-extras
+[ -f ~/.bashrc-extras ] && . ~/.bashrc-extras
+
+# ----------------------------------------- bash quick adds
+[ -f ~/.sharedshrc ] && . ~/.sharedshrc
 
 #[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
