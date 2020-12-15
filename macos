@@ -1,3 +1,6 @@
+# TODO MANUALLY
+# https://apple.stackexchange.com/questions/110569/disable-esc-shortcut-to-quit-fullscreen
+# ------------ Automated
 ## Checkout https://github.com/aaronbates/dotfiles/blob/master/macos/.macos
 
 # Show dotfiles in finder
@@ -18,4 +21,3 @@ defaults write com.apple.BezelServices kDimTime -int 15
 # Chrome: Disable left right to go back and forward in history
 # https://superuser.com/questions/840102/how-do-you-disable-swipe-history-navigation-in-chrome
 # defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
-

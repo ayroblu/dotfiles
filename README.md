@@ -277,10 +277,12 @@ launchctl load ~/Library/LaunchAgents/pbcopy.plist
 launchctl load ~/Library/LaunchAgents/pbpaste.plist
 ```
 
+Example ssh config, probably want to use `sshpb` alias to pass through ports by connection
+
 ```sshconfig
 Host myhost
     HostName 192.168.1.123
     User myname
-    RemoteForward 2224 127.0.0.1:2224
-    RemoteForward 2225 127.0.0.1:2225
+    RemoteForward 2324 127.0.0.1:2324
+    RemoteForward 2325 127.0.0.1:2325
 ```

@@ -231,8 +231,8 @@ imap <c-j> <down>
 imap <c-k> <up>
 
 " copy and pasting
-vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
-nmap <C-v><C-v> :call setreg("\"",system("pbpaste"))<CR>p
+vnoremap <C-c> y:call system("pbcopy", getreg("\""))<CR>
+nnoremap <C-v><C-v> :call setreg("\"",system("pbpaste"))<CR>p
 
 " Highlight rows and columns with \l and \c, 'l to move, :match to remove
 " highlighting
@@ -524,9 +524,9 @@ if !empty(glob("~/.vimrc-plugins"))
 endif
 
 " https://stackoverflow.com/questions/15808767/vimrc-to-detect-remote-connection
-let g:localSession = ($STY == "")
+let g:localSession = ($SSH_CLIENT == "")
 if !g:localSession
-  echom 'hi'
+  " If necessary?
 endif
 
 " --------------- Finally colour scheme
