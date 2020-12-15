@@ -5,5 +5,7 @@ alias reindexspotlight='sudo mdutil -E /'
 exists() {
   command -v "$1" >/dev/null 2>&1
 }
+# Used on remote systems to pass through the clipboard
+alias sshpb='ssh -R 2324:localhost:2324 -R 2325:localhost:2325'
 exists pbcopy || alias pbcopy='nc -q0 localhost 2324'
 exists pbpaste || alias pbpaste='nc localhost 2325'
