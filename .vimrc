@@ -230,9 +230,23 @@ imap <c-h> <left>
 imap <c-j> <down>
 imap <c-k> <up>
 
+" HOC for calling system with interactive flags which have the shell rc files
+function Isystem(a, ...)
+  set shellcmdflag=-ic
+  let l:res = ""
+
+  if a:0 == 1
+    let l:res = system(a:a, a:1)
+  else
+    let l:res = system(a:a)
+  endif
+  set shellcmdflag=-c
+  return l:res
+endfunction
+
 " copy and pasting
-vnoremap <C-c> y:call system("pbcopy", getreg("\""))<CR>
-nnoremap <C-v><C-v> :call setreg("\"",system("pbpaste"))<CR>p
+vnoremap <C-c> y:call Isystem("pbcopy", getreg("\""))<CR>
+nnoremap <C-v><C-v> :call setreg("\"", Isystem("pbpaste"))<CR>p
 
 " Highlight rows and columns with \l and \c, 'l to move, :match to remove
 " highlighting
