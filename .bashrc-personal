@@ -147,7 +147,7 @@ alias addbash='TEMPCMD="$(history -p !!)"; addbashfunc'
 #export ANDROID_HOME=/Users/blu/Library/Android/sdk/
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-exists rg && export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" 2> /dev/null'
+has rg && export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Homebrew sbin
 export PATH="/usr/local/sbin:$PATH"
