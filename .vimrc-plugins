@@ -324,6 +324,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " <leader>o for show toc
   autocmd FileType markdown nnoremap <buffer> <leader>o :Toc<cr>
   autocmd BufNewFile,BufRead *.plist set syntax=xml
+  " https://superuser.com/questions/489135/vim-does-not-detect-syntax-of-ssh-config
   au BufNewFile,BufRead */.ssh/config  setf sshconfig
   Plug 'godlygeek/tabular'
   " Necessary for vim-markdown TableFormat

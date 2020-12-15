@@ -523,6 +523,12 @@ if !empty(glob("~/.vimrc-plugins"))
   so ~/.vimrc-plugins
 endif
 
+" https://stackoverflow.com/questions/15808767/vimrc-to-detect-remote-connection
+let g:localSession = ($STY == "")
+if !g:localSession
+  echom 'hi'
+endif
+
 " --------------- Finally colour scheme
 syntax enable
 
