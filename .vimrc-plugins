@@ -323,6 +323,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   let g:vim_markdown_anchorexpr = 'substitute(v:anchor, "-", " ", "g")'
   " <leader>o for show toc
   autocmd FileType markdown nnoremap <buffer> <leader>o :Toc<cr>
+  autocmd BufNewFile,BufRead *.plist set syntax=xml
+  au BufNewFile,BufRead */.ssh/config  setf sshconfig
   Plug 'godlygeek/tabular'
   " Necessary for vim-markdown TableFormat
 

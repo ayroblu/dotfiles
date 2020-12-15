@@ -31,6 +31,7 @@ Table of Contents
 - [Keyboard Layout](#keyboard-layout)
 - [Plover](#plover)
 - [Emacs](#emacs)
+- [Remote pbcopy](#remote-pbcopy)
 
 <!-- vim-markdown-toc -->
 
@@ -260,4 +261,26 @@ Add to your root dir like so (you may need to delete your existing one generated
 # cp -a ~/.doom.d .doom.d
 # rmtrash ~/.doom.d
 ln -s ~/ws/dotfiles/.doom.d ~/.doom.d
+```
+
+Remote pbcopy
+-------------
+From https://gist.github.com/burke/5960455
+
+macOS opens inetd which pipes socket info to pbcopy and pbpaste and relies on netcat on the remote
+
+```sh
+set -x
+ln -s "$(pwd)/remote-pbcopy/pbcopy.plist" ~/Library/LaunchAgents/pbcopy.plist
+ln -s "$(pwd)/remote-pbcopy/pbpaste.plist" ~/Library/LaunchAgents/pbpaste.plist
+launchctl load ~/Library/LaunchAgents/pbcopy.plist
+launchctl load ~/Library/LaunchAgents/pbpaste.plist
+```
+
+```sshconfig
+Host myhost
+    HostName 192.168.1.123
+    User myname
+    RemoteForward 2224 127.0.0.1:2224
+    RemoteForward 2225 127.0.0.1:2225
 ```
