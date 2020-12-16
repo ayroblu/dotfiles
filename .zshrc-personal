@@ -70,7 +70,8 @@ alias gulp='TS_NODE_TRANSPILE_ONLY=true npx gulp'
 function nzproxy {
   ssh -ND 9876 mezap &
   proxywifion
-  read -p "Press enter to turn off proxy: "
+  # wut: https://superuser.com/questions/555874/zsh-read-command-fails-within-bash-function-read1-p-no-coprocess
+  read "?Press enter to turn off proxy: "
   proxywifioff
   fg
 }

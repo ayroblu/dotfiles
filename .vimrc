@@ -230,9 +230,14 @@ imap <c-h> <left>
 imap <c-j> <down>
 imap <c-k> <up>
 
+" https://stackoverflow.com/questions/15808767/vimrc-to-detect-remote-connection
+let g:localSession = ($SSH_CLIENT == "")
+
 " HOC for calling system with interactive flags which have the shell rc files
 function Isystem(a, ...)
-  set shellcmdflag=-ic
+  if !g:localSession
+    set shellcmdflag=-ic
+  endif
   let l:res = ""
 
   if a:0 == 1
@@ -240,7 +245,9 @@ function Isystem(a, ...)
   else
     let l:res = system(a:a)
   endif
-  set shellcmdflag=-c
+  if !g:localSession
+    set shellcmdflag=-c
+  endif
   return l:res
 endfunction
 
@@ -535,12 +542,6 @@ nmap <leader>d :DiffGitSaved<CR>
 "" --------------------------plugin settings
 if !empty(glob("~/.vimrc-plugins"))
   so ~/.vimrc-plugins
-endif
-
-" https://stackoverflow.com/questions/15808767/vimrc-to-detect-remote-connection
-let g:localSession = ($SSH_CLIENT == "")
-if !g:localSession
-  " If necessary?
 endif
 
 " --------------- Finally colour scheme
