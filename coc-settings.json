@@ -8,6 +8,7 @@
     "json",
     "html",
     "rust",
+    "go",
     "scss"
   ],
   "tslint.autoFixOnSave": true,

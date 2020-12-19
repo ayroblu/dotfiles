@@ -500,9 +500,6 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
 
   augroup supporteddefs
     au!
-    " Tag like go to definition
-    autocmd FileType rust,scala,go,typescript,javascript,typescriptreact,javascriptreact,typescript.tsx nmap <silent> <c-]> <Plug>(coc-definition)
-
     " "Workspaces for different file types, defaults to []
     autocmd FileType scala let b:coc_root_patterns = [".git"]
 

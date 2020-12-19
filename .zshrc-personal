@@ -7,37 +7,6 @@ exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
-# -------------- Misc env vars
-[ -f /usr/local/opt/libffi/lib/pkgconfig ] && export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
-exists node && export NODE_OPTIONS=--max-old-space-size=8192
-exists brew && export HOMEBREW_NO_AUTO_UPDATE=1
-
-# https://superuser.com/questions/39751/add-directory-to-path-if-its-not-already-there
-pathadd() {
-  if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-    PATH="$1${PATH:+":$PATH"}"
-  fi
-}
-pathadd ~/.cargo/bin
-pathadd ~/.poetry/bin
-pathadd /usr/local/opt/mysql-client/bin
-pathadd /usr/local/opt/make/libexec/gnubin
-pathadd ~/.emacs.d/bin
-pathadd ~/bin
-[ -d /usr/local/opt/make/libexec/gnubin ] && export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
-# If you want nvm
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-# [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-# qmk_firmware
-export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
-export PATH="/usr/local/opt/arm-gcc-bin@8/bin:$PATH"
-
-#
-# Checkout bat --list-themes, Light themes: GitHub, Monokai Extended Light, OneHalfLight, ansi-light
-exists bat && export BAT_THEME="GitHub"
-export EDITOR='vi'
-
 # ---------- Aliases
 # macos doesn't auto sort by CPU
 alias ls='ls -a'
