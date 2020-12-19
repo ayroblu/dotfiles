@@ -439,6 +439,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
         \'coc-vimlsp',
         \'coc-flow',
         \'coc-rls',
+        \'coc-go',
         \'coc-css'
         \]
         "\"coc-python',
@@ -500,7 +501,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   augroup supporteddefs
     au!
     " Tag like go to definition
-    autocmd FileType rust,scala,typescript,javascript,typescriptreact,javascriptreact,typescript.tsx nmap <silent> <c-]> <Plug>(coc-definition)
+    autocmd FileType rust,scala,go,typescript,javascript,typescriptreact,javascriptreact,typescript.tsx nmap <silent> <c-]> <Plug>(coc-definition)
 
     " "Workspaces for different file types, defaults to []
     autocmd FileType scala let b:coc_root_patterns = [".git"]
@@ -533,26 +534,6 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " :CocFzfList diagnostics
   " :CocFzfListResume (same as last fzf)
 
-  "Plug 'racer-rust/vim-racer'
-  " let g:racer_experimental_completer = 1
-  " let g:racer_insert_paren = 1
-  " au FileType rust nmap <leader>k <Plug>(rust-def)
-  " au FileType rust nmap <leader><leader>k <Plug>(rust-def-split)
-  " au FileType rust nmap gx <Plug>(rust-def-vertical)
-  " au FileType rust nmap <leader>k <Plug>(rust-doc)
-  "au FileType rust au User ALELint lwindow
-  "au FileType rust au FocusGained,BufEnter,CursorHold,CursorHoldI * lwindow
-
-  "Plug 'Quramy/tsuquyomi'
-  let g:tsuquyomi_single_quote_import=1
-  let g:tsuquyomi_shortest_import_path = 1
-  " Stop tsuquyomi freezing on save, why do this in vim 8 though...
-  let g:tsuquyomi_disable_quickfix = 1
-  autocmd FileType typescript,typescript.tsx,typescriptreact nmap <buffer> <Leader>k : <C-u>echo tsuquyomi#hint()<CR>
-  " It takes like 30+ seconds gets kinda pointless
-  " autocmd FileType typescript
-  "     \ autocmd BufWritePost <buffer> :TsuquyomiAsyncGeterr
-  " vim8.2 uses typescriptreact, not typescript.tsx
   augroup typescriptreact
     au!
     autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
