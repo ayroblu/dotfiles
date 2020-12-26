@@ -6,22 +6,22 @@ _fzf_complete_brew() {
   ARGS="$@"
   if [[ $ARGS == 'brew install '* ]]; then
     local options="$(cache_fzf.js "brew install")"
-    _fzf_complete "--multi" "$@" < <(
+    _fzf_complete --multi -- "$@" < <(
       echo $options
     )
   elif [[ $ARGS == 'brew cask install '* ]]; then
     local options="$(cache_fzf.js "brew cask install")"
-    _fzf_complete "--multi" "$@" < <(
+    _fzf_complete --multi -- "$@" < <(
       echo $options
     )
   elif [[ $ARGS == 'brew uninstall '* ]]; then
     local options="$(brew list)"
-    _fzf_complete "--multi" "$@" < <(
+    _fzf_complete --multi -- "$@" < <(
       echo $options
     )
   elif [[ $ARGS == 'brew cask uninstall '* ]]; then
     local options="$(brew cask list)"
-    _fzf_complete "--multi" "$@" < <(
+    _fzf_complete --multi -- "$@" < <(
       echo $options
     )
   else
@@ -32,17 +32,17 @@ _fzf_complete_git() {
   ARGS="$@"
   if [[ $ARGS == 'git add '* ]]; then
     local options="$(cache_fzf.js "git co")"
-    _fzf_complete "--multi" "$@" < <(
+    _fzf_complete --multi -- "$@" < <(
       echo $options
     )
   elif [[ $ARGS == 'git co '* ]]; then
     local options="$(cache_fzf.js "git co")"
-    _fzf_complete "--multi" "$@" < <(
+    _fzf_complete --multi -- "$@" < <(
       echo $options
     )
   elif [[ $ARGS == 'git cob '* ]]; then
     local options="$(git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)')"
-    _fzf_complete "--multi" "$@" < <(
+    _fzf_complete --multi -- "$@" < <(
       echo $options
     )
   else
@@ -53,7 +53,7 @@ _fzf_complete_yarn() {
   ARGS="$@"
   if [[ $ARGS == 'yarn test'* ]]; then
     local options="$(rg --files --hidden --glob '!.git' -g '*.test.ts*' -g '*.test.js*' -g '*.it.ts*' -g '*.it.js*' 2> /dev/null)"
-    _fzf_complete "--multi" "$@" < <(
+    _fzf_complete --multi -- "$@" < <(
       echo $options
     )
   else
@@ -64,7 +64,7 @@ _fzf_complete_node() {
   ARGS="$@"
   if [[ $ARGS == 'node '* ]]; then
     local options="$(rg --files --hidden --glob '!.git' -g '*.ts*' -g '*.js*' 2> /dev/null)"
-    _fzf_complete "--multi" "$@" < <(
+    _fzf_complete --multi -- "$@" < <(
       echo $options
     )
   else
@@ -75,14 +75,46 @@ _fzf_complete_bloop() {
   ARGS="$@"
   if [[ $ARGS == 'bloop test '* ]]; then
     local options="$(bloop autocomplete --format zsh --mode projects 2> /dev/null)"
-    _fzf_complete "--multi" "$@" < <(
+    _fzf_complete --multi -- "$@" < <(
       echo $options
     )
   elif [[ $ARGS == 'bloop compile '* ]]; then
     local options="$(bloop autocomplete --format zsh --mode projects 2> /dev/null)"
-    _fzf_complete "--multi" "$@" < <(
+    _fzf_complete --multi -- "$@" < <(
       echo $options
     )
+  else
+    return 1
+  fi
+}
+_fzf_complete_docker() {
+  ARGS="$@"
+  if [[ $ARGS == 'docker rm '* ]]; then
+    local options="$(docker ps -a)"
+    _fzf_complete --multi -- "$@" < <(
+      echo $options
+    )
+  elif [[ $ARGS == 'docker image rm '* ]]; then
+    local options="$(docker images -a)"
+    _fzf_complete --multi -- "$@" < <(
+      echo $options
+    )
+  elif [[ $ARGS == 'docker volume rm '* ]]; then
+    local options="$(docker volume ls)"
+    _fzf_complete --multi -- "$@" < <(
+      echo $options
+    )
+  else
+    return 1
+  fi
+}
+_fzf_complete_docker_post() {
+  if [[ $ARGS == 'docker rm '* ]]; then
+    awk '{print $1}'
+  elif [[ $ARGS == 'docker image rm '* ]]; then
+    awk '{print $3}'
+  elif [[ $ARGS == 'docker volume rm '* ]]; then
+    awk '{print $2}'
   else
     return 1
   fi
@@ -91,7 +123,7 @@ _fzf_complete_gulp() {
   ARGS="$@"
   if [[ $ARGS == 'gulp '* ]]; then
     local options="$(cache_fzf.js 'gulp')"
-    _fzf_complete "--multi" "$@" < <(
+    _fzf_complete --multi -- "$@" < <(
       echo $options
     )
   else

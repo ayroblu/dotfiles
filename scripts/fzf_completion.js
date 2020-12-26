@@ -1,101 +1,176 @@
-const fs = require('fs');
+const fs = require("fs");
 
-const allCmds = [{
-  name: 'brew',
-  cmds: [{
-    cmdTrigger: 'brew install ',
-    // cmdListOptions: 'brew search',
-    cmdListOptions: 'cache_fzf.js "brew install"',
-    fzfOptions: '--multi',
-  }, {
-    cmdTrigger: 'brew cask install ',
-    // cmdListOptions: 'brew search --casks',
-    cmdListOptions: 'cache_fzf.js "brew cask install"',
-    fzfOptions: '--multi',
-  }, {
-    cmdTrigger: 'brew uninstall ',
-    cmdListOptions: 'brew list',
-    fzfOptions: '--multi',
-  }, {
-    cmdTrigger: 'brew cask uninstall ',
-    cmdListOptions: 'brew cask list',
-    fzfOptions: '--multi',
-  }]
-}, {
-  name: 'git',
-  cmds: [{
-    cmdTrigger: 'git add ',
-    cmdListOptions: 'cache_fzf.js "git co"',
-    // cmdListOptions: 'git status -s | sed s/^...//',
-    fzfOptions: '--multi',
-  }, {
-    cmdTrigger: 'git co ',
-    cmdListOptions: 'cache_fzf.js "git co"',
-    // cmdListOptions: 'git status -s | sed s/^...//',
-    fzfOptions: '--multi',
-  }, {
-    cmdTrigger: 'git cob ',
-    cmdListOptions: "git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)'",
-    fzfOptions: '--multi',
-  }]
-}, {
-  name: 'yarn',
-  cmds: [{
-    cmdTrigger: 'yarn test',
-    cmdListOptions: `rg --files --hidden --glob '!.git' -g '*.test.ts*' -g '*.test.js*' -g '*.it.ts*' -g '*.it.js*' 2> /dev/null`,
-    fzfOptions: '--multi',
-  }]
-}, {
-  name: 'node',
-  cmds: [{
-    cmdTrigger: 'node ',
-    cmdListOptions: `rg --files --hidden --glob '!.git' -g '*.ts*' -g '*.js*' 2> /dev/null`,
-    fzfOptions: '--multi',
-  }]
-}, {
-  name: 'bloop',
-  cmds: [{
-    cmdTrigger: 'bloop test ',
-    cmdListOptions: `bloop autocomplete --format zsh --mode projects 2> /dev/null`,
-    fzfOptions: '--multi',
-  }, {
-    cmdTrigger: 'bloop compile ',
-    cmdListOptions: `bloop autocomplete --format zsh --mode projects 2> /dev/null`,
-    fzfOptions: '--multi',
-  }]
-}, {
-  name: 'gulp',
-  cmds: [{
-    cmdTrigger: 'gulp ',
-    cmdListOptions: "cache_fzf.js 'gulp'",
-    // cmdListOptions: "npx gulp --tasks --depth 1 | tail -n +3 | awk '{print $3}' | sort",
-    fzfOptions: '--multi',
-  }]
-}]
+const allCmds = [
+  {
+    name: "brew",
+    cmds: [
+      {
+        cmdTrigger: "brew install ",
+        // cmdListOptions: 'brew search',
+        cmdListOptions: 'cache_fzf.js "brew install"',
+        fzfOptions: "--multi",
+      },
+      {
+        cmdTrigger: "brew cask install ",
+        // cmdListOptions: 'brew search --casks',
+        cmdListOptions: 'cache_fzf.js "brew cask install"',
+        fzfOptions: "--multi",
+      },
+      {
+        cmdTrigger: "brew uninstall ",
+        cmdListOptions: "brew list",
+        fzfOptions: "--multi",
+      },
+      {
+        cmdTrigger: "brew cask uninstall ",
+        cmdListOptions: "brew cask list",
+        fzfOptions: "--multi",
+      },
+    ],
+  },
+  {
+    name: "git",
+    cmds: [
+      {
+        cmdTrigger: "git add ",
+        cmdListOptions: 'cache_fzf.js "git co"',
+        // cmdListOptions: 'git status -s | sed s/^...//',
+        fzfOptions: "--multi",
+      },
+      {
+        cmdTrigger: "git co ",
+        cmdListOptions: 'cache_fzf.js "git co"',
+        // cmdListOptions: 'git status -s | sed s/^...//',
+        fzfOptions: "--multi",
+      },
+      {
+        cmdTrigger: "git cob ",
+        cmdListOptions:
+          "git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)'",
+        fzfOptions: "--multi",
+      },
+    ],
+  },
+  {
+    name: "yarn",
+    cmds: [
+      {
+        cmdTrigger: "yarn test",
+        cmdListOptions: `rg --files --hidden --glob '!.git' -g '*.test.ts*' -g '*.test.js*' -g '*.it.ts*' -g '*.it.js*' 2> /dev/null`,
+        fzfOptions: "--multi",
+      },
+    ],
+  },
+  {
+    name: "node",
+    cmds: [
+      {
+        cmdTrigger: "node ",
+        cmdListOptions: `rg --files --hidden --glob '!.git' -g '*.ts*' -g '*.js*' 2> /dev/null`,
+        fzfOptions: "--multi",
+      },
+    ],
+  },
+  {
+    name: "bloop",
+    cmds: [
+      {
+        cmdTrigger: "bloop test ",
+        cmdListOptions: `bloop autocomplete --format zsh --mode projects 2> /dev/null`,
+        fzfOptions: "--multi",
+      },
+      {
+        cmdTrigger: "bloop compile ",
+        cmdListOptions: `bloop autocomplete --format zsh --mode projects 2> /dev/null`,
+        fzfOptions: "--multi",
+      },
+    ],
+  },
+  {
+    name: "docker",
+    cmds: [
+      {
+        cmdTrigger: "docker rm ",
+        cmdListOptions: `docker ps -a`,
+        fzfOptions: "--multi",
+        postColumn: "1",
+      },
+      {
+        cmdTrigger: "docker image rm ",
+        cmdListOptions: `docker images -a`,
+        fzfOptions: "--multi",
+        postColumn: "3",
+      },
+      {
+        cmdTrigger: "docker volume rm ",
+        cmdListOptions: `docker volume ls`,
+        fzfOptions: "--multi",
+        postColumn: "2",
+      },
+    ],
+  },
+  {
+    name: "gulp",
+    cmds: [
+      {
+        cmdTrigger: "gulp ",
+        cmdListOptions: "cache_fzf.js 'gulp'",
+        // cmdListOptions: "npx gulp --tasks --depth 1 | tail -n +3 | awk '{print $3}' | sort",
+        fzfOptions: "--multi",
+      },
+    ],
+  },
+];
 
 function generateFunc(name, cmds) {
   return `
 _fzf_complete_${name}() {
   ARGS="$@"
-  ${cmds.map(({cmdTrigger, cmdListOptions, fzfOptions}) => (
-  `if [[ $ARGS == '${cmdTrigger}'* ]]; then
+  ${cmds
+    .map(
+      ({ cmdTrigger, cmdListOptions, fzfOptions }) =>
+        `if [[ $ARGS == '${cmdTrigger}'* ]]; then
     local options="$(${cmdListOptions})"
-    _fzf_complete "${fzfOptions}" "$@" < <(
+    _fzf_complete ${fzfOptions} -- "$@" < <(
       echo $options
     )`
-  )).join('\n  el')}
+    )
+    .join("\n  el")}
   else
     return 1
   fi
 }
-  `.trim()
+${generatePostProcessing(name, cmds)}
+  `.trim();
 }
-const result = allCmds.map(({name, cmds}) => generateFunc(name, cmds)).join('\n');
+function generatePostProcessing(name, cmds) {
+  cmds = cmds.filter(({ postColumn }) => postColumn);
+  if (!cmds.length) {
+    return "";
+  }
+  return `
+_fzf_complete_${name}_post() {
+  ${cmds
+    .map(
+      ({ cmdTrigger, postColumn }) =>
+        `if [[ $ARGS == '${cmdTrigger}'* ]]; then
+    awk '{print $${postColumn}}'`
+    )
+    .join("\n  el")}
+  else
+    return 1
+  fi
+}
+  `.trim();
+}
+const result = allCmds
+  .map(({ name, cmds }) => generateFunc(name, cmds))
+  .join("\n");
 const header = `
 ## AUTOGENERATED
 ## fzf examples - completion
 # https://github.com/junegunn/fzf/wiki/Examples-(completion)
-`.trim()
+`.trim();
 
-const fileContents = `${header}\n\n${result}`
-fs.writeFileSync('.zshrc-fzf', fileContents);
+const fileContents = `${header}\n\n${result}`;
+fs.writeFileSync(".zshrc-fzf", fileContents);

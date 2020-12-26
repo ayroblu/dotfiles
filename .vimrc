@@ -310,7 +310,7 @@ autocmd FileType scala setl indentexpr=
 "vnoremap d "_d
 " replace currently selected text with default register
 " without yanking it
-vnoremap p "_dp
+vnoremap p "_dP
 
 " Moving cursor by display lines
 " -  http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping
