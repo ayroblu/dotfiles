@@ -440,6 +440,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
         \'coc-flow',
         \'coc-rls',
         \'coc-go',
+        \'coc-sourcekit',
         \'coc-css'
         \]
         "\"coc-python',
