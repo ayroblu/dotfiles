@@ -63,6 +63,8 @@
   pf = push -f origin HEAD
   pt = push --tags origin HEAD
   pu = push -u origin HEAD
+  # https://git-scm.com/book/en/v2/Git-Tools-Searching -L line log search is way more powerful
+  searchlog = log -p -G
   s = status
   ss = status -uno
   si = status --ignored
