@@ -388,13 +388,12 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
 
   Plug 'w0rp/ale'
   "autocmd FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
-  autocmd FileType javascript,javascriptreact,typescript,typescriptreact let b:ale_linters = []
+  autocmd FileType typescript,typescriptreact let b:ale_linters = []
   autocmd FileType javascript let b:ale_linters_ignore = ['tsserver']
   " Enable ale for things coc doesn't support yet
-  autocmd FileType vim nmap <silent> ]j :ALENextWrap<cr>
-  autocmd FileType vim nmap <silent> [j :ALEPreviousWrap<cr>
+  autocmd FileType vim,javascript nmap <silent> ]] :ALENextWrap<cr>
+  autocmd FileType vim,javascript nmap <silent> [[ :ALEPreviousWrap<cr>
   "\ 'typescript': ['tslint', 'eslint', 'prettier'],
-  "\ 'typescript.tsx': ['tslint', 'eslint', 'prettier'],
   "\ 'typescriptreact': ['tslint', 'eslint', 'prettier'],
   "\ 'javascript': ['eslint', 'prettier'],
   "\ 'css': ['prettier'],
@@ -402,6 +401,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   "\ 'scala': ['scalafmt'],
   " Still use ale for python
   " ALE uses prettier only if it's installed - preferred for markdown
+  " ALE Fixers are slow compared to Coc, use sparingly
   let g:ale_fixers = {
   \ 'python': ['isort'],
   \ 'markdown': ['prettier'],
