@@ -126,9 +126,15 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " I only download this for the conflict mapping ]n and [n
 
   Plug 'tpope/vim-abolish'
-  " Press crs (coerce to snake_case). MixedCase (crm), camelCase (crc),
-  " snake_case (crs), UPPER_CASE (cru), dash-case (cr-), dot.case (cr.), space
-  " case (cr<space>), and Title Case (crt)
+  " crs - coerce_snake_case
+  " crm - MixedCase
+  " crc - camelCase
+  " cru - UPPER_CASE
+  " cr- - dash-case
+  " cr. - dot.case
+  " cr<space> - space case
+  " crt - Title Case
+  " :%Subvert/facilit{y,ies}/building{,s}/g
 
   Plug 'FooSoft/vim-argwrap'
   " Pointless given prettier, but can be useful?

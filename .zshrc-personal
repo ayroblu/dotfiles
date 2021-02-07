@@ -91,6 +91,28 @@ regexReplace() {
   rg --pcre2 "$BEFORE" --files-with-matches "$DIR" | xargs perl -i -pe "s/${BEFORE/\/\\//}/$AFTER/g"
 }
 
+# https://askubuntu.com/questions/113544/how-can-i-reduce-the-file-size-of-a-scanned-pdf-file (2nd answer)
+shrinkpdf() {
+  INPUT="$1"
+  OUTPUT="${INPUT:r}-compressed.pdf"
+  # -dQUIET
+  gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
+    -dNOPAUSE -dBATCH -sOutputFile="$OUTPUT" "$INPUT"
+  ## Much faster
+  # ps2pdf -dPDFSETTINGS=/ebook "$INPUT" "$OUTPUT"
+  ## Also much faster:
+  # gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dDownsampleColorImages=true \
+  #   -dColorImageResolution=150 -dNOPAUSE  -dBATCH -sOutputFile="$OUTPUT" "$INPUT"
+}
+
+# https://stackoverflow.com/questions/2507766/merge-convert-multiple-pdf-files-into-one-pdf
+mergepdf() {
+  gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile="${@: -1}" "${@:1:-1}"
+}
+
+# Also consider using ocrmypdf if you want to search it
+# https://unix.stackexchange.com/questions/301318/how-to-ocr-a-pdf-file-and-get-the-text-stored-within-the-pdf
+
 # --------------------- fzf completion?
 # Checkout the .fzf.zsh -> /usr/local/opt/fzf/shell/key-bindings.zsh for more info
 # https://feltrac.co/environment/2020/01/18/build-your-own-shell-completion.html

@@ -56,6 +56,17 @@ function ShowPersonalHelp()
     \\n vim-exchange
     \\n cxc to cancel
     \\n
+    \\n Abolish
+    \\n crs - coerce_snake_case
+    \\n crm - MixedCase
+    \\n crc - camelCase
+    \\n cru - UPPER_CASE
+    \\n cr- - dash-case
+    \\n cr. - dot.case
+    \\n cr<space> - space case
+    \\n crt - Title Case
+    \\n :%Subvert/facilit{y,ies}/building{,s}/g
+    \\n
     \\n coc.nvim
     \\n <leader>[j for previous error
     \\n <leader>]j for next error
