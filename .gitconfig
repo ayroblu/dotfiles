@@ -54,6 +54,12 @@
   lfsc = l -c --first-parent --stat
   llfsc = ll -c --first-parent --stat
   #lfa = lf --author-date-order  --no-merges
+  # Source log commands if your git is slow
+  slog = log --no-decorate
+  sl = slog --oneline
+  sls = sl --stat
+  sll = sls -U0
+
   m = merge --no-ff
   md = !git diff $(git merge-base HEAD origin/master)...HEAD
   mt = mergetool
