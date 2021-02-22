@@ -40,6 +40,7 @@ pathadd "/usr/local/opt/arm-gcc-bin@8/bin"
 # Checkout bat --list-themes, Light themes: GitHub, Monokai Extended Light, OneHalfLight, ansi-light
 exists bat && export BAT_THEME="GitHub"
 export EDITOR='vi'
+export MANPAGER="col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -"
 
 export GOPATH=~/ws/go
 export GOBIN=~/ws/go/bin
