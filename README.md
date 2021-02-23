@@ -230,11 +230,15 @@ console.log(`javascript:${a}`);
 
 Keyboard Layout
 ---------------
-I wrote my own custom keyboard layout (workmanlike). Checkout workman's keyboard for more info and thoughts, but my reasoning was that COLEMAK has an extremely terrible vim (hjkl) layout, (dvorak is fine, but all the symbols are messed up), and I was annoyed at the seemingly useless key moves. My goal was to keep as many keys in the same place as possible while keeping similar performance numbers as colemak and workman. Another reason for this was that I hypothesised that I was likely to use a qwerty layout quite a lot so it would be good to maintain the skills.
+I wrote my own custom keyboard layout (ayro). Checkout workman's keyboard for more info and thoughts, but my reasoning was that COLEMAK has an extremely terrible vim (hjkl) layout, (dvorak is fine, but all the symbols are messed up), and I was annoyed at the seemingly useless key moves. My goal was to keep as many keys in the same place as possible while keeping similar performance numbers as colemak and workman. Another reason for this was that I hypothesised that I was likely to use a qwerty layout quite a lot so it would be good to maintain the skills.
 
 Consider: http://patorjk.com/keyboard-layout-analyzer/ as a way to test out a keyboard layout + project gutenburg raw text
 
 Theoretically I want to keylog my computer in the future.
+
+```bash
+cp -a ayrokeyboard/ayro.bundle '/Library/Keyboard Layouts/'
+```
 
 Plover
 ------
