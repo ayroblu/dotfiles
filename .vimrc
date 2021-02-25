@@ -130,9 +130,10 @@ set foldmethod=syntax
 set foldlevel=20
 
 set updatetime=1000 "event when cursor stops moving for a second, for swp normally, but now is for checktime call below
-" Ignore case except when there atleast one capital
-set ignorecase
-set smartcase
+" Ignore case except when there atleast one capital (disabled, prefer to use
+" \c prefix instead)
+"set ignorecase
+"set smartcase
 
 " Always report the number of lines changed by a command
 set report=0
