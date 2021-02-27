@@ -470,6 +470,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
 
   " GoTo code navigation.
   nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> <c-w>gd :call CocAction('jumpDefinition', 'drop')<CR>
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
