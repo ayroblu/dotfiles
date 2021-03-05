@@ -74,9 +74,15 @@
 --regex-scala=/^[ \t]*((abstract|final|sealed|implicit|lazy|override|private[^ ]*|protected)[ \t]*)*var[ \t]+([a-zA-Z0-9_]+)/\3/v,variables/
 --regex-scala=/^[ \t]*package[ \t]+([a-zA-Z0-9_.]+)/\1/p,packages/
 
---langdef=thrift
---langmap=thrift:.thrift
---regex-thrift=/^[ \t]*struct[ \t]*([a-zA-Z0-9_]+)/\1/c,classes/
---regex-thrift=/^[ \t]*enum[ \t]*([a-zA-Z0-9_]+)/\1/T,types/
---regex-thrift=/^[ \t]*[a-zA-Z0-9_<>\.]+[ \t]*([a-zA-Z0-9_]+)\(/\1/m,methods/
---regex-thrift=/^[ \t]*([A-Z0-9_]+)[ \t]*=/\1/C,constants/
+--langdef=Thrift
+--langmap=Thrift:.thrift
+--regex-thrift=/^[ \t]*const[ \t]+[A-Za-z0-9_<>., \t]+[ \t]+([A-Za-z0-9_]+)[ \t]*=/\1/c,constants/
+--regex-thrift=/^[ \t]*typedef[ \t]+[A-Za-z0-9_<>., \t]+[ \t]+([A-Za-z0-9_]+)/\1/t,typedefs/
+--regex-thrift=/^[ \t]*s?enum[ \t]+([A-Za-z0-9_]+)/\1/e,enums/
+--regex-thrift=/^[ \t]*([A-Za-z0-9_]+)[ \t]*([=,;]|$)/\1/E,enum constants/
+--regex-thrift=/^[ \t]*struct[ \t]+([A-Za-z0-9_]+)/\1/s,structs/
+--regex-thrift=/^[ \t]*union[ \t]+([A-Za-z0-9_]+)/\1/u,unions/
+--regex-thrift=/^[ \t]*exception[ \t]+([A-Za-z0-9_]+)/\1/x,exceptions/
+--regex-thrift=/^[ \t]*service[ \t]+([A-Za-z0-9_]+)/\1/v,services/
+--regex-thrift=/^[ \t]*[A-Za-z0-9_][A-Za-z0-9_<>., \t]*[ \t]+([A-Za-z0-9_]+)[ \t]*\(/\1/f,functions/
+--regex-thrift=/^[ \t]*[0-9]+:[ \t]*((required|optional)[ \t]+)?[A-Za-z0-9_<>., \t]+[ \t]+([A-Za-z0-9_]+)/\3/m,members/
