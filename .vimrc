@@ -37,6 +37,10 @@ function ShowPersonalHelp()
     \\n cia for argument
     \\n ai,ii,aI, iI for indentation
     \\n
+    \\n Undo Tree
+    \\n g-, g+ to jump between undo tree branches
+    \\n :earlier 5s - 5m, 5h, 5d, also :later
+    \\n
     \\n netrw:
     \\n gn for changing root
     \\n <c-s-6> for returning to writing buffer
