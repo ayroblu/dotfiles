@@ -49,6 +49,25 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " :Yanks
   " Consider using 3[y when going back to the third on the list for example
 
+  " Highlights current match with ErrorMsg
+  Plug 'PeterRincker/vim-searchlight'
+
+  " From Damian Conway
+  Plug 'soulston/vim-listtrans'
+  " ;l toggles between bulleted list and text with commas and the last one has
+  " ', and'
+  " If there are already commas in our list, use semicolons
+  " If not using and, but say "but not", then append to penultimate item
+  nnoremap ;l   :call ListTrans_toggle_format()<CR>
+  vnoremap ;l   :call ListTrans_toggle_format('visual')<CR>
+
+  " From Damian Conway
+  Plug 'nixon/vim-vmath'
+  vmap <expr>  ++  VMATH_YankAndAnalyse()
+  nmap         ++  vip++
+  " Visually select numbers, then press ++
+  " "ap for average for example (see status line underlines for registers)
+
   Plug 'vifm/vifm.vim'
 
   Plug 'tpope/vim-dispatch'

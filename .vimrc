@@ -517,6 +517,18 @@ function! XTermPasteBegin()
   set paste
   return ''
 endfunction
+
+" ---------------------------------------------From Damian Conway
+" https://github.com/ninrod/damian_conway_oscon_2013_tarball
+" Color column 80th column
+"highlight ColorColumn ctermbg=magenta
+"call matchadd('ColorColumn', '\%81v', 100)
+
+" EITHER the entire 81st column, full-screen...
+highlight ColorColumn ctermbg=magenta
+set colorcolumn=101
+
+
 " ---------------------------------------------Stuff I don't really understand
 
 " When editing a file, always jump to the last cursor position
