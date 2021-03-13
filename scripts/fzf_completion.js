@@ -5,15 +5,15 @@ const allCmds = [
     name: "brew",
     cmds: [
       {
-        cmdTrigger: "brew install ",
-        // cmdListOptions: 'brew search',
-        cmdListOptions: 'cache_fzf.js "brew install"',
-        fzfOptions: "--multi",
-      },
-      {
         cmdTrigger: "brew install --cask ",
         // cmdListOptions: 'brew search --casks',
         cmdListOptions: 'cache_fzf.js "brew install --cask"',
+        fzfOptions: "--multi",
+      },
+      {
+        cmdTrigger: "brew install ",
+        // cmdListOptions: 'brew formulae',
+        cmdListOptions: 'cache_fzf.js "brew install"',
         fzfOptions: "--multi",
       },
       {

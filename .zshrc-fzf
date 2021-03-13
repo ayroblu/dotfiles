@@ -4,13 +4,13 @@
 
 _fzf_complete_brew() {
   ARGS="$@"
-  if [[ $ARGS == 'brew install '* ]]; then
-    local options="$(cache_fzf.js "brew install")"
+  if [[ $ARGS == 'brew install --cask '* ]]; then
+    local options="$(cache_fzf.js "brew install --cask")"
     _fzf_complete --multi -- "$@" < <(
       echo $options
     )
-  elif [[ $ARGS == 'brew install --cask '* ]]; then
-    local options="$(cache_fzf.js "brew install --cask")"
+  elif [[ $ARGS == 'brew install '* ]]; then
+    local options="$(cache_fzf.js "brew install")"
     _fzf_complete --multi -- "$@" < <(
       echo $options
     )

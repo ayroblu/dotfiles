@@ -19,13 +19,13 @@ if (args.length !== 1) {
 
 const cacheDefs = [
   {
-    cmd: "brew install",
-    getListOptions: "brew search",
+    cmd: "brew install --cask",
+    getListOptions: "brew search --casks",
     getCmdFiles: () => ["/usr/local/Homebrew/.git/HEAD"],
   },
   {
-    cmd: "brew install --cask",
-    getListOptions: "brew search --casks",
+    cmd: "brew install",
+    getListOptions: "brew formulae",
     getCmdFiles: () => ["/usr/local/Homebrew/.git/HEAD"],
   },
   {
