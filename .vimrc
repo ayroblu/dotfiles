@@ -526,7 +526,7 @@ endfunction
 
 " EITHER the entire 81st column, full-screen...
 highlight ColorColumn ctermbg=magenta
-set colorcolumn=101
+set colorcolumn=+1
 
 
 " ---------------------------------------------Stuff I don't really understand
