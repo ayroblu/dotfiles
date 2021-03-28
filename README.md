@@ -29,6 +29,7 @@ Table of Contents
 - [vimium](#vimium)
   - [Kill sticky and similar bookmarks](#kill-sticky-and-similar-bookmarks)
 - [CRKBD Keyboard Layout](#crkbd-keyboard-layout)
+  - [2021-03-28 layout](#2021-03-28-layout)
 - [MacOS Keyboard Layout](#macos-keyboard-layout)
 - [Plover](#plover)
 - [Emacs](#emacs)
@@ -238,6 +239,12 @@ After cloning qmk_firmware, run: `make crkbd:default` to build the default firmw
 Then you need to convert the json file to a keymap and install it with `make crkbd:ayroblu`.
 
 To play around with the layout, consider using this tool: https://config.qmk.fm/#/crkbd/rev1/common/LAYOUT_split_3x6_3
+
+### 2021-03-28 layout
+
+![layers 0-2](ayroblu-corne-layout-0-2.png)
+![layers 3-5](ayroblu-corne-layout-3-5.png)
+![layers 6](ayroblu-corne-layout-6.png)
 
 MacOS Keyboard Layout
 ---------------------
