@@ -28,7 +28,8 @@ Table of Contents
 - [vifm](#vifm)
 - [vimium](#vimium)
   - [Kill sticky and similar bookmarks](#kill-sticky-and-similar-bookmarks)
-- [Keyboard Layout](#keyboard-layout)
+- [CRKBD Keyboard Layout](#crkbd-keyboard-layout)
+- [MacOS Keyboard Layout](#macos-keyboard-layout)
 - [Plover](#plover)
 - [Emacs](#emacs)
 - [Remote pbcopy](#remote-pbcopy)
@@ -228,8 +229,18 @@ const a = encodeURIComponent(`(function(){(function () {var i, elements = docume
 console.log(`javascript:${a}`);
 ```
 
-Keyboard Layout
----------------
+CRKBD Keyboard Layout
+---------------------
+This is for the Corne keyboard, you need qmk_firmware (github), and QMK Toolbox (cask) to flash it.
+
+After cloning qmk_firmware, run: `make crkbd:default` to build the default firmware, run through the steps provided to download dependencies etc.
+
+Then you need to convert the json file to a keymap and install it with `make crkbd:ayroblu`.
+
+To play around with the layout, consider using this tool: https://config.qmk.fm/#/crkbd/rev1/common/LAYOUT_split_3x6_3
+
+MacOS Keyboard Layout
+---------------------
 I wrote my own custom keyboard layout (ayro). Checkout workman's keyboard for more info and thoughts, but my reasoning was that COLEMAK has an extremely terrible vim (hjkl) layout, (dvorak is fine, but all the symbols are messed up), and I was annoyed at the seemingly useless key moves. My goal was to keep as many keys in the same place as possible while keeping similar performance numbers as colemak and workman. Another reason for this was that I hypothesised that I was likely to use a qwerty layout quite a lot so it would be good to maintain the skills.
 
 Consider: http://patorjk.com/keyboard-layout-analyzer/ as a way to test out a keyboard layout + project gutenburg raw text
