@@ -29,6 +29,8 @@ Table of Contents
 - [vimium](#vimium)
   - [Kill sticky and similar bookmarks](#kill-sticky-and-similar-bookmarks)
 - [CRKBD Keyboard Layout](#crkbd-keyboard-layout)
+  - [Required steps to build](#required-steps-to-build)
+  - [OS steps](#os-steps)
   - [2021-03-28 layout](#2021-03-28-layout)
 - [MacOS Keyboard Layout](#macos-keyboard-layout)
 - [Plover](#plover)
@@ -236,9 +238,28 @@ This is for the Corne keyboard, you need qmk_firmware (github), and QMK Toolbox 
 
 After cloning qmk_firmware, run: `make crkbd:default` to build the default firmware, run through the steps provided to download dependencies etc.
 
-Then you need to convert the json file to a keymap and install it with `make crkbd:ayroblu`.
-
 To play around with the layout, consider using this tool: https://config.qmk.fm/#/crkbd/rev1/common/LAYOUT_split_3x6_3
+
+### Required steps to build
+
+Changes:
+
+```
+# enable media keys in rules.mk
+EXTRAKEY_ENABLE = yes
+```
+
+```
+// increase tap time in tapping_term
+#define TAPPING_TERM 200
+```
+
+Convert the json file to a keymap and install it with `make crkbd:ayroblu`.
+
+### OS steps
+
+- Terminal requires disabling the numpad emulation
+- Function keys need to be normal function (not media) (done with karabiner)
 
 ### 2021-03-28 layout
 
