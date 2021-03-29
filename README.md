@@ -252,6 +252,9 @@ EXTRAKEY_ENABLE = yes
 ```
 // increase tap time in tapping_term
 #define TAPPING_TERM 200
+#define TAPPING_TOGGLE 2
+#define PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
 ```
 
 Convert the json file to a keymap and install it with `make crkbd:ayroblu`.
