@@ -266,9 +266,7 @@ Convert the json file to a keymap and install it with `make crkbd:ayroblu`.
 
 ### 2021-03-28 layout
 
-![layers 0-2](ayroblu-corne-layout-0-2.png)
-![layers 3-5](ayroblu-corne-layout-3-5.png)
-![layers 6](ayroblu-corne-layout-6.png)
+![QMK layers](ayroblu-corne-layout.png)
 
 MacOS Keyboard Layout
 ---------------------
