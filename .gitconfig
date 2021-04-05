@@ -12,6 +12,10 @@
   # https://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
 
   amend = commit -a --amend --no-edit
+  # get main branch
+  #bm = !git remote show upstream | grep "HEAD branch" | sed 's/.*: //'
+  bm = symbolic-ref --short HEAD
+
   b = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
   # Include remote branches
   bo = for-each-ref --sort=committerdate refs/heads/ refs/remotes/origin/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
