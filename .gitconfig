@@ -34,7 +34,7 @@
   cob = checkout
   # git cherry-pick A^..B # A to B inclusive
   # git cod 'Dec 25 2018'
-  cod = !"f() { echo git checkout `git rev-list -1 --before=\"$1\" --first-parent master`; }; f"
+  cod = !"f() { echo git checkout `git rev-list -1 --before=\"$1\" --first-parent $(git bm)`; }; f"
   d = diff
   ds = diff --staged
   dh = diff HEAD
@@ -65,7 +65,7 @@
   sll = sls -U0
 
   m = merge --no-ff
-  md = !git diff $(git merge-base HEAD origin/master)...HEAD
+  md = !git diff $(git merge-base HEAD origin/$(git bm))...HEAD
   mt = mergetool
   p = push origin HEAD
   # Removes deleted branches from cache: https://stackoverflow.com/questions/32147093/git-delete-remotes-remote-refs-do-not-exist
@@ -78,8 +78,8 @@
   s = status
   ss = status -uno
   si = status --ignored
-  squash = !git rebase -i $(git merge-base HEAD origin/master)
-  squashrebase = !git squash && git rebase origin/master
+  squash = !git rebase -i $(git merge-base HEAD origin/$(git bm))
+  squashrebase = !git squash && git rebase origin/$(git bm)
   tc = rev-list -n 1
   tracking = rev-parse --abbrev-ref --symbolic-full-name @{u}
 
@@ -88,8 +88,8 @@
   show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
 
   # Delete old branches
-  dell = "!git branch --merged | egrep -v '(^\\*|master|dev)' | xargs git branch -d"
-  delo = "!git branch -r --merged | grep -v master | sed 's/origin\\///' | xargs git push --delete origin"
+  dell = "!git branch --merged | egrep -v '(^\\*|main|master|dev)' | xargs git branch -d"
+  delo = "!git branch -r --merged | grep -v 'master|main' | sed 's/origin\\///' | xargs git push --delete origin"
 
 [core]
   pager = less -+$LESS -R
@@ -116,3 +116,5 @@
   prune = true
 [http]
   postBuffer = 524288000
+[init]
+  defaultBranch = main
