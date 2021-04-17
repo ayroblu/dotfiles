@@ -242,20 +242,7 @@ To play around with the layout, consider using this tool: https://config.qmk.fm/
 
 ### Required steps to build
 
-Changes:
-
-```
-# enable media keys in rules.mk
-EXTRAKEY_ENABLE = yes
-```
-
-```
-// increase tap time in tapping_term
-#define TAPPING_TERM 200
-#define TAPPING_TOGGLE 2
-#define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
-```
+See the qmk fork for my keymap
 
 Convert the json file to a keymap and install it with `make crkbd:ayroblu`.
 
@@ -265,6 +252,17 @@ Convert the json file to a keymap and install it with `make crkbd:ayroblu`.
 - Function keys need to be normal function (not media) (done with karabiner)
 
 ### 2021-03-28 layout
+
+Note to generate these, take a full screen snapshot with chrome, then run this script to get the cropped version for dotfiles:
+
+```bash
+convert ayroblu-corne-layout-tmp.png -crop 1387x4312+745+782 ayroblu-corne-layout.png
+
+# Make side by side
+convert ayroblu-corne-layout-tmp.png -crop 1387x2156+745+782 ayroblu-corne-layout-cropped-0-3.png
+convert ayroblu-corne-layout-tmp.png -crop 1387x2156+745+2938 ayroblu-corne-layout-cropped-4-7.png
+convert +append ayroblu-corne-layout-cropped-* ayroblu-corne-layout-side.png
+```
 
 ![QMK layers](ayroblu-corne-layout.png)
 

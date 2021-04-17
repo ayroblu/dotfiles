@@ -12,7 +12,7 @@ exists() {
 alias ls='ls -a'
 alias top='top -o cpu'
 alias e='emacs'
-alias mv='mv -n'
+alias mv='mv -i'
 alias vis='vi -c OpenSession'
 alias mvis='mvim -c OpenSession'
 alias viallnotes='vi ~/Dropbox/Documents/twitter/notes.md ~/Dropbox/Notes/*.md'
@@ -22,11 +22,11 @@ alias goctave='\octave -q'
 [ -x "$(command -v rg)" ] && alias rg="rg --hidden --glob \"!tags\" --glob \"!.git\" -M 200"
 
 # Editing aliases
-alias cvim='vi ~/.vimrc'
-alias ctmux='vi ~/.tmux.conf'
-alias cbash="vi ~/.bashrc*"
-alias czsh="vi ~/.zshrc*"
-alias cgit="vi ~/.gitconfig*"
+alias vivim='vi ~/.vimrc'
+alias vitmux='vi ~/.tmux.conf'
+alias vibash="vi ~/.bashrc*"
+alias vizsh="vi ~/.zshrc*"
+alias vigit="vi ~/.gitconfig*"
 
 # Proxy stuff
 alias proxywifion='sudo networksetup -setsocksfirewallproxystate Wi-Fi on' #on / off
