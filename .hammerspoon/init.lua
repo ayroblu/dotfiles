@@ -1,5 +1,5 @@
 switcher_space = hs.window.switcher.new(hs.window.filter.new():setCurrentSpace(true):setDefaultFilter{})
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
+hs.hotkey.bind({"cmd", "alt"}, "tab", function()
   switcher_space:next()
 end)
 
