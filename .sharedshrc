@@ -64,9 +64,6 @@ createRamDisk() {
 }
 
 # -------------- encodeURIComponent
-dtabEncodeURIComponent(){
-  node -e 'console.log(`https://twitter.com/?dtab_local=${encodeURIComponent('"'$1'"')}`)'
-}
 encodeURIComponent(){
   node -e 'console.log(encodeURIComponent('"'$1'"'))'
 }
