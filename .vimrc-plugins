@@ -431,6 +431,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   \ 'python': ['isort'],
   \ 'markdown': ['prettier'],
   \ 'terraform': ['terraform'],
+  \ 'scala': ['scalafmt'],
   \}
   let g:ale_pattern_options = {
   \   '.*\.json$': {'ale_enabled': 0},
