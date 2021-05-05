@@ -40,4 +40,5 @@ Thumbs.db
 .git
 tags
 
-/apps/responsive-web/.vim
+/.vim
+*.tsbuildinfo
