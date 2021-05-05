@@ -416,8 +416,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   autocmd FileType typescript,typescriptreact let b:ale_linters = []
   autocmd FileType javascript let b:ale_linters_ignore = ['tsserver']
   " Enable ale for things coc doesn't support yet
-  autocmd FileType vim,javascript nmap <silent> ]] :ALENextWrap<cr>
-  autocmd FileType vim,javascript nmap <silent> [[ :ALEPreviousWrap<cr>
+  autocmd FileType vim,javascript nmap <silent> ]j :ALENextWrap<cr>
+  autocmd FileType vim,javascript nmap <silent> [j :ALEPreviousWrap<cr>
   "\ 'typescript': ['tslint', 'eslint', 'prettier'],
   "\ 'typescriptreact': ['tslint', 'eslint', 'prettier'],
   "\ 'javascript': ['eslint', 'prettier'],
@@ -484,9 +484,9 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " https://stackoverflow.com/questions/24983372/what-does-ctrlspace-do-in-vim
   inoremap <silent><expr> <c-@> coc#refresh()
   inoremap <silent><expr> <c-space> coc#refresh()
-  " Use `[g` and `]g` to navigate diagnostics
-  nmap <silent> [j <Plug>(coc-diagnostic-prev)
-  nmap <silent> ]j <Plug>(coc-diagnostic-next)
+  " Use `[[` and `]]` to navigate diagnostics
+  nmap <silent> [[ <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]] <Plug>(coc-diagnostic-next)
 
   " GoTo code navigation.
   nmap <silent> gd <Plug>(coc-definition)

@@ -72,12 +72,12 @@ function ShowPersonalHelp()
     \\n :%Subvert/facilit{y,ies}/building{,s}/g
     \\n
     \\n coc.nvim
-    \\n <leader>[j for previous error
-    \\n <leader>]j for next error
-    \\n <leader>gd go definition
-    \\n <leader>gy go type definition
-    \\n <leader>gi go implementation
-    \\n <leader>gr go references
+    \\n [[ for previous error
+    \\n ]] for next error
+    \\n gd go definition
+    \\n gy go type definition
+    \\n gi go implementation
+    \\n gr go references
     \\n K Show docs
     \\n <leader>ac action (like imports)
     \\n :call popup_clear()
@@ -134,10 +134,10 @@ set foldmethod=syntax
 set foldlevel=20
 
 set updatetime=1000 "event when cursor stops moving for a second, for swp normally, but now is for checktime call below
-" Ignore case except when there atleast one capital (disabled, prefer to use
-" \c prefix instead)
-"set ignorecase
-"set smartcase
+" Ignore case except when there atleast one capital, use \C for case sensitive
+" Position of \c / \C is irrelevant
+set ignorecase
+set smartcase
 
 " Always report the number of lines changed by a command
 set report=0

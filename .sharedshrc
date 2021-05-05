@@ -2,6 +2,9 @@ alias rand='date +%s | shasum -a 256 | base64 | head -c 32 ; echo'
 alias random='openssl rand -base64 32'
 alias l='ls -A'
 alias reindexspotlight='sudo mdutil -E /'
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias manvi="vim -c 'set ft=man ts=8 nomod nolist nonu noma' -"
 exists() {
   command -v "$1" >/dev/null 2>&1
 }
