@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>local.autoFetch</string>
+  <key>SessionCreate</key>
+  <false/>
+  <key>ProgramArguments</key>
+  <array>
+    <string>zsh</string>
+    <string>-c</string>
+    <string>$HOME/bin/auto-fetch.sh</string>
+  </array>
+  <key>StandardErrorPath</key>
+  <string>/tmp/local.autoFetch.err</string>
+  <key>StandardOutPath</key>
+  <string>/tmp/local.autoFetch.out</string>
+  <key>StartCalendarInterval</key>
+  <array>
+    <dict>
+      <key>Hour</key>
+      <integer>11</integer>
+    </dict>
+  </array>
+</dict>
+</plist>

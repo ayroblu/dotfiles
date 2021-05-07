@@ -36,6 +36,7 @@ Table of Contents
 - [Plover](#plover)
 - [Emacs](#emacs)
 - [Remote pbcopy](#remote-pbcopy)
+- [Auto Fetch](#auto-fetch)
 
 <!-- vim-markdown-toc -->
 
@@ -327,4 +328,35 @@ Host myhost
     User myname
     RemoteForward 2324 127.0.0.1:2324
     RemoteForward 2325 127.0.0.1:2325
+```
+
+Auto Fetch
+----------
+
+Regularly update your git repos with this launchctl command.
+
+```sh
+ln -s "$(pwd)/auto-fetch.plist" ~/Library/LaunchAgents/auto-fetch.plist
+launchctl load ~/Library/LaunchAgents/auto-fetch.plist
+```
+
+> (thanks to this comment which was super helpful)
+> https://stackoverflow.com/questions/47582989/launchd-not-able-to-access-mac-os-keychains#comment117557839_49288984
+
+Then your `~/bin/auto-fetch.sh` might look something like:
+
+```sh
+#!/bin/bash
+set -euxo pipefail
+
+echo "============"
+date
+
+sourcerepos=(
+  ~/ws/source
+)
+for i in "${sourcerepos[@]}"; do
+  cd "$i"
+  git fetch origin
+done
 ```
