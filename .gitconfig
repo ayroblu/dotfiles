@@ -18,6 +18,7 @@
   bm = symbolic-ref --short HEAD
 
   b = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+  # Branch Name
   bn = git rev-parse --abbrev-ref HEAD
   # Include remote branches
   bo = for-each-ref --sort=committerdate refs/heads/ refs/remotes/origin/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
@@ -25,7 +26,6 @@
   boq = for-each-ref --sort=committerdate refs/remotes/origin/ --format='%(refname:lstrip=-1)'
   # Local branches
   bl = log --branches --oneline --no-walk --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset'
-  bs = !git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf --no-sort | xargs git co
   # All remote branches
   blo = !git for-each-ref --sort=committerdate refs/heads/ refs/remotes/origin/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
   # To clean everything
@@ -33,7 +33,6 @@
   ci = commit -am
   cm = commit -m
   co = checkout
-  cob = checkout
   # git cherry-pick A^..B # A to B inclusive
   # git cod 'Dec 25 2018'
   cod = !"f() { echo git checkout `git rev-list -1 --before=\"$1\" --first-parent $(git bm)`; }; f"
