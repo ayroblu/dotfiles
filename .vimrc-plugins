@@ -356,7 +356,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " Necessary for vim-markdown TableFormat
 
   Plug 'dhruvasagar/vim-table-mode'
-  ":TableModeToggle - <Leader>tm
+  " :TableModeToggle - ,tm
+  " :TableModeRealign - ,tr
   " || for horizontal rule
   " :Tableize - <Leader>tt to convert csv to table (:Tableize/\t for tsv)
   " [|, ]|, {| & }| for moving left right up down
