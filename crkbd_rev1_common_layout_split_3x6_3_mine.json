@@ -46,7 +46,7 @@
       "KC_LGUI",
       "TT(2)",
       "KC_SPC",
-      "KC_RSFT",
+      "OSM(MOD_RSFT)",
       "TT(3)",
       "RALT_T(KC_SPC)"
     ],
