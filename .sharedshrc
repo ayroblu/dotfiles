@@ -82,3 +82,15 @@ createRamDisk() {
 encodeURIComponent(){
   node -e 'console.log(encodeURIComponent('"'$1'"'))'
 }
+
+
+# -------------- Docker
+copyDockerFile() {
+  if [ "$#" -ne 3 ]; then
+    echo "Usage: $0 <image-name> <docker-file-path> <output-path>" >&2
+    exit 1
+  fi
+  id=$(docker create $1)
+  docker cp $id:$2 - > $3
+  docker rm -v $id
+}

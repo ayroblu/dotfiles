@@ -372,7 +372,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   "Plug 'tpope/vim-speeddating'
   "Plug 'jceb/vim-orgmode'
 
-  Plug 'arecarn/vim-fold-cycle'
+  " Plug 'arecarn/vim-fold-cycle'
   "Current mappings
   "nmap <CR> <Plug>(fold-cycle-open)
   "nmap <BS> <Plug>(fold-cycle-close)

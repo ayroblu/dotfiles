@@ -15,7 +15,7 @@
   abandon = !BRANCH=`git rev-parse --abbrev-ref HEAD` && git reset --hard && git checkout master && git branch -D $BRANCH
   # get main branch
   #bm = !git remote show upstream | grep "HEAD branch" | sed 's/.*: //'
-  bm = symbolic-ref --short HEAD
+  #bm = symbolic-ref --short HEAD
 
   b = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
   # Branch Name
@@ -40,6 +40,10 @@
   ds = diff --staged
   dh = diff HEAD
   dt = difftool
+  # Diff upstream
+  #du = !git diff $(git merge-base HEAD $(git upstream))...HEAD
+  du = "!cd \"${GIT_PREFIX:-.}\"; git diff $(git merge-base HEAD $(git upstream))...HEAD"
+  #du = "!f() { git diff $(git merge-base HEAD $(git upstream)) \"$@\"; }; f"
   dw = d --color-words
   dc = d --color-words=.
   # Delete push
@@ -59,15 +63,11 @@
   lfsc = l -c --first-parent --stat
   llfsc = ll -c --first-parent --stat
   #lfa = lf --author-date-order  --no-merges
-  # Source log commands if your git is slow
-  slog = log --no-decorate
-  sl = slog --oneline
-  sls = sl --stat
-  sll = sls -U0
+  mb = !git merge-base HEAD $(git upstream)
 
   m = merge --no-ff
-  md = !git diff $(git merge-base HEAD origin/master)...HEAD
   mt = mergetool
+  upstream = rev-parse --abbrev-ref --symbolic-full-name @{u}
   p = push origin HEAD
   pr = pull --rebase
   # Removes deleted branches from cache: https://stackoverflow.com/questions/32147093/git-delete-remotes-remote-refs-do-not-exist
@@ -81,9 +81,16 @@
   s = status
   ss = status -uno
   si = status --ignored
+
+  # Source log commands if your git is slow
+  slog = log --no-decorate
+  sl = slog --oneline
+  sls = sl --stat
+  sll = sls -U0
+
   #squash = !git rebase -i $(git merge-base HEAD origin/$(git bm))
   squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
-  squashrebase = !git squash && git rebase origin/$(git bm)
+  #squashrebase = !git squash && git rebase origin/$(git bm)
   tc = rev-list -n 1
   tracking = rev-parse --abbrev-ref --symbolic-full-name @{u}
 
