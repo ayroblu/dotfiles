@@ -148,9 +148,8 @@ set nojoinspaces
 " Do not move the cursor to the first non-blank when jumping (ctrl-d etc)
 set nostartofline
 
-" Default to 80 so that `gq` doesn't wrap at 79 (haven't tested this)
-" Makes markdown auto new line which is kinda annoying
-"set textwidth=80
+" Default to 99 so that `gq` wraps at 100
+set textwidth=99
 
 " Display as much as possible of cut off lines rather than truncating
 set display=lastline
