@@ -19,7 +19,7 @@
 
   b = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
   # Branch Name
-  bn = git rev-parse --abbrev-ref HEAD
+  bn = rev-parse --abbrev-ref HEAD
   # Include remote branches
   bo = for-each-ref --sort=committerdate refs/heads/ refs/remotes/origin/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
   # bo no formatting (for deleting old ones
