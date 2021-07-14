@@ -10,6 +10,7 @@ scriptencoding utf-8
 " g; to go to last change in the change list, g, to go to a newer
 " gf opens file under cursor
 " :X - Use encryption with current file
+" :cq - quit mergetool with failure
 "
 " Thoughts on how to do interactive shell:
 " 1. yank current selection to 'interactive' buffer
