@@ -1,5 +1,8 @@
 {
   "label": "ayroblu",
+  "author": "Ayroblu",
+  "moreInfoUrl": "https://github.com/ayroblu/dotfiles",
+  "moreInfoText": "GitHub dotfiles",
   "fingerStart": {
     "1": 29,
     "2": 30,
@@ -11,14 +14,9 @@
     "8": 36,
     "9": 37,
     "10": 38,
-    "11": 56,
-    "false": -1
+    "11": 56
   },
   "keyboardType": "standard",
-  "author": "Ayroblu",
-  "authorUrl": "",
-  "moreInfoUrl": "http://www.ayroblu.com/",
-  "moreInfoText": "ayroblu.com",
   "keys": [
     {
       "primary": 96,
@@ -112,21 +110,17 @@
       "primary": 113,
       "shift": 81,
       "finger": 1,
-      "id": 15,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 15
     },
     {
       "primary": 119,
       "shift": 87,
       "finger": 2,
-      "id": 16,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 16
     },
     {
-      "primary": 114,
-      "shift": 82,
+      "primary": 100,
+      "shift": 68,
       "finger": 3,
       "id": 17,
       "altGr": -1,
@@ -152,41 +146,31 @@
       "primary": 121,
       "shift": 89,
       "finger": 7,
-      "id": 20,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 20
     },
     {
       "primary": 117,
       "shift": 85,
       "finger": 7,
-      "id": 21,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 21
     },
     {
       "primary": 105,
       "shift": 73,
       "finger": 8,
-      "id": 22,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 22
     },
     {
       "primary": 111,
       "shift": 79,
       "finger": 9,
-      "id": 23,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 23
     },
     {
-      "primary": 59,
-      "shift": 58,
+      "primary": 112,
+      "shift": 80,
       "finger": 10,
-      "id": 24,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 24
     },
     {
       "primary": 91,
@@ -207,7 +191,7 @@
       "id": 27
     },
     {
-      "primary": 8,
+      "primary": 20,
       "finger": 1,
       "id": 28
     },
@@ -215,21 +199,17 @@
       "primary": 97,
       "shift": 65,
       "finger": 1,
-      "id": 29,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 29
     },
     {
       "primary": 115,
       "shift": 83,
       "finger": 2,
-      "id": 30,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 30
     },
     {
-      "primary": 100,
-      "shift": 68,
+      "primary": 101,
+      "shift": 69,
       "finger": 3,
       "id": 31,
       "altGr": -1,
@@ -247,17 +227,13 @@
       "primary": 103,
       "shift": 71,
       "finger": 4,
-      "id": 33,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 33
     },
     {
       "primary": 104,
       "shift": 72,
       "finger": 7,
-      "id": 34,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 34
     },
     {
       "primary": 110,
@@ -268,8 +244,8 @@
       "shiftAltGr": -1
     },
     {
-      "primary": 101,
-      "shift": 69,
+      "primary": 114,
+      "shift": 82,
       "finger": 8,
       "id": 36,
       "altGr": -1,
@@ -279,17 +255,13 @@
       "primary": 108,
       "shift": 76,
       "finger": 9,
-      "id": 37,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 37
     },
     {
-      "primary": 112,
-      "shift": 80,
+      "primary": 59,
+      "shift": 58,
       "finger": 10,
-      "id": 38,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 38
     },
     {
       "primary": 39,
@@ -311,9 +283,7 @@
       "primary": 122,
       "shift": 90,
       "finger": 1,
-      "id": 42,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 42
     },
     {
       "primary": 120,
@@ -325,25 +295,19 @@
       "primary": 99,
       "shift": 67,
       "finger": 3,
-      "id": 44,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 44
     },
     {
       "primary": 118,
       "shift": 86,
       "finger": 4,
-      "id": 45,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 45
     },
     {
       "primary": 98,
       "shift": 66,
       "finger": 4,
-      "id": 46,
-      "altGr": -1,
-      "shiftAltGr": -1
+      "id": 46
     },
     {
       "primary": 106,
@@ -426,4 +390,3 @@
     }
   ]
 }
-

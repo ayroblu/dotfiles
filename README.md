@@ -32,6 +32,7 @@ Table of Contents
   - [Required steps to build](#required-steps-to-build)
   - [OS steps](#os-steps)
   - [2021-03-28 layout](#2021-03-28-layout)
+  - [Building a new layout from qmk configurator](#building-a-new-layout-from-qmk-configurator)
 - [MacOS Keyboard Layout](#macos-keyboard-layout)
 - [Plover](#plover)
 - [Emacs](#emacs)
@@ -266,6 +267,17 @@ convert +append ayroblu-corne-layout-cropped-* ayroblu-corne-layout-side.png
 ```
 
 ![QMK layers](ayroblu-corne-layout.png)
+
+### Building a new layout from qmk configurator
+
+```sh
+cd ~/ws/dotfiles
+mv ~/Downloads/crkbd_rev1_common_layout_split_3x6_3_mine.json .
+qmk json2c crkbd_rev1_common_layout_split_3x6_3_mine.json | pbcopy
+cd ~/ws/qmk_firmware
+vi keyboards/crkbd/keymaps/ayroblu/keymap.c
+make crkbd:ayroblu
+```
 
 MacOS Keyboard Layout
 ---------------------
