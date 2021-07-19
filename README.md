@@ -276,7 +276,7 @@ mv ~/Downloads/crkbd_rev1_common_layout_split_3x6_3_mine.json .
 qmk json2c crkbd_rev1_common_layout_split_3x6_3_mine.json | pbcopy
 cd ~/ws/qmk_firmware
 vi keyboards/crkbd/keymaps/ayroblu/keymap.c
-make crkbd:ayroblu
+make crkbd:ayroblu:dfu
 ```
 
 MacOS Keyboard Layout
