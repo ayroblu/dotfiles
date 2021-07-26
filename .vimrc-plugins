@@ -265,7 +265,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   let g:EasyMotion_do_mapping = 0
 
   Plug 'tpope/vim-vinegar' " Making netrw file management easier
-  nnoremap - :Vex <cr>
+  nnoremap - :Tex <cr>
   " `-` to jump in
   " `y``.` to yank absolute path
   " `~` to go home

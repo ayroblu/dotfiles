@@ -12,6 +12,8 @@
     "scss"
   ],
   "tslint.autoFixOnSave": true,
+  /* "typescript.suggestionActions.enabled": false, */
+  /* "javascript.suggestionActions.enabled": false, */
   "eslint.filetypes": [
     "javascript",
     "javascriptreact",

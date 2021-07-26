@@ -6,6 +6,7 @@
 [color]
   ui = true
 [alias]
+  alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
   # To checkout a file from another branch, git co <branch> -- file
   # To show a file from another branch, git show <branch>:file
   #

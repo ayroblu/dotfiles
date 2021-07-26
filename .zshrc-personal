@@ -8,8 +8,8 @@ exists() {
 }
 
 # ---------- Aliases
+alias ls='ls -A'
 # macos doesn't auto sort by CPU
-alias ls='ls -a'
 alias top='top -o cpu'
 alias e='emacs'
 alias mv='mv -i'
