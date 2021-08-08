@@ -1,13 +1,14 @@
 # ----------------------------------------- plugin setup
 #https://stackoverflow.com/questions/11378607/oh-my-zsh-disable-would-you-like-to-check-for-updates-prompt
 DISABLE_AUTO_UPDATE="true"
-[ -f ~/.zshrc-omz ] && source ~/.zshrc-omz
+#[ -f ~/.zshrc-omz ] && source ~/.zshrc-omz
 
 # Init setup
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
+HIST_STAMPS="yyyy-mm-dd"
 unsetopt beep
 unsetopt sharehistory # set by omz
 # End of lines configured by zsh-newuser-install

@@ -8,20 +8,21 @@ function check_last_exit_code() {
     echo "%{$fg[yellow]%}[%{$fg[red]%}$LAST_EXIT_CODE%{$fg[yellow]%}]%{$reset_color%}"
   fi
 }
+get_git_color() {
+  git diff --no-ext-diff --quiet &> /dev/null
+  if [ $? -eq 0 ]; then
+    echo "$ZSH_THEME_GIT_PROMPT_CLEAN"
+  else
+    echo "$ZSH_THEME_GIT_PROMPT_DIRTY"
+  fi
+}
 function get_git() {
   #echo "%{$fg[yellow]%}$(git_prompt_info)%{$reset_color%}"
-  # For twitter source repo
-  if [[ "$PWD" = *source* ]]; then
-    echo '-ignoring-'
-    return
-  fi
   local ref
-  if [[ "$(command git config --get oh-my-zsh.hide-status 2>/dev/null)" != "1" ]]; then
-    ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
-    ref=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
-    echo "$(parse_git_dirty){${ref#refs/heads/}$(parse_git_dirty)}%{$reset_color%}"
-    #echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_SUFFIX"
-  fi
+  ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
+  ref=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
+  echo "$(get_git_color){${ref#refs/heads/}}%{$reset_color%}"
+  #echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
 function ssh_name() {
   local name="%{$fg[red]%}%n@%M>%{$reset_color%}"
