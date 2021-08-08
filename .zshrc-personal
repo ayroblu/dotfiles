@@ -166,11 +166,11 @@ if exists fzf; then
   #export FZF_CTRL_T_COMMAND='default-fzf-cmd'
   export FZF_DEFAULT_OPTS="--height 60% --reverse --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --bind 'up:preview-up,down:preview-down,ctrl-d:preview-page-down,ctrl-u:preview-page-up,ctrl-f:half-page-down,ctrl-b:half-page-up,ctrl-e:toggle-preview'"
   export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} | head -500'"
+  export FZF_COMPLETION_OPTS="$FZF_CTRL_T_OPTS"
   # Support alt-c for changing directory
   bindkey "ç" fzf-cd-widget
 
   fzf-dir() {
-    # fzf "$@" --preview 'tree -C {} | head -200'
     _fzf_compgen_dir . |
       fzf-down --ansi --multi --no-sort --preview-window right:50% \
         --preview 'tree -C {} | head -'$LINES
