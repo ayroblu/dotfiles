@@ -20,7 +20,7 @@ alias viallnotes='vi ~/Dropbox/Documents/twitter/*.md ~/Dropbox/Notes/*.md'
 alias goctave='\octave -q'
 [ -x "$(command -v octave)" ] && alias octave='octave -W -q'
 [ -x "$(command -v rg)" ] && [ -x "$(command -v ctags)" ] && alias maketags="rg --files | ctags --links=no --excmd=number -L-"
-[ -x "$(command -v rg)" ] && alias rg="rg --hidden --glob \"!tags\" --glob \"!.git\" -M 200"
+[ -x "$(command -v rg)" ] && alias rg="rg --hidden --glob \"!tags\" --glob \"!.git\" -M 1000"
 
 # Editing aliases
 alias vivim='vi ~/.vimrc'
@@ -166,6 +166,22 @@ if exists fzf; then
   #export FZF_CTRL_T_COMMAND='default-fzf-cmd'
   export FZF_DEFAULT_OPTS="--height 60% --reverse --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --bind 'up:preview-up,down:preview-down,ctrl-d:preview-page-down,ctrl-u:preview-page-up,ctrl-f:half-page-down,ctrl-b:half-page-up,ctrl-e:toggle-preview'"
   export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {} | head -500'"
+  # Support alt-c for changing directory
+  bindkey "ç" fzf-cd-widget
+
+  fzf-dir() {
+    # fzf "$@" --preview 'tree -C {} | head -200'
+    _fzf_compgen_dir . |
+      fzf-down --ansi --multi --no-sort --preview-window right:50% \
+        --preview 'tree -C {} | head -'$LINES
+  }
+  fzf-dir-widget() {
+    local result=$(fzf-dir | join-lines)
+    zle reset-prompt
+    LBUFFER+=$result
+  }
+  zle -N fzf-dir-widget
+  bindkey '^x' fzf-dir-widget
 
   fzf-yank-history-widget() {
     local selected num
