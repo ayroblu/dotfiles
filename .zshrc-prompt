@@ -2,13 +2,21 @@
 #
 # allowed colours: Red, Blue, Green, Cyan, Yellow, Magenta, Black & White
 # - https://stackoverflow.com/questions/689765/how-can-i-change-the-color-of-my-prompt-in-zsh-different-from-normal-text
-function check_last_exit_code() {
+check_last_exit_code() {
   local LAST_EXIT_CODE=$?
   if [[ $LAST_EXIT_CODE -ne 0 ]]; then
     echo "%{$fg[yellow]%}[%{$fg[red]%}$LAST_EXIT_CODE%{$fg[yellow]%}]%{$reset_color%}"
   fi
 }
 get_git_color() {
+  # This is unnecessary perf cost, just insta-return
+  echo "$ZSH_THEME_GIT_PROMPT_CLEAN"
+  return
+
+  # For twitter source repo
+  if [[ "$PWD" = *source* ]]; then
+    return
+  fi
   git diff --no-ext-diff --quiet &> /dev/null
   if [ $? -eq 0 ]; then
     echo "$ZSH_THEME_GIT_PROMPT_CLEAN"
@@ -16,15 +24,13 @@ get_git_color() {
     echo "$ZSH_THEME_GIT_PROMPT_DIRTY"
   fi
 }
-function get_git() {
-  #echo "%{$fg[yellow]%}$(git_prompt_info)%{$reset_color%}"
+get_git() {
   local ref
   ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
   ref=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
   echo "$(get_git_color){${ref#refs/heads/}}%{$reset_color%}"
-  #echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
-function ssh_name() {
+ssh_name() {
   local name="%{$fg[red]%}%n@%M>%{$reset_color%}"
   if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
     echo $name

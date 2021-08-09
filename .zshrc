@@ -1,26 +1,59 @@
+#echo "zsh loading..."
+# benchmark with: for i in $(seq 1 10); do /usr/bin/time /bin/zsh -d -i -c exit; done
 # ----------------------------------------- plugin setup
-#https://stackoverflow.com/questions/11378607/oh-my-zsh-disable-would-you-like-to-check-for-updates-prompt
-DISABLE_AUTO_UPDATE="true"
+# man zshoptions - for all the setopt commands
+# https://stackoverflow.com/questions/11378607/oh-my-zsh-disable-would-you-like-to-check-for-updates-prompt
+#DISABLE_AUTO_UPDATE="true"
 #[ -f ~/.zshrc-omz ] && source ~/.zshrc-omz
+#unsetopt sharehistory # set by omz
+#HIST_STAMPS="yyyy-mm-dd"
+
+# ------------------------------------- History
+setopt inc_append_history
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
 
 # Init setup
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=10000
+HISTSIZE=50000
 SAVEHIST=10000
-HIST_STAMPS="yyyy-mm-dd"
+
+# -------------------------------------- Directories
+setopt auto_pushd # automatically push to stack
+setopt pushd_ignore_dups
+setopt pushd_minus # + and - are flipped
+setopt auto_cd # .. to go up
+
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+
+alias md='mkdir -p'
+alias rd=rmdir
+
+# ------------------------------------- functions
+zsh_stats() {
+  fc -l 1 \
+    | awk '{ CMD[$2]++; count++; } END { for (a in CMD) print CMD[a] " " CMD[a]*100/count "% " a }' \
+    | grep -v "./" | sort -nr | head -20 | column -c3 -s " " -t | nl
+}
+
+# https://stackoverflow.com/a/34143401
+exists() {
+  command -v "$1" >/dev/null 2>&1
+}
+# -------------------------------------- Misc
+setopt interactive_comments # support # comments
+setopt long_list_jobs # todo: not sure yet
+setopt multios # support ls -1 > file.txt | less
+setopt prompt_subst # todo: prompts?
 unsetopt beep
-unsetopt sharehistory # set by omz
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename ~'/.zshrc'
-fpath=(~/.zsh/completion $fpath)
 
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
-
-# ---------------------------------------- Custom
 # Makes colourful ls and such from: https://github.com/seebi/dircolors-solarized/issues/10
 # Should try find the light theme at some point
 export CLICOLOR=1
@@ -29,12 +62,10 @@ export LSCOLORS=exfxfeaeBxxehehbadacea
 # https://gist.github.com/LukeSmithxyz/e62f26e55ea8b0ed41a65912fbebbe52
 autoload -U colors && colors # named colours?
 
-# Basic auto/tab complete:
-autoload -U compinit
-zstyle ':completion:*' menu select
-zmodload zsh/complist
-compinit
 _comp_options+=(globdots)		# Include hidden files.
+
+export PAGER='less'
+export LESS='-R'
 
 # -----------vim cursor
 # vim mode config
@@ -44,12 +75,6 @@ bindkey -v '^?' backward-delete-char
 
 # Remove mode switching delay.
 export KEYTIMEOUT=1
-
-# Use vim keys in tab complete menu:
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
@@ -74,9 +99,13 @@ function zle-keymap-select {
 
 # ---------------------------------- Other
 
+[ -f ~/.zshrc-comp ] && source ~/.zshrc-comp
 [ -f ~/.sharedshrc ] && source ~/.sharedshrc
 [ -f ~/.zshrc-personal ] && source ~/.zshrc-personal
-[ -f ~/.zshrc-fzf ] && source ~/.zshrc-fzf
+if exists fzf; then
+  [ -f ~/.zshrc-fzf ] && source ~/.zshrc-fzf
+  [ -f ~/.zshrc-fzf-completion ] && source ~/.zshrc-fzf-completion
+fi
 [ -f ~/.zshrc-prompt ] && source ~/.zshrc-prompt
 [ -f ~/.zshrc-extras ] && source ~/.zshrc-extras
 

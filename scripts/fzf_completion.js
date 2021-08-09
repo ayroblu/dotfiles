@@ -173,4 +173,4 @@ const header = `
 `.trim();
 
 const fileContents = `${header}\n\n${result}`;
-fs.writeFileSync(".zshrc-fzf", fileContents);
+fs.writeFileSync(".zshrc-fzf-completion", fileContents);
