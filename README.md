@@ -127,7 +127,18 @@ brew rmtree <package>
 
 zsh
 ---
-Install oh my zsh
+Sometimes terminal is slow, you can use the preload system to quickly quit and drop into a raw
+shell with no rcs
+
+```sh
+mkdir ~/preload
+cat <<EOF > ~/preload/.zshrc
+ZDOTDIR="$HOME" zsh
+exit
+EOF
+```
+
+I have yet to confirm this is actually useful, may delete if ctrl-c doesn't work as is
 
 Making symlinks
 ---------------

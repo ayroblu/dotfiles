@@ -12,6 +12,18 @@
   #
   # https://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
 
+  # To amend an older commit: https://stackoverflow.com/questions/3103589/how-can-i-easily-fixup-a-past-commit
+  # git commit -a --fixup 1edb09da623
+  # git rebase -i --autosquash origin/master
+  # OR:
+  # git stash                      # temporarily put my work aside
+  # git rebase -i <bad_commit>~1   # rebase one step before the bad commit
+  #                                # mark broken commit for editing
+  # vim <affected_sources>         # fix the bug
+  # git add <affected_sources>     # stage fixes
+  # git commit -C <bad_commit>     # commit fixes using same log message as before
+  # git rebase --continue          # base all later changes onto this
+
   amend = commit -a --amend --no-edit
   abandon = !BRANCH=`git rev-parse --abbrev-ref HEAD` && git reset --hard && git checkout master && git branch -D $BRANCH
   # get main branch
@@ -104,7 +116,7 @@
   delo = "!git branch -r --merged | grep -v 'master|main' | sed 's/origin\\///' | xargs git push --delete origin"
 
 [core]
-  pager = less -+$LESS -R
+  pager = less $LESS -R
   excludesfile = ~/.gitignore_global
 [push]
   default = matching

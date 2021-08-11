@@ -316,6 +316,7 @@ autocmd FileType html setl indentexpr=
 autocmd FileType make setl indentexpr=
 autocmd FileType sh setl indentexpr=
 autocmd FileType scala setl indentexpr=
+autocmd FileType swift,objc,objcpp setl textwidth=0
 
 " Handle special file types: https://vim.fandom.com/wiki/Forcing_Syntax_Coloring_for_files_with_odd_extensions
 "autocmd BufNewFile,BufRead PROJECT set syntax=yaml
