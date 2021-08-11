@@ -31,7 +31,6 @@ alias proxywifioff='sudo networksetup -setsocksfirewallproxystate Wi-Fi off' #on
 
 alias gulp='TS_NODE_TRANSPILE_ONLY=true npx gulp'
 export LESS="$LESS -F"
-[ -x "$(command -v /usr/local/bin/less)" ] && alias less='/usr/local/bin/less'
 
 # ------------ Functions
 
