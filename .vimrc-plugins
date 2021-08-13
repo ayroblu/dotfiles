@@ -131,6 +131,9 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " Sometimes you need to worry about :DeleteSession
 
   " === Commands and functions
+  Plug 'knsh14/vim-github-link'
+  nnoremap <Leader>yg :GetCommitLink<CR>
+
   Plug 'PeterRincker/vim-argumentative'
   " <, or >, for move argument left or right
 
