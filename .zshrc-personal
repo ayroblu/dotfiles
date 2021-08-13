@@ -3,37 +3,13 @@
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html
 
 # ---------- Aliases
-alias ls='ls -A'
-alias ll='ls -Al'
-# macos doesn't auto sort by CPU
-alias top='top -o cpu'
-alias e='emacs'
-alias mv='mv -i'
-alias vi='vim'
-alias vis='vi -c OpenSession'
-alias mvis='mvim -c OpenSession'
-alias viallnotes='vi ~/Dropbox/Documents/twitter/*.md ~/Dropbox/Notes/*.md'
-alias goctave='\octave -q'
-[ -x "$(command -v octave)" ] && alias octave='octave -W -q'
-[ -x "$(command -v rg)" ] && [ -x "$(command -v ctags)" ] && alias maketags="rg --files | ctags --links=no --excmd=number -L-"
-[ -x "$(command -v rg)" ] && alias rg="rg --hidden --glob \"!tags\" --glob \"!.git\" -M 1000"
-
-# Editing aliases
-alias vivim='vi ~/.vimrc'
-alias vitmux='vi ~/.tmux.conf'
-alias vibash="vi ~/.bashrc*"
-alias vizsh="vi ~/.zshrc*"
-alias vigit="vi ~/.gitconfig*"
-
 # Proxy stuff
 alias proxywifion='sudo networksetup -setsocksfirewallproxystate Wi-Fi on' #on / off
 alias proxywifioff='sudo networksetup -setsocksfirewallproxystate Wi-Fi off' #on / off
 
 alias gulp='TS_NODE_TRANSPILE_ONLY=true npx gulp'
-export LESS="$LESS -F"
 
 # ------------ Functions
-
 function nzproxy {
   ssh -ND 9876 mezap &
   proxywifion
@@ -48,53 +24,23 @@ function show_colours {
   for i in {0..255}; do printf "\x1b[38;5;${i}mcolor%-5i\x1b[0m" $i ; if ! (( ($i + 1 ) % 8 )); then echo ; fi ; done
 }
 
-# https://stackoverflow.com/a/50830617/6725059
-function cd() {
-  builtin cd "$@"
+# # https://stackoverflow.com/a/50830617/6725059
+# function cd() {
+#   builtin cd "$@"
 
-  if [[ -z "$VIRTUAL_ENV" ]] ; then
-    ## If env folder is found then activate the vitualenv
-      if [[ -d ./env ]] ; then
-        source ./env/bin/activate
-      fi
-  else
-    ## check the current folder belong to earlier VIRTUAL_ENV folder
-    # if yes then do nothing
-    # else deactivate
-      parentdir="$(dirname "$VIRTUAL_ENV")"
-      if [[ "$PWD"/ != "$parentdir"/* ]] ; then
-        deactivate
-      fi
-  fi
-}
+#   if [[ -z "$VIRTUAL_ENV" ]] ; then
+#     ## If env folder is found then activate the vitualenv
+#       if [[ -d ./env ]] ; then
+#         source ./env/bin/activate
+#       fi
+#   else
+#     ## check the current folder belong to earlier VIRTUAL_ENV folder
+#     # if yes then do nothing
+#     # else deactivate
+#       parentdir="$(dirname "$VIRTUAL_ENV")"
+#       if [[ "$PWD"/ != "$parentdir"/* ]] ; then
+#         deactivate
+#       fi
+#   fi
+# }
 
-regexReplace() {
-  # Requires ripgrep: https://github.com/BurntSushi/ripgrep
-  BEFORE="$1"
-  AFTER="$2"
-  DIR="$3"
-  # Note, not sure the parameter expansion works outside of zsh
-  rg --pcre2 "$BEFORE" --files-with-matches "$DIR" | xargs perl -i -pe "s/${BEFORE/\/\\//}/$AFTER/g"
-}
-
-# https://askubuntu.com/questions/113544/how-can-i-reduce-the-file-size-of-a-scanned-pdf-file (2nd answer)
-shrinkpdf() {
-  INPUT="$1"
-  OUTPUT="${INPUT:r}-compressed.pdf"
-  # -dQUIET
-  gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
-    -dNOPAUSE -dBATCH -sOutputFile="$OUTPUT" "$INPUT"
-  ## Much faster
-  # ps2pdf -dPDFSETTINGS=/ebook "$INPUT" "$OUTPUT"
-  ## Also much faster:
-  # gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dDownsampleColorImages=true \
-  #   -dColorImageResolution=150 -dNOPAUSE  -dBATCH -sOutputFile="$OUTPUT" "$INPUT"
-}
-
-# https://stackoverflow.com/questions/2507766/merge-convert-multiple-pdf-files-into-one-pdf
-mergepdf() {
-  gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile="${@: -1}" "${@:1:-1}"
-}
-
-# Also consider using ocrmypdf if you want to search it
-# https://unix.stackexchange.com/questions/301318/how-to-ocr-a-pdf-file-and-get-the-text-stored-within-the-pdf

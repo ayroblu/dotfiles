@@ -1,19 +1,39 @@
+# -------------------- Aliases
 alias rand='date +%s | shasum -a 256 | base64 | head -c 32 ; echo'
 alias random='openssl rand -base64 32'
 alias l='ls -A'
+alias ls='ls -A'
+alias ll='ls -Al'
+# macos doesn't auto sort by CPU
+alias top='top -o cpu'
+alias e='emacs'
+alias mv='mv -i'
+alias vi='vim'
+alias vis='vi -c OpenSession'
+alias mvis='mvim -c OpenSession'
+alias viallnotes='vi ~/Dropbox/Documents/twitter/*.md ~/Dropbox/Notes/*.md'
+alias goctave='\octave -q'
+[ -x "$(command -v octave)" ] && alias octave='octave -W -q'
+[ -x "$(command -v rg)" ] && [ -x "$(command -v ctags)" ] && alias maketags="rg --files | ctags --links=no --excmd=number -L-"
+[ -x "$(command -v rg)" ] && alias rg="rg --hidden --glob \"!tags\" --glob \"!.git\" -M 1000"
+[ -f /usr/local/bin/less ] && export LESS="$LESS -F"
+
+# Editing aliases
+alias vivim='vi ~/.vimrc'
+alias vitmux='vi ~/.tmux.conf'
+alias vibash="vi ~/.bashrc*"
+alias vizsh="vi ~/.zshrc*"
+alias vigit="vi ~/.gitconfig*"
 alias reindexspotlight='sudo mdutil -E /'
-alias manvi="vim -c 'set ft=man ts=8 nomod nolist nonu noma' -"
-exists() {
-  command -v "$1" >/dev/null 2>&1
-}
+# https://vi.stackexchange.com/questions/4682/how-can-i-suppress-the-reading-from-stdin-message-from-within-vim
+alias vpage="vim -c 'set ft=man ts=8 nomod nolist nonu noma' --not-a-term -"
 # Used on remote systems to pass through the clipboard
 alias sshpb='ssh -R 2324:localhost:2324 -R 2325:localhost:2325'
 exists pbcopy || alias pbcopy='nc -q0 localhost 2324'
 exists pbpaste || alias pbpaste='nc localhost 2325'
 
 # https://apple.stackexchange.com/questions/20547/how-do-i-find-my-ip-address-from-the-command-line
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-#alias localip="ipconfig getifaddr en0"
+alias exip="curl ifconfig.me"
 localip() {
   echo "show State:/Network/Interface/$(
     echo 'show State:/Network/Global/IPv4'\
@@ -39,14 +59,9 @@ pathadd() {
 pathadd ~/.cargo/bin
 pathadd ~/.poetry/bin
 pathadd /usr/local/opt/mysql-client/bin
-#pathadd /usr/local/opt/make/libexec/gnubin
 pathadd ~/.emacs.d/bin
 pathadd ~/bin
 [ -d /usr/local/opt/make/libexec/gnubin ] && export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
-# If you want nvm
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-# [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 # qmk_firmware
 pathadd "/usr/local/opt/avr-gcc@8/bin"
 pathadd "/usr/local/opt/arm-gcc-bin@8/bin"
@@ -61,7 +76,7 @@ export GOPATH=~/ws/go
 export GOBIN=~/ws/go/bin
 pathadd $GOBIN
 
-# ---------------- Ram disk
+# ------------- Functions
 createRamDisk() {
   # https://superuser.com/a/272148
   ramfs_size_mb=128
@@ -78,13 +93,11 @@ createRamDisk() {
   echo "diskutil eject ${ramdisk_dev}"
 }
 
-# -------------- encodeURIComponent
 encodeURIComponent(){
   node -e 'console.log(encodeURIComponent('"'$1'"'))'
 }
 
 
-# -------------- Docker
 copyDockerFile() {
   if [ "$#" -ne 3 ]; then
     echo "Usage: $0 <image-name> <docker-file-path> <output-path>" >&2
@@ -94,3 +107,33 @@ copyDockerFile() {
   docker cp $id:$2 - > $3
   docker rm -v $id
 }
+
+regexReplace() {
+  # Requires ripgrep: https://github.com/BurntSushi/ripgrep
+  BEFORE="$1"
+  AFTER="$2"
+  DIR="$3"
+  # Note, not sure the parameter expansion works outside of zsh
+  rg --pcre2 "$BEFORE" --files-with-matches "$DIR" | xargs perl -i -pe "s/${BEFORE/\/\\//}/$AFTER/g"
+}
+
+# https://askubuntu.com/questions/113544/how-can-i-reduce-the-file-size-of-a-scanned-pdf-file (2nd answer)
+shrinkpdf() {
+  INPUT="$1"
+  OUTPUT="${INPUT:r}-compressed.pdf"
+  # -dQUIET
+  gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
+    -dNOPAUSE -dBATCH -sOutputFile="$OUTPUT" "$INPUT"
+  ## Much faster
+  # ps2pdf -dPDFSETTINGS=/ebook "$INPUT" "$OUTPUT"
+  ## Also much faster:
+  # gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dDownsampleColorImages=true \
+  #   -dColorImageResolution=150 -dNOPAUSE  -dBATCH -sOutputFile="$OUTPUT" "$INPUT"
+}
+
+# https://stackoverflow.com/questions/2507766/merge-convert-multiple-pdf-files-into-one-pdf
+mergepdf() {
+  gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile="${@: -1}" "${@:1:-1}"
+}
+# Also consider using ocrmypdf if you want to search it
+# https://unix.stackexchange.com/questions/301318/how-to-ocr-a-pdf-file-and-get-the-text-stored-within-the-pdf
