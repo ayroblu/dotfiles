@@ -10,7 +10,7 @@ alias proxywifioff='sudo networksetup -setsocksfirewallproxystate Wi-Fi off' #on
 alias gulp='TS_NODE_TRANSPILE_ONLY=true npx gulp'
 
 # ------------ Functions
-function nzproxy {
+nzproxy() {
   ssh -ND 9876 mezap &
   proxywifion
   # wut: https://superuser.com/questions/555874/zsh-read-command-fails-within-bash-function-read1-p-no-coprocess
@@ -20,9 +20,16 @@ function nzproxy {
 }
 
 # Function to show colours
-function show_colours {
+show_colours() {
   for i in {0..255}; do printf "\x1b[38;5;${i}mcolor%-5i\x1b[0m" $i ; if ! (( ($i + 1 ) % 8 )); then echo ; fi ; done
 }
+
+zsh_stats() {
+  fc -l 1 \
+    | awk '{ CMD[$2]++; count++; } END { for (a in CMD) print CMD[a] " " CMD[a]*100/count "% " a }' \
+    | grep -v "./" | sort -nr | head -20 | column -c3 -s " " -t | nl
+}
+
 
 # # https://stackoverflow.com/a/50830617/6725059
 # function cd() {
