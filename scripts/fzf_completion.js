@@ -8,23 +8,23 @@ const allCmds = [
         cmdTrigger: "brew install --cask ",
         // cmdListOptions: 'brew search --casks',
         cmdListOptions: 'cache_fzf.js "brew install --cask"',
-        fzfOptions: "--multi",
+        fzfOptions: "--multi --preview 'brew info --cask {}'",
       },
       {
         cmdTrigger: "brew install ",
         // cmdListOptions: 'brew formulae',
         cmdListOptions: 'cache_fzf.js "brew install"',
-        fzfOptions: "--multi",
-      },
-      {
-        cmdTrigger: "brew uninstall ",
-        cmdListOptions: "brew list --formula",
-        fzfOptions: "--multi",
+        fzfOptions: "--multi --preview 'brew info {}'",
       },
       {
         cmdTrigger: "brew uninstall --cask ",
         cmdListOptions: "brew list --cask",
-        fzfOptions: "--multi",
+        fzfOptions: "--multi --preview 'brew info --cask {}'",
+      },
+      {
+        cmdTrigger: "brew uninstall ",
+        cmdListOptions: "brew list --formula",
+        fzfOptions: "--multi --preview 'brew info {}'",
       },
     ],
   },
@@ -58,6 +58,16 @@ const allCmds = [
         cmdTrigger: "yarn test",
         cmdListOptions: `rg --files --hidden --glob '!.git' -g '*.test.ts*' -g '*.test.js*' -g '*.it.ts*' -g '*.it.js*' 2> /dev/null`,
         fzfOptions: "--multi",
+      },
+    ],
+  },
+  {
+    name: "pip",
+    cmds: [
+      {
+        cmdTrigger: "pip uninstall",
+        cmdListOptions: `pip list 2> /dev/null | tail -n +3 | awk '{print $1}' | rg -v '^(setuptools|wheel)$'`,
+        fzfOptions: `--multi --preview 'pip show {}'`,
       },
     ],
   },

@@ -6,22 +6,22 @@ _fzf_complete_brew() {
   ARGS="$@"
   if [[ $ARGS == 'brew install --cask '* ]]; then
     local options="$(cache_fzf.js "brew install --cask")"
-    _fzf_complete --multi -- "$@" < <(
+    _fzf_complete --multi --preview 'brew info {}' -- "$@" < <(
       echo $options
     )
   elif [[ $ARGS == 'brew install '* ]]; then
     local options="$(cache_fzf.js "brew install")"
-    _fzf_complete --multi -- "$@" < <(
-      echo $options
-    )
-  elif [[ $ARGS == 'brew uninstall '* ]]; then
-    local options="$(brew list --formula)"
-    _fzf_complete --multi -- "$@" < <(
+    _fzf_complete --multi --preview 'brew info {}' -- "$@" < <(
       echo $options
     )
   elif [[ $ARGS == 'brew uninstall --cask '* ]]; then
     local options="$(brew list --cask)"
-    _fzf_complete --multi -- "$@" < <(
+    _fzf_complete --multi --preview 'brew info {}' -- "$@" < <(
+      echo $options
+    )
+  elif [[ $ARGS == 'brew uninstall '* ]]; then
+    local options="$(brew list --formula)"
+    _fzf_complete --multi --preview 'brew info {}' -- "$@" < <(
       echo $options
     )
   else
@@ -54,6 +54,17 @@ _fzf_complete_yarn() {
   if [[ $ARGS == 'yarn test'* ]]; then
     local options="$(rg --files --hidden --glob '!.git' -g '*.test.ts*' -g '*.test.js*' -g '*.it.ts*' -g '*.it.js*' 2> /dev/null)"
     _fzf_complete --multi -- "$@" < <(
+      echo $options
+    )
+  else
+    return 1
+  fi
+}
+_fzf_complete_pip() {
+  ARGS="$@"
+  if [[ $ARGS == 'pip uninstall'* ]]; then
+    local options="$(pip list 2> /dev/null | tail -n +3 | awk '{print $1}' | rg -v '^(setuptools|wheel)$')"
+    _fzf_complete --multi --preview 'pip show {}' -- "$@" < <(
       echo $options
     )
   else
@@ -130,4 +141,3 @@ _fzf_complete_gulp() {
     return 1
   fi
 }
-
