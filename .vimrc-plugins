@@ -2,8 +2,6 @@ call plug#begin('~/.vim/plugged')
 
 " === Theme
 Plug 'altercation/vim-colors-solarized'
-" I couldn't figure out how to make the background not the same as the
-" cursor
 autocmd BufReadPost <buffer> hi MatchParen cterm=bold,underline ctermbg=none ctermfg=red
 "Plug 'edkolev/tmuxline.vim'
 let g:tmuxline_powerline_separators = 0

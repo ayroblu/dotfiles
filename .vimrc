@@ -332,10 +332,10 @@ vnoremap p "_dP
 
 " Moving cursor by display lines
 " -  http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping
-noremap  <buffer> <silent> k gk
-noremap  <buffer> <silent> j gj
-noremap  <buffer> <silent> 0 g0
-noremap  <buffer> <silent> $ g$
+"noremap  <buffer> <silent> k gk
+"noremap  <buffer> <silent> j gj
+"noremap  <buffer> <silent> 0 g0
+"noremap  <buffer> <silent> $ g$
 
 " diffget for mergetool left and right is also local and remote
 nnoremap <buffer> dgl :diffget LO<cr>

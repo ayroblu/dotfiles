@@ -62,6 +62,7 @@ export PAGER='less'
 export LESS='-R'
 
 # -----------vim cursor
+# https://unix.stackexchange.com/questions/433273/changing-cursor-style-based-on-mode-in-both-zsh-and-vim
 # vim mode config
 bindkey -v
 # So that backspace deletes more things in insert -> normal -> insert mode
@@ -82,14 +83,13 @@ function zle-keymap-select {
     echo -ne '\e[5 q'
   fi
 }
-#zle -N zle-keymap-select
-#zle-line-init() {
-#    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-#    echo -ne "\e[5 q"
-#}
-#zle -N zle-line-init
-#echo -ne '\e[5 q' # Use beam shape cursor on startup.
-#preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+zle -N zle-keymap-select
+
+_fix_cursor() {
+   echo -ne '\e[5 q'
+}
+
+precmd_functions+=(_fix_cursor)
 
 # ---------------------------------- Other
 
@@ -106,4 +106,9 @@ fi
 # Has to be last
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
 [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+di() {
+  [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && ZSH_HIGHLIGHT_MAXLENGTH=0
+  [ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && _zsh_autosuggest_disable
+}
