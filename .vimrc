@@ -527,6 +527,12 @@ if !empty(glob("~/.vimrc-repl"))
   so ~/.vimrc-repl
 endif
 
+" -------------------------------- My own links plugin
+" Should eventually superseed: knsh14/vim-github-link
+if !empty(glob("~/.vimrc-links"))
+  so ~/.vimrc-links
+endif
+
 "-----------------------------Set pasting to automatically go paste mode
 " - https://coderwall.com/p/if9mda
 let &t_SI .= "\<Esc>[?2004h"
@@ -591,7 +597,9 @@ com! DiffGitSaved call s:DiffGitWithSaved()
 nmap <leader>d :DiffGitSaved<CR>
 
 "" --------------------------plugin settings
-if !empty(glob("~/.vimrc-plugins"))
+runtime macros/matchit.vim
+" Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
+if !empty(glob("~/.vimrc-plugins")) && filereadable(expand('~/.vim/autoload/plug.vim'))
   so ~/.vimrc-plugins
 endif
 

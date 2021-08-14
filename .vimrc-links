@@ -1,0 +1,18 @@
+" let snr = matchstr(matchstr(split(execute('scriptnames'), "\n"), 'netrw.vim'), '^\d\+')
+" let Netrw = function('<SNR>'.snr.'_Netrw')
+" echo Netrw(42)
+augroup netrw_mapping
+  autocmd!
+  autocmd filetype netrw call NetrwMapping()
+augroup END
+
+function! NetrwMapping()
+  "nnoremap <buffer> <silent> <nowait> _ :call setreg(v:register, 'something'. '/'. <SID>NetrwGetWord())<cr>
+  nnoremap <buffer> _ :echom b:netrw_curdir.'/'.GetWord()<cr>
+endfunction
+
+function! GetWord()
+  let snr = matchstr(matchstr(split(execute('scriptnames'), "\n"), 'netrw.vim'), '^\d\+')
+  let NetrwGetWord = function('<SNR>'.snr.'_NetrwGetWord')
+  return NetrwGetWord()
+endfunction
