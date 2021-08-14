@@ -103,12 +103,33 @@ fi
 [ -f ~/.zshrc-prompt ] && source ~/.zshrc-prompt
 [ -f ~/.zshrc-extras ] && source ~/.zshrc-extras
 
+# ------------------------------------------------------ zsh plugins
 # Has to be last
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
-[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# These add significant perf cost to typing!
+# Using custom plugin manager
+zplug_fzf-tab_install() { git clone https://github.com/Aloxaf/fzf-tab "$1" }
+zplug_fzf-tab_source() { source "$1"/fzf-tab.plugin.zsh }
+zplug_fzf-tab_disable() { disable-fzf-tab }
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# switch group using `,` and `.` -- useful for zs<tab>
+zstyle ':fzf-tab:*' switch-group ',' '.'
+zstyle ':fzf-tab:*' default-color $fg[default]
 
-di() {
-  [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && ZSH_HIGHLIGHT_MAXLENGTH=0
-  [ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && _zsh_autosuggest_disable
-}
+zplug_autosuggestions_install() { git clone https://github.com/zsh-users/zsh-autosuggestions "$1" }
+zplug_autosuggestions_source() { source "$1"/zsh-autosuggestions.zsh }
+zplug_autosuggestions_disable() { _zsh_autosuggest_disable }
+
+zplug_fsh_install() { git clone https://github.com/zdharma/fast-syntax-highlighting "$1" }
+zplug_fsh_source() { source "$1"/fast-syntax-highlighting.plugin.zsh }
+zplug_fsh_disable() { ZSH_HIGHLIGHT_MAXLENGTH=0 }
+# https://github.com/zdharma/fast-syntax-highlighting/issues/105
+zle_highlight=('paste:none')
+
+# fzf-tab must come before autosuggestions and fsh
+zplug_enabled=(fzf-tab autosuggestions fsh)
+
+[ -f ~/.zshrc-plugin-manager ] && source ~/.zshrc-plugin-manager
+

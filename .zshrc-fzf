@@ -63,7 +63,8 @@ fzf-dir-widget() {
   LBUFFER+=$result
 }
 zle -N fzf-dir-widget
-bindkey '^x' fzf-dir-widget
+bindkey '^e^e' fzf-dir-widget
+bindkey -r "^E"
 
 fzf-yank-history-widget() {
   local selected num

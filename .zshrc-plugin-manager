@@ -1,0 +1,34 @@
+ZPLUG_DIR="$HOME/.zsh-plugins"
+zplug-prep() {
+  mkdir -p "$ZPLUG_DIR"
+}
+fn_exists() {
+  LC_ALL=C type $1 | grep -q 'shell function'
+}
+zplug-install() {
+  for plugin in "$zplug_enabled[@]"; do
+    if fn_exists "zplug_${plugin}_install" && ! [ -d "$ZPLUG_DIR/$plugin" ]; then
+      "zplug_${plugin}_install" "$ZPLUG_DIR/$plugin"
+    fi
+  done
+}
+zplug-source() {
+  for plugin in "$zplug_enabled[@]"; do
+    if fn_exists "zplug_${plugin}_source"; then
+      "zplug_${plugin}_source" "$ZPLUG_DIR/$plugin"
+    fi
+  done
+}
+zplug-disable() {
+  for plugin in "$zplug_enabled[@]"; do
+    if fn_exists "zplug_${plugin}_disable"; then
+      "zplug_${plugin}_disable"
+    fi
+  done
+}
+
+zplug-prep
+zplug-install
+zplug-source
+zle -N zplug-disable
+bindkey '^K' zplug-disable
