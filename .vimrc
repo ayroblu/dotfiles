@@ -134,6 +134,8 @@ set synmaxcol=200 " Stop trying to syntax highlight after 200 characters. Vim is
 set foldmethod=syntax
 set foldlevel=20
 
+set nocompatible " fancy vim features
+
 set updatetime=1000 "event when cursor stops moving for a second, for swp normally, but now is for checktime call below
 " Ignore case except when there atleast one capital, use \C for case sensitive
 " Position of \c / \C is irrelevant

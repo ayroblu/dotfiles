@@ -178,8 +178,11 @@ Plug 'tpope/vim-commentary'
 " gc to comment
 
 "Plug 'vim-scripts/ReplaceWithRegister' "griw to replace inner word with register
+
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+let g:fzf_layout = { 'down': '50%' }
+" https://github.com/junegunn/fzf/blob/master/README-VIM.md
 noremap <leader><Tab> :Buffers<CR>
 nmap <Leader>t :Files<CR>
 nmap <Leader><leader>r :BTags<CR>
@@ -241,6 +244,9 @@ command! -bang Tags
 \     "
 \   '
 \ })
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 " https://github.com/junegunn/fzf
 " sbtrkt	fuzzy-match	Items that match sbtrkt
 " 'wild	exact-match (quoted)	Items that include wild
@@ -348,7 +354,7 @@ autocmd FileType markdown nnoremap <buffer> <leader>o :Toc<cr>
 autocmd BufNewFile,BufRead *.plist set syntax=xml
 autocmd BufNewFile,BufRead *.sharedshrc set syntax=sh
 " https://superuser.com/questions/489135/vim-does-not-detect-syntax-of-ssh-config
-au BufNewFile,BufRead */.ssh/config  setf sshconfig
+autocmd BufNewFile,BufRead */.ssh/config  setf sshconfig
 Plug 'godlygeek/tabular'
 " Necessary for vim-markdown TableFormat
 
@@ -405,7 +411,7 @@ command! Aflake :call Autoflake() | redraw!
 " Warning, need to use Augroup soon
 " https://stackoverflow.com/questions/10969366/vim-automatically-formatting-golang-source-code-when-saving/10969574
 
-Plug 'ayroblu/python-imports.vim'
+"Plug 'ayroblu/python-imports.vim'
 " Use :ImportName, also ~/.vim/python-imports.cfg
 autocmd FileType python nnoremap <buffer> <leader>i :ImportName<cr>
 
@@ -526,7 +532,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 augroup supporteddefs
-  au!
+  autocmd!
   " "Workspaces for different file types, defaults to []
   autocmd FileType scala let b:coc_root_patterns = [".git"]
 
@@ -562,7 +568,7 @@ Plug 'antoinemadec/coc-fzf'
 " :CocFzfListResume (same as last fzf)
 
 augroup typescriptreact
-  au!
+  autocmd!
   autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 augroup END
 
