@@ -103,33 +103,46 @@ fi
 [ -f ~/.zshrc-prompt ] && source ~/.zshrc-prompt
 [ -f ~/.zshrc-extras ] && source ~/.zshrc-extras
 
+# homebrew lesspipe.sh
+export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
+
 # ------------------------------------------------------ zsh plugins
+[ -f ~/.zshrc-plugin-manager ] && source ~/.zshrc-plugin-manager
 # Has to be last
 # These add significant perf cost to typing!
 # Using custom plugin manager
-zplug_fzf-tab_install() { git clone https://github.com/Aloxaf/fzf-tab "$1" }
-zplug_fzf-tab_source() { source "$1"/fzf-tab.plugin.zsh }
-zplug_fzf-tab_disable() { disable-fzf-tab }
+
+# fzf-tab must come before autosuggestions and fsh
+zplug 'Aloxaf/fzf-tab'
 # set descriptions format to enable group support
 zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # switch group using `,` and `.` -- useful for zs<tab>
 zstyle ':fzf-tab:*' switch-group ',' '.'
+# Default colour is white, doesn't work on light colour schemes
 zstyle ':fzf-tab:*' default-color $fg[default]
+# Default is tab is down? See PR #22. Reverts to default
+zstyle ':fzf-tab:complete:*' fzf-bindings 'tab:toggle+down'
+# https://github.com/Aloxaf/fzf-tab/wiki/Preview
+# systemctl e.g. systemctl restart
+zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
+# env vars
+zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
+# preview files, breaks on other stuff
+zstyle ':fzf-tab:complete:*:*' fzf-preview 'preview-unknown "${(Q)realpath}" $group $desc'
 
-zplug_autosuggestions_install() { git clone https://github.com/zsh-users/zsh-autosuggestions "$1" }
-zplug_autosuggestions_source() { source "$1"/zsh-autosuggestions.zsh }
-zplug_autosuggestions_disable() { _zsh_autosuggest_disable }
+zplug 'zsh-users/zsh-autosuggestions'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=14'
 
-zplug_fsh_install() { git clone https://github.com/zdharma/fast-syntax-highlighting "$1" }
-zplug_fsh_source() { source "$1"/fast-syntax-highlighting.plugin.zsh }
-zplug_fsh_disable() { ZSH_HIGHLIGHT_MAXLENGTH=0 }
+zplug 'zdharma/fast-syntax-highlighting'
 # https://github.com/zdharma/fast-syntax-highlighting/issues/105
 zle_highlight=('paste:none')
 
-# fzf-tab must come before autosuggestions and fsh
-zplug_enabled=(fzf-tab autosuggestions fsh)
-
-[ -f ~/.zshrc-plugin-manager ] && source ~/.zshrc-plugin-manager
-
+disable-zsh-plugins() {
+  disable-fzf-tab
+  ZSH_HIGHLIGHT_MAXLENGTH=0
+  _zsh_autosuggest_disable
+}
+zle -N disable-zsh-plugins
+bindkey '^K' disable-zsh-plugins
