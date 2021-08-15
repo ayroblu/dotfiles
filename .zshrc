@@ -113,7 +113,7 @@ export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
 # Using custom plugin manager
 
 zplug 'zsh-users/zsh-completions'
-fpath=($ZPLUG_DIR $fpath)
+fpath=($ZPLUG_DIR/zsh-completions/src $fpath)
 # rm -f ~/.zcompdump; compinit # you might need this to clear cache
 
 # fzf-tab must come before autosuggestions and fsh
