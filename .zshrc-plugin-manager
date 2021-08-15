@@ -10,10 +10,3 @@ zplug() {
   source "$ZPLUG_DIR/$name"/*.plugin.zsh
 }
 zplug-prep
-
-zplug-start() {
-  zplug-install
-  zplug-source
-  zle -N zplug-disable
-  bindkey '^K' zplug-disable
-}

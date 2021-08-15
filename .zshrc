@@ -112,6 +112,9 @@ export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
 # These add significant perf cost to typing!
 # Using custom plugin manager
 
+zplug 'zsh-users/zsh-completions'
+fpath=($ZPLUG_DIR $fpath)
+
 # fzf-tab must come before autosuggestions and fsh
 zplug 'Aloxaf/fzf-tab'
 # set descriptions format to enable group support
