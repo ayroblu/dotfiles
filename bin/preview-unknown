@@ -1,0 +1,41 @@
+#!/bin/zsh
+# from: https://github.com/Aloxaf/fzf-tab/wiki/Preview
+if [ "$2" = '[prompt theme]' ]; then
+  autoload -U promptinit && promptinit
+  prompt -p $3
+  exit
+fi
+# This doesn't work cause subshell :/
+#if [ "$2" = '[parameter]' ]; then
+#  eval "result_value=\"\${$3}\""
+#  echo "$3"="$result_value"
+#  exit
+#fi
+if ! [ -e "$1" ]; then
+  autoload -U colors && colors
+  echo "Press $fg_bold[red]ctrl-e$reset_color to close preview"
+  echo "$@"
+  exit
+fi
+mime=$(file -bL --mime-type "$1")
+category=${mime%%/*}
+kind=${mime##*/}
+if [ -d "$1" ]; then
+  tree -C "$1" | head -${LINES}
+elif [ "$category" = image ]; then
+  chafa "$1"
+  exiftool "$1"
+elif [ "$kind" = vnd.openxmlformats-officedocument.spreadsheetml.sheet ] || \
+  [ "$kind" = vnd.ms-excel ]; then
+  echo mime $mime
+  # TODO: haven't tested this
+  in2csv "$1" | xsv table | bat -ltsv --color=always
+elif [ "$category" = text ]; then
+  bat --style=numbers --color=always "$1"
+elif [ "$kind" = json ]; then
+  cat "$1" | jq -C
+else
+  echo mime $mime
+  export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
+  lesspipe.sh "$1" | bat --color=always
+fi
