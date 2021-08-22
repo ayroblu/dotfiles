@@ -117,7 +117,7 @@
   delo = "!git branch -r --merged | grep -v 'master|main' | sed 's/origin\\///' | xargs git push --delete origin"
 
 [core]
-  pager = less $LESS -R
+  pager = less $LESS
   excludesfile = ~/.gitignore_global
 [push]
   default = matching
