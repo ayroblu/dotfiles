@@ -1,6 +1,10 @@
 {
-  "STP*R": "{#Shift_L(Return)}",
-  "-FRL": "{#Super_L(space)} {^}",
-  "KPHR*R": "{#command(return)}",
-  "SP-LT": "{#Control_L(space)}{^}"
+"-FRL": "{#Super_L(space)} {^}",
+"KPHR*R": "{#Super_L(Return)}",
+"KPWH-BG": "qmk",
+"SP-LT": "{#Control_L(space)}{^}",
+"STP*R": "{#Shift_L(Return)}",
+"TPH*UBG": "Nuck",
+"TPH-P": "{#Control_L(backslash)}",
+"TPHUBG": "tmux"
 }

@@ -1,11 +1,12 @@
 {
+"*UPD": "{*<}",
+"KA*PD": "{*-|}",
 "KHR*BG": "{#Control_L(k)}",
 "KHR*F": "{#Control_L(v)}",
 "KHR*T": "{#Control_L(w)}",
 "KHR-BG": "{#Control_L(c)}",
-"KPAD": "{*-|}",
 "KPA*L": "{<}",
-"KA*PD": "{*-|}",
+"KPAD": "{*-|}",
 "KPH*BG": "{#Super_L(k)}",
 "KPH*F": "{#Super_L(v)}",
 "KPH*T": "{#Super_L(w)}",
@@ -29,11 +30,10 @@
 "STPH-R": "{#Left}{^}",
 "STPH-RB": "{#Control_L(Left)}{^}",
 "TA*B": "{#Tab}{^}",
-"TA*BT": "{#Alt_L(Tab Tab)}",
+"TA*BT": "{#Super_L(Tab Tab)}",
 "TK*EL": "{#Delete}",
 "TKUPT": "{PLOVER:ADD_TRANSLATION}",
 "TPEFBG": "{#Escape}",
 "TPW-G": "{#Alt_L(Right)}",
-"TPW-R": "{#Alt_L(Left)}",
-"*UPD": "{*<}"
+"TPW-R": "{#Alt_L(Left)}"
 }
