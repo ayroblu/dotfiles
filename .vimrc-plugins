@@ -1,3 +1,14 @@
+" vim:fdm=expr:fdl=0
+autocmd BufNewFile,BufRead .vimrc-plugins setl foldexpr=GetPlugFold(v:lnum)
+
+" Inspiration: https://vi.stackexchange.com/questions/3814/is-there-a-best-practice-to-fold-a-vimrc-file
+function! GetPlugFold(lnum)
+  if getline(a:lnum) =~? '\v^Plug'
+    return '>1'
+  endif
+  return '='
+endfunction
+
 call plug#begin('~/.vim/plugged')
 
 " === Theme

@@ -1,3 +1,4 @@
+" vim:fdm=expr:fdl=0
 scriptencoding utf-8
 " :so ~/_vimrc " reloads vimrc, use in vim, not here, or quit and use `vis` if
 " you have sessions setup
@@ -11,6 +12,7 @@ scriptencoding utf-8
 " gf opens file under cursor
 " :X - Use encryption with current file
 " :cq - quit mergetool with failure
+" Test colours: :source $VIMRUNTIME/syntax/colortest.vim
 "
 " Thoughts on how to do interactive shell:
 " 1. yank current selection to 'interactive' buffer
@@ -378,6 +380,53 @@ nnoremap Q <nop>
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
 
 "-----------------------------Functions and commands
+" https://vim.fandom.com/wiki/Customize_text_for_closed_folds
+" Set a nicer foldtext function
+set foldtext=MyFoldText()
+function! MyFoldText()
+  let line = getline(v:foldstart)
+  if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
+    let initial = substitute( line, '^\([ \t]\)*\(\/\*\|\/\/\)\(.*\)', '\1\2', '' )
+    let linenum = v:foldstart + 1
+    while linenum < v:foldend
+      let line = getline( linenum )
+      let comment_content = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
+      if comment_content !=# ''
+        break
+      endif
+      let linenum = linenum + 1
+    endwhile
+    let sub = initial . ' ' . comment_content
+  else
+    let sub = line
+    let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
+    if startbrace ==# '{'
+      let line = getline(v:foldend)
+      let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
+      if endbrace ==# '}'
+        let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
+      endif
+    endif
+  endif
+  let n = v:foldend - v:foldstart + 1
+  let info = ' ' . n . ' lines'
+  let sub = sub . repeat(' ', winwidth(0))
+  let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
+  let fold_w = getwinvar( 0, '&foldcolumn' )
+  let sub = strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 2 )
+
+  return sub . info
+endfunction
+setl foldexpr=GetLineFold(v:lnum)
+
+" Inspiration: https://vi.stackexchange.com/questions/3814/is-there-a-best-practice-to-fold-a-vimrc-file
+function! GetLineFold(lnum)
+  if getline(a:lnum) =~? '\v^.*-{5}'
+    return '>1'
+  endif
+  return '='
+endfunction
+
 " For profiling:
 function Prof()
   profile start profile.log
@@ -619,6 +668,8 @@ endtry
 highlight! link SignColumn LineNr
 
 hi Normal ctermbg=NONE " we want vim to follow terminal background
+" overwrite colour scheme for folds
+highlight Folded ctermfg=brown
 
 " Have to set this last
 nnoremap <leader>? :call ShowPersonalHelp()<cr>
