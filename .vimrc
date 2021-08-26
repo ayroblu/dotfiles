@@ -340,8 +340,9 @@ vnoremap p "_dP
 "noremap  <buffer> <silent> $ g$
 
 " diffget for mergetool left and right is also local and remote
-nnoremap <buffer> dgl :diffget LO<cr>
-nnoremap <buffer> dgr :diffget RE<cr>
+" 1do is equivalent to :diffget LO, 2do is equivalent to :diffget BA, etc.
+"nnoremap <buffer> dgl :diffget LO<cr>
+"nnoremap <buffer> dgr :diffget RE<cr>
 
 " Yank current file path
 nnoremap yp :let @" = expand("%:p")<CR>

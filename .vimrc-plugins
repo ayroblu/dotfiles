@@ -46,7 +46,7 @@ xmap y <plug>(YoinkYankPreserveCursorPosition)
 Plug 'PeterRincker/vim-searchlight'
 
 " From Damian Conway
-Plug 'soulston/vim-listtrans'
+Plug 'schoettl/listtrans.vim'
 " ;l toggles between bulleted list and text with commas and the last one has
 " ', and'
 " If there are already commas in our list, use semicolons
