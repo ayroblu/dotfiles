@@ -1,40 +1,7 @@
 # Recommend: https://github.com/philc/vimium/wiki/Search-Engines
 # Insert your preferred key mappings here.
-unmap <c-e>
-unmap <c-y>
-unmap r
-unmap p
-unmap P
-#unmap gf
-#unmap gF
-unmap t
-unmap H
-unmap L
-unmap J
-unmap K
-unmap gT
-unmap gt
-unmap x
-unmap X
-unmap <a-f>
-unmap <a-p>
-unmap <a-m>
-unmap <<
-unmap >>
-unmap ^
-unmap f
+unmapAll
 
-map fo LinkHints.activateMode
-map fh LinkHints.activateMode action=hover
-map ff LinkHints.activateMode action=focus
-map fc LinkHints.activateMode action=copy-text
-map t LinkHints.activateMode
-
-map ( moveTabLeft
-map ) moveTabRight
-map <c-t:i> Vomnibar.activateTabSelection
-map <c-b:i> Vomnibar.activateBookmarksInNewTab
-map p togglePinTab
-
-map <c-]> passNextKey
-
+map <c-w> moveTabToNextWindow
+map <c-t:i> Vomnibar.activateTabSelection
+map <c-b:i> Vomnibar.activateBookmarksInNewTab
