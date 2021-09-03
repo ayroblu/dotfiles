@@ -3,6 +3,9 @@ autocmd BufNewFile,BufRead .vimrc-plugins setl foldexpr=GetPlugFold(v:lnum)
 
 " Inspiration: https://vi.stackexchange.com/questions/3814/is-there-a-best-practice-to-fold-a-vimrc-file
 function! GetPlugFold(lnum)
+  if getline(a:lnum) =~? '^" ==='
+    return '0'
+  endif
   if getline(a:lnum) =~? '\v^Plug'
     return '>1'
   endif
@@ -484,6 +487,7 @@ let g:coc_global_extensions = [
       \'coc-rls',
       \'coc-go',
       \'coc-sourcekit',
+      \'coc-yaml',
       \'coc-css'
       \]
       "\"coc-python',
