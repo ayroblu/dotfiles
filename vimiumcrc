@@ -33,11 +33,10 @@ unmap <a-t>
 unmap <a-n>
 unmap <a-r>
 
-map t LinkHints.activateWithQueue
 map w moveTabToNextWindow
 map W moveTabToNewWindow
-map <c-t:i> Vomnibar.activateTabSelection
-map <c-b:i> Vomnibar.activateBookmarksInNewTab
 map ' openUrl url="vimium://status\u0020toggle\u0020^\u0020'"
-map ( moveTabLeft
-map ) moveTabRight
+map tt LinkHints.activateWithQueue
+map ts LinkHints.activateSelect
+map ti LinkHints.activateDownloadImage
+map te LinkHints.activateEdit
