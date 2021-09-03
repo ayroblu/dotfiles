@@ -1,7 +1,43 @@
-# Recommend: https://github.com/philc/vimium/wiki/Search-Engines
 # Insert your preferred key mappings here.
-unmapAll
+unmap <c-e>
+unmap <c-y>
+unmap r
+unmap R
+unmap p
+unmap P
+#unmap gf
+#unmap gF
+unmap t
+unmap H
+unmap L
+unmap J
+unmap K
+unmap gT
+unmap gt
+unmap x
+unmap X
+unmap <a-f>
+unmap <a-p>
+unmap <a-m>
+unmap <<
+unmap >>
+unmap <f2>
+unmap <s-f1>
+unmap <f1>
+unmap <f8>
+unmap <a-s-r>
+unmap <a-v>
+unmap <a-s-c>
+unmap <a-c>
+unmap <a-t>
+unmap <a-n>
+unmap <a-r>
 
-map <c-w> moveTabToNextWindow
+map t LinkHints.activateWithQueue
+map w moveTabToNextWindow
+map W moveTabToNewWindow
 map <c-t:i> Vomnibar.activateTabSelection
 map <c-b:i> Vomnibar.activateBookmarksInNewTab
+map ' openUrl url="vimium://status\u0020toggle\u0020^\u0020'"
+map ( moveTabLeft
+map ) moveTabRight
