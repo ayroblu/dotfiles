@@ -103,8 +103,8 @@
   sll = sls -U0
 
   #squash = !git rebase -i $(git merge-base HEAD origin/$(git bm))
-  squash = "!f(){ git reset --soft $(git mb) && git commit --edit -m\"$(git log --format=%B --reverse $(git mb)..HEAD)\"; };f"
-  squash-arg = "!f(){ git reset --soft ${1} && git commit --edit -m\"$(git log --format=%B --reverse ${1}..HEAD)\"; };f"
+  squash = "!f(){ git reset --soft $(git mb) && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
+  squash-arg = "!f(){ git reset --soft ${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
   #squashrebase = !git squash && git rebase origin/$(git bm)
   tc = rev-list -n 1
   tracking = rev-parse --abbrev-ref --symbolic-full-name @{u}
