@@ -118,6 +118,8 @@ fpath=($ZPLUG_DIR/zsh-completions/src $fpath)
 
 # fzf-tab must come before autosuggestions and fsh
 zplug 'Aloxaf/fzf-tab'
+# Match fzf height, necessary for showing normal height previews
+export FZF_TMUX_HEIGHT='60%'
 # set descriptions format to enable group support
 zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
