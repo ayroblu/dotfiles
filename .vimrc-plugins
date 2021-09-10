@@ -323,17 +323,19 @@ nnoremap <leader>o :TagbarToggle<cr>
 "autocmd VimEnter * nested :call tagbar#autoopen(1)
 
 " === Text objects
-"Plug 'wellle/targets.vim'
-" Doesn't work for me
-" Has lots of text object things for brackets, quotes, commas arguments
-" daa - delete argument with comma
-" cIa - change in comma
+Plug 'wellle/targets.vim'
+" changes behaviour to also perform seeking so you don't need to wory as much about cursor
+" placement. Doesn't work in comments
+" da, - delete in comma
+" daa - delete in argument
+" cin) - change in next parens, doesn't need to be inside
+" cil) - change in last parens, doesn't need to be inside
 
-Plug 'bkad/CamelCaseMotion'
+"Plug 'bkad/CamelCaseMotion'
 let g:camelcasemotion_key = ','
 " Use , as camel case word object: i.e. ci,w
 
-Plug 'vim-scripts/argtextobj.vim'
+"Plug 'vim-scripts/argtextobj.vim'
 " Adds argument (a) so caa, cia
 " func(a, b[asdf]) -> func(a, .) or -> func(a) (inner or outer)
 
