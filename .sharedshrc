@@ -77,6 +77,12 @@ export GOBIN=~/ws/go/bin
 pathadd $GOBIN
 
 # ------------- Functions
+worktreeDelete() {
+  local dir=$(dirname "$(git rev-parse --git-common-dir)")
+  git worktree remove "$(git root)"
+  cd "$dir"
+}
+
 createRamDisk() {
   # https://superuser.com/a/272148
   ramfs_size_mb=128
