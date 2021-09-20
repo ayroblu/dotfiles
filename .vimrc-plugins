@@ -371,6 +371,11 @@ autocmd BufNewFile,BufRead *.plist set syntax=xml
 autocmd BufNewFile,BufRead *.sharedshrc set syntax=sh
 " https://superuser.com/questions/489135/vim-does-not-detect-syntax-of-ssh-config
 autocmd BufNewFile,BufRead */.ssh/config  setf sshconfig
+
+Plug 'dbridges/vim-markdown-runner'
+autocmd FileType markdown nnoremap <buffer> <Leader>r :MarkdownRunner<CR>
+autocmd FileType markdown nnoremap <buffer> <Leader>R :MarkdownRunnerInsert<CR>
+
 Plug 'godlygeek/tabular'
 " Necessary for vim-markdown TableFormat
 
