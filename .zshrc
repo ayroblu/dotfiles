@@ -141,9 +141,7 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview 'preview-unknown "${(Q)realpath}" $gr
 zplug 'zsh-users/zsh-autosuggestions'
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=14'
 
-zplug 'zdharma/fast-syntax-highlighting'
-# https://github.com/zdharma/fast-syntax-highlighting/issues/105
-zle_highlight=('paste:none')
+zplug 'zsh-users/zsh-syntax-highlighting'
 
 disable-zsh-plugins() {
   disable-fzf-tab
