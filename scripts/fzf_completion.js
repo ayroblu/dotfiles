@@ -97,6 +97,21 @@ const allCmds = [
     ],
   },
   {
+    name: "bazel",
+    cmds: [
+      {
+        cmdTrigger: "bloop test ",
+        cmdListOptions: `bloop autocomplete --format zsh --mode projects 2> /dev/null`,
+        fzfOptions: "--multi",
+      },
+      {
+        cmdTrigger: "bloop build ",
+        cmdListOptions: `bloop autocomplete --format zsh --mode projects 2> /dev/null`,
+        fzfOptions: "--multi",
+      },
+    ],
+  },
+  {
     name: "docker",
     cmds: [
       {

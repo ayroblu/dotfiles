@@ -6,7 +6,7 @@ _fzf_complete_brew() {
   ARGS="$@"
   if [[ $ARGS == 'brew install --cask '* ]]; then
     local options="$(cache_fzf.js "brew install --cask")"
-    _fzf_complete --multi --preview 'brew info {}' -- "$@" < <(
+    _fzf_complete --multi --preview 'brew info --cask {}' -- "$@" < <(
       echo $options
     )
   elif [[ $ARGS == 'brew install '* ]]; then
@@ -16,7 +16,7 @@ _fzf_complete_brew() {
     )
   elif [[ $ARGS == 'brew uninstall --cask '* ]]; then
     local options="$(brew list --cask)"
-    _fzf_complete --multi --preview 'brew info {}' -- "$@" < <(
+    _fzf_complete --multi --preview 'brew info --cask {}' -- "$@" < <(
       echo $options
     )
   elif [[ $ARGS == 'brew uninstall '* ]]; then
@@ -90,6 +90,22 @@ _fzf_complete_bloop() {
       echo $options
     )
   elif [[ $ARGS == 'bloop compile '* ]]; then
+    local options="$(bloop autocomplete --format zsh --mode projects 2> /dev/null)"
+    _fzf_complete --multi -- "$@" < <(
+      echo $options
+    )
+  else
+    return 1
+  fi
+}
+_fzf_complete_bazel() {
+  ARGS="$@"
+  if [[ $ARGS == 'bloop test '* ]]; then
+    local options="$(bloop autocomplete --format zsh --mode projects 2> /dev/null)"
+    _fzf_complete --multi -- "$@" < <(
+      echo $options
+    )
+  elif [[ $ARGS == 'bloop build '* ]]; then
     local options="$(bloop autocomplete --format zsh --mode projects 2> /dev/null)"
     _fzf_complete --multi -- "$@" < <(
       echo $options

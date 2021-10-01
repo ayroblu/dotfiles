@@ -64,6 +64,7 @@
   dp = !git push -d origin $(git rev-parse --abbrev-ref HEAD) && git p
   f = fetch
   fo = !git fetch origin && git branch -f master origin/master
+  is-sparse = config --get core.sparseCheckout
   last-message = log -1 --pretty=%B
   lbase = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %cd) %C(bold blue)<%an>%Creset'
   l = lbase --graph -500
