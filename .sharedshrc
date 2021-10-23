@@ -32,6 +32,10 @@ alias sshpb='ssh -R 2324:localhost:2324 -R 2325:localhost:2325'
 exists pbcopy || alias pbcopy='nc -q0 localhost 2324'
 exists pbpaste || alias pbpaste='nc localhost 2325'
 
+# aliases for fzf
+alias cdw='cd'
+alias cdws='cd'
+
 # https://apple.stackexchange.com/questions/20547/how-do-i-find-my-ip-address-from-the-command-line
 alias exip="curl ifconfig.me"
 localip() {
@@ -81,6 +85,16 @@ worktreeDelete() {
   local dir=$(dirname "$(git rev-parse --git-common-dir)")
   git worktree remove "$(git root)"
   cd "$dir"
+}
+
+pls() {
+  local current=$(cd "$1"; pwd)
+
+  while [[ $current != '/' ]]; do
+    #ls -ld "$current"
+    current=$(dirname "$current")
+    echo "$current"
+  done
 }
 
 createRamDisk() {

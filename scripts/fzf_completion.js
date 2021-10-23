@@ -2,6 +2,26 @@ const fs = require("fs");
 
 const allCmds = [
   {
+    name: "cdw",
+    cmds: [
+      {
+        cmdTrigger: "cdw ",
+        cmdListOptions: "ls -d ~/workspace/*/",
+        fzfOptions: "--preview 'tree -C {} | head -200'",
+      },
+    ],
+  },
+  {
+    name: "cdws",
+    cmds: [
+      {
+        cmdTrigger: "cdws ",
+        cmdListOptions: "ls -d ~/ws/*/",
+        fzfOptions: "--preview 'tree -C {} | head -200'",
+      },
+    ],
+  },
+  {
     name: "brew",
     cmds: [
       {

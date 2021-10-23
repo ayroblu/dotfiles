@@ -2,6 +2,28 @@
 ## fzf examples - completion
 # https://github.com/junegunn/fzf/wiki/Examples-(completion)
 
+_fzf_complete_cdw() {
+  ARGS="$@"
+  if [[ $ARGS == 'cdw '* ]]; then
+    local options="$(ls -d ~/workspace/*/)"
+    _fzf_complete --preview 'tree -C {} | head -200' -- "$@" < <(
+      echo $options
+    )
+  else
+    return 1
+  fi
+}
+_fzf_complete_cdws() {
+  ARGS="$@"
+  if [[ $ARGS == 'cdws '* ]]; then
+    local options="$(ls -d ~/ws/*/)"
+    _fzf_complete --preview 'tree -C {} | head -200' -- "$@" < <(
+      echo $options
+    )
+  else
+    return 1
+  fi
+}
 _fzf_complete_brew() {
   ARGS="$@"
   if [[ $ARGS == 'brew install --cask '* ]]; then

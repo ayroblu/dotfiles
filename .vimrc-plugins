@@ -205,11 +205,21 @@ nmap <Leader><Leader>t :Tags<CR>
 nnoremap <silent> <Leader><Leader>ts :QFiles <C-R>=expand('%:h')<CR><CR>
 nnoremap <silent> <Leader><Leader>tr :Files <C-R>=expand('%:h')<CR><CR>
 nnoremap <silent> <Leader><Leader>tt :Files <C-R>=trim(system('git rev-parse --show-toplevel'))<CR><CR>
+nnoremap <Leader>/ :Rg <C-R><C-W><CR>
+nnoremap <Leader><Leader>/ :Rg <C-R><C-W>
+vnoremap <Leader>/ y:Rg \b<C-R>0\b<CR>
+"nnoremap <Leader>h :History:
+"nnoremap <Leader>h :History/
 
 " Custom setup for previews on Rg and Files
 command! -bang -nargs=* Rg
 \ call fzf#vim#grep(
-\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+\   'rg --hidden --column --line-number --no-heading --color=always --smart-case --glob "!tags" --glob "!.git" '.shellescape(<q-args>), 1,
+\   fzf#vim#with_preview(), <bang>0)
+
+command! -bang -nargs=* Ripgrep
+\ call fzf#vim#grep(
+\   'rg --hidden --column --line-number --no-heading --color=always --smart-case --glob "!tags" --glob "!.git" '.<q-args>, 1,
 \   fzf#vim#with_preview(), <bang>0)
 
 function! RipgrepFzf(query, fullscreen)
@@ -497,9 +507,9 @@ let g:coc_global_extensions = [
       \'coc-go',
       \'coc-sourcekit',
       \'coc-yaml',
-      \'coc-graphql',
       \'coc-css'
       \]
+      "\'coc-graphql',
       "\"coc-python',
 " vscode + coc config uses jsonc
 " https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
