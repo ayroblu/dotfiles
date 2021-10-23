@@ -6,6 +6,11 @@
 # Proxy stuff
 alias proxywifion='sudo networksetup -setsocksfirewallproxystate Wi-Fi on' #on / off
 alias proxywifioff='sudo networksetup -setsocksfirewallproxystate Wi-Fi off' #on / off
+# https://superuser.com/questions/751868/how-to-inactivate-network-service-by-terminal-on-mac-os-x
+# sudo networksetup -listallnetworkservices
+# networksetup [-setnetworkserviceenabled networkservice on | off]
+alias etherneton='sudo networksetup -setnetworkserviceenabled "Thunderbolt Ethernet Slot 1" on' #on / off
+alias ethernetoff='sudo networksetup -setnetworkserviceenabled "Thunderbolt Ethernet Slot 1" off' #on / off
 
 alias gulp='TS_NODE_TRANSPILE_ONLY=true npx gulp'
 
@@ -17,6 +22,11 @@ nzproxy() {
   read "?Press enter to turn off proxy: "
   proxywifioff
   fg
+}
+
+toggle-ethernet() {
+  ethernetoff
+  etherneton
 }
 
 # Function to show colours
