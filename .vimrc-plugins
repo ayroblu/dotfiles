@@ -202,8 +202,9 @@ nmap <Leader>t :Files<CR>
 nmap <Leader><leader>r :BTags<CR>
 nmap <Leader><Leader>t :Tags<CR>
 " https://github.com/junegunn/fzf.vim/issues/360
-nnoremap <silent> <Leader><Leader>t :QFiles <C-R>=expand('%:h')<CR><CR>
-nnoremap <silent> <Leader><Leader><Leader>t :Files <C-R>=expand('%:h')<CR><CR>
+nnoremap <silent> <Leader><Leader>ts :QFiles <C-R>=expand('%:h')<CR><CR>
+nnoremap <silent> <Leader><Leader>tr :Files <C-R>=expand('%:h')<CR><CR>
+nnoremap <silent> <Leader><Leader>tt :Files <C-R>=trim(system('git rev-parse --show-toplevel'))<CR><CR>
 
 " Custom setup for previews on Rg and Files
 command! -bang -nargs=* Rg
