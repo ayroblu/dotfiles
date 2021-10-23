@@ -199,17 +199,17 @@ let g:fzf_layout = { 'down': '50%' }
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md
 noremap <leader><Tab> :Buffers<CR>
 nmap <Leader>t :Files<CR>
-nmap <Leader><leader>r :BTags<CR>
-nmap <Leader><Leader>t :Tags<CR>
+"nmap <Leader><leader>r :BTags<CR>
+"nmap <Leader><Leader>t :Tags<CR>
 " https://github.com/junegunn/fzf.vim/issues/360
 nnoremap <silent> <Leader><Leader>ts :QFiles <C-R>=expand('%:h')<CR><CR>
 nnoremap <silent> <Leader><Leader>tr :Files <C-R>=expand('%:h')<CR><CR>
 nnoremap <silent> <Leader><Leader>tt :Files <C-R>=trim(system('git rev-parse --show-toplevel'))<CR><CR>
-nnoremap <Leader>/ :Rg <C-R><C-W><CR>
-nnoremap <Leader><Leader>/ :Rg <C-R><C-W>
+nnoremap <Leader>/ :Rg <C-R><C-W>
+nnoremap <Leader>* :Rg <C-R><C-W><CR>
 vnoremap <Leader>/ y:Rg \b<C-R>0\b<CR>
-"nnoremap <Leader>h :History:
-"nnoremap <Leader>h :History/
+nnoremap <Leader>: :History:<CR>
+nnoremap <Leader>h/ :History/<CR>
 
 " Custom setup for previews on Rg and Files
 command! -bang -nargs=* Rg

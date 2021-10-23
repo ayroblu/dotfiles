@@ -642,7 +642,7 @@ function! s:DiffGitWithSaved()
   " shell, git diff no index -- does a diff (not sure why git, doesn't need
   " it, then the two files, one is saved as a temporary file, then || true
   " makes the exit code 0 so that it doesn't print a weird thing
-  execute '0read !git diff --no-index -- '.shellescape(filename).' '.diffname.' || true'
+  execute '0read !git diff --no-index -- '.shellescape(filename).' '.diffname.' 2> /dev/null || true'
   setf diff
 endfunction
 com! DiffGitSaved call s:DiffGitWithSaved()
