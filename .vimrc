@@ -154,7 +154,7 @@ set nojoinspaces
 set nostartofline
 
 " Default to 99 so that `gq` wraps at 100
-set textwidth=99
+"set textwidth=99
 
 " Display as much as possible of cut off lines rather than truncating
 set display=lastline
