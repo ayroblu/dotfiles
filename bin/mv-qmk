@@ -4,5 +4,6 @@ mv ~/Downloads/crkbd_rev1_common_layout_split_3x6_3_mine.json .
 qmk json2c crkbd_rev1_common_layout_split_3x6_3_mine.json | pbcopy
 cd ~/ws/qmk_firmware
 source venv/bin/activate
-vim keyboards/crkbd/keymaps/ayroblu/keymap.c
+#vim keyboards/crkbd/keymaps/ayroblu/keymap.c
+regexReplace '(// QMK CONFIG START$)(.*)(^// QMK CONFIG END)' '$1\n'"$(pbpaste)"\n'$3' keyboards/crkbd/keymaps/ayroblu/keymap.c
 make crkbd:ayroblu:dfu

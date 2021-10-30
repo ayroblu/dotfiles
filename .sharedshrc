@@ -135,11 +135,30 @@ killport() {
 regexReplace() {
   # Requires ripgrep: https://github.com/BurntSushi/ripgrep
   BEFORE="$1"
-  AFTER="$2"
-  DIR="$3"
-  # Note, not sure the parameter expansion works outside of zsh
-  rg --pcre2 "$BEFORE" --files-with-matches "$DIR" | xargs perl -i -pe "s/${BEFORE/\/\\//}/$AFTER/g"
+  BEFORE_ESCAPED="$(echo "$1" | sed 's/\//\\\//g')"
+  AFTER="$(echo "$2" | sed 's/\//\\\//g')"
+  FILEDIR="$3"
+  if [ -f "$FILEDIR" ]; then
+    perl -i -pe "BEGIN{undef $/;} s/$BEFORE_ESCAPED/$AFTER/gsm" "$FILEDIR"
+  elif [ -d "$FILEDIR" ]; then
+    rg --pcre2 "$BEFORE" --multiline --multiline-dotall --files-with-matches "$FILEDIR" | xargs perl -i -pe "BEGIN{undef $/;} s/$BEFORE_ESCAPED/$AFTER/gsm"
+  fi
 }
+
+regexReplaceSingle() {
+  # Requires ripgrep: https://github.com/BurntSushi/ripgrep
+  BEFORE="$1"
+  BEFORE_ESCAPED="$(echo "$1" | sed 's/\//\\\//g')"
+  AFTER="$(echo "$2" | sed 's/\//\\\//g')"
+  FILEDIR="$3"
+  if [ -f "$FILEDIR" ]; then
+    perl -i -pe "BEGIN{undef $/;} s/$BEFORE_ESCAPED/$AFTER/gsm" "$FILEDIR"
+  elif [ -d "$FILEDIR" ]; then
+    rg --pcre2 "$BEFORE" --files-with-matches "$FILEDIR" | xargs perl -i -pe "s/$BEFORE/$AFTER/g"
+  fi
+}
+# files: rename 's/^/MyVacation2011_/g' *.jpg
+# for f in *.jpg; do mv "$f" "$(echo "$f" | sed s/IMG/VACATION/)"; done
 
 # https://askubuntu.com/questions/113544/how-can-i-reduce-the-file-size-of-a-scanned-pdf-file (2nd answer)
 shrinkpdf() {

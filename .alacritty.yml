@@ -31,3 +31,7 @@ colors: *solarized_light
 
 # env:
 #   TERM: xterm-256color
+
+cursor:
+  style:
+    blinking: Never

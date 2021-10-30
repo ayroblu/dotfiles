@@ -379,7 +379,7 @@ let g:vim_markdown_anchorexpr = 'substitute(v:anchor, "-", " ", "g")'
 " <leader>o for show toc
 autocmd FileType markdown nnoremap <buffer> <leader>o :Toc<cr>
 autocmd BufNewFile,BufRead *.plist set syntax=xml
-autocmd BufNewFile,BufRead *.sharedshrc set syntax=sh
+autocmd BufNewFile,BufRead *.sharedshrc set ft=sh
 " https://superuser.com/questions/489135/vim-does-not-detect-syntax-of-ssh-config
 autocmd BufNewFile,BufRead */.ssh/config  setf sshconfig
 
