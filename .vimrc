@@ -483,6 +483,9 @@ command Czsh :n ~/.zshrc*
 command Cbash :n ~/.bashrc*
 command Ctmux :n ~/.tmux.conf
 command Cnotes :n ~/Dropbox/Notes/*
+command Notes :n ~/Dropbox/Notes/Notes.md
+
+nnoremap <leader>n :Notes<cr>
 
 " clear auto commands with !au (if you want) and reload vim, can use RestartVim in MacVim?
 command Reload :au! | so ~/.vimrc
