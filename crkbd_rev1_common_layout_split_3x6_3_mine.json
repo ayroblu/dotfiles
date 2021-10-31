@@ -40,7 +40,7 @@
       "KC_K",
       "KC_COMM",
       "KC_DOT",
-      "KC_SLSH",
+      "RCTL_T(KC_SLSH)",
       "KC_ENT",
       "KC_LGUI",
       "MO(3)",
