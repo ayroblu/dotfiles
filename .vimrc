@@ -453,11 +453,11 @@ autocmd BufWritePre * :keeppatterns %s/\s\+$//e
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
-" optional reset cursor on start:
-augroup myCmds
-  autocmd!
-  autocmd VimEnter * silent !echo -ne "\e[2 q"
-augroup END
+" optional reset cursor on start: #doesn't work with alfred
+"augroup myCmds
+"  autocmd!
+"  autocmd VimEnter * silent !echo -ne "\e[2 q"
+"augroup END
 
 " Normally you can open a url with gx, doesnt work so use <leader>u
 " Hint, can also open files with gf

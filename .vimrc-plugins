@@ -421,7 +421,7 @@ Plug 'romainl/vim-devdocs'
 " If not for the language
 
 Plug 'davidhalter/jedi-vim'
-python3 1==1 # Random hack that makes python3 work
+silent! python3 1==1 # Random hack that makes python3 work
 " We change these to be similar to tsuquyomi
 let g:jedi#goto_command = '<C-]>'
 "let g:jedi#goto_assignments_command = ""
