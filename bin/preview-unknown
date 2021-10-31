@@ -31,11 +31,12 @@ elif [ "$kind" = vnd.openxmlformats-officedocument.spreadsheetml.sheet ] || \
   # TODO: haven't tested this
   in2csv "$1" | xsv table | bat -ltsv --color=always
 elif [ "$category" = text ]; then
-  bat --style=numbers --color=always "$1"
+  bat --style=numbers --color=always "$1" | head -500
 elif [ "$kind" = json ]; then
   cat "$1" | jq -C
 else
   echo mime $mime
-  export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
-  lesspipe.sh "$1" | bat --color=always
+  bat --style=numbers --color=always "$1" | head -500
+  #export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
+  #lesspipe.sh "$1" | bat --color=always
 fi
