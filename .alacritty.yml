@@ -32,6 +32,10 @@ colors: *solarized_light
 # env:
 #   TERM: xterm-256color
 
+font:
+  normal:
+    family: Monaco
+
 cursor:
   style:
     blinking: Never
