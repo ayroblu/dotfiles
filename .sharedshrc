@@ -36,6 +36,9 @@ exists pbpaste || alias pbpaste='nc localhost 2325'
 alias cdw='cd'
 alias cdws='cd'
 
+# Rosetta prefix
+alias r="arch -arm64"
+
 # https://apple.stackexchange.com/questions/20547/how-do-i-find-my-ip-address-from-the-command-line
 alias exip="curl ifconfig.me"
 localip() {
