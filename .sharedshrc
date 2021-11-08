@@ -16,7 +16,7 @@ alias goctave='\octave -q'
 [ -x "$(command -v octave)" ] && alias octave='octave -W -q'
 [ -x "$(command -v rg)" ] && [ -x "$(command -v ctags)" ] && alias maketags="rg --files | ctags --links=no --excmd=number -L-"
 [ -x "$(command -v rg)" ] && alias rg="rg --hidden --glob \"!tags\" --glob \"!.git\" -M 1000"
-[ -f /usr/local/bin/less ] && export LESS="$LESS -RF"
+[ -f "$HOMEBREW_PREFIX"/bin/less ] && export LESS="$LESS -RF"
 
 # Editing aliases
 alias vivim='vi ~/.vimrc'
@@ -53,7 +53,7 @@ localip() {
 }
 
 # -------------- Misc env vars
-[ -f /usr/local/opt/libffi/lib/pkgconfig ] && export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+[ -f "$HOMEBREW_PREFIX"/opt/libffi/lib/pkgconfig ] && export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/libffi/lib/pkgconfig"
 exists node && export NODE_OPTIONS=--max-old-space-size=8192
 exists brew && export HOMEBREW_NO_AUTO_UPDATE=1
 
@@ -65,13 +65,13 @@ pathadd() {
 }
 pathadd ~/.cargo/bin
 pathadd ~/.poetry/bin
-pathadd /usr/local/opt/mysql-client/bin
+pathadd "$HOMEBREW_PREFIX"/opt/mysql-client/bin
 pathadd ~/.emacs.d/bin
 pathadd ~/bin
-[ -d /usr/local/opt/make/libexec/gnubin ] && export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
+pathadd "$HOMEBREW_PREFIX"/opt/make/libexec/gnubin
 # qmk_firmware
-pathadd "/usr/local/opt/avr-gcc@8/bin"
-pathadd "/usr/local/opt/arm-gcc-bin@8/bin"
+pathadd "$HOMEBREW_PREFIX/opt/avr-gcc@8/bin"
+pathadd "$HOMEBREW_PREFIX/opt/arm-gcc-bin@8/bin"
 
 #
 # Checkout bat --list-themes, Light themes: GitHub, Monokai Extended Light, OneHalfLight, ansi-light

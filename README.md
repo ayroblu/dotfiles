@@ -80,7 +80,7 @@ Custom Caching setup
 I have a bespoke caching function here. This adds it to your path
 
 ```bash
-ln -s $(pwd)/scripts/cache_fzf.js /usr/local/bin/cache_fzf.js
+ln -s $(pwd)/scripts/cache_fzf.js ~/bin/cache_fzf.js
 ```
 
 Rust setup
@@ -167,7 +167,7 @@ FZF setup
 After brew install fzf, make sure you run the key bindings setup
 
 ```bash
-/usr/local/opt/fzf/install
+$HOMEBREW_PREFIX/opt/fzf/install
 ```
 
 VS Code Setup

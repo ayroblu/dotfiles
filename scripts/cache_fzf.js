@@ -1,4 +1,4 @@
-#!/usr/local/bin/node
+#!$HOMEBREW_PREFIX/bin/node
 const fs = require("fs");
 const path = require("path");
 const { execSync } = require("child_process");
@@ -21,12 +21,12 @@ const cacheDefs = [
   {
     cmd: "brew install --cask",
     getListOptions: "brew search --casks",
-    getCmdFiles: () => ["/usr/local/Homebrew/.git/HEAD"],
+    getCmdFiles: () => ["$HOMEBREW_PREFIX/.git/HEAD"],
   },
   {
     cmd: "brew install",
     getListOptions: "brew formulae",
-    getCmdFiles: () => ["/usr/local/Homebrew/.git/HEAD"],
+    getCmdFiles: () => ["$HOMEBREW_PREFIX/.git/HEAD"],
   },
   {
     cmd: "gulp",

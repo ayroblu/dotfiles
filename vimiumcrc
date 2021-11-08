@@ -35,7 +35,9 @@ unmap <a-r>
 
 map w moveTabToNextWindow
 map W moveTabToNewWindow
-map ' openUrl url="vimium://status\u0020toggle\u0020^\u0020'"
+# https://github.com/gdh1995/vimium-c/wiki/Enable-or-Disable-all-frames-by-a-shortcut
+map ' openUrl url="vimium://status\u0020toggle\u0020^\u0020\""
+map " openUrl url="vimium://status\u0020reset"
 map tt LinkHints.activateWithQueue
 map ts LinkHints.activateSelect
 map ti LinkHints.activateDownloadImage

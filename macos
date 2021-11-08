@@ -3,6 +3,9 @@
 # ------------ Automated
 ## Checkout https://github.com/aaronbates/dotfiles/blob/master/macos/.macos
 
+# For all options, checkout `defaults read`
+# "Apple Global Domain" == "NSGlobalDomain"
+
 # Show dotfiles in finder
 defaults write com.apple.finder AppleShowAllFiles YES
 
@@ -21,3 +24,9 @@ defaults write com.apple.BezelServices kDimTime -int 15
 # Chrome: Disable left right to go back and forward in history
 # https://superuser.com/questions/840102/how-do-you-disable-swipe-history-navigation-in-chrome
 # defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
+
+# Disable menu var visible
+# defaults write NSGlobalDomain AppleMenuBarVisibleInFullscreen -bool false
+# defaults write NSGlobalDomain AppleMenuBarVisibleInFullscreen -bool true
+# defaults write com.colliderli.iina AppleMenuBarVisibleInFullscreen -bool false
+# defaults delete com.colliderli.iina AppleMenuBarVisibleInFullscreen
