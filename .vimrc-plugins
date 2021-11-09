@@ -466,11 +466,11 @@ autocmd FileType vim,javascript nmap <silent> [j :ALEPreviousWrap<cr>
 " ALE Fixers are slow compared to Coc, use sparingly
 let g:ale_fixers = {
 \ 'python': ['isort'],
-\ 'markdown': ['prettier'],
 \ 'terraform': ['terraform'],
 \ 'scala': ['scalafmt'],
 \ 'javascript': ['eslint'],
 \}
+"\ 'markdown': ['prettier'],
 let g:ale_pattern_options = {
 \   '.*\.json$': {'ale_enabled': 0},
 \   '.*\.graphql$': {'ale_enabled': 0},
