@@ -93,7 +93,7 @@ function s:ReplStartTmux()
     exe 'echoerr ' . slog
     return
   endif
-  if len(b:repl_startup_commands) > 0
+  if exists("b:repl_startup_commands") && len(b:repl_startup_commands) > 0
     call s:ReplSendCmds(b:repl_startup_commands)
   endif
 endfunction
@@ -162,7 +162,7 @@ function! ReplSetPane()
 endfunction
 
 xnoremap <leader>w :call ReplSendSelection()<cr>
-nnoremap <leader>w :call ReplSendCurrentLine()<cr>
+nnoremap <leader>w :call ReplSendCurrentLine()<cr>j
 nnoremap <leader>q :call ReplClose()<cr>
 nnoremap <leader>p :call ReplSetPane()<cr>
 "<leader>e: Run lines and output (selection or whole file)"

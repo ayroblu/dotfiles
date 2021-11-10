@@ -142,10 +142,14 @@ zplug 'zsh-users/zsh-autosuggestions'
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=14'
 
 zplug 'zsh-users/zsh-syntax-highlighting'
+disable-zsh-syntax-highlighting() {
+  ZSH_HIGHLIGHT_MAXLENGTH=0
+  region_highlight=()
+}
 
 disable-zsh-plugins() {
   disable-fzf-tab
-  ZSH_HIGHLIGHT_MAXLENGTH=0
+  disable-zsh-syntax-highlighting
   _zsh_autosuggest_disable
 }
 zle -N disable-zsh-plugins
