@@ -44,3 +44,5 @@ tags
 *.tsbuildinfo
 # scala metals lsp lock folder
 .metals
+# virtualenv venv # always set up virtualenv this way for personal stuff
+venv

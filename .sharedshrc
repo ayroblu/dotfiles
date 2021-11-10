@@ -84,6 +84,11 @@ export GOBIN=~/ws/go/bin
 pathadd $GOBIN
 
 # ------------- Functions
+take() {
+  mkdir -p -- "$1" &&
+    cd -P -- "$1"
+}
+
 worktreeDelete() {
   local dir=$(dirname "$(git rev-parse --git-common-dir)")
   git worktree remove "$(git root)"
