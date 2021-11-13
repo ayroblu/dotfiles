@@ -1,0 +1,19 @@
+#!/bin/zsh
+qmk-json-to-zmk ~/ws/dotfiles/crkbd_rev1_common_layout_split_3x6_3_mine.json | pbcopy
+#vim keyboards/crkbd/keymaps/ayroblu/keymap.c
+
+cd ~/ws/zmk-config
+
+regexReplace() {
+  BEFORE="$1"
+  BEFORE_ESCAPED="$(echo "$1" | sed 's/\//\\\//g')"
+  AFTER="$(echo "$2" | sed 's/\//\\\//g')"
+  FILEDIR="$3"
+  if [ -f "$FILEDIR" ]; then
+    perl -i -pe "BEGIN{undef $/;} s/$BEFORE_ESCAPED/$AFTER/gsm" "$FILEDIR"
+  elif [ -d "$FILEDIR" ]; then
+    rg --pcre2 "$BEFORE" --multiline --multiline-dotall --files-with-matches "$FILEDIR" | xargs perl -i -pe "BEGIN{undef $/;} s/$BEFORE_ESCAPED/$AFTER/gsm"
+  fi
+}
+regexReplace '(// ZMK JSON START$)(.*)(^// ZMK JSON END)' '$1\n'"$(pbpaste)"'\n$3' config/corne.keymap
+
