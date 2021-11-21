@@ -22,12 +22,6 @@ autocmd VimEnter * ++nested silent! colorscheme solarized
 autocmd VimEnter * ++nested silent! hi Normal ctermbg=NONE
 " https://github.com/airblade/vim-gitgutter/issues/696
 autocmd VimEnter * ++nested silent! hi! link SignColumn LineNr
-" coc borked their highlight CocFloating
-" See https://github.com/neoclide/coc.nvim/issues/3473
-" meanwhile, setting the colorscheme like this seems to fix the issue
-"autocmd CursorHold <buffer> silent! colorscheme solarized
-"autocmd CursorHold <buffer> silent! hi Normal ctermbg=NONE
-" Alternatively, currently forked the coc version as per the issue
 
 " Plug 'lifepillar/vim-solarized8'
 " Starts with green like colors, not sure the issue
