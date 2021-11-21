@@ -17,6 +17,25 @@ call plug#begin('~/.vim/plugged')
 " === Theme
 Plug 'altercation/vim-colors-solarized'
 autocmd BufReadPost <buffer> hi MatchParen cterm=bold,underline ctermbg=none ctermfg=red
+autocmd VimEnter * ++nested silent! colorscheme solarized
+" we want vim to follow terminal background
+autocmd VimEnter * ++nested silent! hi Normal ctermbg=NONE
+" https://github.com/airblade/vim-gitgutter/issues/696
+autocmd VimEnter * ++nested silent! hi! link SignColumn LineNr
+" coc borked their highlight CocFloating
+" See https://github.com/neoclide/coc.nvim/issues/3473
+" meanwhile, setting the colorscheme like this seems to fix the issue
+"autocmd CursorHold <buffer> silent! colorscheme solarized
+"autocmd CursorHold <buffer> silent! hi Normal ctermbg=NONE
+" Alternatively, currently forked the coc version as per the issue
+
+" Plug 'lifepillar/vim-solarized8'
+" Starts with green like colors, not sure the issue
+" autocmd vimenter * ++nested silent! colorscheme solarized8
+" set termguicolors
+" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
 "Plug 'edkolev/tmuxline.vim'
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_preset = {
@@ -498,7 +517,6 @@ let g:coc_global_extensions = [
       \'coc-metals',
       \'coc-tsserver',
       \'coc-prettier',
-      \'coc-tslint',
       \'coc-eslint',
       \'coc-json',
       \'coc-vimlsp',

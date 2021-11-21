@@ -40,7 +40,6 @@ Thumbs.db
 .git
 tags
 
-/.vim
 *.tsbuildinfo
 # scala metals lsp lock folder
 .metals

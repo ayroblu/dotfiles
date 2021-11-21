@@ -25,9 +25,9 @@ function ShowPersonalHelp()
   let l:text = GetPersonalHelpText()
 
   vnew
+  0pu=l:text
   setlocal buftype=nowrite
   setlocal nomodifiable
-  0pu=l:text
   set ft=markdown
   execute 0
 endfunction
@@ -254,6 +254,9 @@ autocmd FileType netrw nmap <buffer> v :Vifm<cr>
 " set spell spelllang=en_nz " ]s [s ]S [S " next spelling error
 nnoremap <Leader>s :setl spell!<CR>
 
+" Show help we defined above
+nnoremap <leader>? :call ShowPersonalHelp()<cr>
+
 imap jj <Esc>l
 imap jk <Esc>l
 
@@ -452,6 +455,7 @@ function EndProf()
 endfunction
 command! Prof :call Prof()
 command! EndProf :call EndProf()
+" https://vi.stackexchange.com/questions/19337/is-there-a-way-to-tell-what-autocmds-have-run
 
 " Delete current file:
 command! DeleteFile :call delete(expand('%')) | bdelete!
@@ -673,21 +677,15 @@ endif
 " --------------- Finally colour scheme
 syntax enable
 
-set background=light
 " Set color scheme
-try
-  colorscheme solarized
-catch /^Vim(colorscheme):/
-endtry
-" https://github.com/airblade/vim-gitgutter/issues/696
-highlight! link SignColumn LineNr
+set background=light
 
-hi Normal ctermbg=NONE " we want vim to follow terminal background
+" we want vim to follow terminal background
+hi Normal ctermbg=NONE
+
 " overwrite colour scheme for folds
 highlight Folded ctermfg=brown
 
-" Have to set this last
-nnoremap <leader>? :call ShowPersonalHelp()<cr>
-
 " Disable unsafe commands in project specific vimrc's
 set secure
+

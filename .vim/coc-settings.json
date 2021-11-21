@@ -11,7 +11,7 @@
     "go",
     "scss"
   ],
-  "tslint.autoFixOnSave": true,
+  // "tslint.autoFixOnSave": true,
   /* "typescript.suggestionActions.enabled": false, */
   /* "javascript.suggestionActions.enabled": false, */
   "eslint.filetypes": [
