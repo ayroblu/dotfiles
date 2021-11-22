@@ -347,7 +347,7 @@ autocmd FileType swift,objc,objcpp setl textwidth=0
 "vnoremap d "_d
 " replace currently selected text with default register
 " without yanking it
-vnoremap p "_dP
+vnoremap p "_dp
 
 " Moving cursor by display lines
 " -  http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping
