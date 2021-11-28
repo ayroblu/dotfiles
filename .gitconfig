@@ -51,6 +51,7 @@
   # git cod 'Dec 25 2018'
   cod = !"f() { echo git checkout `git rev-list -1 --before=\"$1\" --first-parent $(git upstream)`; }; f"
   d = diff
+  diff-name = !git diff $(git merge-base HEAD origin/master) --diff-filter=d --name-only | xargs
   ds = diff --staged
   dh = diff HEAD
   dt = difftool

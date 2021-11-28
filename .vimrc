@@ -679,9 +679,13 @@ syntax enable
 
 " Set color scheme
 set background=light
+silent! colorscheme solarized
 
 " we want vim to follow terminal background
 hi Normal ctermbg=NONE
+
+" https://github.com/airblade/vim-gitgutter/issues/696
+hi! link SignColumn LineNr
 
 " overwrite colour scheme for folds
 highlight Folded ctermfg=brown

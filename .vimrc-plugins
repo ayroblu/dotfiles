@@ -17,11 +17,11 @@ call plug#begin('~/.vim/plugged')
 " === Theme
 Plug 'altercation/vim-colors-solarized'
 autocmd BufReadPost <buffer> hi MatchParen cterm=bold,underline ctermbg=none ctermfg=red
-autocmd VimEnter * ++nested silent! colorscheme solarized
+"autocmd VimEnter * ++nested silent! colorscheme solarized
 " we want vim to follow terminal background
-autocmd VimEnter * ++nested silent! hi Normal ctermbg=NONE
+"autocmd VimEnter * ++nested silent! hi Normal ctermbg=NONE
 " https://github.com/airblade/vim-gitgutter/issues/696
-autocmd VimEnter * ++nested silent! hi! link SignColumn LineNr
+"autocmd VimEnter * ++nested silent! hi! link SignColumn LineNr
 
 " Plug 'lifepillar/vim-solarized8'
 " Starts with green like colors, not sure the issue
