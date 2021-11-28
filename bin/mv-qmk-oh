@@ -1,0 +1,22 @@
+#!/bin/zsh
+cd ~/ws/qmk_firmware
+source venv/bin/activate
+
+mv ~/Downloads/crkbd_rev1_layout_split_3x6_3_one_handed.json ~/ws/dotfiles/
+qmk json2c ~/ws/dotfiles/crkbd_rev1_layout_split_3x6_3_one_handed.json | pbcopy
+#vim keyboards/crkbd/keymaps/ayroblu-oh/keymap.c
+
+regexReplace() {
+  BEFORE="$1"
+  BEFORE_ESCAPED="$(echo "$1" | sed 's/\//\\\//g')"
+  AFTER="$(echo "$2" | sed 's/\//\\\//g')"
+  FILEDIR="$3"
+  if [ -f "$FILEDIR" ]; then
+    perl -i -pe "BEGIN{undef $/;} s/$BEFORE_ESCAPED/$AFTER/gsm" "$FILEDIR"
+  elif [ -d "$FILEDIR" ]; then
+    rg --pcre2 "$BEFORE" --multiline --multiline-dotall --files-with-matches "$FILEDIR" | xargs perl -i -pe "BEGIN{undef $/;} s/$BEFORE_ESCAPED/$AFTER/gsm"
+  fi
+}
+regexReplace '(// QMK CONFIG START$)(.*)(^// QMK CONFIG END)' '$1\n'"$(pbpaste)"'\n$3' keyboards/crkbd/keymaps/ayroblu-oh/keymap.c
+
+make crkbd:ayroblu-oh:dfu
