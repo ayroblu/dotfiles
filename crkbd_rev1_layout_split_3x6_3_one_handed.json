@@ -227,8 +227,8 @@
       "KC_NO"
     ],
     [
-      "KC_BSPC",
-      "KC_DEL",
+      "KC_NO",
+      "KC_NO",
       "KC_NO",
       "KC_NO",
       "KC_NO",
@@ -253,10 +253,10 @@
       "KC_NO",
       "KC_NO",
       "DF(3)",
-      "OSM(MOD_LCTL)",
-      "OSM(MOD_LALT)",
-      "OSM(MOD_LGUI)",
-      "OSM(MOD_LSFT)",
+      "KC_NO",
+      "KC_NO",
+      "KC_BSPC",
+      "KC_DEL",
       "KC_NO",
       "KC_NO",
       "KC_NO",
@@ -273,4 +273,3 @@
   ],
   "author": ""
 }
-
