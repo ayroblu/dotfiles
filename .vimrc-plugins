@@ -505,7 +505,9 @@ let g:ale_open_list=0
 " autocmd FileType rust nnoremap <buffer> <leader>e :RustRun<cr>
 "au BufNewFile,BufReadPost *.md set filetype=markdown
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+" Due to a bug in colorscheme and lack of releases, use master
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Hopefully this will replace ale and some of the others
 let g:coc_global_extensions = [
       \'coc-metals',

@@ -33,7 +33,7 @@ elif [ "$kind" = vnd.openxmlformats-officedocument.spreadsheetml.sheet ] || \
 elif [ "$category" = text ]; then
   bat --style=numbers --color=always "$1" | head -500
 elif [ "$kind" = json ]; then
-  cat "$1" | jq -C
+  cat "$1" | jq -C .
 else
   echo mime $mime
   bat --style=numbers --color=always "$1" | head -500
