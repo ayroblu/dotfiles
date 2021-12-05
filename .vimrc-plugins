@@ -1,4 +1,4 @@
-" vim:fdm=expr:fdl=0
+" vim:fdm=expr
 autocmd BufNewFile,BufRead .vimrc-plugins setl foldexpr=GetPlugFold(v:lnum)
 
 " Inspiration: https://vi.stackexchange.com/questions/3814/is-there-a-best-practice-to-fold-a-vimrc-file

@@ -1,4 +1,5 @@
-" vim:fdm=expr:fdl=0
+" fdm=expr
+" old example: fdm=expr:fdl=0
 scriptencoding utf-8
 " :so ~/_vimrc " reloads vimrc, use in vim, not here, or quit and use `vis` if
 " you have sessions setup
