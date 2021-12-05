@@ -1,5 +1,7 @@
 #echo "zsh loading..."
 # benchmark with: for i in $(seq 1 10); do /usr/bin/time /bin/zsh -d -i -c exit; done
+#   -f to run without .zshrc
+# OR: Add zmodload zsh/zprof at the top of your ~/.zshrc and zprof at the bottom
 # ----------------------------------------- plugin setup
 # man zshoptions - for all the setopt commands
 # https://stackoverflow.com/questions/11378607/oh-my-zsh-disable-would-you-like-to-check-for-updates-prompt
