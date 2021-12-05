@@ -27,6 +27,15 @@ schemes:
       cyan:    '0x93a1a1'
       white:   '0xfdf6e3'
 
+    # custom cursor for alacritty reasons
+    # example: https://github.com/alacritty/alacritty/blob/master/alacritty.yml
+    # Watching: https://github.com/alacritty/alacritty/issues/5662
+    cursor:
+      #text: CellBackground
+      #cursor: CellForeground
+      cursor: '0x073642' # black
+      text: '0xeee8d5' #white
+
 colors: *solarized_light
 
 # env:
