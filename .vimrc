@@ -144,7 +144,7 @@ set relativenumber
 set autoread "detect if file has changed
 set display+=lastline "long lines show to the end instead of @ sign
 set complete+=kspell " autocomplete includes the dictionary if enabled
-set synmaxcol=200 " Stop trying to syntax highlight after 200 characters. Vim is very slow with syntax highlighting
+set synmaxcol=1000 " Stop trying to syntax highlight after synmaxcol characters. Vim is very slow with syntax highlighting long lines
 
 set foldmethod=syntax
 set foldlevel=20
