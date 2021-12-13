@@ -27,9 +27,10 @@ schemes:
       cyan:    '0x93a1a1'
       white:   '0xfdf6e3'
 
-    # custom cursor for alacritty reasons
+    # custom cursor for alacritty+zsh reasons (zsh reverse, cursor reverses again)
     # example: https://github.com/alacritty/alacritty/blob/master/alacritty.yml
     # Watching: https://github.com/alacritty/alacritty/issues/5662
+    # Also: https://stackoverflow.com/questions/61776558/zsh-in-vi-mode-how-to-change-color-scheme
     cursor:
       #text: CellBackground
       #cursor: CellForeground
