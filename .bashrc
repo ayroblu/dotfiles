@@ -170,3 +170,4 @@ function decrypt {
 
 # added by travis gem
 #[ -f /Users/blu/.travis/travis.sh ] && source /Users/blu/.travis/travis.sh
+. "$HOME/.cargo/env"

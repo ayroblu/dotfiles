@@ -112,7 +112,7 @@
   sll = sls -U0
 
   # Submodule fixes
-  su = git submodule update --init
+  su = submodule update --init --recursive
 
   #squash = !git rebase -i $(git merge-base HEAD origin/$(git bm))
   squash = "!f(){ git reset --soft ${1:-$(git mb)} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
