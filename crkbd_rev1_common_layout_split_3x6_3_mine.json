@@ -140,8 +140,8 @@
     ],
     [
       "KC_DEL",
-      "KC_NO",
-      "KC_NO",
+      "TG(7)",
+      "TG(6)",
       "KC_UP",
       "KC_MINS",
       "DF(10)",
@@ -273,7 +273,7 @@
     [
       "RESET",
       "KC_NO",
-      "KC_NO",
+      "KC_TRNS",
       "KC_NO",
       "KC_NO",
       "KC_NO",
@@ -316,7 +316,7 @@
     ],
     [
       "KC_NO",
-      "KC_NO",
+      "KC_TRNS",
       "KC_VOLD",
       "KC_MUTE",
       "KC_VOLU",
