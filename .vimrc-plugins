@@ -305,7 +305,7 @@ map  <Leader><leader>f <Plug>(easymotion-s)
 let g:EasyMotion_do_mapping = 0
 
 Plug 'tpope/vim-vinegar' " Making netrw file management easier
-nnoremap - :Tex <cr>
+"nnoremap - :Tex <cr>
 " `-` to jump in
 " `y``.` to yank absolute path
 " `~` to go home
@@ -316,15 +316,15 @@ nnoremap - :Tex <cr>
 "Plug 'jalvesaq/vimcmdline'
 " vimcmdline mappings (local leader is \\)
 " let cmdline_map_start          = '<LocalLeader>s'
-let cmdline_map_send           = '<LocalLeader><Space>'
+" let cmdline_map_send           = '<LocalLeader><Space>'
 " let cmdline_map_send_and_stay  = '<LocalLeader><Space>'
 " let cmdline_map_source_fun     = '<LocalLeader>f'
 " let cmdline_map_send_paragraph = '<LocalLeader>p'
 " let cmdline_map_send_block     = '<LocalLeader>b'
 " let cmdline_map_quit           = '<LocalLeader>q'
-let cmdline_app = {
-  \  'typescript': 'npx ts-node -T',
-  \}
+" let cmdline_app = {
+"   \  'typescript': 'npx ts-node -T',
+"   \}
 
 Plug 'majutsushi/tagbar'
 " Kinda works for python, not really working for typescript

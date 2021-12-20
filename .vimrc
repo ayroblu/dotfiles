@@ -246,10 +246,24 @@ filetype plugin indent on
 " https://shapeshed.com/vim-netrw/#nerdtree-like-setup
 " Probably can remove vim-vinegar in favour of personalised setup
 let g:netrw_liststyle = 3
+let g:netrw_banner = 0
+"let g:netrw_browse_split = 4
+let g:netrw_winsize = 25
+let g:netrw_preview = 1
+"let g:netrw_altv = 1
+let g:netrw_alto = 0
+nnoremap - :call OpenNetrw()<cr>
+"nnoremap - :Ex<cr>
+function! OpenNetrw()
+  let file = '\V'.expand('%:t')
+  execute 'Ex'
+  call search(file)
+endfunction
+autocmd FileType netrw nnoremap <Leader>p <c-w>z
 
 " https://vi.stackexchange.com/questions/14622/how-can-i-close-the-netrw-buffer
 autocmd FileType netrw setl bufhidden=wipe
-let g:netrw_fastbrowse = 0
+"let g:netrw_fastbrowse = 0
 autocmd FileType netrw nmap <buffer> h -
 autocmd FileType netrw nmap <buffer> l gn
 autocmd FileType netrw nmap <buffer> v :Vifm<cr>
