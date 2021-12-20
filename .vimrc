@@ -259,14 +259,14 @@ function! OpenNetrw()
   execute 'Ex'
   call search(file)
 endfunction
-autocmd FileType netrw nnoremap <Leader>p <c-w>z
+autocmd FileType netrw nnoremap P <c-w>z
 
 " https://vi.stackexchange.com/questions/14622/how-can-i-close-the-netrw-buffer
 autocmd FileType netrw setl bufhidden=wipe
 "let g:netrw_fastbrowse = 0
 autocmd FileType netrw nmap <buffer> h -
 autocmd FileType netrw nmap <buffer> l gn
-autocmd FileType netrw nmap <buffer> v :Vifm<cr>
+autocmd FileType netrw nmap <buffer> v i:Vifm<cr>
 
 " ------------------------------------------------------------------Mappings
 " set spell spelllang=en_nz " ]s [s ]S [S " next spelling error
