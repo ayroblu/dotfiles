@@ -3,7 +3,7 @@ autocmd BufNewFile,BufRead .vimrc-plugins setl foldexpr=GetPlugFold(v:lnum)
 
 " Inspiration: https://vi.stackexchange.com/questions/3814/is-there-a-best-practice-to-fold-a-vimrc-file
 function! GetPlugFold(lnum)
-  if getline(a:lnum) =~? '^" ==='
+  if getline(a:lnum) =~? '^" ===' || getline(a:lnum) =~? '^ *"Plug'
     return '0'
   endif
   if getline(a:lnum) =~? '\v^Plug'
@@ -507,7 +507,7 @@ let g:ale_open_list=0
 
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 " Due to a bug in colorscheme and lack of releases, use master
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Hopefully this will replace ale and some of the others
 let g:coc_global_extensions = [
       \'coc-metals',

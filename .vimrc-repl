@@ -161,10 +161,10 @@ function! ReplSetPane()
         \})
 endfunction
 
-xnoremap <leader>w :call ReplSendSelection()<cr>
-nnoremap <leader>w :call ReplSendCurrentLine()<cr>j
-nnoremap <leader>q :call ReplClose()<cr>
-nnoremap <leader>p :call ReplSetPane()<cr>
+xnoremap <leader>rw :call ReplSendSelection()<cr>
+nnoremap <leader>rw :call ReplSendCurrentLine()<cr>j
+nnoremap <leader>rp :call ReplClose()<cr>
+nnoremap <leader>rp :call ReplSetPane()<cr>
 "<leader>e: Run lines and output (selection or whole file)"
 "<leader>w: Run repl and push lines (selection or current line)"
 "<leader>q: Close repl"

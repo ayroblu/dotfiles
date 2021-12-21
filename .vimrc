@@ -512,14 +512,11 @@ map <leader>u :call HandleURL()<cr>
 "autocmd BufEnter * silent! normal! g`"
 
 " A few personal aliases that make editing certain files easier
-command Cvim :n ~/.vimrc
-command Czsh :n ~/.zshrc*
-command Cbash :n ~/.bashrc*
-command Ctmux :n ~/.tmux.conf
-command Cnotes :n ~/Dropbox/Notes/*
-command Notes :n ~/Dropbox/Notes/Notes.md
+command Notes :n ~/Dropbox/Notes/Notes.md ~/Dropbox/Notes/* ~/Dropbox/Documents/twitter/*.md
 
-nnoremap <leader>n :Notes<cr>
+nnoremap <leader>nn :Notes<cr>
+nnoremap <leader>nd :tabe<cr>:lcd ~/ws/dotfiles<cr>:n ~/ws/dotfiles/.sharedshrc<cr>
+nnoremap <leader>nv :tabe<cr>:lcd ~/<cr>:n ~/.vimrc<cr>
 
 " clear auto commands with !au (if you want) and reload vim, can use RestartVim in MacVim?
 command Reload :au! | so ~/.vimrc
