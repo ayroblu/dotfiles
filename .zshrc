@@ -93,29 +93,20 @@ _fix_cursor() {
 
 precmd_functions+=(_fix_cursor)
 
-# ---------------------------------- Other
-
-[ -f ~/.zshrc-comp ] && source ~/.zshrc-comp
-[ -f ~/.sharedshrc ] && source ~/.sharedshrc
-[ -f ~/.zshrc-personal ] && source ~/.zshrc-personal
-if exists fzf; then
-  [ -f ~/.zshrc-fzf ] && source ~/.zshrc-fzf
-  [ -f ~/.zshrc-fzf-completion ] && source ~/.zshrc-fzf-completion
-fi
-[ -f ~/.zshrc-prompt ] && source ~/.zshrc-prompt
-[ -f ~/.zshrc-extras ] && source ~/.zshrc-extras
-
+# ----------- other
 # homebrew lesspipe.sh
 #export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
+[ -d "$HOMEBREW_PREFIX"/share/zsh/site-functions ] && fpath=("$HOMEBREW_PREFIX"/share/zsh/site-functions $fpath)
 
 # ------------------------------------------------------ zsh plugins
+# Using personal custom plugin manager
 [ -f ~/.zshrc-plugin-manager ] && source ~/.zshrc-plugin-manager
-# Has to be last
-# These add significant perf cost to typing!
-# Using custom plugin manager
+# Plugins may add significant perf cost to typing
+# Press ctrl-k to disable all plugins
 
 zplug 'zsh-users/zsh-completions'
 fpath=($ZPLUG_DIR/zsh-completions/src $fpath)
+
 # rm -f ~/.zcompdump; compinit # you might need this to clear cache
 
 # fzf-tab must come before autosuggestions and fsh
@@ -156,3 +147,17 @@ disable-zsh-plugins() {
 }
 zle -N disable-zsh-plugins
 bindkey '^K' disable-zsh-plugins
+
+# ---------------------------------- dependents
+
+[ -f ~/.sharedshrc ] && source ~/.sharedshrc
+[ -f ~/.zshrc-personal ] && source ~/.zshrc-personal
+if exists fzf; then
+  [ -f ~/.zshrc-fzf ] && source ~/.zshrc-fzf
+  [ -f ~/.zshrc-fzf-completion ] && source ~/.zshrc-fzf-completion
+fi
+[ -f ~/.zshrc-prompt ] && source ~/.zshrc-prompt
+[ -f ~/.zshrc-extras ] && source ~/.zshrc-extras
+# Must come after last fpath change
+[ -f ~/.zshrc-comp ] && source ~/.zshrc-comp
+
