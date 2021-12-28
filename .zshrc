@@ -157,7 +157,7 @@ if exists fzf; then
   [ -f ~/.zshrc-fzf-completion ] && source ~/.zshrc-fzf-completion
 fi
 [ -f ~/.zshrc-prompt ] && source ~/.zshrc-prompt
-[ -f ~/.zshrc-extras ] && source ~/.zshrc-extras
 # Must come after last fpath change
 [ -f ~/.zshrc-comp ] && source ~/.zshrc-comp
+[ -f ~/.zshrc-extras ] && source ~/.zshrc-extras
 
