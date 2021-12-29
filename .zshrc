@@ -1,4 +1,33 @@
 #echo "zshrc loading..."
+get-time() {
+  perl -MTime::HiRes=time -e 'printf "%.3f\n", time'
+}
+
+TIMER_INIT=$(get-time)
+TIMER=()
+TIMER_NAMES=()
+
+append-time() {
+  #return
+  local name="$1"
+  TIMER_NAMES+=("$name")
+  TIMER+=($(get-time))
+}
+print-time() {
+  #return
+  if ((TIMER[-1]-TIMER_INIT<1)); then return; fi
+
+  local arraylength=${#TIMER[@]}
+  local diff
+  local previous=$TIMER_INIT
+
+  for (( i=1; i<=${arraylength}; i++ )); do
+    since_start=$(printf "%.2f" $((TIMER[$i]-TIMER_INIT)))
+    diff=$(printf "%.2f" $((TIMER[$i]-previous)))
+    echo "${since_start}s\t+${diff}s\t${TIMER_NAMES[$i]}"
+    previous="${TIMER[$i]}"
+  done
+}
 # benchmark with: for i in $(seq 1 10); do /usr/bin/time /bin/zsh -d -i -c exit; done
 #   -f to run without .zshrc
 # OR: Add zmodload zsh/zprof at the top of your ~/.zshrc and zprof at the bottom
@@ -103,26 +132,38 @@ source-if-exists() {
 #export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
 [ -d "$HOMEBREW_PREFIX"/share/zsh/site-functions ] && fpath=("$HOMEBREW_PREFIX"/share/zsh/site-functions $fpath)
 
+append-time "zshrc configured"
 # ------------------------------------------------------ zsh plugins
 # Using personal custom plugin manager
 source-if-exists ~/.zshrc-plugin-manager
+append-time "zshrc plugins manager"
 source-if-exists ~/.zshrc-plugins
+append-time "zshrc plugins"
 
 # ---------------------------------- dependents
 
 source-if-exists ~/.sharedshrc
+append-time "zshrc shared"
 source-if-exists ~/.zshrc-personal
+append-time "zshrc personal"
 if exists fzf; then
   source-if-exists ~/.zshrc-fzf
   source-if-exists ~/.zshrc-fzf-completion
 fi
+append-time "zshrc fzf"
 source-if-exists ~/.zshrc-prompt
+append-time "zshrc prompt"
 # Must come after last fpath change
 source-if-exists ~/.zshrc-comp
+append-time "zshrc comp"
 source-if-exists ~/.zshrc-extras
+append-time "zshrc extras"
 
 # https://superuser.com/questions/91881/invoke-zsh-having-it-run-a-command-and-then-enter-interactive-mode-instead-of
 if [ -n "$RUN" ]; then
   echo "$ $RUN"
   eval "$RUN"
 fi
+
+append-time "End"
+print-time
