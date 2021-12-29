@@ -12,6 +12,7 @@ append-time() {
   local name="$1"
   TIMER_NAMES+=("$name")
   TIMER+=($(get-time))
+  #echo "$name"
 }
 print-time() {
   #return

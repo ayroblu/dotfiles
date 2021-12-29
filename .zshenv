@@ -5,7 +5,8 @@
 #fi
 
 SHELL_SESSIONS_DISABLE=1
-if [ -f ~/preload/.zshrc ]; then
-  export ZDOTDIR="$HOME/preload"
-fi
+# Perhaps not worth it, profiling should help here
+#if [ -f ~/preload/.zshrc ] && [ -z "$PRELOAD" ]; then
+#  export ZDOTDIR="$HOME/preload"
+#fi
 
