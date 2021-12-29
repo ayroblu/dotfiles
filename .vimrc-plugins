@@ -301,12 +301,13 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 Plug 'easymotion/vim-easymotion'
 " Mainly use this to search
-" <leader><leader>f<char>
-" <leader><leader>F<char>
-map  <Leader>f <Plug>(easymotion-f)
+" <leader>f<char>
+" <leader><leader>f<char><char>
+map  <Leader>f <Plug>(easymotion-s)
+"map  <Leader>f <Plug>(easymotion-f)
 "nmap <Leader>f <Plug>(easymotion-overwin-f)
-map  <Leader>F <Plug>(easymotion-F)
-map  <Leader><leader>f <Plug>(easymotion-s)
+"map  <Leader>F <Plug>(easymotion-F)
+map  <Leader><leader>f <Plug>(easymotion-s2)
 let g:EasyMotion_do_mapping = 0
 
 Plug 'tpope/vim-vinegar' " Making netrw file management easier
