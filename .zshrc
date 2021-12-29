@@ -1,4 +1,4 @@
-#echo "zsh loading..."
+#echo "zshrc loading..."
 # benchmark with: for i in $(seq 1 10); do /usr/bin/time /bin/zsh -d -i -c exit; done
 #   -f to run without .zshrc
 # OR: Add zmodload zsh/zprof at the top of your ~/.zshrc and zprof at the bottom
@@ -38,11 +38,6 @@ alias -g ......='../../../../..'
 alias md='mkdir -p'
 alias rd=rmdir
 
-# ------------------------------------- functions
-# https://stackoverflow.com/a/34143401
-exists() {
-  command -v "$1" >/dev/null 2>&1
-}
 # -------------------------------------- Misc
 setopt interactive_comments # support # comments
 setopt long_list_jobs # todo: not sure yet
@@ -93,6 +88,16 @@ _fix_cursor() {
 
 precmd_functions+=(_fix_cursor)
 
+# ------------------------------------- functions
+# https://stackoverflow.com/a/34143401
+exists() {
+  command -v "$1" >/dev/null 2>&1
+}
+source-if-exists() {
+  local file="$1"
+  [ -f "$file" ] && source "$file"
+}
+
 # ----------- other
 # homebrew lesspipe.sh
 #export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
@@ -100,64 +105,24 @@ precmd_functions+=(_fix_cursor)
 
 # ------------------------------------------------------ zsh plugins
 # Using personal custom plugin manager
-[ -f ~/.zshrc-plugin-manager ] && source ~/.zshrc-plugin-manager
-# Plugins may add significant perf cost to typing
-# Press ctrl-k to disable all plugins
-
-zplug 'zsh-users/zsh-completions'
-fpath=($ZPLUG_DIR/zsh-completions/src $fpath)
-
-# rm -f ~/.zcompdump; compinit # you might need this to clear cache
-
-# fzf-tab must come before autosuggestions and fsh
-zplug 'Aloxaf/fzf-tab'
-# Match fzf height, necessary for showing normal height previews
-export FZF_TMUX_HEIGHT='60%'
-# set descriptions format to enable group support
-zstyle ':completion:*:descriptions' format '[%d]'
-# set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# switch group using `,` and `.` -- useful for zs<tab>
-zstyle ':fzf-tab:*' switch-group ',' '.'
-# Default colour is white, doesn't work on light colour schemes
-zstyle ':fzf-tab:*' default-color $fg[default]
-# Default is tab is down? See PR #22. Reverts to default
-zstyle ':fzf-tab:complete:*' fzf-bindings 'tab:toggle+down'
-# https://github.com/Aloxaf/fzf-tab/wiki/Preview
-# systemctl e.g. systemctl restart
-zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
-# env vars
-zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
-# preview files, breaks on other stuff
-zstyle ':fzf-tab:complete:*:*' fzf-preview 'preview-unknown "${(Q)realpath}" $group $desc'
-
-zplug 'zsh-users/zsh-autosuggestions'
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=14'
-
-zplug 'zsh-users/zsh-syntax-highlighting'
-disable-zsh-syntax-highlighting() {
-  ZSH_HIGHLIGHT_MAXLENGTH=0
-  region_highlight=()
-}
-
-disable-zsh-plugins() {
-  disable-fzf-tab
-  disable-zsh-syntax-highlighting
-  _zsh_autosuggest_disable
-}
-zle -N disable-zsh-plugins
-bindkey '^K' disable-zsh-plugins
+source-if-exists ~/.zshrc-plugin-manager
+source-if-exists ~/.zshrc-plugins
 
 # ---------------------------------- dependents
 
-[ -f ~/.sharedshrc ] && source ~/.sharedshrc
-[ -f ~/.zshrc-personal ] && source ~/.zshrc-personal
+source-if-exists ~/.sharedshrc
+source-if-exists ~/.zshrc-personal
 if exists fzf; then
-  [ -f ~/.zshrc-fzf ] && source ~/.zshrc-fzf
-  [ -f ~/.zshrc-fzf-completion ] && source ~/.zshrc-fzf-completion
+  source-if-exists ~/.zshrc-fzf
+  source-if-exists ~/.zshrc-fzf-completion
 fi
-[ -f ~/.zshrc-prompt ] && source ~/.zshrc-prompt
+source-if-exists ~/.zshrc-prompt
 # Must come after last fpath change
-[ -f ~/.zshrc-comp ] && source ~/.zshrc-comp
-[ -f ~/.zshrc-extras ] && source ~/.zshrc-extras
+source-if-exists ~/.zshrc-comp
+source-if-exists ~/.zshrc-extras
 
+# https://superuser.com/questions/91881/invoke-zsh-having-it-run-a-command-and-then-enter-interactive-mode-instead-of
+if [ -n "$RUN" ]; then
+  echo "$ $RUN"
+  eval "$RUN"
+fi

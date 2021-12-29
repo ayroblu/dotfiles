@@ -1,4 +1,2 @@
-set -x
-SHELL=/bin/zsh zsh -c "${1:-echo "No command passed"}; zsh"
-# https://stackoverflow.com/questions/13195655/bash-set-x-without-it-being-printed
-{ set +x; } 2>/dev/null
+# https://superuser.com/questions/91881/invoke-zsh-having-it-run-a-command-and-then-enter-interactive-mode-instead-of
+SHELL=/bin/zsh RUN="${1:-echo "No command passed"}" zsh -i -l

@@ -122,10 +122,10 @@ nmap N <Plug>(anzu-N-with-echo)
 "nmap * <Plug>(anzu-star-with-echo)
 "nmap # <Plug>(anzu-sharp-with-echo)
 " https://vim.fandom.com/wiki/Searching#Case_sensitivity
-nnoremap <silent> <Plug>(StarCaseSensitive)  /\<<C-R>=expand('<cword>')<CR>\>\C<CR>
+nnoremap <silent> <Plug>(StarCaseSensitive) /\<<C-R>=expand('<cword>')<CR>\>\C<CR>
 nnoremap <silent> <Plug>(SharpCaseSensitive) ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>
-nmap * <Plug>(anzu-star)<Plug>(StarCaseSensitive)<Plug>(anzu-echo-search-status)
-nmap # <Plug>(anzu-sharp)<Plug>(SharpBackwardsCaseSensitive)<Plug>(anzu-echo-search-status)
+nmap * <Plug>(anzu-star)N<Plug>(StarCaseSensitive)<Plug>(anzu-echo-search-status)
+nmap # <Plug>(anzu-sharp)N<Plug>(SharpBackwardsCaseSensitive)<Plug>(anzu-echo-search-status)
 
 " clear status
 nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
