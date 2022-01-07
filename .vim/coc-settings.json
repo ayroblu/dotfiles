@@ -1,10 +1,10 @@
 {
   "coc.preferences.formatOnSaveFiletypes": [
     "scala",
-    "javascript",
-    "typescript",
-    "typescriptreact",
-    "css",
+    // "javascript",
+    // "typescript",
+    // "typescriptreact",
+    // "css",
     "json",
     "html",
     "rust",
@@ -14,13 +14,13 @@
   // "tslint.autoFixOnSave": true,
   /* "typescript.suggestionActions.enabled": false, */
   /* "javascript.suggestionActions.enabled": false, */
-  "eslint.filetypes": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  "eslint.autoFixOnSave": true,
+  // "eslint.filetypes": [
+  //   "javascript",
+  //   "javascriptreact",
+  //   "typescript",
+  //   "typescriptreact"
+  // ],
+  // "eslint.autoFixOnSave": true,
   // Top level things like scalafmt (but probably should just extend it in the sub repo)
   "coc.preferences.rootPatterns": [],
   "suggest.autoTrigger": "none"

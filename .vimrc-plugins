@@ -484,10 +484,13 @@ autocmd FileType vim,javascript nmap <silent> [j :ALEPreviousWrap<cr>
 " ALE uses prettier only if it's installed - preferred for markdown
 " ALE Fixers are slow compared to Coc, use sparingly
 let g:ale_fixers = {
+\ 'typescript': ['eslint', 'prettier'],
+\ 'typescriptreact': ['eslint', 'prettier'],
+\ 'javascript': ['eslint', 'prettier'],
+\ 'css': ['prettier'],
 \ 'python': ['isort'],
 \ 'terraform': ['terraform'],
 \ 'scala': ['scalafmt'],
-\ 'javascript': ['eslint'],
 \}
 "\ 'markdown': ['prettier'],
 let g:ale_pattern_options = {
@@ -519,7 +522,6 @@ let g:coc_global_extensions = [
       \'coc-metals',
       \'coc-tsserver',
       \'coc-prettier',
-      \'coc-eslint',
       \'coc-json',
       \'coc-vimlsp',
       \'coc-flow',

@@ -168,3 +168,6 @@ fi
 
 append-time "End"
 print-time
+
+# Here for Twitter reasons, go-android adds this back :/
+# source ~/.twitter-android-script # added by Bootstrap
