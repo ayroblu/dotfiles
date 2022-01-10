@@ -40,6 +40,11 @@ zsh_stats() {
     | grep -v "./" | sort -nr | head -20 | column -c3 -s " " -t | nl
 }
 
+# https://superuser.com/questions/561725/put-a-command-in-history-without-executing-it
+to-history() { print -S $BUFFER ; BUFFER= }
+zle -N to-history
+# alt-q macos
+bindkey 'œ' to-history
 
 # # https://stackoverflow.com/a/50830617/6725059
 # function cd() {

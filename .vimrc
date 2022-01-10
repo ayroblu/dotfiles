@@ -259,7 +259,7 @@ function! OpenNetrw()
   execute 'Ex'
   call search(file)
 endfunction
-autocmd FileType netrw nnoremap P <c-w>z
+autocmd FileType netrw nnoremap <buffer> P <c-w>z
 
 " https://vi.stackexchange.com/questions/14622/how-can-i-close-the-netrw-buffer
 autocmd FileType netrw setl bufhidden=wipe
