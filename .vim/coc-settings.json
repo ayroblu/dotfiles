@@ -2,9 +2,9 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "scala",
     // "javascript",
-    // "typescript",
-    // "typescriptreact",
-    // "css",
+    "typescript",
+    "typescriptreact",
+    "css",
     "json",
     "html",
     "rust",
@@ -23,7 +23,7 @@
   // "eslint.autoFixOnSave": true,
   // Top level things like scalafmt (but probably should just extend it in the sub repo)
   "coc.preferences.rootPatterns": [],
-  "suggest.autoTrigger": "none"
+  "suggest.autoTrigger": "none",
 
   // Python only: MPLS takes 2 minutes to start right now, not usable, formatting and linting provided by ale
   // ,"python.jediEnabled": false,

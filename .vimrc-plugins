@@ -486,7 +486,7 @@ autocmd FileType vim,javascript nmap <silent> [j :ALEPreviousWrap<cr>
 let g:ale_fixers = {
 \ 'typescript': ['eslint'],
 \ 'typescriptreact': ['eslint'],
-\ 'javascript': ['eslint'],
+\ 'javascript': ['prettier', 'eslint'],
 \ 'css': [],
 \ 'python': ['isort'],
 \ 'terraform': ['terraform'],

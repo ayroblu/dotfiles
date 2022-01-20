@@ -150,6 +150,7 @@ set foldmethod=syntax
 set foldlevel=20
 
 set nocompatible " fancy vim features
+set modelines=1 " no compatible sets modeline, only check the first line
 
 set updatetime=1000 "event when cursor stops moving for a second, for swp normally, but now is for checktime call below
 " Ignore case except when there atleast one capital, use \C for case sensitive
