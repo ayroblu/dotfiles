@@ -120,7 +120,7 @@ _fzf_complete_bloop() {
     return 1
   fi
 }
-_fzf_complete_bazel() {
+_fzf_complete_bloop() {
   ARGS="$@"
   if [[ $ARGS == 'bloop test '* ]]; then
     local options="$(bloop autocomplete --format zsh --mode projects 2> /dev/null)"
@@ -173,6 +173,17 @@ _fzf_complete_gulp() {
   if [[ $ARGS == 'gulp '* ]]; then
     local options="$(cache_fzf.js 'gulp')"
     _fzf_complete --multi -- "$@" < <(
+      echo $options
+    )
+  else
+    return 1
+  fi
+}
+_fzf_complete_bazel() {
+  ARGS="$@"
+  if [[ $ARGS == 'bazel build '* ]]; then
+    local options="$(bazel query "$(echo "$LBUFFER" | awk '{print $3}')"... 2> /dev/null)"
+    _fzf_complete --multi --preview "bazel query 'deps({})' 2> /dev/null" -- "$@" < <(
       echo $options
     )
   else
