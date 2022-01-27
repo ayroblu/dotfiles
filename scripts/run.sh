@@ -1,6 +1,7 @@
 #!/bin/bash
 mkdir -p ~/bin
-for file in .* bin/* .vim/*; do
+mkdir -p ~/.config
+for file in .* bin/* .vim/* .config/*; do
   list=". .. .git .DS_Store .vim"
   # https://stackoverflow.com/questions/8063228/check-if-a-variable-exists-in-a-list-in-bash
   if ! [[ $list =~ (^|[[:space:]])$file($|[[:space:]]) ]]; then
