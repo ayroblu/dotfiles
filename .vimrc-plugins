@@ -211,7 +211,7 @@ Plug 'tpope/vim-commentary'
 
 "Plug 'vim-scripts/ReplaceWithRegister' "griw to replace inner word with register
 
-Plug $HOMEBREW_PREFIX . '/opt/fzf'
+set rtp+=/usr/local/opt/fzf
 Plug 'junegunn/fzf.vim'
 let g:fzf_layout = { 'down': '50%' }
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md
