@@ -137,17 +137,7 @@ I have yet to confirm this is actually useful, may delete if ctrl-c doesn't work
 Making symlinks
 ---------------
 ```bash
-ln -s ~/ws/dotfiles/.bashrc ~/.bashrc
-```
-
-Write some code to do this:
-```bash
-for file in .*; do
-  if [[ -f $file ]]; then
-    echo ln -s $(pwd)/$file ~/$file
-    ln -s $(pwd)/$file ~/$file
-  fi
-done
+bash scripts/run.sh
 ```
 
 Tmux Setup
@@ -160,7 +150,10 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 Vim Setup
 ---------
-Install plugins with vim-plug then run `:PlugInstall`
+Install vim-plug: https://github.com/junegunn/vim-plug
+Run `:PlugInstall` in vim
+
+Do the same for neovim
 
 FZF setup
 ---------
