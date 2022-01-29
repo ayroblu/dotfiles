@@ -1139,7 +1139,7 @@ call plug#end()
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = {"javascript", "typescript", "tsx"},
+  ensure_installed = {"javascript", "typescript", "tsx", "graphql", "markdown"},
 
   -- Install languages synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -1162,7 +1162,21 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
-autocmd BufReadPost * if getfsize(@%) > 10000 | execute('TSBufDisable highlight') | endif
+"function! GetLongestLineLength()
+"  let maxlength   = 0
+"  let linenumber  = 1
+"  while linenumber <= line("$")
+"    exe ":".linenumber
+"    let linelength  = virtcol("$")
+"    if maxlength < linelength
+"      let maxlength = linelength
+"    endif
+"    let linenumber  = linenumber+1
+"  endwhile
+"endfunction
+"
+"autocmd BufReadPost * if GetLongestLineLength() > 5000 | execute('TSBufDisable highlight') | endif
+"autocmd BufReadPost * if getfsize(@%) > 10000 | execute('TSBufDisable highlight') | endif
 
 " --------------- Finally colour scheme
 set background=light

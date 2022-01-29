@@ -1,10 +1,10 @@
 #!/bin/bash
 mkdir -p ~/bin
-mkdir -p ~/.config
-for file in .* bin/* .vim/* .config/*; do
-  list=". .. .git .DS_Store .vim"
+mkdir -p ~/.config/nvim
+for file in .* bin/* .vim/* .config/nvim/*; do
+  ignorelist=". .. .git .DS_Store .vim .config"
   # https://stackoverflow.com/questions/8063228/check-if-a-variable-exists-in-a-list-in-bash
-  if ! [[ $list =~ (^|[[:space:]])$file($|[[:space:]]) ]]; then
+  if ! [[ $ignorelist =~ (^|[[:space:]])$file($|[[:space:]]) ]]; then
     if [ -e ~/"$file" ]; then
       echo ~/"$file" exists
     else
