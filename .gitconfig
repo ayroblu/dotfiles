@@ -5,6 +5,10 @@
   tool = vimdiff
 [color]
   ui = true
+[color "diff"]
+  meta = blue
+  # https://stackoverflow.com/questions/26941144/how-do-you-customize-the-color-of-the-diff-header-in-git-diff
+  #new = "#55ee55 green bold"
 [alias]
   alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
   # To checkout a file from another branch, git co <branch> -- file

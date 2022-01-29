@@ -45,6 +45,7 @@ colors: *solarized_light
 font:
   normal:
     family: Monaco
+
   # Default is 11
   size: 13.0
 
