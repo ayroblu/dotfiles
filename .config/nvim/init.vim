@@ -545,6 +545,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 Plug 'altercation/vim-colors-solarized'
 "autocmd BufReadPost <buffer> hi MatchParen cterm=bold,underline ctermbg=none ctermfg=red
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -657,6 +658,26 @@ let g:session_autoload = 'no'
 let g:session_default_overwrite = 1
 " Basically you just care about :OpenSession, don't worry about anything else
 " Sometimes you need to worry about :DeleteSession
+
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+if exists('g:started_by_firenvim')
+  let g:firenvim_config = {
+  \  'localSettings': {
+  \    '.*': {
+  \      'takeover': 'never',
+  \    },
+  \  }
+  \}
+  au BufEnter github.com_*.txt set filetype=markdown
+  function RunOnFirenvim(timer)
+    setl guifont=Monaco:h20
+    set background=dark
+    colorscheme tokyonight
+    setl laststatus=0
+  endfunction
+  "au CursorHold *.* call RunOnFirenvim()
+  au BufEnter *.* call timer_start(100, function("RunOnFirenvim"))
+endif
 
 " === Commands and functions
 Plug 'knsh14/vim-github-link'
@@ -1073,6 +1094,8 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
+" Run the Code Lens action on the current line.
+nmap <leader>cl  <Plug>(coc-codelens-action)
 
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
@@ -1176,11 +1199,16 @@ EOF
 "endfunction
 "
 "autocmd BufReadPost * if GetLongestLineLength() > 5000 | execute('TSBufDisable highlight') | endif
-"autocmd BufReadPost * if getfsize(@%) > 10000 | execute('TSBufDisable highlight') | endif
+" autocmd BufReadPost * if getfsize(@%) > 100000 | execute('TSBufDisable highlight') | endif
 
 " --------------- Finally colour scheme
-set background=light
-silent! colorscheme solarized
+if exists('g:started_by_firenvim')
+  set background=dark
+  silent! colorscheme tokyonight
+else
+  set background=light
+  silent! colorscheme solarized
+endif
 hi Normal ctermbg=NONE
 
 " https://github.com/airblade/vim-gitgutter/issues/696
