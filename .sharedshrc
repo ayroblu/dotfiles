@@ -170,7 +170,7 @@ regexReplaceSingle() {
   if [ -f "$FILEDIR" ]; then
     perl -i -pe "BEGIN{undef $/;} s/$BEFORE_ESCAPED/$AFTER/gsm" "$FILEDIR"
   elif [ -d "$FILEDIR" ]; then
-    rg --pcre2 "$BEFORE" --files-with-matches "$FILEDIR" | xargs perl -i -pe "s/$BEFORE/$AFTER/g"
+    rg --pcre2 "$BEFORE" --files-with-matches "$FILEDIR" | xargs perl -i -pe "s/$BEFORE_ESCAPED/$AFTER/g"
   fi
 }
 # files: rename 's/^/MyVacation2011_/g' *.jpg

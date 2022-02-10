@@ -37,7 +37,7 @@ _fzf_compgen_dir() {
 }
 
 ## FZF setup variables - use git ls-files cause it's way faster
-default-fzf-cmd() {
+git-ls-files() {
   git ls-files 2> /dev/null || rg --files --hidden --glob "!.git" -M 200 2> /dev/null
 }
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -65,6 +65,17 @@ fzf-dir-widget() {
 zle -N fzf-dir-widget
 bindkey '^e^e' fzf-dir-widget
 bindkey -r "^E"
+
+fzf-git-ls-files() {
+  git ls-files | fzf
+}
+fzf-git-ls-files-widget() {
+  local result=$(fzf-git-ls-files | join-lines)
+  zle reset-prompt
+  LBUFFER+=$result
+}
+zle -N fzf-git-ls-files-widget
+bindkey '^e^s' fzf-git-ls-files-widget
 
 fzf-yank-history-widget() {
   local selected num
