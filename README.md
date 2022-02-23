@@ -169,7 +169,7 @@ First create symlink to the settings file
 ```bash
 # https://code.visualstudio.com/docs/getstarted/settings#_settings-file-locations
 # ln -s <dest> <link-file-name>
-rmtrash "$HOME/Library/Application Support/Code/User/settings.json"
+trash "$HOME/Library/Application Support/Code/User/settings.json"
 ln -s "$HOME/ws/dotfiles/vscode_settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
 ```
 

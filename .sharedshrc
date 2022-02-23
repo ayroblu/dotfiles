@@ -196,3 +196,22 @@ mergepdf() {
 }
 # Also consider using ocrmypdf if you want to search it
 # https://unix.stackexchange.com/questions/301318/how-to-ocr-a-pdf-file-and-get-the-text-stored-within-the-pdf
+
+videoToGif() {
+  local filename="$1"
+  local new_filename="${filename%.*}.gif"
+  # https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/
+  ffmpeg -i "$filename" -filter_complex "[0:v] fps=12,split [a][b];[a] palettegen [p];[b][p] paletteuse" "$new_filename"
+}
+videoToGif480() {
+  local filename="$1"
+  local new_filename="${filename%.*}.480.gif"
+  # https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/
+  ffmpeg -i "$filename" -filter_complex "[0:v] fps=12,scale=480:-1,split [a][b];[a] palettegen [p];[b][p] paletteuse" "$new_filename"
+}
+videoToGif1280() {
+  local filename="$1"
+  local new_filename="${filename%.*}.1280.gif"
+  # https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/
+  ffmpeg -i "$filename" -filter_complex "[0:v] fps=12,scale=1280:-1,split [a][b];[a] palettegen [p];[b][p] paletteuse" "$new_filename"
+}

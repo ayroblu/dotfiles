@@ -399,7 +399,7 @@ function! MyFoldText()
 
   return sub . info
 endfunction
-setl foldexpr=GetLineFold(v:lnum)
+autocmd FileType vim setl foldexpr=GetLineFold(v:lnum)
 
 " Inspiration: https://vi.stackexchange.com/questions/3814/is-there-a-best-practice-to-fold-a-vimrc-file
 function! GetLineFold(lnum)
@@ -1060,6 +1060,9 @@ let g:coc_global_extensions = [
 " vscode + coc config uses jsonc
 " https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
 autocmd FileType json syntax match Comment +\/\/.\+$+
+" https://github.com/neoclide/coc-json/issues/11
+" tsconfig.json is actually jsonc, help TypeScript set the correct filetype
+autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
@@ -1146,6 +1149,18 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
+" https://github.com/neoclide/coc.nvim/issues/349
+let s:coc_denylist = ['markdown']
+function! s:disable_coc_for_type()
+  if index(s:coc_denylist, &filetype) != -1
+    let b:coc_enabled = 0
+  endif
+endfunction
+augroup CocGroup
+  autocmd!
+  autocmd BufNew,BufEnter * call s:disable_coc_for_type()
+augroup end
+
 Plug 'antoinemadec/coc-fzf'
 " :CocFzfList
 " :CocFzfList diagnostics
@@ -1185,6 +1200,9 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+
 "function! GetLongestLineLength()
 "  let maxlength   = 0
 "  let linenumber  = 1

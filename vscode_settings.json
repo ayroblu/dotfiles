@@ -327,5 +327,8 @@
     "**/.metals": true,
     "**/.ammonite": true
   },
-  "metals.showImplicitArguments": true
+  "metals.showImplicitArguments": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

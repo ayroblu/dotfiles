@@ -18,7 +18,8 @@
   // Top level things like scalafmt (but probably should just extend it in the sub repo)
   "coc.preferences.rootPatterns": [],
   "suggest.autoTrigger": "none",
-
+  "prettier.onlyUseLocalVersion": true,
+  "typescript.autoClosingTags": true,
   // Python only: MPLS takes 2 minutes to start right now, not usable, formatting and linting provided by ale
   // ,"python.jediEnabled": false,
   // "python.linting.pylintEnabled": false,
@@ -32,7 +33,6 @@
   // "python.formatting.blackArgs": ["-l 100"],
   // "python.formatting.blackPath": "cblack",
   // "python.sortImports.args": ["--settings-path=${workspaceFolder}"]
-
   // "languageserver": {
   //   "terraform": {
   //     "command": "terraform-ls",
