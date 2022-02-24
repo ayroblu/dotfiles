@@ -19,7 +19,7 @@
   "coc.preferences.rootPatterns": [],
   "suggest.autoTrigger": "none",
   "prettier.onlyUseLocalVersion": true,
-  "typescript.autoClosingTags": true,
+  "typescript.autoClosingTags": false,
   // Python only: MPLS takes 2 minutes to start right now, not usable, formatting and linting provided by ale
   // ,"python.jediEnabled": false,
   // "python.linting.pylintEnabled": false,
