@@ -538,6 +538,16 @@ endfunction
 com! DiffGitSaved call s:DiffGitWithSaved()
 nmap <leader>d :DiffGitSaved<CR>
 
+" -------------------------------- REPL + code execution
+if !empty(glob("~/.vimrc-repl"))
+  so ~/.vimrc-repl
+endif
+
+" -------------------------------- My own links plugin
+" Should eventually superseed: knsh14/vim-github-link
+if !empty(glob("~/.vimrc-links"))
+  so ~/.vimrc-links
+endif
 
 " ---------------------------------------- plugin settings
 "set shortmess-=F

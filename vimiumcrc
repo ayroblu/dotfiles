@@ -44,3 +44,4 @@ map ti LinkHints.activateDownloadImage
 map te LinkHints.activateEdit
 map <c-t:i> Vomnibar.activateTabSelection
 map <c-b:i> Vomnibar.activateBookmarksInNewTab
+map yt copyCurrentTitle

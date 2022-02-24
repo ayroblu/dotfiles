@@ -16,7 +16,7 @@ autocmd FileType python let b:repl_shell_command = 'python'
 autocmd FileType matlab let b:repl_shell_command = 'octave'
 autocmd FileType sh let b:repl_shell_command = 'bash'
 
-fun! RunScript() range
+fun! RunScript(whole_file) range
   if empty(b:repl_shell_command)
     echo 'No shell command'
     return
@@ -27,10 +27,15 @@ fun! RunScript() range
   let l:shell_command .= b:repl_shell_command . ' < ' . s:tempfilename . " && "
   let l:shell_command .= 'echo ''=================='''
 
-  let l:textlist = GetSelectedTextAsList()
-  if len(l:textlist) == 0
+  if a:whole_file
     let l:textlist = getline(1, '$')
+  else
+    let l:textlist = GetSelectedTextAsList()
+    if len(l:textlist) == 0
+      let l:textlist = getline(1, '$')
+    endif
   endif
+
   let whitespace = matchstr(l:textlist[0], '^\s*')
   call map(l:textlist, 'strpart(v:val, ' . strlen(whitespace) . ')')
   call writefile(l:textlist, s:tempfilename, 's')
@@ -53,8 +58,8 @@ fun! GetSelectedTextAsList()
   let lines[0] = lines[0][col1 - 1:]
   return lines
 endfun
-xnoremap <leader>e :call RunScript()<cr>
-nnoremap <leader>e :call RunScript()<cr>
+xnoremap <leader>e :call RunScript(0)<cr>
+nnoremap <leader>e :call RunScript(1)<cr>
 
 " Tmux splitting
 function GetActiveTmuxPane()

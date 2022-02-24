@@ -5,8 +5,8 @@
   tool = vimdiff
 [color]
   ui = true
-[color "diff"]
-  meta = blue
+# [color "diff"]
+#   meta = blue
   # https://stackoverflow.com/questions/26941144/how-do-you-customize-the-color-of-the-diff-header-in-git-diff
   #new = "#55ee55 green bold"
 [alias]
@@ -65,7 +65,9 @@
   dt = difftool
   # Diff upstream
   #du = !git diff $(git merge-base HEAD $(git upstream))...HEAD
-  du = "!cd \"${GIT_PREFIX:-.}\"; git diff $(git merge-base HEAD $(git upstream))...HEAD"
+  # Why did I need the git prefix? Must have a reason
+  #du = "!cd \"${GIT_PREFIX:-.}\"; git diff $(git merge-base HEAD $(git upstream))...HEAD"
+  du = "!git diff $(git merge-base HEAD $(git upstream))"
   #du = "!f() { git diff $(git merge-base HEAD $(git upstream)) \"$@\"; }; f"
   dw = d --color-words
   dc = d --color-words=.
@@ -159,3 +161,19 @@
   postBuffer = 524288000
 [init]
   defaultBranch = main
+
+# from delta page
+[core]
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true  # use n and N to move between diff sections
+  line-numbers = true
+  side-by-side = true
+  theme = Solarized (light)
+[merge]
+  conflictstyle = diff3
+[diff]
+  colorMoved = default
+
