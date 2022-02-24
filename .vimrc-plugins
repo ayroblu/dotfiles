@@ -164,6 +164,8 @@ Plug 'PeterRincker/vim-argumentative'
 
 " Plug 'terryma/vim-multiple-cursors'
 
+Plug 'tpope/vim-projectionist'
+
 Plug 'junegunn/vim-easy-align'
 xmap ga <Plug>(EasyAlign)
 " vipga= " Visual Inner Paragraph (ga) align =

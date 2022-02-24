@@ -701,6 +701,21 @@ Plug 'tpope/vim-unimpaired'
 " I only download this for the conflict mapping ]n and [n
 
 Plug 'tpope/vim-projectionist'
+let g:projectionist_heuristics = {
+  \ "package.json": {
+  \    "src/*.tsx": {
+  \      "alternate": "src/{}.module.css",
+  \      "type": "source",
+  \    },
+  \    "src/*.module.css": {
+  \      "alternate": "src/{}.tsx",
+  \      "type": "css",
+  \    }
+  \  }
+  \}
+nnoremap <leader>ps :Esource<cr>
+nnoremap <leader>pt :Etest<cr>
+nnoremap <leader>pc :Ecss<cr>
 
 Plug 'tpope/vim-abolish'
 " crs - coerce_snake_case
