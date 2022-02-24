@@ -1,4 +1,4 @@
-#!$HOMEBREW_PREFIX/bin/node
+#!/usr/local/bin/node
 const fs = require("fs");
 const path = require("path");
 const { execSync } = require("child_process");

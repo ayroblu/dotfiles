@@ -1,4 +1,4 @@
-" ----------------------------------------------------------- Personal Help
+" ---------------------------------------- Personal Help
 function ShowPersonalHelp()
   let l:text = GetPersonalHelpText()
 
@@ -92,7 +92,8 @@ function GetPersonalHelpText()
   endif
   return l:text
 endfunction
-" ------------------------------------------------------------Main layout
+
+" ---------------------------------------- Main layout
 
 set shiftwidth=2
 set softtabstop=2
@@ -190,7 +191,7 @@ set list
 
 let mapleader=' '
 
-" ------------------------------------------------------------- netrw
+" ---------------------------------------- netrw
 
 " netrw is kinda a plugin? Makes it a tree FYI
 " https://shapeshed.com/vim-netrw/#nerdtree-like-setup
@@ -217,7 +218,7 @@ autocmd FileType netrw nmap <buffer> h -
 autocmd FileType netrw nmap <buffer> l gn
 autocmd FileType netrw nmap <buffer> v i:Vifm<cr>
 
-" ------------------------------------------------------------------Mappings
+" ---------------------------------------- Mappings
 " set spell spelllang=en_nz " ]s [s ]S [S " next spelling error
 nnoremap <Leader>s :setl spell!<CR>
 
@@ -339,7 +340,7 @@ nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
 "autocmd FileType rust xnoremap <buffer> <leader>e :w !echo 'fn main() {' "$(cat)" '}' > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
 "autocmd FileType rust xnoremap <buffer> <leader><leader>e :w !echo "$(cat)" > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
 
-" ------ Allow undo in insert mode
+" ---------------------------------------- Allow undo in insert mode
 inoremap <c-u> <esc>ua
 " https://vi.stackexchange.com/questions/16773/how-to-undo-the-deletion-of-characters-in-insert-mode-caused-by-ctrl-u
 " Break on cr so that you can undo an enter with indenting
@@ -355,13 +356,13 @@ nnoremap n nzz
 nnoremap Q <nop>
 "nnoremap K <nop> " already remaped elsewhere
 
-" ----------------------------- Reload page on change
+" ---------------------------------------- Reload page on change
 "Before
 "au CursorHold * checktime
 "After with https://vi.stackexchange.com/questions/14315/how-can-i-tell-if-im-in-the-command-window
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
 
-"-----------------------------Functions and commands
+" ---------------------------------------- Functions and commands
 " https://vim.fandom.com/wiki/Customize_text_for_closed_folds
 " Set a nicer foldtext function
 set foldtext=MyFoldText()
@@ -405,6 +406,9 @@ autocmd FileType vim setl foldexpr=GetLineFold(v:lnum)
 function! GetLineFold(lnum)
   if getline(a:lnum) =~? '\v^.*-{5}'
     return '>1'
+  endif
+  if getline(a:lnum) =~? '\v^.*[=]{3}'
+    return '>2'
   endif
   return '='
 endfunction
@@ -484,7 +488,7 @@ endfunction
 
 nnoremap <Leader>ygp :call <SID>CopyGitPath()<CR>
 
-" ---------------------------------------------From Damian Conway
+" ---------------------------------------- From Damian Conway
 " https://github.com/ninrod/damian_conway_oscon_2013_tarball
 " Color column 80th column
 "highlight ColorColumn ctermbg=magenta
@@ -495,7 +499,7 @@ highlight ColorColumn ctermbg=magenta
 set colorcolumn=+1
 
 
-" ---------------------------------------------Stuff I don't really understand
+" ---------------------------------------- Stuff I don't really understand
 
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
@@ -535,7 +539,7 @@ com! DiffGitSaved call s:DiffGitWithSaved()
 nmap <leader>d :DiffGitSaved<CR>
 
 
-"" --------------------------plugin settings
+" ---------------------------------------- plugin settings
 "set shortmess-=F
 autocmd BufReadPost * if getfsize(@%) > 10000 | execute('NoMatchParen') | endif
 "let g:loaded_matchparen=1
@@ -555,7 +559,7 @@ let g:airline#extensions#branch#empty_message='no repo'
 let g:airline_theme='solarized'
 
 
-" === Hooks
+" ======= Hooks
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
@@ -695,6 +699,8 @@ xmap ga <Plug>(EasyAlign)
 
 Plug 'tpope/vim-unimpaired'
 " I only download this for the conflict mapping ]n and [n
+
+Plug 'tpope/vim-projectionist'
 
 Plug 'tpope/vim-abolish'
 " crs - coerce_snake_case
@@ -1010,7 +1016,7 @@ autocmd FileType vim,javascript nmap <silent> [j :ALEPreviousWrap<cr>
 let g:ale_fixers = {
 \ 'typescript': [],
 \ 'typescriptreact': [],
-\ 'javascript': ['prettier'],
+\ 'javascript': [],
 \ 'css': [],
 \ 'python': ['isort'],
 \ 'terraform': ['terraform'],
@@ -1173,7 +1179,7 @@ augroup END
 
 call plug#end()
 
-" ------------ plugin after setups
+" ---------------------------------------- plugin after setups
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   -- One of "all", "maintained" (parsers with maintainers), or a list of languages
@@ -1219,7 +1225,7 @@ set foldexpr=nvim_treesitter#foldexpr()
 "autocmd BufReadPost * if GetLongestLineLength() > 5000 | execute('TSBufDisable highlight') | endif
 " autocmd BufReadPost * if getfsize(@%) > 100000 | execute('TSBufDisable highlight') | endif
 
-" --------------- Finally colour scheme
+" ---------------------------------------- Finally colour scheme
 if exists('g:started_by_firenvim')
   set background=dark
   silent! colorscheme tokyonight
