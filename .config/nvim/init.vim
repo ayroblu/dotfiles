@@ -735,6 +735,30 @@ function! g:projectionist_transformations.testify(input, o) abort
   endif
 endfunction
 
+
+function! g:projectionist_transformations.strato_to_scala(input, o) abort
+  let strato_spaces_exclude = ['GraphQlQuery']
+
+  let pattern = '\v(.*)/(\w+)(\.(\w+))?'
+  let match = matchlist(a:input, pattern)
+  let name = substitute(match[2], '\v(^|_)(\a)', '\u\2', 'g')
+  let name_prefix = index(strato_spaces_exclude, match[4]) == -1 && len(match[4]) > 0 ? match[4] : ''
+  let result = match[1] . '/' . name_prefix . name
+  return result
+  " return a:input
+endfunction
+
+function! g:projectionist_transformations.scala_to_strato(input, o) abort
+  let strato_spaces_include = ['Tweet', 'User', 'Professional']
+
+  let pattern = '\v(.*)/(Tweet|User|Professional)?(\w+)?'
+  let match = matchlist(a:input, pattern)
+  let name = substitute(match[3], '\v(^|_)(\a)', '\l\2', 'g')
+  let space_suffix = len(match[2]) > 0 ? '.' . match[2] : ''
+  let result = match[1] . '/' . name . space_suffix
+  return result
+endfunction
+
 let g:projectionist_heuristics = {
   \ 'package.json': {
   \    'src/*.ts': {
@@ -760,7 +784,7 @@ let g:projectionist_heuristics = {
   \    'src/*.module.css': {
   \      'alternate': 'src/{}.tsx',
   \      'type': 'css',
-  \    }
+  \    },
   \  },
   \  'src/main/&src/test/': {
   \    'src/main/*.scala': {
@@ -771,7 +795,17 @@ let g:projectionist_heuristics = {
   \      'alternate': 'src/main/{}.scala',
   \      'type': 'test',
   \    }
-  \  }
+  \  },
+  \  'strato/': {
+  \    'strato/config/columns/*.strato': {
+  \      'alternate': 'strato/config/test/scala/com/twitter/strato/config/columns/{strato_to_scala}Test.scala',
+  \      'type': 'source',
+  \    },
+  \    'strato/config/test/scala/com/twitter/strato/config/columns/*Test.scala': {
+  \      'alternate': 'strato/config/columns/{scala_to_strato}.strato',
+  \      'type': 'test',
+  \    },
+  \  },
   \}
 nnoremap <leader>ps :Esource<cr>
 nnoremap <leader>pt :Etest<cr>
@@ -1124,19 +1158,33 @@ Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lock
 " Due to a bug in colorscheme and lack of releases, use master
 "-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Hopefully this will replace ale and some of the others
-let g:coc_global_extensions = [
-      \'coc-metals',
-      \'coc-tsserver',
-      \'coc-prettier',
-      \'coc-json',
-      \'coc-vimlsp',
-      \'coc-flow',
-      \'coc-rls',
-      \'coc-go',
-      \'coc-sourcekit',
-      \'coc-yaml',
-      \'coc-css'
-      \]
+
+" All extensions, see: https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
+Plug 'amiralies/coc-flow', {'do': 'yarn install --frozen-lockfile'}
+Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
+Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
+Plug 'klaaspieter/coc-sourcekit', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+Plug 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
+
+" let g:coc_global_extensions = [
+"       \'coc-metals',
+"       \'coc-tsserver',
+"       \'coc-prettier',
+"       \'coc-json',
+"       \'coc-vimlsp',
+"       \'coc-flow',
+"       \'coc-rls',
+"       \'coc-go',
+"       \'coc-sourcekit',
+"       \'coc-yaml',
+"       \'coc-css'
+"       \]
       "\'coc-graphql',
       "\"coc-python',
 " vscode + coc config uses jsonc
@@ -1253,35 +1301,6 @@ augroup typescriptreact
   autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 augroup END
 
-" Plugins for Metals, a language server for Scala
-Plug 'nvim-lua/plenary.nvim'
-Plug 'scalameta/nvim-metals'
-
-" Plugins to provide code completion
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/nvim-cmp'
-
-nnoremap <silent> <C-]>       <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K           <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gi          <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> gr          <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <C-s>       <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> <C-p>       <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <silent> <leader>r   <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> <leader>f   <cmd>lua vim.lsp.buf.formatting()<CR>
-nnoremap <silent> <leader>a   <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent> <leader>w   <cmd>lua require'metals'.hover_worksheet()<CR>
-nnoremap <silent> [c          <cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>
-nnoremap <silent> ]c          <cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>
-set shortmess+=c
-set shortmess-=F
-
-augroup lsp
-  autocmd!
-  autocmd FileType scala,sbt lua require("metals").initialize_or_attach(metals_config)
-  autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc
-augroup end
-
 call plug#end()
 
 " ---------------------------------------- plugin after setups
@@ -1310,36 +1329,6 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
-
--- Configure completion
-local cmp = require'cmp'
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
-  mapping = {
-    ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
-    ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
-    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-  },
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-  })
-})
-
--- Configure Metals
-metals_config = require("metals").bare_config()
-metals_config.settings = {
-  showImplicitArguments = true,
-  showImplicitConversionsAndClasses = true,
-  showInferredType = true,
-}
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-metals_config.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 EOF
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
