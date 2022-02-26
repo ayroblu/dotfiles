@@ -550,7 +550,7 @@ if !empty(glob("~/.vimrc-links"))
 endif
 
 " ---------------------------------------- plugin settings
-"set shortmess-=F
+set shortmess-=F
 autocmd BufReadPost * if getfsize(@%) > 10000 | execute('NoMatchParen') | endif
 "let g:loaded_matchparen=1
 
@@ -712,6 +712,9 @@ Plug 'tpope/vim-unimpaired'
 " I only download this for the conflict mapping ]n and [n
 
 Plug 'tpope/vim-projectionist'
+
+"Plug 'c-brenn/fuzzy-projectionist.vim'
+
 if !exists('g:projectionist_transformations')
   let g:projectionist_transformations = {}
 endif
@@ -742,10 +745,18 @@ function! g:projectionist_transformations.strato_to_scala(input, o) abort
   let pattern = '\v(.*)/(\w+)(\.(\w+))?'
   let match = matchlist(a:input, pattern)
   let name = substitute(match[2], '\v(^|_)(\a)', '\u\2', 'g')
+  let result = match[1] . '/' . name
+  return result
+endfunction
+function! g:projectionist_transformations.strato_to_scala_with_space(input, o) abort
+  let strato_spaces_exclude = ['GraphQlQuery']
+
+  let pattern = '\v(.*)/(\w+)(\.(\w+))?'
+  let match = matchlist(a:input, pattern)
+  let name = substitute(match[2], '\v(^|_)(\a)', '\u\2', 'g')
   let name_prefix = index(strato_spaces_exclude, match[4]) == -1 && len(match[4]) > 0 ? match[4] : ''
   let result = match[1] . '/' . name_prefix . name
   return result
-  " return a:input
 endfunction
 
 function! g:projectionist_transformations.scala_to_strato(input, o) abort
@@ -755,6 +766,16 @@ function! g:projectionist_transformations.scala_to_strato(input, o) abort
   let match = matchlist(a:input, pattern)
   let name = substitute(match[3], '\v(^|_)(\a)', '\l\2', 'g')
   let space_suffix = len(match[2]) > 0 ? '.' . match[2] : ''
+  let result = match[1] . '/' . name . space_suffix
+  return result
+endfunction
+function! g:projectionist_transformations.scala_to_strato__with_space(input, o) abort
+  let strato_spaces_include = ['Tweet', 'User', 'Professional']
+
+  let pattern = '\v(.*)/(Tweet|User|Professional)?(\w+)?'
+  let match = matchlist(a:input, pattern)
+  let name = substitute(match[3], '\v(^|_)(\a)', '\l\2', 'g')
+  let space_suffix = len(match[2]) > 0 ? '.' . match[2] : '.GraphQlQuery'
   let result = match[1] . '/' . name . space_suffix
   return result
 endfunction
@@ -775,15 +796,19 @@ let g:projectionist_heuristics = {
   \    'src/*.test.tsx': {
   \      'type': 'test',
   \    },
-  \    'src/*.js': {
-  \      'alternate': 'src/{testify}.js'
-  \    },
-  \    'src/*.jsx': {
-  \      'alternate': 'src/{testify}.jsx'
-  \    },
   \    'src/*.module.css': {
   \      'alternate': 'src/{}.tsx',
   \      'type': 'css',
+  \    },
+  \  },
+  \  '__tests__/': {
+  \    '*.js': {
+  \      'alternate': '{dirname}/__tests__/{basename}.test.js',
+  \      'type': 'source',
+  \    },
+  \    '__tests__/*.test.js': {
+  \      'alternate': '{}.js',
+  \      'type': 'test',
   \    },
   \  },
   \  'src/main/&src/test/': {
@@ -796,21 +821,28 @@ let g:projectionist_heuristics = {
   \      'type': 'test',
   \    }
   \  },
-  \  'strato/': {
+  \  'strato/config/': {
   \    'strato/config/columns/*.strato': {
-  \      'alternate': 'strato/config/test/scala/com/twitter/strato/config/columns/{strato_to_scala}Test.scala',
+  \      'alternate': [
+  \        'strato/config/test/scala/com/twitter/strato/config/columns/{strato_to_scala_with_space}Test.scala',
+  \        'strato/config/test/scala/com/twitter/strato/config/columns/{strato_to_scala}Test.scala',
+  \      ],
   \      'type': 'source',
   \    },
   \    'strato/config/test/scala/com/twitter/strato/config/columns/*Test.scala': {
-  \      'alternate': 'strato/config/columns/{scala_to_strato}.strato',
+  \      'alternate': [
+  \        'strato/config/columns/{scala_to_strato_with_space}.strato',
+  \        'strato/config/columns/{scala_to_strato}.strato',
+  \      ],
   \      'type': 'test',
   \    },
   \  },
   \}
-nnoremap <leader>ps :Esource<cr>
-nnoremap <leader>pt :Etest<cr>
-nnoremap <leader>pc :Ecss<cr>
-nnoremap <leader>pa :A<cr>
+
+nnoremap <silent> <leader>ps :Esource<cr>
+nnoremap <silent> <leader>pt :Etest<cr>
+nnoremap <silent> <leader>pc :Ecss<cr>
+nnoremap <silent> <leader>pa :A<cr>
 
 Plug 'tpope/vim-abolish'
 " crs - coerce_snake_case
