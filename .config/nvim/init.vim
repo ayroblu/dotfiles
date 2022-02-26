@@ -1253,6 +1253,35 @@ augroup typescriptreact
   autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 augroup END
 
+" Plugins for Metals, a language server for Scala
+Plug 'nvim-lua/plenary.nvim'
+Plug 'scalameta/nvim-metals'
+
+" Plugins to provide code completion
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/nvim-cmp'
+
+nnoremap <silent> <C-]>       <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K           <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gi          <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> gr          <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <C-s>       <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> <C-p>       <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> <leader>r   <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> <leader>f   <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent> <leader>a   <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> <leader>w   <cmd>lua require'metals'.hover_worksheet()<CR>
+nnoremap <silent> [c          <cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>
+nnoremap <silent> ]c          <cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>
+set shortmess+=c
+set shortmess-=F
+
+augroup lsp
+  autocmd!
+  autocmd FileType scala,sbt lua require("metals").initialize_or_attach(metals_config)
+  autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc
+augroup end
+
 call plug#end()
 
 " ---------------------------------------- plugin after setups
@@ -1281,6 +1310,36 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
+-- Configure completion
+local cmp = require'cmp'
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  mapping = {
+    ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
+    ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
+    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+  })
+})
+
+-- Configure Metals
+metals_config = require("metals").bare_config()
+metals_config.settings = {
+  showImplicitArguments = true,
+  showImplicitConversionsAndClasses = true,
+  showInferredType = true,
+}
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+metals_config.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 EOF
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
