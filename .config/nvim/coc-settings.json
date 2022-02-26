@@ -21,6 +21,12 @@
   "prettier.onlyUseLocalVersion": true,
   "prettier.resolveGlobalModules": false,
   "typescript.autoClosingTags": false,
+  "metals.statusBarEnabled": true,
+  "metals.serverProperties": [
+    "-Xmx8G",
+    "-XX:MaxInlineLevel=20",
+    "-XX:+UseParallelGC"
+  ],
   // Python only: MPLS takes 2 minutes to start right now, not usable, formatting and linting provided by ale
   // ,"python.jediEnabled": false,
   // "python.linting.pylintEnabled": false,

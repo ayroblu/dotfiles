@@ -684,10 +684,11 @@ if exists('g:started_by_firenvim')
   \}
   au BufEnter github.com_*.txt set filetype=markdown
   function RunOnFirenvim(timer)
-    setl guifont=Monaco:h20
+    "setl guifont=Monaco:h20
+    setl guifont=Monaco:h14
     set background=dark
     colorscheme tokyonight
-    setl laststatus=0
+    "setl laststatus=0
   endfunction
   "au CursorHold *.* call RunOnFirenvim()
   au BufEnter *.* call timer_start(100, function("RunOnFirenvim"))
@@ -711,21 +712,71 @@ Plug 'tpope/vim-unimpaired'
 " I only download this for the conflict mapping ]n and [n
 
 Plug 'tpope/vim-projectionist'
+if !exists('g:projectionist_transformations')
+  let g:projectionist_transformations = {}
+endif
+
+" function! g:projectionist_transformations.testify(input, o) abort
+"   let l:stripped = fnamemodify(a:input, ':r')
+"   return l:stripped ==# a:input ? a:input . '.test' : l:stripped
+" endfunction
+" function! g:projectionist_transformations.testify(input, o) abort
+"   if a:input =~# '/__test__/'
+"     return substitute(a:input, '/\zs__test__/\|\.\zstest\.', '', 'g')
+"   else
+"     return substitute(substitute(a:input, '\ze/[^/]*$', '/__test__', ''), '\ze\.[^.]*$', '.test', '')
+"   endif
+" endfunction
+function! g:projectionist_transformations.testify(input, o) abort
+  if a:input =~# '/__tests__/'
+    return substitute(a:input, '/\zs__tests__/\|\.test', '', 'g')
+  else
+    return substitute(a:input, '\ze/[^/]*$', '/__tests__', '') . '.test'
+  endif
+endfunction
+
 let g:projectionist_heuristics = {
-  \ "package.json": {
-  \    "src/*.tsx": {
-  \      "alternate": "src/{}.module.css",
-  \      "type": "source",
+  \ 'package.json': {
+  \    'src/*.ts': {
+  \      'alternate': 'src/{}.module.css',
+  \      'type': 'source',
   \    },
-  \    "src/*.module.css": {
-  \      "alternate": "src/{}.tsx",
-  \      "type": "css",
+  \    'src/*.tsx': {
+  \      'alternate': 'src/{}.module.css',
+  \      'type': 'source',
+  \    },
+  \    'src/*.test.ts': {
+  \      'type': 'test',
+  \    },
+  \    'src/*.test.tsx': {
+  \      'type': 'test',
+  \    },
+  \    'src/*.js': {
+  \      'alternate': 'src/{testify}.js'
+  \    },
+  \    'src/*.jsx': {
+  \      'alternate': 'src/{testify}.jsx'
+  \    },
+  \    'src/*.module.css': {
+  \      'alternate': 'src/{}.tsx',
+  \      'type': 'css',
+  \    }
+  \  },
+  \  'src/main/&src/test/': {
+  \    'src/main/*.scala': {
+  \      'alternate': 'src/test/{}Spec.scala',
+  \      'type': 'source',
+  \    },
+  \    'src/test/*Spec.scala': {
+  \      'alternate': 'src/main/{}.scala',
+  \      'type': 'test',
   \    }
   \  }
   \}
 nnoremap <leader>ps :Esource<cr>
 nnoremap <leader>pt :Etest<cr>
 nnoremap <leader>pc :Ecss<cr>
+nnoremap <leader>pa :A<cr>
 
 Plug 'tpope/vim-abolish'
 " crs - coerce_snake_case
@@ -994,7 +1045,7 @@ Plug 'romainl/vim-devdocs'
 " :DD source name
 " If not for the language
 
-Plug 'davidhalter/jedi-vim'
+"Plug 'davidhalter/jedi-vim'
 silent! python3 1==1 # Random hack that makes python3 work
 " We change these to be similar to tsuquyomi
 let g:jedi#goto_command = '<C-]>'
