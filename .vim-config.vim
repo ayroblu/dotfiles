@@ -56,10 +56,17 @@ set hidden " can switch to another buffer when you have unsaved changes
 " Maintain undo history between sessions
 " https://jovicailic.org/2017/04/vim-persistent-undo/
 " https://stackoverflow.com/questions/1549263/how-can-i-create-a-folder-if-it-doesnt-exist-from-vimrc
-if !isdirectory($HOME.'/.vim/nundodir')
-  call mkdir($HOME.'/.vim/nundodir', 'p')
+if has('nvim')
+  if !isdirectory($HOME.'/.vim/nundodir')
+    call mkdir($HOME.'/.vim/nundodir', 'p')
+  endif
+  set undodir=~/.vim/nundodir
+else
+  if !isdirectory($HOME.'/.vim/undodir')
+    call mkdir($HOME.'/.vim/undodir', 'p')
+  endif
+  set undodir=~/.vim/undodir
 endif
-set undodir=~/.vim/nundodir
 set undofile
 
 " Set spelling settings, use ]s [s for next previous spelling error, zg to add
