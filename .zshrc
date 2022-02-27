@@ -132,33 +132,33 @@ source-if-exists() {
 # ----------- other
 # homebrew lesspipe.sh
 #export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
-[ -d "$HOMEBREW_PREFIX"/share/zsh/site-functions ] && fpath=("$HOMEBREW_PREFIX"/share/zsh/site-functions $fpath)
+[ -d /usr/local/share/zsh/site-functions ] && fpath=(/usr/local/share/zsh/site-functions $fpath)
 
 append-time "zshrc configured"
 # ------------------------------------------------------ zsh plugins
 # Using personal custom plugin manager
-source-if-exists ~/.zshrc-plugin-manager
+source-if-exists ~/.zsh-plugin-manager.zsh
 append-time "zshrc plugins manager"
-source-if-exists ~/.zshrc-plugins
+source-if-exists ~/.zsh-plugins.zsh
 append-time "zshrc plugins"
 
 # ---------------------------------- dependents
 
-source-if-exists ~/.sharedshrc
+source-if-exists ~/.sharedrc.sh
 append-time "zshrc shared"
-source-if-exists ~/.zshrc-personal
+source-if-exists ~/.zsh-personal.zsh
 append-time "zshrc personal"
 if exists fzf; then
-  source-if-exists ~/.zshrc-fzf
-  source-if-exists ~/.zshrc-fzf-completion
+  source-if-exists ~/.zsh-fzf.zsh
+  source-if-exists ~/.zsh-fzf-completion.zsh
 fi
 append-time "zshrc fzf"
-source-if-exists ~/.zshrc-prompt
+source-if-exists ~/.zsh-prompt.zsh
 append-time "zshrc prompt"
 # Must come after last fpath change
-source-if-exists ~/.zshrc-comp
+source-if-exists ~/.zsh-comp.zsh
 append-time "zshrc comp"
-source-if-exists ~/.zshrc-extras
+source-if-exists ~/.zsh-extras.zsh
 append-time "zshrc extras"
 
 # https://superuser.com/questions/91881/invoke-zsh-having-it-run-a-command-and-then-enter-interactive-mode-instead-of

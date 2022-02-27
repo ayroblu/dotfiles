@@ -19,6 +19,7 @@ Table of Contents
 - [homebrew](#homebrew)
 - [zsh](#zsh)
 - [Making symlinks](#making-symlinks)
+- [Deleting symlinks](#deleting-symlinks)
 - [Tmux Setup](#tmux-setup)
 - [Vim Setup](#vim-setup)
 - [FZF setup](#fzf-setup)
@@ -138,6 +139,16 @@ Making symlinks
 ---------------
 ```bash
 bash scripts/run.sh
+```
+
+Deleting symlinks
+-----------------
+> https://stackoverflow.com/questions/22097130/delete-all-broken-symbolic-links-with-a-line
+
+With zsh
+
+```zsh
+rm -- *(-@D)
 ```
 
 Tmux Setup

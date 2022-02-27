@@ -164,7 +164,7 @@ function decrypt {
 [ -f ~/.bashrc-extras ] && . ~/.bashrc-extras
 
 # ----------------------------------------- bash quick adds
-[ -f ~/.sharedshrc ] && . ~/.sharedshrc
+[ -f ~/.sharedrc.sh ] && . ~/.sharedrc.sh
 
 #[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
