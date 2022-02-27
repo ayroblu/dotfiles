@@ -1,2 +1,5 @@
 set visualbell
 set noerrorbells
+
+imap jj <Esc>l
+imap jk <Esc>l
