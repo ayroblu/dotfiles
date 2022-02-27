@@ -91,7 +91,9 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 " Show in search status - will override file name so kinda meh
 "let g:airline_section_c='%{anzu#search_status()}'
 
-"Plug 'Valloric/MatchTagAlways'
+if !has('nvim')
+  Plug 'Valloric/MatchTagAlways'
+endif
 " Show closing tag
 let g:mta_filetypes = {
 \ 'html' : 1,
@@ -303,7 +305,7 @@ Plug 'tpope/vim-commentary'
 
 "Plug 'vim-scripts/ReplaceWithRegister' "griw to replace inner word with register
 
-Plug $HOMEBREW_PREFIX . '/opt/fzf'
+set rtp+=/usr/local/opt/fzf
 Plug 'junegunn/fzf.vim'
 let g:fzf_layout = { 'down': '50%' }
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md
@@ -473,8 +475,10 @@ Plug 'michaeljsmith/vim-indent-object'
 " === Language specific
 " Before polyglot overrides it
 Plug 'nkouevda/vim-thrift-syntax'
-"Plug 'sheerun/vim-polyglot'
-"let g:polyglot_disabled = ['mathematica', 'sh']
+if !has('nvim')
+  Plug 'sheerun/vim-polyglot'
+  let g:polyglot_disabled = ['mathematica', 'sh']
+endif
 " autocmd chaining: https://vi.stackexchange.com/questions/3968/is-there-a-way-to-and-events-in-the-autocmd
 "autocmd FileType markdown autocmd BufReadPost,CursorHold <buffer> set conceallevel=0
 let g:vim_markdown_new_list_item_indent = 0
