@@ -1,48 +1,5 @@
-" vim:fdm=expr
-autocmd BufNewFile,BufRead .vimrc-plugins setl foldexpr=GetPlugFold(v:lnum)
-
-" Inspiration: https://vi.stackexchange.com/questions/3814/is-there-a-best-practice-to-fold-a-vimrc-file
-function! GetPlugFold(lnum)
-  if getline(a:lnum) =~? '^" ===' || getline(a:lnum) =~? '^" *Plug'
-    return '0'
-  endif
-  if getline(a:lnum) =~? '\v^Plug'
-    return '>1'
-  endif
-  return '='
-endfunction
-
-call plug#begin('~/.vim/plugged')
-
-" === Theme
 Plug 'altercation/vim-colors-solarized'
-autocmd BufReadPost <buffer> hi MatchParen cterm=bold,underline ctermbg=none ctermfg=red
-"autocmd VimEnter * ++nested silent! colorscheme solarized
-" we want vim to follow terminal background
-"autocmd VimEnter * ++nested silent! hi Normal ctermbg=NONE
-" https://github.com/airblade/vim-gitgutter/issues/696
-"autocmd VimEnter * ++nested silent! hi! link SignColumn LineNr
-
-" Plug 'lifepillar/vim-solarized8'
-" Starts with green like colors, not sure the issue
-" autocmd vimenter * ++nested silent! colorscheme solarized8
-" set termguicolors
-" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-
-"Plug 'edkolev/tmuxline.vim'
-let g:tmuxline_powerline_separators = 0
-let g:tmuxline_preset = {
-  \'a'       : '#S:#I',
-  \'b disabled'       : '',
-  \'c disabled'       : '',
-  \'win'     : ['#I', '#W'],
-  \'cwin'    : ['#I', '#W'],
-  \'x disabled'       : '',
-  \'y'       : ['%a', '%Y-%m-%d', '%l:%M%p'],
-  \'z'       : ['#(whoami)'],
-  \'options' : {'status-justify': 'left'}}
-let g:airline#extensions#tmuxline#enabled = 0
+"autocmd BufReadPost <buffer> hi MatchParen cterm=bold,underline ctermbg=none ctermfg=red
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -51,7 +8,8 @@ let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#branch#empty_message='no repo'
 let g:airline_theme='solarized'
 
-" === Hooks
+
+" ======= Hooks
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
@@ -132,7 +90,7 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 " Show in search status - will override file name so kinda meh
 "let g:airline_section_c='%{anzu#search_status()}'
 
-Plug 'Valloric/MatchTagAlways'
+"Plug 'Valloric/MatchTagAlways'
 " Show closing tag
 let g:mta_filetypes = {
 \ 'html' : 1,
@@ -164,8 +122,6 @@ Plug 'PeterRincker/vim-argumentative'
 
 " Plug 'terryma/vim-multiple-cursors'
 
-Plug 'tpope/vim-projectionist'
-
 Plug 'junegunn/vim-easy-align'
 xmap ga <Plug>(EasyAlign)
 " vipga= " Visual Inner Paragraph (ga) align =
@@ -173,6 +129,139 @@ xmap ga <Plug>(EasyAlign)
 
 Plug 'tpope/vim-unimpaired'
 " I only download this for the conflict mapping ]n and [n
+
+Plug 'tpope/vim-projectionist'
+
+"Plug 'c-brenn/fuzzy-projectionist.vim'
+
+if !exists('g:projectionist_transformations')
+  let g:projectionist_transformations = {}
+endif
+
+" function! g:projectionist_transformations.testify(input, o) abort
+"   let l:stripped = fnamemodify(a:input, ':r')
+"   return l:stripped ==# a:input ? a:input . '.test' : l:stripped
+" endfunction
+" function! g:projectionist_transformations.testify(input, o) abort
+"   if a:input =~# '/__test__/'
+"     return substitute(a:input, '/\zs__test__/\|\.\zstest\.', '', 'g')
+"   else
+"     return substitute(substitute(a:input, '\ze/[^/]*$', '/__test__', ''), '\ze\.[^.]*$', '.test', '')
+"   endif
+" endfunction
+function! g:projectionist_transformations.testify(input, o) abort
+  if a:input =~# '/__tests__/'
+    return substitute(a:input, '/\zs__tests__/\|\.test', '', 'g')
+  else
+    return substitute(a:input, '\ze/[^/]*$', '/__tests__', '') . '.test'
+  endif
+endfunction
+
+
+function! g:projectionist_transformations.strato_to_scala(input, o) abort
+  let strato_spaces_exclude = ['GraphQlQuery']
+
+  let pattern = '\v(.*)/(\w+)(\.(\w+))?'
+  let match = matchlist(a:input, pattern)
+  let name = substitute(match[2], '\v(^|_)(\a)', '\u\2', 'g')
+  let result = match[1] . '/' . name
+  return result
+endfunction
+function! g:projectionist_transformations.strato_to_scala_with_space(input, o) abort
+  let strato_spaces_exclude = ['GraphQlQuery']
+
+  let pattern = '\v(.*)/(\w+)(\.(\w+))?'
+  let match = matchlist(a:input, pattern)
+  let name = substitute(match[2], '\v(^|_)(\a)', '\u\2', 'g')
+  let name_prefix = index(strato_spaces_exclude, match[4]) == -1 && len(match[4]) > 0 ? match[4] : ''
+  let result = match[1] . '/' . name_prefix . name
+  return result
+endfunction
+
+function! g:projectionist_transformations.scala_to_strato(input, o) abort
+  let strato_spaces_include = ['Tweet', 'User', 'Professional']
+
+  let pattern = '\v(.*)/(Tweet|User|Professional)?(\w+)?'
+  let match = matchlist(a:input, pattern)
+  let name = substitute(match[3], '\v(^|_)(\a)', '\l\2', 'g')
+  let space_suffix = len(match[2]) > 0 ? '.' . match[2] : ''
+  let result = match[1] . '/' . name . space_suffix
+  return result
+endfunction
+function! g:projectionist_transformations.scala_to_strato__with_space(input, o) abort
+  let strato_spaces_include = ['Tweet', 'User', 'Professional']
+
+  let pattern = '\v(.*)/(Tweet|User|Professional)?(\w+)?'
+  let match = matchlist(a:input, pattern)
+  let name = substitute(match[3], '\v(^|_)(\a)', '\l\2', 'g')
+  let space_suffix = len(match[2]) > 0 ? '.' . match[2] : '.GraphQlQuery'
+  let result = match[1] . '/' . name . space_suffix
+  return result
+endfunction
+
+let g:projectionist_heuristics = {
+  \ 'package.json': {
+  \    'src/*.ts': {
+  \      'alternate': 'src/{}.module.css',
+  \      'type': 'source',
+  \    },
+  \    'src/*.tsx': {
+  \      'alternate': 'src/{}.module.css',
+  \      'type': 'source',
+  \    },
+  \    'src/*.test.ts': {
+  \      'type': 'test',
+  \    },
+  \    'src/*.test.tsx': {
+  \      'type': 'test',
+  \    },
+  \    'src/*.module.css': {
+  \      'alternate': 'src/{}.tsx',
+  \      'type': 'css',
+  \    },
+  \  },
+  \  '__tests__/': {
+  \    '*.js': {
+  \      'alternate': '{dirname}/__tests__/{basename}.test.js',
+  \      'type': 'source',
+  \    },
+  \    '__tests__/*.test.js': {
+  \      'alternate': '{}.js',
+  \      'type': 'test',
+  \    },
+  \  },
+  \  'src/main/&src/test/': {
+  \    'src/main/*.scala': {
+  \      'alternate': 'src/test/{}Spec.scala',
+  \      'type': 'source',
+  \    },
+  \    'src/test/*Spec.scala': {
+  \      'alternate': 'src/main/{}.scala',
+  \      'type': 'test',
+  \    }
+  \  },
+  \  'strato/config/': {
+  \    'strato/config/columns/*.strato': {
+  \      'alternate': [
+  \        'strato/config/test/scala/com/twitter/strato/config/columns/{strato_to_scala_with_space}Test.scala',
+  \        'strato/config/test/scala/com/twitter/strato/config/columns/{strato_to_scala}Test.scala',
+  \      ],
+  \      'type': 'source',
+  \    },
+  \    'strato/config/test/scala/com/twitter/strato/config/columns/*Test.scala': {
+  \      'alternate': [
+  \        'strato/config/columns/{scala_to_strato_with_space}.strato',
+  \        'strato/config/columns/{scala_to_strato}.strato',
+  \      ],
+  \      'type': 'test',
+  \    },
+  \  },
+  \}
+
+nnoremap <silent> <leader>ps :Esource<cr>
+nnoremap <silent> <leader>pt :Etest<cr>
+nnoremap <silent> <leader>pc :Ecss<cr>
+nnoremap <silent> <leader>pa :A<cr>
 
 Plug 'tpope/vim-abolish'
 " crs - coerce_snake_case
@@ -213,7 +302,7 @@ Plug 'tpope/vim-commentary'
 
 "Plug 'vim-scripts/ReplaceWithRegister' "griw to replace inner word with register
 
-set rtp+=/usr/local/opt/fzf
+Plug $HOMEBREW_PREFIX . '/opt/fzf'
 Plug 'junegunn/fzf.vim'
 let g:fzf_layout = { 'down': '50%' }
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md
@@ -383,8 +472,8 @@ Plug 'michaeljsmith/vim-indent-object'
 " === Language specific
 " Before polyglot overrides it
 Plug 'nkouevda/vim-thrift-syntax'
-Plug 'sheerun/vim-polyglot'
-let g:polyglot_disabled = ['mathematica', 'sh']
+"Plug 'sheerun/vim-polyglot'
+"let g:polyglot_disabled = ['mathematica', 'sh']
 " autocmd chaining: https://vi.stackexchange.com/questions/3968/is-there-a-way-to-and-events-in-the-autocmd
 "autocmd FileType markdown autocmd BufReadPost,CursorHold <buffer> set conceallevel=0
 let g:vim_markdown_new_list_item_indent = 0
@@ -441,7 +530,7 @@ Plug 'romainl/vim-devdocs'
 " :DD source name
 " If not for the language
 
-Plug 'davidhalter/jedi-vim'
+"Plug 'davidhalter/jedi-vim'
 silent! python3 1==1 # Random hack that makes python3 work
 " We change these to be similar to tsuquyomi
 let g:jedi#goto_command = '<C-]>'
@@ -488,7 +577,7 @@ autocmd FileType vim,javascript nmap <silent> [j :ALEPreviousWrap<cr>
 let g:ale_fixers = {
 \ 'typescript': [],
 \ 'typescriptreact': [],
-\ 'javascript': ['prettier', 'eslint'],
+\ 'javascript': [],
 \ 'css': [],
 \ 'python': ['isort'],
 \ 'terraform': ['terraform'],
@@ -520,25 +609,41 @@ Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lock
 " Due to a bug in colorscheme and lack of releases, use master
 "-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Hopefully this will replace ale and some of the others
-let g:coc_global_extensions = [
-      \'coc-metals',
-      \'coc-tsserver',
-      \'coc-prettier',
-      \'coc-eslint',
-      \'coc-json',
-      \'coc-vimlsp',
-      \'coc-flow',
-      \'coc-rls',
-      \'coc-go',
-      \'coc-sourcekit',
-      \'coc-yaml',
-      \'coc-css'
-      \]
+
+" All extensions, see: https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
+Plug 'amiralies/coc-flow', {'do': 'yarn install --frozen-lockfile'}
+Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
+Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
+Plug 'klaaspieter/coc-sourcekit', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+Plug 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
+
+" let g:coc_global_extensions = [
+"       \'coc-metals',
+"       \'coc-tsserver',
+"       \'coc-prettier',
+"       \'coc-json',
+"       \'coc-vimlsp',
+"       \'coc-flow',
+"       \'coc-rls',
+"       \'coc-go',
+"       \'coc-sourcekit',
+"       \'coc-yaml',
+"       \'coc-css'
+"       \]
       "\'coc-graphql',
       "\"coc-python',
 " vscode + coc config uses jsonc
 " https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
 autocmd FileType json syntax match Comment +\/\/.\+$+
+" https://github.com/neoclide/coc-json/issues/11
+" tsconfig.json is actually jsonc, help TypeScript set the correct filetype
+autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
@@ -573,6 +678,8 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
+" Run the Code Lens action on the current line.
+nmap <leader>cl  <Plug>(coc-codelens-action)
 
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
@@ -623,6 +730,18 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
+" https://github.com/neoclide/coc.nvim/issues/349
+let s:coc_denylist = ['markdown']
+function! s:disable_coc_for_type()
+  if index(s:coc_denylist, &filetype) != -1
+    let b:coc_enabled = 0
+  endif
+endfunction
+augroup CocGroup
+  autocmd!
+  autocmd BufNew,BufEnter * call s:disable_coc_for_type()
+augroup end
+
 Plug 'antoinemadec/coc-fzf'
 " :CocFzfList
 " :CocFzfList diagnostics
@@ -646,4 +765,4 @@ Plug 'pantsbuild/vim-pants'
 "Plug 'zeekay/vim-beautify'
 
 " Initialize plugin system
-call plug#end()
+
