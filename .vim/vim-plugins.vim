@@ -733,7 +733,12 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
 endif
 
 " https://github.com/neoclide/coc.nvim/issues/349
-let s:coc_denylist = ['markdown']
+if has('nvim')
+  let s:coc_denylist = ['markdown', 'scala']
+else
+  let s:coc_denylist = ['markdown']
+endif
+
 function! s:disable_coc_for_type()
   if index(s:coc_denylist, &filetype) != -1
     let b:coc_enabled = 0
