@@ -1,3 +1,4 @@
+" === Theme
 Plug 'altercation/vim-colors-solarized'
 "autocmd BufReadPost <buffer> hi MatchParen cterm=bold,underline ctermbg=none ctermfg=red
 
@@ -9,7 +10,7 @@ let g:airline#extensions#branch#empty_message='no repo'
 let g:airline_theme='solarized'
 
 
-" ======= Hooks
+" === Hooks
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
@@ -611,31 +612,32 @@ Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lock
 " Hopefully this will replace ale and some of the others
 
 " All extensions, see: https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
-Plug 'amiralies/coc-flow', {'do': 'yarn install --frozen-lockfile'}
-Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
-Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
-Plug 'klaaspieter/coc-sourcekit', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
-Plug 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'amiralies/coc-flow', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'klaaspieter/coc-sourcekit', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
 
-" let g:coc_global_extensions = [
-"       \'coc-metals',
-"       \'coc-tsserver',
-"       \'coc-prettier',
-"       \'coc-json',
-"       \'coc-vimlsp',
-"       \'coc-flow',
-"       \'coc-rls',
-"       \'coc-go',
-"       \'coc-sourcekit',
-"       \'coc-yaml',
-"       \'coc-css'
-"       \]
+" I think I prefer this, it's just easier
+let g:coc_global_extensions = [
+\  'coc-metals',
+\  'coc-tsserver',
+\  'coc-prettier',
+\  'coc-json',
+\  'coc-vimlsp',
+\  'coc-flow',
+\  'coc-rls',
+\  'coc-go',
+\  'coc-sourcekit',
+\  'coc-yaml',
+\  'coc-css'
+\]
       "\'coc-graphql',
       "\"coc-python',
 " vscode + coc config uses jsonc

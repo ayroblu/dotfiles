@@ -1,6 +1,4 @@
 " Allows us to split and reuse configs with `runtime filename.vim`
-set runtimepath+=~
-
 scriptencoding utf-8
 " :so ~/_vimrc " reloads vimrc, use in vim, not here, or quit and use `vis` if
 " you have sessions setup
@@ -23,32 +21,49 @@ scriptencoding utf-8
 " 3. Do a setup in a project vimrc
 " 4. Run buffer in interactive shell
 " ----------------------------------------------------------- Personal Help
-runtime .vim-help.vim
+runtime vim-help.vim
 
-runtime .vim-config.vim
+runtime vim-config.vim
 
 " REPL + code execution
-runtime .vim-repl.vim
+runtime vim-repl.vim
 
 " My own links plugin
 " Should eventually superseed: knsh14/vim-github-link
-runtime .vim-links.vim
+runtime vim-links.vim
 
 "" --------------------------plugin settings
-runtime macros/matchit.vim
+if has('nvim')
+  autocmd BufReadPost * if getfsize(@%) > 10000 | execute('NoMatchParen') | endif
+else
+  runtime macros/matchit.vim
+endif
+
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 if filereadable(expand('~/.vim/autoload/plug.vim'))
   call plug#begin()
-  runtime .vim-plugins.vim
+  runtime! vim-plugins.vim
   call plug#end()
+
+  runtime! vim-plugins-after.vim
 endif
 
 " --------------- Finally colour scheme
-syntax enable
+if has('nvim')
+  if exists('g:started_by_firenvim')
+    set background=dark
+    silent! colorscheme tokyonight
+  else
+    set background=light
+    silent! colorscheme solarized
+  endif
+else
+  syntax enable
 
-" Set color scheme
-set background=light
-silent! colorscheme solarized
+  " Set color scheme
+  set background=light
+  silent! colorscheme solarized
+endif
 
 " we want vim to follow terminal background
 hi Normal ctermbg=NONE
