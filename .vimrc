@@ -1,5 +1,5 @@
 " Allows us to split and reuse configs with `runtime filename.vim`
-set runtimepath^=~
+set runtimepath+=~
 
 scriptencoding utf-8
 " :so ~/_vimrc " reloads vimrc, use in vim, not here, or quit and use `vis` if

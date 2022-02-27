@@ -1,5 +1,5 @@
 " Allows us to split and reuse configs with `runtime filename.vim`
-set runtimepath^=~
+set runtimepath+=~
 
 runtime .vim-help.vim
 
