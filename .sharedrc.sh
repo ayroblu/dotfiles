@@ -133,6 +133,11 @@ encodeURIComponent(){
   node -e 'console.log(encodeURIComponent('"'$1'"'))'
 }
 
+stash(){
+  git stash
+  "$@"
+  git stash pop
+}
 
 copyDockerFile() {
   if [ "$#" -ne 3 ]; then

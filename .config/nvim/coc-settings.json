@@ -27,6 +27,29 @@
     "-XX:MaxInlineLevel=20",
     "-XX:+UseParallelGC"
   ],
+  "languageserver": {
+    "strato": {
+      "command": "strato-lsp-tool.jar",
+      "filetypes": [
+        "strato"
+      ],
+      "rootPatterns": [
+        ".git"
+      ],
+      "trace.server": "verbose",
+      "initializationOptions": {},
+      "settings": {
+        "validate": true
+      }
+    },
+    // "strato": {
+    //   "host": "127.0.0.1",
+    //   "port": 5007,
+    //   "filetypes": [
+    //     "strato"
+    //   ]
+    // },
+  },
   // Python only: MPLS takes 2 minutes to start right now, not usable, formatting and linting provided by ale
   // ,"python.jediEnabled": false,
   // "python.linting.pylintEnabled": false,

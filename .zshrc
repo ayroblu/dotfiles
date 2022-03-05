@@ -150,7 +150,7 @@ source-if-exists ~/.zsh-personal.zsh
 append-time "zshrc personal"
 if exists fzf; then
   source-if-exists ~/.zsh-fzf.zsh
-  source-if-exists ~/.zsh-fzf-completion.zsh
+  source-if-exists ~/.zsh-fzf-comp.zsh
 fi
 append-time "zshrc fzf"
 source-if-exists ~/.zsh-prompt.zsh

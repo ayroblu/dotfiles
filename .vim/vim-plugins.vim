@@ -629,8 +629,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lock
 " Plug 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
 
 " I think I prefer this, it's just easier
+"\  'coc-metals',
 let g:coc_global_extensions = [
-\  'coc-metals',
 \  'coc-tsserver',
 \  'coc-prettier',
 \  'coc-json',

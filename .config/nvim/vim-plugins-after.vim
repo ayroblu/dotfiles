@@ -27,34 +27,34 @@ require'nvim-treesitter.configs'.setup {
 }
 
 -- Configure completion
-local cmp = require'cmp'
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
-  mapping = {
-    ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
-    ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
-    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-  },
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-  })
-})
-
--- Configure Metals
-metals_config = require("metals").bare_config()
-metals_config.settings = {
-  showImplicitArguments = true,
-  showImplicitConversionsAndClasses = true,
-  showInferredType = true,
-}
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-metals_config.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+-- local cmp = require'cmp'
+-- cmp.setup({
+--   snippet = {
+--     expand = function(args)
+--       vim.fn["vsnip#anonymous"](args.body)
+--     end,
+--   },
+--   mapping = {
+--     ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
+--     ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
+--     ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+--     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+--     ['<CR>'] = cmp.mapping.confirm({ select = true }),
+--   },
+--   sources = cmp.config.sources({
+--     { name = 'nvim_lsp' },
+--   })
+-- })
+--
+-- -- Configure Metals
+-- metals_config = require("metals").bare_config()
+-- metals_config.settings = {
+--   showImplicitArguments = true,
+--   showImplicitConversionsAndClasses = true,
+--   showInferredType = true,
+-- }
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- metals_config.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 EOF
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
