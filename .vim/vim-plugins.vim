@@ -475,6 +475,7 @@ Plug 'michaeljsmith/vim-indent-object'
 " === Language specific
 " Before polyglot overrides it
 Plug 'nkouevda/vim-thrift-syntax'
+Plug 'ayroblu/vim-strato-syntax'
 if !has('nvim')
   Plug 'sheerun/vim-polyglot'
   let g:polyglot_disabled = ['mathematica', 'sh']

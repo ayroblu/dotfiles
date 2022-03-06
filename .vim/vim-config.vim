@@ -378,10 +378,10 @@ function! GetLineFold(lnum)
     return '>1'
   endif
   if getline(a:lnum) =~? '\v^.*[=]{3}'
-    return '>1'
+    return '>0'
   endif
   if getline(a:lnum) =~? '\v^Plug'
-    return '>2'
+    return '>1'
   endif
   return '='
 endfunction
