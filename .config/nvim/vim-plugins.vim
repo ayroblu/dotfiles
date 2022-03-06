@@ -24,12 +24,12 @@ if exists('g:started_by_firenvim')
 endif
 
 " Plugins for Metals, a language server for Scala
-"Plug 'nvim-lua/plenary.nvim'
-"Plug 'scalameta/nvim-metals'
-"
-"" Plugins to provide code completion
-"Plug 'hrsh7th/cmp-nvim-lsp'
-"Plug 'hrsh7th/nvim-cmp'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'scalameta/nvim-metals'
+
+" Plugins to provide code completion
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/nvim-cmp'
 
 "augroup lsp
 "  autocmd!
