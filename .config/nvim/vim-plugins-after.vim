@@ -108,7 +108,7 @@ function! EnableScala()
   }
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   metals_config.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
-  EOF
+EOF
 endfunction
 
 "function! GetLongestLineLength()
