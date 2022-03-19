@@ -29,6 +29,8 @@ Table of Contents
 - [vifm](#vifm)
 - [vimium](#vimium)
   - [Kill sticky and similar bookmarks](#kill-sticky-and-similar-bookmarks)
+- [Vimium C](#vimium-c)
+  - [Custom CSS](#custom-css)
 - [CRKBD Keyboard Layout](#crkbd-keyboard-layout)
   - [Required steps to build](#required-steps-to-build)
   - [OS steps](#os-steps)
@@ -241,6 +243,19 @@ decodeURIComponent(`(function()%7B(function%20()%20%7Bvar%20i%2C%20elements%20%3
 ```js
 const a = encodeURIComponent(`(function(){(function () {var i, elements = document.querySelectorAll('body *');for (i = 0; i < elements.length; i++) {if (['fixed', 'sticky'].includes(getComputedStyle(elements[i]).position)) {elements[i].parentNode.removeChild(elements[i]);}}})()})()`);
 console.log(`javascript:${a}`);
+```
+
+Vimium C
+--------
+This works better than vimium because of it's better support for jumping in and out of insert mode, better support in GMail.
+
+1. Disable smooth scrolling
+2. set link hints as home row
+
+### Custom CSS
+
+```css
+.LH {font-size: 1.2rem}
 ```
 
 CRKBD Keyboard Layout
