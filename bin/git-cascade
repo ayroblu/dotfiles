@@ -1,0 +1,277 @@
+#!/usr/bin/env python3
+
+# Copyright 2009-2014 Ram Rachum.
+# This program is distributed under the MIT license.
+
+import sys
+import itertools
+import functools
+import collections.abc
+import shlex
+import subprocess
+import os
+
+__doc__ = '''\
+git cascade - Cascade changes from each branch to its dependents.
+=================================================================
+This command:
+    git cascade foo master
+Merges the branch `foo` into branch `master`, and into every branch that's
+behind `master` in the cascade order. What does that mean?
+In many projects, there's a progressive order of branches that changes go
+through. For example:
+    development > staging > master
+This means that a new change might first get committed into development, then
+after testing will be merged into `staging`, then after further testing get
+merged into `master`.
+That's all well and good, but sometimes you want to take a shortcut and push a
+change directly into a more advanced branch. (This can happen if the change is
+small enough that you're sure it won't break anything, or the change is urgent
+and needs to be pushed to production immediately, or a bunch of other reasons.)
+In these cases, you want to push to `master`, and automatically push to all
+branches that are behind `master`. In our example, if you run:
+    git cascade foo master
+The changes in `foo` will be automatically pushed to `master`, `staging` and
+`development`, all in one command, without having to check any of them out.
+If you were to type:
+    git cascade foo staging
+Then the changes will be pushed only to `staging` and `development`, with
+master remaining untouched.
+Defining cascades
+-----------------
+To define the cascade order for your project, put it in this format in your
+project config: (.git/config)
+    [git-cascade]
+        cascade = development > staging > master
+You may also include multiple lines to define more complex cascade trees:
+    [git-cascade]
+        cascade = development > staging > master
+        cascade = other_development > staging
+`git cascade` will do the right thing when cascading.
+Run `git cascade --show` to show the list of current cascades.
+Alternate forms
+---------------
+If using three or more arguments, the branch specified in the first argument
+will be cascaded into all the other branches, and all their dependents. So this:
+    git cascade foo staging whatever
+Will cascade `foo` into `staging`, `whatever` and all of their dependents.
+If only one argument is specified, git cascade will assume you want to cascade
+`HEAD` (the current commit) into the specified branch. So this:
+    git cascade staging
+Will cascade `HEAD` into `staging` and all of its dependents.
+If no arguments are specified:
+    git cascade
+
+Then HEAD will be cascaded into the current branch. (It's often useful to
+cascade a branch into itself because it also merges it into the branches it
+flows into.)
+How does it work?
+-----------------
+The merges in `git cascade` are done by `git forward-merge`, which creates a
+temporary git index file and working directory to be used only for the merge,
+without interfering with the actual index file and working directory. (Unless
+the merge is a fast-forward, in which case the merge is done trivially by a
+local push.)
+Limitation
+----------
+`git cascade` works only when the merge can be done automatically. It doesn't
+work for merges that require conflict resolution. For that, please resort to
+using `git merge`.
+If you do attempt a cascade that results in a merge that requires conflict\
+resolution, `git cascade` will abort the merge and leave your working
+directory clean, UNLESS the branch you're merging to is the current branch, in
+which case it will leave the merge in the working directory for you to resolve
+the conflict and commit, just like `git merge`.
+(If there were multiple merges, all merges up to the failing one will be
+completed in the repo.)
+Branch aliases
+--------------
+You may use branch aliases when using `git cascade`. So,
+if you defined something like this in your config, (either the repo-specific
+config or the global one):
+    [git-branch-aliases]
+        s = staging
+        m = master
+And then run:
+    git cascade foo m
+It will cascade `foo` into `master` and all of its dependents.
+Also, you may use `.` as an alias for the current branch.
+'''
+
+VersionInfo = collections.namedtuple('VersionInfo', 'major minor micro release')
+
+__version__ = '0.3'
+__version_info__ = VersionInfo(0, 3, 0, 'alpha')
+
+def run(command, show=True, assert_success=True, env=None):
+    popen = subprocess.Popen(
+        shlex.split(('bash -c "%s"' % command)), stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE, env=env
+    )
+    stdout, stderr = map(str.strip, map(bytes.decode, popen.communicate()))
+
+    if show:
+        if stdout: print(stdout)
+        if stderr: print(stderr)
+    if popen.returncode != 0:
+        print('Failure')
+        raise SystemExit(1)
+    return stdout
+
+
+def iterate_overlapping_pairs(iterable):
+    iterator = iter(iterable)
+    old_item = next(iterator) # Recycling `StopIteration`
+    for item in iterator:
+        yield (old_item, item)
+        old_item = item
+
+
+def to_branches_set(branch_or_branches):
+    if isinstance(branch_or_branches, str):
+        return {branch_or_branches}
+    else:
+        assert isinstance(branch_or_branches, collections.abc.Iterable)
+        return set(branch_or_branches)
+
+def show_help_and_exit():
+    print(__doc__)
+    raise SystemExit(0)
+
+
+def show_cascades_and_exit():
+    print('This is your cascade order:')
+    for cascade_string in cascade_strings:
+        print('    %s' % cascade_string)
+    raise SystemExit(0)
+
+
+config_lines = run('git config --list', show=False).split('\n')
+
+cascade_strings = [line[20:] for line in config_lines if
+                   line.startswith('git-cascade.cascade=')]
+
+if '--help' in sys.argv:
+    show_help_and_exit()
+elif '--show' in sys.argv:
+    show_cascades_and_exit()
+
+###############################################################################
+#                                                                             #
+alias_strings = [line[19:] for line in config_lines if
+                   line.startswith('git-branch-aliases.')]
+aliases_dict = dict(
+    alias_string.split('=', 1) for alias_string in alias_strings
+)
+def expand_branch_name(short_branch_name):
+    if short_branch_name == '.':
+        return current_branch
+    else:
+        return aliases_dict.get(short_branch_name, short_branch_name)
+#                                                                             #
+###############################################################################
+
+current_branch = run('git rev-parse --abbrev-ref HEAD')
+
+### Organizing cascades: ######################################################
+#                                                                             #
+
+class CascadeStep:
+
+    cascade_steps = set()
+
+    def __init__(self, source, destination):
+        self.source = source
+        self.destination = destination
+
+    def save(self):
+        if self.source != self.destination:
+            CascadeStep.cascade_steps.add(self)
+
+    @staticmethod
+    def get_destinations_for_branches(branches):
+        branches = to_branches_set(branches)
+        return {cascade_step.destination for cascade_step in
+                  CascadeStep.cascade_steps if cascade_step.source in branches}
+
+    @staticmethod
+    def get_all_destinations_for_branches(branches):
+        branches = to_branches_set(branches)
+        direct_destinations_without_current = \
+                 CascadeStep.get_destinations_for_branches(branches) - branches
+        return functools.reduce(
+            set.union,
+            (CascadeStep.get_all_destinations_for_branches(destination) for
+                           destination in direct_destinations_without_current),
+            direct_destinations_without_current
+        )
+
+    #@staticmethod
+    #def branch_order(self, branch_0, branch_1):
+        #if branch_0 in CascadeStep.get_all_destinations_for_branch(branch_1):
+            #return
+
+    @staticmethod
+    def get_branch_strength(branch):
+        return len(CascadeStep.get_all_destinations_for_branches(branch))
+
+
+    def __repr__(self):
+        return '<%s: %s < %s' % (type(self).__name__,
+                                 self.source, self.destination)
+
+
+
+for cascade_string in cascade_strings:
+    cascade_branches = \
+                     reversed(tuple(map(str.strip, cascade_string.split('>'))))
+    for source, destination in iterate_overlapping_pairs(cascade_branches):
+        CascadeStep(source, destination).save()
+
+#                                                                             #
+### Finished organizing cascades. #############################################
+
+### Analyzing input to get source and destinations: ###########################
+#                                                                             #
+branches = tuple(map(expand_branch_name, map(str.strip, sys.argv[1:])))
+if not branches:
+    global_source = 'HEAD'
+    global_destinations = {current_branch}
+elif len(branches) == 1:
+    global_source = 'HEAD'
+    global_destinations = {branches[0]}
+else:
+    assert len(branches) >= 2
+    global_source = branches[0]
+    global_destinations = set(branches[1:])
+#                                                                             #
+### Finished analyzing input to get source and destinations. ##################
+
+#gfm_pairs = set()
+
+
+affected_cascade_branches = global_destinations | \
+             CascadeStep.get_all_destinations_for_branches(global_destinations)
+
+gfm_pairs = set(
+    itertools.chain(
+        *[[(global_source, destination) for destination in
+           CascadeStep.get_destinations_for_branches(affected_cascade_branch)]
+        for affected_cascade_branch in affected_cascade_branches]
+    )
+)
+
+gfm_pairs |= {(global_source, global_destination) for global_destination in
+             global_destinations}
+
+sorted_gfm_pairs = sorted(gfm_pairs,
+                         key=lambda gfm_pair:
+                                  CascadeStep.get_branch_strength(gfm_pair[1]),
+                         reverse=True)
+
+execute_string = ' && '.join(
+    ('git-forward-merge %s %s' % gfm_pair) for gfm_pair in sorted_gfm_pairs
+)
+print('Running: %s' % execute_string)
+
+run(execute_string)
