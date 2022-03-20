@@ -29,7 +29,8 @@
   ],
   "languageserver": {
     "strato": {
-      "command": "strato-lsp-tool.jar",
+      "command": "strato-lsp",
+      // "command": "strato-lsp-tool.jar",
       "filetypes": [
         "strato"
       ],

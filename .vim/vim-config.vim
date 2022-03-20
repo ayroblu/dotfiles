@@ -303,9 +303,10 @@ nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
 nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
 
 " quit vim all
-nnoremap ZX :qa!<cr>
+nnoremap ZX :qa<cr>
 " quit vim with exit code
-nnoremap ZC :cq<cr>
+nnoremap ZCC :cq<cr>
+nnoremap ZCX :qa!<cr>
 
 " https://stackoverflow.com/questions/40289706/execute-selection-from-script-in-vim
 "autocmd FileType rust xnoremap <buffer> <leader>e :w !echo 'fn main() {' "$(cat)" '}' > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>

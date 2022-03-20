@@ -214,9 +214,21 @@ videoToGif480() {
   # https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/
   ffmpeg -i "$filename" -filter_complex "[0:v] fps=12,scale=480:-1,split [a][b];[a] palettegen [p];[b][p] paletteuse" "$new_filename"
 }
+videoToGif480x4() {
+  local filename="$1"
+  local new_filename="${filename%.*}.480x4.gif"
+  # https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/
+  ffmpeg -i "$filename" -filter_complex "[0:v] fps=12,scale=480:-1,setpts=0.25*PTS,split [a][b];[a] palettegen [p];[b][p] paletteuse" "$new_filename"
+}
 videoToGif1280() {
   local filename="$1"
   local new_filename="${filename%.*}.1280.gif"
   # https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/
   ffmpeg -i "$filename" -filter_complex "[0:v] fps=12,scale=1280:-1,split [a][b];[a] palettegen [p];[b][p] paletteuse" "$new_filename"
+}
+videoToGif1280x4() {
+  local filename="$1"
+  local new_filename="${filename%.*}.1280x4.gif"
+  # https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/
+  ffmpeg -i "$filename" -filter_complex "[0:v] fps=12,scale=1280:-1,setpts=0.25*PTS,split [a][b];[a] palettegen [p];[b][p] paletteuse" "$new_filename"
 }

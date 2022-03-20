@@ -1,0 +1,2 @@
+# bat --config-file
+--map-syntax='*.strato:Scala'
