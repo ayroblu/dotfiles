@@ -21,12 +21,12 @@ const cacheDefs = [
   {
     cmd: "brew install --cask",
     getListOptions: "brew search --casks",
-    getCmdFiles: () => ["$HOMEBREW_PREFIX/.git/HEAD"],
+    getCmdFiles: () => ["/usr/local/Homebrew/.git/HEAD"],
   },
   {
     cmd: "brew install",
     getListOptions: "brew formulae",
-    getCmdFiles: () => ["$HOMEBREW_PREFIX/.git/HEAD"],
+    getCmdFiles: () => ["/usr/local/Homebrew/.git/HEAD"],
   },
   {
     cmd: "gulp",

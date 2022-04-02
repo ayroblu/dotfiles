@@ -10,7 +10,7 @@ set shiftround
 set sw=2
 set sts=2
 set ts=2
-set gvimpath=$HOMEBREW_PREFIX . /bin/mvim
+set gvimpath=/usr/local/bin/mvim
 
 " ----------- Mappings
 "ESC

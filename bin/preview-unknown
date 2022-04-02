@@ -37,6 +37,6 @@ elif [ "$kind" = json ]; then
 else
   echo mime $mime
   bat --style=numbers --color=always "$1" | head -500
-  #export LESSOPEN="|$HOMEBREW_PREFIX/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
+  #export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
   #lesspipe.sh "$1" | bat --color=always
 fi

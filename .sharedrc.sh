@@ -1,8 +1,8 @@
 # ------------------- Env
 # Somewhat expensive cause it calls the brew executable
-if [ -f /usr/local/bin/brew ]; then
-  eval "$(/usr/local/bin/brew shellenv)"
-fi
+#if [ -f /usr/local/bin/brew ]; then
+#  eval "$(/usr/local/bin/brew shellenv)"
+#fi
 
 # -------------------- Aliases
 alias rand='date +%s | shasum -a 256 | base64 | head -c 32 ; echo'
@@ -22,7 +22,7 @@ alias goctave='\octave -q'
 [ -x "$(command -v octave)" ] && alias octave='octave -W -q'
 [ -x "$(command -v rg)" ] && [ -x "$(command -v ctags)" ] && alias maketags="rg --files | ctags --links=no --excmd=number -L-"
 [ -x "$(command -v rg)" ] && alias rg="rg --hidden --glob \"!tags\" --glob \"!.git\" -M 1000"
-[ -f "$HOMEBREW_PREFIX"/bin/less ] && export LESS="$LESS -RF"
+[ -f /usr/local/bin/less ] && export LESS="$LESS -RF"
 
 # Editing aliases
 alias vivim='vi ~/.vimrc'
@@ -59,7 +59,7 @@ localip() {
 }
 
 # -------------- Misc env vars
-[ -f "$HOMEBREW_PREFIX"/opt/libffi/lib/pkgconfig ] && export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/libffi/lib/pkgconfig"
+[ -f /usr/local/opt/libffi/lib/pkgconfig ] && export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 exists node && export NODE_OPTIONS=--max-old-space-size=8192
 exists brew && export HOMEBREW_NO_AUTO_UPDATE=1
 exists brew && export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
@@ -72,14 +72,14 @@ pathadd() {
 }
 pathadd ~/.cargo/bin
 pathadd ~/.poetry/bin
-pathadd "$HOMEBREW_PREFIX"/opt/mysql-client/bin
+pathadd "/usr/local/opt/mysql-client/bin
 pathadd ~/.emacs.d/bin
 pathadd ~/bin
-pathadd "$HOMEBREW_PREFIX"/opt/make/libexec/gnubin
+pathadd "/usr/local/opt/make/libexec/gnubin
 # qmk_firmware
-pathadd "$HOMEBREW_PREFIX/opt/avr-gcc@8/bin"
-pathadd "$HOMEBREW_PREFIX/opt/arm-gcc-bin@8/bin"
-pathadd "$HOMEBREW_PREFIX/anaconda3/bin"
+pathadd "/usr/local/opt/avr-gcc@8/bin"
+pathadd "/usr/local/opt/arm-gcc-bin@8/bin"
+pathadd "/usr/local/anaconda3/bin"
 
 #
 # Checkout bat --list-themes, Light themes: GitHub, Monokai Extended Light, OneHalfLight, ansi-light

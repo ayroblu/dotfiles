@@ -1,4 +1,4 @@
-# Checkout the .fzf.zsh -> $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh for more info
+# Checkout the .fzf.zsh -> /usr/local/opt/fzf/shell/key-bindings.zsh for more info
 # https://feltrac.co/environment/2020/01/18/build-your-own-shell-completion.html
 # Downfalls - can't do context aware (how do I figure out the cmd line? Perhaps $@?
 

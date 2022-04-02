@@ -173,7 +173,7 @@ FZF setup
 After brew install fzf, make sure you run the key bindings setup
 
 ```bash
-$HOMEBREW_PREFIX/opt/fzf/install
+/usr/local/opt/fzf/install
 ```
 
 VS Code Setup

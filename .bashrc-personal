@@ -150,6 +150,6 @@ alias addbash='TEMPCMD="$(history -p !!)"; addbashfunc'
 has rg && export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Homebrew sbin
-export PATH="/usr/local/sbin:$PATH"
+#export PATH="/usr/local/sbin:$PATH"
 export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 
