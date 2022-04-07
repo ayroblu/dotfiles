@@ -72,10 +72,10 @@ pathadd() {
 }
 pathadd ~/.cargo/bin
 pathadd ~/.poetry/bin
-pathadd "/usr/local/opt/mysql-client/bin
+pathadd /usr/local/opt/mysql-client/bin
 pathadd ~/.emacs.d/bin
 pathadd ~/bin
-pathadd "/usr/local/opt/make/libexec/gnubin
+pathadd /usr/local/opt/make/libexec/gnubin
 # qmk_firmware
 pathadd "/usr/local/opt/avr-gcc@8/bin"
 pathadd "/usr/local/opt/arm-gcc-bin@8/bin"
