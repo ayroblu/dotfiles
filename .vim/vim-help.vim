@@ -23,6 +23,14 @@ function GetPersonalHelpText()
     \\n :BufOnly for closing all except current buffer
     \\n <leader>yp for yanking the path
     \\n
+    \\n ## Exit
+    \\n ZS to save
+    \\n ZE to save and quit all
+    \\n ZZ to save and quit
+    \\n ZX to quit all
+    \\n ZC to quit all with exit code
+    \\n ZV to force quit all
+    \\n
     \\n ## text-obj
     \\n if, af for function
     \\n ci,w for camel case
