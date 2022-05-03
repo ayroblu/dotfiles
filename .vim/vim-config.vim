@@ -457,6 +457,12 @@ command Reload :au! | so ~/.vimrc
 " https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one
 command BufOnly :%bd|e#
 
+" Recreate tmpdir if deleted while sleeping
+" https://github.com/neovim/neovim/pull/11284
+" https://groups.google.com/g/vim_use/c/qgRob9SWDv8/m/FAOFVVcDTv0J
+command! Mktmpdir call mkdir(fnamemodify(tempname(),":p:h"),"",0700)
+nnoremap <leader>mk :Mktmpdir<cr>
+
 " https://stackoverflow.com/questions/19430200/how-to-clear-vim-registers-effectively
 function ClearReg()
   let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
