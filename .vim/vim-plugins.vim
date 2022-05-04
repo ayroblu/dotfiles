@@ -322,6 +322,7 @@ nnoremap <Leader>* :Rg <C-R><C-W><CR>
 vnoremap <Leader>/ y:Rg \b<C-R>0\b<CR>
 nnoremap <Leader>: :History:<CR>
 nnoremap <Leader>h/ :History/<CR>
+nnoremap <Leader>hh :History<CR>
 
 " Custom setup for previews on Rg and Files
 command! -bang -nargs=* Rg
