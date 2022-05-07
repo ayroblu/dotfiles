@@ -335,6 +335,7 @@ nnoremap Q <nop>
 "au CursorHold * checktime
 "After with https://vi.stackexchange.com/questions/14315/how-can-i-tell-if-im-in-the-command-window
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI,VimLeavePre * Mktmpdir
 
 " ---------------------------------------- Functions and commands
 " https://vim.fandom.com/wiki/Customize_text_for_closed_folds
@@ -460,8 +461,18 @@ command BufOnly :%bd|e#
 " Recreate tmpdir if deleted while sleeping
 " https://github.com/neovim/neovim/pull/11284
 " https://groups.google.com/g/vim_use/c/qgRob9SWDv8/m/FAOFVVcDTv0J
-command! Mktmpdir call mkdir(fnamemodify(tempname(),":p:h"),"",0700)
-nnoremap <leader>mk :Mktmpdir<cr>
+command! Mktmpdir call mkdir(fnamemodify(tempname(),":p:h"),"p",0700)
+nnoremap <silent> <leader>mk :Mktmpdir<cr>
+
+function! ErrorWrapMissing(func)
+    try
+        execute a:func
+    catch /^Vim\%((\a\+)\)\=:E482/
+        Mktmpdir
+        execute a:func
+    endtry
+endfunction
+
 
 " https://stackoverflow.com/questions/19430200/how-to-clear-vim-registers-effectively
 function ClearReg()
