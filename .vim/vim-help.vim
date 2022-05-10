@@ -52,10 +52,10 @@ function GetPersonalHelpText()
     \\n `:Rg query` to search with ripgrep
     \\n
     \\n ## repl + code execution:
-    \\n <leader>e: Run lines and output (selection or whole file)
-    \\n <leader>w: Run repl and push lines (selection or current line)
-    \\n <leader>q: Close repl
-    \\n <leader>p: Select pane target
+    \\n <leader>re: Run lines and output (selection or whole file)
+    \\n <leader>rw: Run repl and push lines (selection or current line)
+    \\n <leader>rq: Close repl
+    \\n <leader>rp: Select pane target
     \\n
     \\n ## vim-exchange
     \\n cxc to cancel

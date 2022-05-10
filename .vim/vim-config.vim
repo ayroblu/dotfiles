@@ -305,6 +305,7 @@ nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
 nnoremap ZS :w<cr>
 " quit vim all
 nnoremap ZE :wqa<cr>
+nnoremap ZT :q<cr>
 nnoremap ZX :qa<cr>
 " quit vim with exit code
 nnoremap ZC :cq<cr>

@@ -311,6 +311,7 @@ let g:fzf_layout = { 'down': '50%' }
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md
 noremap <leader><Tab> :Buffers<CR>
 nmap <Leader>t :Files<CR>
+nnoremap <silent> <Leader>e :Files <C-R>=split(expand('%:h'),'/')[0]<CR><CR>
 "nmap <Leader><leader>r :BTags<CR>
 "nmap <Leader><Leader>t :Tags<CR>
 " https://github.com/junegunn/fzf.vim/issues/360

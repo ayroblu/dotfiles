@@ -58,8 +58,8 @@ fun! GetSelectedTextAsList()
   let lines[0] = lines[0][col1 - 1:]
   return lines
 endfun
-xnoremap <leader>e :call RunScript(0)<cr>
-nnoremap <leader>e :call RunScript(1)<cr>
+xnoremap <leader>re :call RunScript(0)<cr>
+nnoremap <leader>re :call RunScript(1)<cr>
 
 " Tmux splitting
 function GetActiveTmuxPane()
@@ -168,7 +168,7 @@ endfunction
 
 xnoremap <leader>rw :call ReplSendSelection()<cr>
 nnoremap <leader>rw :call ReplSendCurrentLine()<cr>j
-nnoremap <leader>rp :call ReplClose()<cr>
+nnoremap <leader>rq :call ReplClose()<cr>
 nnoremap <leader>rp :call ReplSetPane()<cr>
 "<leader>e: Run lines and output (selection or whole file)"
 "<leader>w: Run repl and push lines (selection or current line)"
