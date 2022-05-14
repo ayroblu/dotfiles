@@ -148,7 +148,7 @@ source-if-exists ~/.sharedrc.sh
 append-time "zshrc shared"
 source-if-exists ~/.zsh-personal.zsh
 append-time "zshrc personal"
-if exists fzf; then
+if exists fzf || [ -f ~/.fzf.zsh ]; then
   source-if-exists ~/.zsh-fzf.zsh
   source-if-exists ~/.zsh-fzf-comp.zsh
 fi

@@ -74,6 +74,7 @@ pathadd ~/.cargo/bin
 pathadd ~/.poetry/bin
 pathadd /usr/local/opt/mysql-client/bin
 pathadd ~/.emacs.d/bin
+pathadd ~/.local/bin
 pathadd ~/bin
 pathadd /usr/local/opt/make/libexec/gnubin
 # qmk_firmware
@@ -84,7 +85,8 @@ pathadd "/usr/local/anaconda3/bin"
 #
 # Checkout bat --list-themes, Light themes: GitHub, Monokai Extended Light, OneHalfLight, ansi-light
 exists bat && export BAT_THEME="GitHub"
-export EDITOR='vi'
+export VISUAL='nvim'
+export EDITOR="$VISUAL"
 export MANPAGER="col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -"
 
 export GOPATH=~/ws/go

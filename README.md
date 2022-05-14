@@ -130,7 +130,7 @@ shell with no rcs
 ```sh
 mkdir ~/preload
 cat <<EOF > ~/preload/.zshrc
-ZDOTDIR="$HOME" zsh
+ZDOTDIR="$HOME" PRELOAD=t zsh
 exit
 EOF
 ```

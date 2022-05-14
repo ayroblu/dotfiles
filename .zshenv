@@ -6,7 +6,7 @@
 
 SHELL_SESSIONS_DISABLE=1
 # Perhaps not worth it, profiling should help here
-#if [ -f ~/preload/.zshrc ] && [ -z "$PRELOAD" ]; then
-#  export ZDOTDIR="$HOME/preload"
-#fi
+if [ -f ~/preload/.zshrc ] && [ -z "$PRELOAD" ]; then
+  export ZDOTDIR="$HOME/preload"
+fi
 
