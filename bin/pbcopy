@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# from https://github.com/mikepqr/pbcopy-sh
+if [ -e /usr/bin/pbcopy ]; then
+    /usr/bin/pbcopy
+else
+    # Re-echo's the input base 64 encoded, but precedes it with "OSC52 control code".
+    # This is a control code a modern terminal app listens for.
+    #
+    # If it hears it then, instead of printing what comes next, it dumps it on
+    # the clipboard of the host (the host running the terminal app, not the
+    # remote)
+    #
+    # More details: https://chromium.googlesource.com/apps/libapps/+/master/nassh/doc/FAQ.md#is-osc-52-aka-clipboard-operations_supported
+    printf '\e]52;c;%s\x07' "$(base64 -)"
+fi
