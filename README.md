@@ -39,7 +39,7 @@ Table of Contents
 - [MacOS Keyboard Layout](#macos-keyboard-layout)
 - [Plover](#plover)
 - [Emacs](#emacs)
-- [Remote pbcopy](#remote-pbcopy)
+- [Remote pbcopy (deprecated)](#remote-pbcopy-deprecated)
 - [Auto Fetch](#auto-fetch)
 
 <!-- vim-markdown-toc -->
@@ -342,29 +342,31 @@ Add to your root dir like so (you may need to delete your existing one generated
 ln -s ~/ws/dotfiles/.doom.d ~/.doom.d
 ```
 
-Remote pbcopy
+Remote pbcopy (deprecated)
 -------------
-From https://gist.github.com/burke/5960455
+Deprecated in favour of bin/pbcopy
 
-macOS opens inetd which pipes socket info to pbcopy and pbpaste and relies on netcat on the remote
-
-```sh
-set -x
-ln -s "$(pwd)/remote-pbcopy/pbcopy.plist" ~/Library/LaunchAgents/pbcopy.plist
-ln -s "$(pwd)/remote-pbcopy/pbpaste.plist" ~/Library/LaunchAgents/pbpaste.plist
-launchctl load ~/Library/LaunchAgents/pbcopy.plist
-launchctl load ~/Library/LaunchAgents/pbpaste.plist
-```
-
-Example ssh config, probably want to use `sshpb` alias to pass through ports by connection
-
-```sshconfig
-Host myhost
-    HostName 192.168.1.123
-    User myname
-    RemoteForward 2324 127.0.0.1:2324
-    RemoteForward 2325 127.0.0.1:2325
-```
+> From https://gist.github.com/burke/5960455
+>
+> macOS opens inetd which pipes socket info to pbcopy and pbpaste and relies on netcat on the remote
+>
+> ```sh
+> set -x
+> ln -s "$(pwd)/remote-pbcopy/pbcopy.plist" ~/Library/LaunchAgents/pbcopy.plist
+> ln -s "$(pwd)/remote-pbcopy/pbpaste.plist" ~/Library/LaunchAgents/pbpaste.plist
+> launchctl load ~/Library/LaunchAgents/pbcopy.plist
+> launchctl load ~/Library/LaunchAgents/pbpaste.plist
+> ```
+>
+> Example ssh config, probably want to use `sshpb` alias to pass through ports by connection
+>
+> ```sshconfig
+> Host myhost
+>     HostName 192.168.1.123
+>     User myname
+>     RemoteForward 2324 127.0.0.1:2324
+>     RemoteForward 2325 127.0.0.1:2325
+> ```
 
 Auto Fetch
 ----------

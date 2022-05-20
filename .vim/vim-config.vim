@@ -221,7 +221,7 @@ function Isystem(a, ...)
 endfunction
 
 " copy and pasting
-vnoremap <C-c> y:call Isystem("pbcopy", getreg("\""))<CR>
+vnoremap <C-c> y:call Isystem("pbcopy", getreg('"'))<CR>
 nnoremap <C-v><C-v> :call setreg("\"", Isystem("pbpaste"))<CR>p
 
 " Highlight rows and columns with \l and \c, 'l to move, :match to remove
