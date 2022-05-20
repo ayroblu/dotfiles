@@ -305,6 +305,8 @@ Plug 'tpope/vim-commentary'
 
 "Plug 'vim-scripts/ReplaceWithRegister' "griw to replace inner word with register
 
+" Only for when you install locally on remote machine without root
+set rtp+=~/ws/fzf
 set rtp+=/usr/local/opt/fzf
 Plug 'junegunn/fzf.vim'
 let g:fzf_layout = { 'down': '50%' }
