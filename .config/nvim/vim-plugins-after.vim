@@ -62,7 +62,9 @@ pcall(setupTreeSitter)
 -- metals_config.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 EOF
 set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
+"set foldexpr=nvim_treesitter#foldexpr()
+"https://www.reddit.com/r/neovim/comments/seq0q1/plugin_request_autofolding_file_imports_using/
+set foldexpr=v:lnum==1?'>1':getline(v:lnum)=~'import'?1:nvim_treesitter#foldexpr()
 
 function! EnableScala()
   autocmd FileType scala nnoremap <silent> <C-]>       <cmd>lua vim.lsp.buf.definition()<CR>
