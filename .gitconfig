@@ -97,8 +97,8 @@
   m = merge --no-ff
   mt = mergetool
   # New branch
-  nb = checkout -t HEAD -b
-  new-branch = nb
+  new = checkout origin/master -b
+  newdep = checkout -t HEAD -b
   upstream = rev-parse --abbrev-ref --symbolic-full-name @{u}
   p = push origin HEAD
   pr = pull --rebase
