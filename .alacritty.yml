@@ -52,3 +52,6 @@ font:
 cursor:
   style:
     blinking: Never
+
+window:
+  decorations: none
