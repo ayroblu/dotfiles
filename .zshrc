@@ -172,3 +172,6 @@ print-time
 
 # Here for Twitter reasons, go-android adds this back :/
 # source ~/.twitter-android-script # added by Bootstrap
+
+# same but for web command
+###-begin-web-script-content-###
