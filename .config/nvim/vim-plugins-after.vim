@@ -1,3 +1,45 @@
+if $HOME ==# '/home/sandbox'
+  augroup metals_lsp
+    autocmd!
+    autocmd FileType scala nnoremap <buffer><silent> <C-]>       <cmd>lua vim.lsp.buf.definition()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> gd          <cmd>lua vim.lsp.buf.definition()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> K           <cmd>lua vim.lsp.buf.hover()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> gi          <cmd>lua vim.lsp.buf.implementation()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> gr          <cmd>lua vim.lsp.buf.references()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> gsd         <cmd>lua vim.lsp.buf.document_symbol()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> gsw         <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>or  :MetalsOrgaizeImports<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>cl  <cmd>lua vim.lsp.codelens.run()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>sh  <cmd>lua vim.lsp.signature_help()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>rn  <cmd>lua vim.lsp.buf.rename()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>f   <cmd>lua vim.lsp.buf.formatting()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>ac  <cmd>lua vim.lsp.buf.code_action()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>ws  <cmd>lua require'metals'.hover_worksheet()<CR>
+    " All workspace diagnostics, errors, or warnings only
+    autocmd FileType scala nnoremap <buffer><silent> aa          <cmd>lua vim.diagnostic.setqflist()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> ae          <cmd>lua vim.diagnostic.setqflist({severity = "E"})<CR>
+    autocmd FileType scala nnoremap <buffer><silent> aw          <cmd>lua vim.diagnostic.setqflist({severity = "W"})<CR>
+    " buffer diagnostics only
+    autocmd FileType scala nnoremap <buffer><silent> qf          <cmd>lua vim.diagnostic.loclist()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> [c          <cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>
+    autocmd FileType scala nnoremap <buffer><silent> ]c          <cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>
+
+    " Example mappings for usage with nvim-dap. If you don't use that, you can skip these
+    autocmd FileType scala nnoremap <buffer><silent> <leader>dc  <cmd>lua require'dap'.continue()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>dr  <cmd>lua require'dap'.repl.toggle()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>dK  <cmd>lua require'dap.ui.widgets'.hover()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>dt  <cmd>lua require'dap'.toggle_breakpoint()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>dso <cmd>lua require'dap'.step_over()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>dsi <cmd>lua require'dap'.step_into()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>dl  <cmd>lua require'dap'.run_last()<CR>
+
+    autocmd FileType scala setl shortmess+=c
+    autocmd FileType scala setl shortmess-=F
+
+    autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc
+  augroup end
+endif
+
 lua <<EOF
 function setupTreeSitter()
   require'nvim-treesitter.configs'.setup {
@@ -32,7 +74,7 @@ pcall(setupTreeSitter)
 
 
 -- Configure completion
-if false then
+if os.getenv("HOME") == "/home/sandbox" then
   -- https://github.com/scalameta/nvim-metals/discussions/39
   local api = vim.api
   local cmd = vim.cmd
@@ -52,36 +94,36 @@ if false then
   vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
   vim.opt_global.shortmess:remove("F"):append("c")
 
-  -- LSP mappings
-  map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-  map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
-  map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-  map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
-  map("n", "gds", "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
-  map("n", "gws", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>")
-  map("n", "<leader>or", ":MetalsOrganizeImports<CR>")
-  map("n", "<leader>cl", [[<cmd>lua vim.lsp.codelens.run()<CR>]])
-  map("n", "<leader>sh", [[<cmd>lua vim.lsp.buf.signature_help()<CR>]])
-  map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
-  map("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
-  map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-  map("n", "<leader>ws", '<cmd>lua require"metals".hover_worksheet()<CR>')
-  map("n", "<leader>aa", [[<cmd>lua vim.diagnostic.setqflist()<CR>]]) -- all workspace diagnostics
-  map("n", "<leader>ae", [[<cmd>lua vim.diagnostic.setqflist({severity = "E"})<CR>]]) -- all workspace errors
-  map("n", "<leader>aw", [[<cmd>lua vim.diagnostic.setqflist({severity = "W"})<CR>]]) -- all workspace warnings
-  map("n", "<leader>qf", "<cmd>lua vim.diagnostic.setloclist()<CR>") -- buffer diagnostics only
-  map("n", "[c", "<cmd>lua vim.diagnostic.goto_prev { wrap = false }<CR>")
-  map("n", "]c", "<cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>")
+  -- LSP mappings (commented out cause can't target just scala)
+  --map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+  --map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+  --map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
+  --map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
+  --map("n", "gds", "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
+  --map("n", "gws", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>")
+  --map("n", "<leader>or", ":MetalsOrganizeImports<CR>")
+  --map("n", "<leader>cl", [[<cmd>lua vim.lsp.codelens.run()<CR>]])
+  --map("n", "<leader>sh", [[<cmd>lua vim.lsp.buf.signature_help()<CR>]])
+  --map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
+  --map("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+  --map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
+  --map("n", "<leader>ws", '<cmd>lua require"metals".hover_worksheet()<CR>')
+  --map("n", "<leader>aa", [[<cmd>lua vim.diagnostic.setqflist()<CR>]]) -- all workspace diagnostics
+  --map("n", "<leader>ae", [[<cmd>lua vim.diagnostic.setqflist({severity = "E"})<CR>]]) -- all workspace errors
+  --map("n", "<leader>aw", [[<cmd>lua vim.diagnostic.setqflist({severity = "W"})<CR>]]) -- all workspace warnings
+  --map("n", "<leader>qf", "<cmd>lua vim.diagnostic.setloclist()<CR>") -- buffer diagnostics only
+  --map("n", "[c", "<cmd>lua vim.diagnostic.goto_prev { wrap = false }<CR>")
+  --map("n", "]c", "<cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>")
 
-  -- Example mappings for usage with nvim-dap. If you don't use that, you can
-  -- skip these
-  map("n", "<leader>dc", [[<cmd>lua require"dap".continue()<CR>]])
-  map("n", "<leader>dr", [[<cmd>lua require"dap".repl.toggle()<CR>]])
-  map("n", "<leader>dK", [[<cmd>lua require"dap.ui.widgets".hover()<CR>]])
-  map("n", "<leader>dt", [[<cmd>lua require"dap".toggle_breakpoint()<CR>]])
-  map("n", "<leader>dso", [[<cmd>lua require"dap".step_over()<CR>]])
-  map("n", "<leader>dsi", [[<cmd>lua require"dap".step_into()<CR>]])
-  map("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]])
+  ---- Example mappings for usage with nvim-dap. If you don't use that, you can
+  ---- skip these
+  --map("n", "<leader>dc", [[<cmd>lua require"dap".continue()<CR>]])
+  --map("n", "<leader>dr", [[<cmd>lua require"dap".repl.toggle()<CR>]])
+  --map("n", "<leader>dK", [[<cmd>lua require"dap.ui.widgets".hover()<CR>]])
+  --map("n", "<leader>dt", [[<cmd>lua require"dap".toggle_breakpoint()<CR>]])
+  --map("n", "<leader>dso", [[<cmd>lua require"dap".step_over()<CR>]])
+  --map("n", "<leader>dsi", [[<cmd>lua require"dap".step_into()<CR>]])
+  --map("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]])
 
 
   local cmp = require'cmp'
