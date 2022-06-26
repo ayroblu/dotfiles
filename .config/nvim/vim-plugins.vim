@@ -31,24 +31,25 @@ Plug 'scalameta/nvim-metals'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/nvim-cmp'
 
-"augroup lsp
-"  autocmd!
-"  autocmd FileType scala nnoremap <silent> <C-]>       <cmd>lua vim.lsp.buf.definition()<CR>
-"  autocmd FileType scala nnoremap <silent> K           <cmd>lua vim.lsp.buf.hover()<CR>
-"  autocmd FileType scala nnoremap <silent> gi          <cmd>lua vim.lsp.buf.implementation()<CR>
-"  autocmd FileType scala nnoremap <silent> gr          <cmd>lua vim.lsp.buf.references()<CR>
-"  autocmd FileType scala nnoremap <silent> <C-s>       <cmd>lua vim.lsp.buf.document_symbol()<CR>
-"  autocmd FileType scala nnoremap <silent> <C-p>       <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-"  autocmd FileType scala nnoremap <silent> <leader>r   <cmd>lua vim.lsp.buf.rename()<CR>
-"  autocmd FileType scala nnoremap <silent> <leader>f   <cmd>lua vim.lsp.buf.formatting()<CR>
-"  autocmd FileType scala nnoremap <silent> <leader>a   <cmd>lua vim.lsp.buf.code_action()<CR>
-"  autocmd FileType scala nnoremap <silent> <leader>w   <cmd>lua require'metals'.hover_worksheet()<CR>
-"  autocmd FileType scala nnoremap <silent> [c          <cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>
-"  autocmd FileType scala nnoremap <silent> ]c          <cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>
-"  autocmd FileType scala setl shortmess+=c
-"  autocmd FileType scala setl shortmess-=F
-"
-"  autocmd FileType scala,sbt lua require("metals").initialize_or_attach(metals_config)
-"  autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc
-"augroup end
+if 0
+  augroup lsp
+    autocmd!
+    autocmd FileType scala nnoremap <silent> <C-]>       <cmd>lua vim.lsp.buf.definition()<CR>
+    autocmd FileType scala nnoremap <silent> K           <cmd>lua vim.lsp.buf.hover()<CR>
+    autocmd FileType scala nnoremap <silent> gi          <cmd>lua vim.lsp.buf.implementation()<CR>
+    autocmd FileType scala nnoremap <silent> gr          <cmd>lua vim.lsp.buf.references()<CR>
+    autocmd FileType scala nnoremap <silent> <C-s>       <cmd>lua vim.lsp.buf.document_symbol()<CR>
+    autocmd FileType scala nnoremap <silent> <C-p>       <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+    autocmd FileType scala nnoremap <silent> <leader>r   <cmd>lua vim.lsp.buf.rename()<CR>
+    autocmd FileType scala nnoremap <silent> <leader>f   <cmd>lua vim.lsp.buf.formatting()<CR>
+    autocmd FileType scala nnoremap <silent> <leader>a   <cmd>lua vim.lsp.buf.code_action()<CR>
+    autocmd FileType scala nnoremap <silent> <leader>w   <cmd>lua require'metals'.hover_worksheet()<CR>
+    autocmd FileType scala nnoremap <silent> [c          <cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>
+    autocmd FileType scala nnoremap <silent> ]c          <cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>
+    autocmd FileType scala setl shortmess+=c
+    autocmd FileType scala setl shortmess-=F
 
+    autocmd FileType scala,sbt lua require("metals").initialize_or_attach(metals_config)
+    autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc
+  augroup end
+endif
