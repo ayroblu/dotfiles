@@ -446,7 +446,10 @@ map <leader>u :call HandleURL()<cr>
 "autocmd BufEnter * silent! normal! g`"
 
 " A few personal aliases that make editing certain files easier
-command Notes :n ~/Dropbox/Notes/Notes.md ~/Dropbox/Notes/* ~/Dropbox/Documents/twitter/*.md
+command Notes :n ~/Dropbox/Notes/Notes.md
+\ ~/Dropbox/Notes/*.md
+\ ~/Dropbox/Documents/twitter/*.md
+\ ~/Dropbox/Documents/ambitus/*.md
 
 nnoremap <leader>nn :Notes<cr>
 nnoremap <leader>nd :tabe<cr>:lcd ~/ws/dotfiles<cr>:n ~/ws/dotfiles/.sharedshrc<cr>
