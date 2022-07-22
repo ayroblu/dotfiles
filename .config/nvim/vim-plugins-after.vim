@@ -12,13 +12,13 @@ if $HOME ==# '/home/sandbox'
     autocmd FileType scala nnoremap <buffer><silent> <leader>cl  <cmd>lua vim.lsp.codelens.run()<CR>
     autocmd FileType scala nnoremap <buffer><silent> <leader>sh  <cmd>lua vim.lsp.signature_help()<CR>
     autocmd FileType scala nnoremap <buffer><silent> <leader>rn  <cmd>lua vim.lsp.buf.rename()<CR>
-    autocmd FileType scala nnoremap <buffer><silent> <leader>f   <cmd>lua vim.lsp.buf.formatting()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>lf   <cmd>lua vim.lsp.buf.formatting()<CR>
     autocmd FileType scala nnoremap <buffer><silent> <leader>ac  <cmd>lua vim.lsp.buf.code_action()<CR>
     autocmd FileType scala nnoremap <buffer><silent> <leader>ws  <cmd>lua require'metals'.hover_worksheet()<CR>
     " All workspace diagnostics, errors, or warnings only
-    autocmd FileType scala nnoremap <buffer><silent> aa          <cmd>lua vim.diagnostic.setqflist()<CR>
-    autocmd FileType scala nnoremap <buffer><silent> ae          <cmd>lua vim.diagnostic.setqflist({severity = "E"})<CR>
-    autocmd FileType scala nnoremap <buffer><silent> aw          <cmd>lua vim.diagnostic.setqflist({severity = "W"})<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>aa  <cmd>lua vim.diagnostic.setqflist()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>ae  <cmd>lua vim.diagnostic.setqflist({severity = "E"})<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>aw  <cmd>lua vim.diagnostic.setqflist({severity = "W"})<CR>
     " buffer diagnostics only
     autocmd FileType scala nnoremap <buffer><silent> qf          <cmd>lua vim.diagnostic.loclist()<CR>
     autocmd FileType scala nnoremap <buffer><silent> [c          <cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>
