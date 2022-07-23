@@ -20,7 +20,7 @@ if $HOME ==# '/home/sandbox'
     autocmd FileType scala nnoremap <buffer><silent> <leader>ae  <cmd>lua vim.diagnostic.setqflist({severity = "E"})<CR>
     autocmd FileType scala nnoremap <buffer><silent> <leader>aw  <cmd>lua vim.diagnostic.setqflist({severity = "W"})<CR>
     " buffer diagnostics only
-    autocmd FileType scala nnoremap <buffer><silent> qf          <cmd>lua vim.diagnostic.loclist()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>qf  <cmd>lua vim.diagnostic.loclist()<CR>
     autocmd FileType scala nnoremap <buffer><silent> [c          <cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>
     autocmd FileType scala nnoremap <buffer><silent> ]c          <cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>
 
