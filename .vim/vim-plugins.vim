@@ -307,6 +307,7 @@ Plug 'tpope/vim-commentary'
 
 " Only for when you install locally on remote machine without root
 set rtp+=~/ws/fzf
+set rtp+=~/workspace/personal/fzf
 set rtp+=/usr/local/opt/fzf
 Plug 'junegunn/fzf.vim'
 let g:fzf_layout = { 'down': '50%' }
