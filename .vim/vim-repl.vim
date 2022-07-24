@@ -58,8 +58,6 @@ fun! GetSelectedTextAsList()
   let lines[0] = lines[0][col1 - 1:]
   return lines
 endfun
-xnoremap <leader>re :call RunScript(0)<cr>
-nnoremap <leader>re :call RunScript(1)<cr>
 
 " Tmux splitting
 function GetActiveTmuxPane()
@@ -120,7 +118,7 @@ function s:ReplStartTmuxIfNotFound()
 endfunction
 function s:ReplSendCmd(line, ...)
   let str = substitute(a:line, "'", "'\\\\''", "g")
-  let scmd = "tmux set-buffer '" . str . "\<C-M>' && tmux paste-buffer -t " . g:my_repl_pane
+  let scmd = "tmux set-buffer '" . str . "\n' && tmux paste-buffer -t " . g:my_repl_pane
   call system(scmd)
   if v:shell_error
     let g:my_repl_pane = ''
@@ -166,6 +164,8 @@ function! ReplSetPane()
         \})
 endfunction
 
+xnoremap <leader>re :call RunScript(0)<cr>
+nnoremap <leader>re :call RunScript(1)<cr>
 xnoremap <leader>rw :call ReplSendSelection()<cr>
 nnoremap <leader>rw :call ReplSendCurrentLine()<cr>j
 nnoremap <leader>rq :call ReplClose()<cr>
