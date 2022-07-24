@@ -571,7 +571,7 @@ autocmd FileType python nnoremap <buffer> <leader>i :ImportName<cr>
 
 Plug 'w0rp/ale'
 "autocmd FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
-autocmd FileType typescript,typescriptreact let b:ale_linters = []
+autocmd FileType javascript,typescript,typescriptreact let b:ale_linters = []
 autocmd FileType javascript let b:ale_linters_ignore = ['tsserver']
 " Enable ale for things coc doesn't support yet
 autocmd FileType vim,javascript nmap <silent> ]j :ALENextWrap<cr>
@@ -583,7 +583,6 @@ autocmd FileType vim,javascript nmap <silent> [j :ALEPreviousWrap<cr>
 "\ 'json': ['prettier'],
 "\ 'scala': ['scalafmt'],
 " Still use ale for python
-" ALE uses prettier only if it's installed - preferred for markdown
 " ALE Fixers are slow compared to Coc, use sparingly
 let g:ale_fixers = {
 \ 'typescript': [],
@@ -637,6 +636,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lock
 " I think I prefer this, it's just easier
 "\  'coc-metals',
 let g:coc_global_extensions = [
+\  'coc-eslint',
 \  'coc-tsserver',
 \  'coc-prettier',
 \  'coc-json',

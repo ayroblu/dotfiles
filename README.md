@@ -381,6 +381,8 @@ launchctl load ~/Library/LaunchAgents/auto-fetch.plist
 > (thanks to this comment which was super helpful)
 > https://stackoverflow.com/questions/47582989/launchd-not-able-to-access-mac-os-keychains#comment117557839_49288984
 
+Note that you can view the logs of the runs defined in the StandardOutPath etc in the plist
+
 Then your `~/bin/auto-fetch.sh` might look something like:
 
 ```sh

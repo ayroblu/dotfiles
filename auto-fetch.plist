@@ -13,7 +13,7 @@
     <string>$HOME/bin/auto-fetch.sh</string>
   </array>
   <key>StandardErrorPath</key>
-  <string>/tmp/local.autoFetch.err</string>
+  <string>/tmp/local.autoFetch.out</string>
   <key>StandardOutPath</key>
   <string>/tmp/local.autoFetch.out</string>
   <key>StartCalendarInterval</key>
