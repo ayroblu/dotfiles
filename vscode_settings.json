@@ -3,6 +3,7 @@
 // cmd j - toggle side panel
 // cmd p - toggle file search
 {
+  "telemetry.telemetryLevel": "off",
   "workbench.colorTheme": "Solarized Light",
   "workbench.settings.editor": "json",
   "workbench.startupEditor": "none",
