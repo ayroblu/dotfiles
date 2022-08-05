@@ -164,18 +164,18 @@ const allCmds = [
       }
     ]
   },
-  {
-    name: "bazel",
-    cmds: [
-      {
-        cmdTrigger: "bazel build ",
-        cmdListOptions:
-          'bazel query "$(echo "$LBUFFER" | awk \'{print $3}\')"... 2> /dev/null',
-        fzfOptions: "--multi --preview \"bazel query 'deps({})' 2> /dev/null\""
-        // '--multi --preview "bazel query \'kind(\\"source file\\", deps({}))\' 2> /dev/null"'
-      }
-    ]
-  }
+  // {
+  //   name: "bazel",
+  //   cmds: [
+  //     {
+  //       cmdTrigger: "bazel build ",
+  //       cmdListOptions:
+  //         'bazel query "$(echo "$LBUFFER" | awk \'{print $3}\')"... 2> /dev/null',
+  //       fzfOptions: "--multi --preview \"bazel query 'deps({})' 2> /dev/null\""
+  //       // '--multi --preview "bazel query \'kind(\\"source file\\", deps({}))\' 2> /dev/null"'
+  //     }
+  //   ]
+  // }
 ];
 
 function generateFunc(name, cmds) {
@@ -229,4 +229,4 @@ const header = `
 `.trim();
 
 const fileContents = `${header}\n\n${result}`;
-fs.writeFileSync(".zshrc-fzf-completion", fileContents);
+fs.writeFileSync(".zsh-fzf-comp.zsh", fileContents);

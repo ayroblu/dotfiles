@@ -179,14 +179,3 @@ _fzf_complete_gulp() {
     return 1
   fi
 }
-_fzf_complete_bazel() {
-  ARGS="$@"
-  if [[ $ARGS == 'bazel build '* ]]; then
-    local options="$(bazel query "$(echo "$LBUFFER" | awk '{print $3}')"... 2> /dev/null)"
-    _fzf_complete --multi --preview "bazel query 'deps({})' 2> /dev/null" -- "$@" < <(
-      echo $options
-    )
-  else
-    return 1
-  fi
-}
