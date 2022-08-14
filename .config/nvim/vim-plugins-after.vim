@@ -136,6 +136,11 @@ if os.getenv("HOME") == "/home/sandbox" then
         vim.fn["vsnip#anonymous"](args.body)
       end,
     },
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+    })
+  })
+  cmp.setup.filetype('scala', {
     mapping = {
       ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
       ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
@@ -145,9 +150,6 @@ if os.getenv("HOME") == "/home/sandbox" then
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
     },
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-    })
   })
 
   ----------------------------------
