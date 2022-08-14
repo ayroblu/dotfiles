@@ -175,3 +175,4 @@ print-time
 
 # same but for web command
 ###-begin-web-script-content-###
+###-end-web-script-content-###

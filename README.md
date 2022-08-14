@@ -400,3 +400,9 @@ for i in "${sourcerepos[@]}"; do
   git fetch origin
 done
 ```
+
+You can run it manually with
+
+```sh
+launchctl start local.autoFetch
+```
