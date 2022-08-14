@@ -684,8 +684,8 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+"xmap <leader>a  <Plug>(coc-codeaction-selected)
+"nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
 nmap <leader>ac  <Plug>(coc-codeaction)
@@ -766,6 +766,24 @@ Plug 'antoinemadec/coc-fzf'
 " :CocFzfList
 " :CocFzfList diagnostics
 " :CocFzfListResume (same as last fzf)
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <Leader>aa  :<C-u>CocDiagnostics<cr>
+nnoremap <silent><nowait> <Leader>ca  :<C-u>CocFzfList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <Leader>ce  :<C-u>CocFzfList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <Leader>cc  :<C-u>CocFzfList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <Leader>co  :<C-u>CocFzfList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <Leader>cs  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+"nnoremap <silent><nowait> <Leader>cj  :<C-u>CocNext<CR>
+" Do default action for previous item.
+"nnoremap <silent><nowait> <Leader>ck  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <Leader>cr  :<C-u>CocFzfListResume<CR>
 
 augroup typescriptreact
   autocmd!
