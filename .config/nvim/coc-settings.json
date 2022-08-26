@@ -1,5 +1,6 @@
 {
   "diagnostic.virtualText": true,
+  "diagnostic.virtualTextCurrentLineOnly": false,
   "coc.preferences.formatOnSaveFiletypes": [
     "scala",
     "javascript",

@@ -129,17 +129,18 @@ fzf-down() {
   fzf --height 50% "$@" --border
 }
 
-fzf-git-status() {
-  if [ "$(du -s .git/objects | cut -f1)" -gt 500000 ]; then
-    git -c color.status=always status --short -uno 2> /dev/null
-  else
-    git -c color.status=always status --short 2> /dev/null
-  fi
-}
-
 fzf_gf() {
   is_in_git_repo || return
-  fzf-git-status 2> /dev/null |
+  git -c color.status=always status --short -uno 2> /dev/null |
+    fzf-down -m --ansi --nth 2..,.. \
+      --preview '(git diff --color=always -- {-1} 2> /dev/null | sed 1,4d; cat {-1}) | head -500' |
+    cut -c4- | sed 's/.* -> //'
+}
+
+# same as gf, but with untracked files
+fzf_gg() {
+  is_in_git_repo || return
+  git -c color.status=always status --short 2> /dev/null |
     fzf-down -m --ansi --nth 2..,.. \
       --preview '(git diff --color=always -- {-1} 2> /dev/null | sed 1,4d; cat {-1}) | head -500' |
     cut -c4- | sed 's/.* -> //'
@@ -202,5 +203,5 @@ bind-git-helper() {
 # Remove default
 bindkey -r "^G"
 # Files, Branches, reMote branches, Tags, Remotes, commit Hashes
-bind-git-helper f b m t r h
+bind-git-helper f g b m t r h
 unset -f bind-git-helper

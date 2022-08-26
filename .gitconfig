@@ -108,7 +108,9 @@
   pt = push --tags origin HEAD
   pu = push -u origin HEAD
   root = rev-parse --show-toplevel
+  r = rebase
   rbi = !git rebase -i $(git mb)
+  rc = rebase --continue
   # https://git-scm.com/book/en/v2/Git-Tools-Searching -L line log search is way more powerful
   searchlog = log -p -G
   s = status
@@ -157,6 +159,11 @@
   renames = true
 [mergetool]
   keepBackup = false
+  # https://git-scm.com/docs/vimdiff
+  # default
+  #layout = "(LOCAL,BASE,REMOTE)/MERGED"
+[mergetool "vimdiff"]
+  layout = "MERGED"
 [rerere]
   enabled = true
 [fetch]
