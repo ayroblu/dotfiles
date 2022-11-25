@@ -109,6 +109,7 @@
   pu = push -u origin HEAD
   root = rev-parse --show-toplevel
   r = rebase
+  ra = rebase --abort
   rbi = !git rebase -i $(git mb)
   rc = rebase --continue
   # https://git-scm.com/book/en/v2/Git-Tools-Searching -L line log search is way more powerful

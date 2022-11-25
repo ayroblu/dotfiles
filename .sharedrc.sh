@@ -237,3 +237,13 @@ videoToGif1280x4() {
   # https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/
   ffmpeg -i "$filename" -filter_complex "[0:v] fps=12,scale=1280:-1,setpts=0.25*PTS,split [a][b];[a] palettegen [p];[b][p] paletteuse" "$new_filename"
 }
+
+portscan() {
+  local IP_ADDRESS="$1"
+  local MIN_PORT="${2:-1}"
+  local MAX_PORT="${3:-65536}"
+  for PORT in {$MIN_PORT..$MAX_PORT}; do
+    echo -ne "Scanning port: $PORT\r"
+    timeout 1 bash -c "</dev/tcp/$IP_ADDRESS/$PORT &>/dev/null" &&  echo "port $PORT is open"
+  done
+}
