@@ -785,11 +785,6 @@ nnoremap <silent><nowait> <Leader>cs  :<C-u>CocList -I symbols<cr>
 " Resume latest coc list.
 nnoremap <silent><nowait> <Leader>cr  :<C-u>CocFzfListResume<CR>
 
-augroup typescriptreact
-  autocmd!
-  autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
-augroup END
-
 " Twitter specific
 "Plug 'jrozner/vim-antlr'
 Plug 'pantsbuild/vim-pants'
