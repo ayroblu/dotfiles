@@ -268,6 +268,7 @@ autocmd FileType html setl indentexpr=
 autocmd FileType make setl indentexpr=
 autocmd FileType sh setl indentexpr=
 autocmd FileType scala setl indentexpr=
+autocmd FileType javascript setl indentexpr=
 autocmd FileType typescript setl indentexpr=
 autocmd FileType swift,objc,objcpp setl textwidth=0
 
@@ -514,8 +515,13 @@ function! s:CopyGitPath() range
   execute 'silent !printf "\%s\#n' . a:firstline . '" "$(git ls-tree --name-only --full-name HEAD %)" | pbcopy'
   redraw!
 endfunction
+function! s:CopyPath() range
+  execute 'silent !printf "\%s" "$(git ls-tree --name-only --full-name HEAD %)" | pbcopy'
+  redraw!
+endfunction
 
 nnoremap <Leader>ygp :call <SID>CopyGitPath()<CR>
+nnoremap <Leader>ycp :call <SID>CopyPath()<CR>
 
 if !has('nvim')
   " Set pasting to automatically go paste mode

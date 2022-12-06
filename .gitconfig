@@ -54,6 +54,7 @@
   # git cherry-pick A^..B # A to B inclusive
   # git cod 'Dec 25 2018'
   cod = !"f() { echo git checkout `git rev-list -1 --before=\"$1\" --first-parent $(git upstream)`; }; f"
+  count-lines = "! git log --author=\"$1\" --pretty=tformat: --numstat $2 | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf \"added lines: %s, removed lines: %s, total lines: %s\\n\", add, subs, loc }' #"
 
   # only works on git repos that you cloned
   default = !"basename $(git symbolic-ref --short refs/remotes/origin/HEAD)"
