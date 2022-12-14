@@ -590,7 +590,7 @@ let g:ale_fixers = {
 \ 'typescriptreact': [],
 \ 'javascript': [],
 \ 'css': [],
-\ 'python': ['isort'],
+\ 'python': ['black', 'isort'],
 \ 'terraform': ['terraform'],
 \ 'scala': ['scalafmt'],
 \}
