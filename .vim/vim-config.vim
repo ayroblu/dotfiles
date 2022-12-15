@@ -294,8 +294,14 @@ xnoremap p "_dP
 
 " diffget for mergetool left and right is also local and remote
 " 1do is equivalent to :diffget LO, 2do is equivalent to :diffget BA, etc.
-"nnoremap <buffer> dgl :diffget LO<cr>
-"nnoremap <buffer> dgr :diffget RE<cr>
+if &diff
+  " &diff = 1 in a vimdiff mergetool
+  nnoremap dgl :diffget LOCAL<cr>
+  nnoremap dgr :diffget REMOTE<cr>
+  nnoremap dg1 :diffget 1<cr>
+  nnoremap dg2 :diffget 2<cr>
+  nnoremap dg3 :diffget 3<cr>
+endif
 
 " Yank current file path
 nnoremap yp :let @" = expand("%:p")<CR>
