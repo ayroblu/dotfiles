@@ -45,15 +45,15 @@ function setupTreeSitter()
   require'nvim-treesitter.configs'.setup {
     -- One of "all", "maintained" (parsers with maintainers), or a list of languages
     ensure_installed = {
-      "javascript", "typescript", "tsx", "graphql", "markdown", "vim", "lua",
-      "scala", "python"
+      "javascript", "typescript", "tsx", "graphql", "vim", "lua",
+      "scala", "python", "markdown", "markdown_inline", "css", "bash"
     },
 
     -- Install languages synchronously (only applied to `ensure_installed`)
     sync_install = false,
 
     -- Automatically install missing parsers when entering buffer
-    auto_install = true,
+    auto_install = false,
 
     -- List of parsers to ignore installing
     ignore_install = {},
