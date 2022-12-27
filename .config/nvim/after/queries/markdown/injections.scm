@@ -1,5 +1,6 @@
 ;extends
 ;https://www.reddit.com/r/neovim/comments/zquevp/how_to_set_aliasshorthand_for_treesitter/
+;Reached via: :TSEditQueryUserAfter injections markdown
 
 (fenced_code_block
   ((info_string) @_lang
