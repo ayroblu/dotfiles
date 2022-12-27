@@ -6,16 +6,21 @@ get-time() {
 TIMER_INIT=$(get-time)
 TIMER=()
 TIMER_NAMES=()
+SKIP_TIMER=1
 
 append-time() {
-  #return
+  if [ -n "$RUN" ] || [ -n "$SKIP_TIMER" ]; then
+    return
+  fi
   local name="$1"
   TIMER_NAMES+=("$name")
   TIMER+=($(get-time))
   #echo "$name"
 }
 print-time() {
-  #return
+  if [ -n "$RUN" ] || [ -n "$SKIP_TIMER" ]; then
+    return
+  fi
   if ((TIMER[-1]-TIMER_INIT<1)); then return; fi
 
   local arraylength=${#TIMER[@]}
@@ -129,6 +134,25 @@ source-if-exists() {
   [ -f "$file" ] && source "$file"
 }
 
+DEFERRED=()
+defer() {
+  if [ -n "$RUN" ] || [ -n "$SKIP_TIMER" ]; then
+    DEFERRED+="$@"
+    return
+  fi
+  # run the original command
+  "$@"
+}
+run_deferred() {
+  if [ -n "$SKIP_DEFERRED" ]; then
+    return
+  fi
+  local arraylength=${#DEFERRED[@]}
+  for (( i=1; i<=${arraylength}; i++ )); do
+    eval -- "${DEFERRED[$i]}"
+  done
+}
+
 # ----------- other
 # homebrew lesspipe.sh
 #export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
@@ -137,9 +161,9 @@ source-if-exists() {
 append-time "zshrc configured"
 # ------------------------------------------------------ zsh plugins
 # Using personal custom plugin manager
-source-if-exists ~/.zsh-plugin-manager.zsh
+defer source-if-exists ~/.zsh-plugin-manager.zsh
 append-time "zshrc plugins manager"
-source-if-exists ~/.zsh-plugins.zsh
+defer source-if-exists ~/.zsh-plugins.zsh
 append-time "zshrc plugins"
 
 # ---------------------------------- dependents
@@ -150,13 +174,13 @@ source-if-exists ~/.zsh-personal.zsh
 append-time "zshrc personal"
 if exists fzf || [ -f ~/.fzf.zsh ]; then
   source-if-exists ~/.zsh-fzf.zsh
-  source-if-exists ~/.zsh-fzf-comp.zsh
+  defer source-if-exists ~/.zsh-fzf-comp.zsh
 fi
 append-time "zshrc fzf"
 source-if-exists ~/.zsh-prompt.zsh
 append-time "zshrc prompt"
 # Must come after last fpath change
-source-if-exists ~/.zsh-comp.zsh
+defer source-if-exists ~/.zsh-comp.zsh
 append-time "zshrc comp"
 source-if-exists ~/.zsh-extras.zsh
 append-time "zshrc extras"
@@ -165,7 +189,11 @@ append-time "zshrc extras"
 if [ -n "$RUN" ]; then
   echo "$ $RUN"
   eval "$RUN"
+  if [ -n "$IMMEDIATE_EXIT" ]; then
+    exit 0
+  fi
 fi
+run_deferred
 
 append-time "End"
 print-time

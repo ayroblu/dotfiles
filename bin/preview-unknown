@@ -23,7 +23,7 @@ kind=${mime##*/}
 if [ -d "$1" ]; then
   tree -C "$1" | head -${LINES}
 elif [ "$category" = image ]; then
-  chafa "$1"
+  chafa --margin-right 6 "$1"
   exiftool "$1"
 elif [ "$kind" = vnd.openxmlformats-officedocument.spreadsheetml.sheet ] || \
   [ "$kind" = vnd.ms-excel ]; then

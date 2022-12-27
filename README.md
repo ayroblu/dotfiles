@@ -62,7 +62,7 @@ Setting up my mac
 5. Run the run.sh file to symlink: `bash scripts/run.sh`
 6. Install [tpm](https://github.com/tmux-plugins/tpm), `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`, open tmux (you might need `tmux source ~/.tmux.conf`) and run `<prefix> + I`
 7. Install vim plug and run `:PlugInstall`
-8. Install snappy from app store
+8. Install macvim with `brew install --cask macvim --no-binaries`
 
 Custom git setup
 ----------------
