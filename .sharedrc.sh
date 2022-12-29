@@ -9,7 +9,7 @@ alias rand='date +%s | shasum -a 256 | base64 | head -c 32 ; echo'
 alias random='openssl rand -base64 32'
 alias l='ls -A'
 alias ls='ls -A'
-alias ll='ls -Al'
+alias ll='ls -Alh'
 # macos doesn't auto sort by CPU
 alias top='top -o cpu'
 alias e='emacs'
