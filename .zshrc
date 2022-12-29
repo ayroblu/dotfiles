@@ -136,7 +136,7 @@ source-if-exists() {
 
 DEFERRED=()
 defer() {
-  if [ -n "$RUN" ] || [ -n "$SKIP_TIMER" ]; then
+  if [ -n "$RUN" ] || [ -n "$SKIP_DEFERRED" ]; then
     DEFERRED+="$@"
     return
   fi
