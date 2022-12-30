@@ -6,7 +6,7 @@ get-time() {
 TIMER_INIT=$(get-time)
 TIMER=()
 TIMER_NAMES=()
-SKIP_TIMER=1
+#SKIP_TIMER=1
 
 append-time() {
   if [ -n "$RUN" ] || [ -n "$SKIP_TIMER" ]; then
@@ -182,7 +182,7 @@ append-time "zshrc prompt"
 # Must come after last fpath change
 defer source-if-exists ~/.zsh-comp.zsh
 append-time "zshrc comp"
-source-if-exists ~/.zsh-extras.zsh
+defer source-if-exists ~/.zsh-extras.zsh
 append-time "zshrc extras"
 
 # https://superuser.com/questions/91881/invoke-zsh-having-it-run-a-command-and-then-enter-interactive-mode-instead-of
