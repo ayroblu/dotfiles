@@ -40,7 +40,6 @@ Table of Contents
 - [Plover](#plover)
 - [Emacs](#emacs)
 - [Remote pbcopy (deprecated)](#remote-pbcopy-deprecated)
-- [Espanso](#espanso)
 - [Auto Fetch](#auto-fetch)
 
 <!-- vim-markdown-toc -->
@@ -368,15 +367,6 @@ Deprecated in favour of bin/pbcopy
 >     RemoteForward 2324 127.0.0.1:2324
 >     RemoteForward 2325 127.0.0.1:2325
 > ```
-
-Espanso
--------
-
-Useful text expander and snippets. Create the symlink for a new instance with something like:
-
-```sh
-rm -rf "~/Library/Application Support/espanso" && ln -s ~/ws/dotfiles/espanso "~/Library/Application Support/espanso"
-```
 
 Auto Fetch
 ----------

@@ -773,7 +773,7 @@ nnoremap <silent><nowait> <Leader>ca  :<C-u>CocFzfList diagnostics<cr>
 " Manage extensions.
 nnoremap <silent><nowait> <Leader>ce  :<C-u>CocFzfList extensions<cr>
 " Show commands.
-nnoremap <silent><nowait> <Leader>cc  :<C-u>CocFzfList commands<cr>
+nnoremap <silent><nowait> <Leader>cd  :<C-u>CocFzfList commands<cr>
 " Find symbol of current document.
 nnoremap <silent><nowait> <Leader>co  :<C-u>CocFzfList outline<cr>
 " Search workspace symbols.

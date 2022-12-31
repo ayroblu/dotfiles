@@ -28,6 +28,9 @@ runtime vim-config.vim
 " REPL + code execution
 runtime vim-repl.vim
 
+" Checkbox helper for markdown
+runtime vim-checkbox.vim
+
 " My own links plugin
 " Should eventually superseed: knsh14/vim-github-link
 runtime vim-links.vim
@@ -73,6 +76,14 @@ hi! link SignColumn LineNr
 
 " overwrite colour scheme for folds
 highlight Folded ctermfg=brown
+
+" for MacVim, env vars
+if $BAT_THEME == ""
+  " Normally use "GitHub" theme but since it doesn't support markdown, and
+  " macvim's primary purpose is to review markdown, use a different theme:
+  " https://github.com/sharkdp/bat/issues/1153
+  let $BAT_THEME = 'Monokai Extended Light'
+endif
 
 " Disable unsafe commands in project specific vimrc's
 set secure
