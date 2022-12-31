@@ -54,6 +54,7 @@ Setting up my mac
 6. Adjust all the finder settings
 7. Download install packages (see next section)
 8. Migrate these changes to `.macos` file
+9. system settings -> accessibility -> zoom -> trackpad gestures + advanced (ctrl + option) to zoom
 
 ### How to setup packages
 1. Install [homebrew](https://brew.sh/) `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
