@@ -658,6 +658,12 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 " tsconfig.json is actually jsonc, help TypeScript set the correct filetype
 autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
 
+function! s:prettier()
+  call coc#config('prettier.onlyUseLocalVersion', v:false)
+  execute 'CocCommand prettier.forceFormatDocument'
+endfunction
+command! -nargs=0 Prettier :call s:prettier()
+
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
 "inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
