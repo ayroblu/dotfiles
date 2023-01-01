@@ -12,11 +12,12 @@ endif
 if !exists('g:insert_checkbox')
   "let g:insert_checkbox = '^'
   "let g:insert_checkbox = '$'
-  let g:insert_checkbox = '\<'
+  "let g:insert_checkbox = '\<'
+  let g:insert_checkbox = '^\(- \)\?'
 endif
 
 if !exists('g:insert_checkbox_prefix')
-  let g:insert_checkbox_prefix = ''
+  let g:insert_checkbox_prefix = '- '
 endif
 
 if !exists('g:insert_checkbox_suffix')
