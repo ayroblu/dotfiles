@@ -70,6 +70,7 @@
   # Why did I need the git prefix? Must have a reason
   #du = "!cd \"${GIT_PREFIX:-.}\"; git diff $(git merge-base HEAD $(git upstream))...HEAD"
   du = "!git diff $(git merge-base HEAD $(git upstream))"
+  dm = "!git diff $(git merge-base HEAD origin/$(git mainmaster))"
   #du = "!f() { git diff $(git merge-base HEAD $(git upstream)) \"$@\"; }; f"
   dw = d --color-words
   dc = d --color-words=.
@@ -99,7 +100,7 @@
   m = merge --no-ff
   mt = mergetool
   # New branch
-  new = checkout origin/master -b
+  new = !"git checkout origin/$(git mainmaster) -b"
   newdep = checkout -t HEAD -b
   upstream = rev-parse --abbrev-ref --symbolic-full-name @{u}
   p = push origin HEAD
