@@ -20,6 +20,13 @@ scriptencoding utf-8
 "   - :'<,'>w !python
 " 3. Do a setup in a project vimrc
 " 4. Run buffer in interactive shell
+"
+" Normal mode in command line:
+" https://stackoverflow.com/questions/7186880/using-normal-mode-motions-in-command-line-mode-in-vim
+" C-f to open (set cedit=C-f)
+" Enter to run the command and C-c will go back to standard cmd line
+" <Tab> or C-X C-V will open auto complete
+" :help c_ctrl-f
 " ----------------------------------------------------------- Personal Help
 runtime vim-help.vim
 

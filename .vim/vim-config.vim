@@ -340,11 +340,12 @@ nnoremap Q <nop>
 "nnoremap K <nop> " already remaped elsewhere
 
 " ---------------------------------------- Reload page on change
-"Before
+" https://stackoverflow.com/questions/923737/detect-file-change-offer-to-reload-file
 "au CursorHold * checktime
 "After with https://vi.stackexchange.com/questions/14315/how-can-i-tell-if-im-in-the-command-window
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI,VimLeavePre * Mktmpdir
+"autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
+" This answer checks for command line correctly https://stackoverflow.com/a/26035664
+au FocusGained,BufEnter,CursorHold,CursorHoldI * if getcmdwintype() == '' | checktime | endif
 
 " ---------------------------------------- Functions and commands
 " https://vim.fandom.com/wiki/Customize_text_for_closed_folds
@@ -497,6 +498,7 @@ command! Bdi :call DeleteInactiveBufs()
 " https://groups.google.com/g/vim_use/c/qgRob9SWDv8/m/FAOFVVcDTv0J
 command! Mktmpdir call mkdir(fnamemodify(tempname(),":p:h"),"p",0700)
 nnoremap <silent> <leader>mk :Mktmpdir<cr>
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI,VimLeavePre * Mktmpdir
 
 function! ErrorWrapMissing(func)
     try
