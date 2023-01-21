@@ -185,7 +185,7 @@ autocmd FileType netrw nmap <buffer> v i:Vifm<cr>
 
 " ---------------------------------------- Mappings
 " set spell spelllang=en_nz " ]s [s ]S [S " next spelling error
-nnoremap <Leader>s :setl spell!<CR>
+nnoremap <Leader>sp :setl spell!<CR>
 
 " Show help we defined above
 nnoremap <leader>? :call ShowPersonalHelp()<cr>
@@ -318,6 +318,12 @@ nnoremap ZX :qa<cr>
 " quit vim with exit code
 nnoremap ZC :cq<cr>
 nnoremap ZV :qa!<cr>
+nnoremap <Leader>ss :w<CR>
+nnoremap <Leader>se :wqa<CR>
+nnoremap <Leader>st :q<CR>
+nnoremap <Leader>sx :qa<CR>
+nnoremap <Leader>sc :cq<CR>
+nnoremap <Leader>sv :qa!<CR>
 
 " https://stackoverflow.com/questions/40289706/execute-selection-from-script-in-vim
 "autocmd FileType rust xnoremap <buffer> <leader>e :w !echo 'fn main() {' "$(cat)" '}' > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>
