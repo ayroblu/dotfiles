@@ -319,7 +319,8 @@ nnoremap ZX :qa<cr>
 nnoremap ZC :cq<cr>
 nnoremap ZV :qa!<cr>
 nnoremap <Leader>ss :w<CR>
-nnoremap <Leader>se :wqa<CR>
+nnoremap <Leader>se :wq<CR>
+nnoremap <Leader>sa :wqa<CR>
 nnoremap <Leader>st :q<CR>
 nnoremap <Leader>sx :qa<CR>
 nnoremap <Leader>sc :cq<CR>

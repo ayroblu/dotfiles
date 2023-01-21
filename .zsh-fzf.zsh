@@ -131,15 +131,6 @@ fzf-down() {
 
 fzf_gf() {
   is_in_git_repo || return
-  git -c color.status=always status --short -uno 2> /dev/null |
-    fzf-down -m --ansi --nth 2..,.. \
-      --preview '(git diff --color=always -- {-1} 2> /dev/null | sed 1,4d; cat {-1}) | head -500' |
-    cut -c4- | sed 's/.* -> //'
-}
-
-# same as gf, but with untracked files
-fzf_gu() {
-  is_in_git_repo || return
   git -c color.status=always status --short 2> /dev/null |
     fzf-down -m --ansi --nth 2..,.. \
       --preview '(git diff --color=always -- {-1} 2> /dev/null | sed 1,4d; cat {-1}) | head -500' |
@@ -213,5 +204,5 @@ bind-git-helper() {
 # Remove default
 bindkey -r "^G"
 # Files, with Untracked files, merGebase diff files, Branches, reMote branches, Tags, Remotes, commit Hashes
-bind-git-helper f u g b m t r h
+bind-git-helper f g b m t r h
 unset -f bind-git-helper
