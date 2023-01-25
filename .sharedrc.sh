@@ -18,6 +18,7 @@ alias vi='nvim'
 alias vis='vi -c OpenSession'
 alias mvis='mvim -c OpenSession'
 alias viallnotes='vi ~/Dropbox/Documents/twitter/notes.md ~/Dropbox/Notes/*.md ~/Dropbox/Documents/ambitus/notes.md'
+alias cddropbox='cd ~/Library/CloudStorage/Dropbox'
 alias goctave='\octave -q'
 [ -x "$(command -v octave)" ] && alias octave='octave -W -q'
 [ -x "$(command -v rg)" ] && [ -x "$(command -v ctags)" ] && alias maketags="rg --files | ctags --links=no --excmd=number -L-"
