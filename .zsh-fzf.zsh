@@ -140,7 +140,7 @@ fzf_gf() {
 # same as gf, but with files changed since merge-base
 fzf_gg() {
   is_in_git_repo || return
-  git du --name-only 2> /dev/null |
+  git du --name-only --relative=$(git rev-parse --show-prefix) 2> /dev/null |
     fzf-down -m --ansi \
       --preview '(git diff --color=always -- {-1} 2> /dev/null | sed 1,4d; cat {-1}) | head -500'
 }
