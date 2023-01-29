@@ -45,6 +45,7 @@ alias echopath='echo -e ${PATH//:/\\n}'
 # aliases for fzf
 alias cdw='cd'
 alias cdws='cd'
+alias clearall="clear && printf '\e[3J'"
 
 # Rosetta prefix
 alias r="arch -arm64"

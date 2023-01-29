@@ -46,7 +46,7 @@ function setupTreeSitter()
     -- One of "all", "maintained" (parsers with maintainers), or a list of languages
     ensure_installed = {
       "javascript", "typescript", "tsx", "graphql", "vim", "lua", "sql",
-      "scala", "python", "markdown", "markdown_inline", "css", "bash"
+      "scala", "python", "markdown", "markdown_inline", "css", "bash", "swift"
     },
 
     -- Install languages synchronously (only applied to `ensure_installed`)

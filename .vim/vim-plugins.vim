@@ -574,6 +574,7 @@ Plug 'w0rp/ale'
 "autocmd FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
 autocmd FileType javascript,typescript,typescriptreact let b:ale_linters = []
 autocmd FileType javascript let b:ale_linters_ignore = ['tsserver']
+autocmd FileType swift let b:ale_linters_ignore = ['apple-swift-format', 'swiftlint']
 " Enable ale for things coc doesn't support yet
 autocmd FileType vim,javascript nmap <silent> ]j :ALENextWrap<cr>
 autocmd FileType vim,javascript nmap <silent> [j :ALEPreviousWrap<cr>
