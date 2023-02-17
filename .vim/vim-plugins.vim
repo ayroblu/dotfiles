@@ -309,6 +309,7 @@ Plug 'tpope/vim-commentary'
 set rtp+=~/ws/fzf
 set rtp+=~/workspace/personal/fzf
 set rtp+=/usr/local/opt/fzf
+set rtp+=/opt/homebrew/opt/fzf
 Plug 'junegunn/fzf.vim'
 let g:fzf_layout = { 'down': '50%' }
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md

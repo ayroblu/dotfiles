@@ -64,6 +64,16 @@ localip() {
 }
 
 # -------------- Misc env vars
+# /opt/homebrew/bin/brew shellenv
+if [ -f /opt/homebrew/bin/brew ]; then
+  export HOMEBREW_PREFIX="/opt/homebrew";
+  export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
+  export HOMEBREW_REPOSITORY="/opt/homebrew";
+  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+  export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
+  export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
+fi
+
 [ -f /usr/local/opt/libffi/lib/pkgconfig ] && export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 exists node && export NODE_OPTIONS=--max-old-space-size=8192
 exists brew && export HOMEBREW_NO_AUTO_UPDATE=1
