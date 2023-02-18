@@ -667,8 +667,10 @@ command! -nargs=0 Prettier :call s:prettier()
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+if exists('coc#pum#visible')
+  inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                                \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+endif
 
 inoremap <silent><expr> <c-x><c-o> coc#refresh()
 " Checkout the following as <c-space> is interpreted as <c-@>
