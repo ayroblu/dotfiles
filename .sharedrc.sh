@@ -37,6 +37,7 @@ alias vpage="vim -c 'set ft=man ts=8 nomod nolist nonu noma' --not-a-term -"
 alias nvpage="nvim -c 'set ft=man ts=8 nomod nolist nonu noma' -"
 # https://unix.stackexchange.com/questions/80151/show-path-in-a-human-readable-way
 alias echopath='echo -e ${PATH//:/\\n}'
+alias apple-enable='xattr -d com.apple.quarantine'
 # for sharing clipboard: deprecated, can just use bin/pbcopy with escape codes - keeping around as it might be useful?
 # alias sshpb='ssh -R 2324:localhost:2324 -R 2325:localhost:2325'
 # exists pbcopy || alias pbcopy='nc -q0 localhost 2324'
@@ -92,6 +93,7 @@ pathadd ~/.emacs.d/bin
 pathadd ~/.local/bin
 pathadd ~/bin
 pathadd /usr/local/opt/make/libexec/gnubin
+pathadd /opt/homebrew/opt/python/libexec/bin
 # qmk_firmware
 pathadd "/usr/local/opt/avr-gcc@8/bin"
 pathadd "/usr/local/opt/arm-gcc-bin@8/bin"
