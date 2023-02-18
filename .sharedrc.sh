@@ -93,6 +93,7 @@ pathadd ~/.emacs.d/bin
 pathadd ~/.local/bin
 pathadd ~/bin
 pathadd /usr/local/opt/make/libexec/gnubin
+pathadd /opt/homebrew/opt/make/libexec/gnubin
 pathadd /opt/homebrew/opt/python/libexec/bin
 # qmk_firmware
 pathadd "/usr/local/opt/avr-gcc@8/bin"
