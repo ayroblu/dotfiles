@@ -13,6 +13,7 @@ Table of Contents
 
 - [Setting up my mac](#setting-up-my-mac)
   - [How to setup packages](#how-to-setup-packages)
+  - [Common brew packages](#common-brew-packages)
 - [Custom git setup](#custom-git-setup)
 - [Custom Caching setup](#custom-caching-setup)
 - [Rust setup](#rust-setup)
@@ -64,6 +65,9 @@ Setting up my mac
 6. Install [tpm](https://github.com/tmux-plugins/tpm), `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`, open tmux (you might need `tmux source ~/.tmux.conf`) and run `<prefix> + I`
 7. Install vim plug and run `:PlugInstall`
 8. Install macvim with `brew install --cask macvim --no-binaries`
+
+### Common brew packages
+- brew install vldmrkl/formulae/airdrop-cli
 
 Custom git setup
 ----------------
