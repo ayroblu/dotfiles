@@ -14,7 +14,7 @@
     "scss"
   ],
   // "typescript.validate.enable": false,
-  "javascript.validate.enable": false,
+  // "javascript.validate.enable": false,
   // "tsserver.enableJavascript": false,
   // "tslint.autoFixOnSave": true,
   /* "typescript.suggestionActions.enabled": false, */
