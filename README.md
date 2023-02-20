@@ -68,6 +68,9 @@ Setting up my mac
 
 ### Common brew packages
 - brew install vldmrkl/formulae/airdrop-cli
+  - Doesn't work?
+- python jq fd gitdelta node neovim fzf ripgrep tmux bat tree chafa coursier exiftool extract_url htop less make rustup-init trash urlview
+- charles vimmotion keepingyouawake espanso rectangle raycast dbeaver-community docker dropbox fuwari finestructure/Hummingbird/hummingbird imageoptim keycastr visual-studio-code flipper android-studio macvim
 
 Custom git setup
 ----------------

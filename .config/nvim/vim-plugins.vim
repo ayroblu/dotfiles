@@ -2,6 +2,8 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
+Plug 'stevearc/aerial.nvim'
+
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 if exists('g:started_by_firenvim')
   let g:firenvim_config = {

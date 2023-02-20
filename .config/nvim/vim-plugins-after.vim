@@ -75,6 +75,20 @@ function setupTreeSitter()
 end
 pcall(setupTreeSitter)
 
+require('aerial').setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+    vim.keymap.set('n', '<Leader>{', '<cmd>AerialPrev<CR>', {buffer = bufnr})
+    vim.keymap.set('n', '<Leader>}', '<cmd>AerialNext<CR>', {buffer = bufnr})
+  end,
+  layout = {
+    max_width = { 40, 0.4 },
+  },
+  open_automatic = true,
+})
+-- You probably also want to set a keymap to toggle aerial
+vim.keymap.set('n', '<leader>l', '<cmd>AerialToggle!<CR>')
 
 -- Configure completion
 if os.getenv("HOME") == "/home/sandbox" then

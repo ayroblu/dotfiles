@@ -13,7 +13,7 @@
   "editor.minimap.enabled": false,
   "editor.wordWrap": "on",
   "editor.cursorBlinking": "solid",
-  "editor.cursorSmoothCaretAnimation": true,
+  "editor.cursorSmoothCaretAnimation": "on",
   "editor.quickSuggestions": {
     "other": false, // Intellisense makes everything slow so disable it for other as well
     "comments": false,
@@ -331,5 +331,6 @@
   "metals.showImplicitArguments": true,
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "sourcegraph.accessToken": '4feb1895534e9789b281c98957eaad696f3aac01',
 }
