@@ -85,7 +85,33 @@ require('aerial').setup({
   layout = {
     max_width = { 40, 0.4 },
   },
-  open_automatic = true,
+  filter_kind = {
+    "Class",
+    "Constructor",
+    "Constant",
+    "Enum",
+    "Function",
+    "Interface",
+    "Module",
+    "Method",
+    "Struct",
+    "Variable",
+-- Event
+-- Field
+-- File
+-- Key
+-- Namespace
+-- Null
+-- Number
+-- Object
+-- Operator
+-- Package
+-- Property
+-- String
+-- TypeParameter
+
+  },
+  open_automatic = false,
 })
 -- You probably also want to set a keymap to toggle aerial
 vim.keymap.set('n', '<leader>l', '<cmd>AerialToggle!<CR>')

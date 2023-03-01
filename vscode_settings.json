@@ -68,6 +68,42 @@
   "vim.hlsearch": true,
   "vim.normalModeKeyBindingsNonRecursive": [
     {
+      "before": ["˙"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.navigateLeft"
+        }
+      ]
+    },
+    {
+      "before": ["¬"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.navigateRight"
+        }
+      ]
+    },
+    {
+      "before": ["≠"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.navigateUp"
+        }
+      ]
+    },
+    {
+      "before": ["∆"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.navigateDown"
+        }
+      ]
+    },
+    {
       "before": ["("],
       "after": [],
       "commands": [
