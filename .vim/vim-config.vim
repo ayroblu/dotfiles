@@ -115,7 +115,7 @@ if !has('nvim')
   " Turns off the bell (audible)
   set visualbell t_vb=
   " sets default font to what is in macos terminal
-  set guifont=Monaco:h14
+  set guifont=Monaco:h13
   " No blinking cursor
   set guicursor+=a:blinkon0
   " Randomly pulled from https://github.com/lifepillar/vim-solarized8/issues/45
