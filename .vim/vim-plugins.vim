@@ -91,7 +91,7 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 " Show in search status - will override file name so kinda meh
 "let g:airline_section_c='%{anzu#search_status()}'
 
-if !has('nvim')
+if !has('nvim') && has('python')
   Plug 'Valloric/MatchTagAlways'
 endif
 " Show closing tag
