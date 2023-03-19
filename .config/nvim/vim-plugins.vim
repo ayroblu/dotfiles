@@ -26,6 +26,9 @@ if exists('g:started_by_firenvim')
 endif
 
 Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
+command! -count=1 TermWebTest TermExec cmd="web test --watch %"
+command! -count=1 TermBazelBuild TermExec cmd="ibazel build %"
+command! -count=1 TermBazelTest TermExec cmd="ibazel test %"
 
 " lsp
 Plug 'neovim/nvim-lspconfig'

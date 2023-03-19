@@ -131,6 +131,9 @@ function setupToggleTerm()
     open_mapping = [[†]],
     direction = "float",
   }
+  vim.cmd [[nnoremap <leader>rw <Cmd>exe "ToggleTermSendCurrentLine " . v:count1<CR>j]]
+  -- visual selection doesn't work that well, needs double visual to actually select
+  vim.cmd [[xnoremap <leader>rw <Cmd>exe "ToggleTermSendVisualSelection " . v:count1<CR>]]
   -- vim.cmd [[nnoremap <silent><leader>gg <Cmd>exe v:count1 . "ToggleTerm direction=vertical"<CR>]]
 end
 pcall(setupToggleTerm)
