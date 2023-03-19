@@ -9,6 +9,22 @@ let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#branch#empty_message='no repo'
 let g:airline_theme='solarized'
 
+" https://github.com/vim-airline/vim-airline-themes/issues/180#issue-471090136
+let s:saved_theme = []
+
+let g:airline_theme_patch_func = 'AirlineThemePatch'
+function! AirlineThemePatch(palette)
+  for colors in values(a:palette)
+    if has_key(colors, 'airline_c') && len(s:saved_theme) ==# 0
+      let s:saved_theme = colors.airline_c
+    endif
+    if has_key(colors, 'airline_term')
+      let colors.airline_term = s:saved_theme
+    endif
+  endfor
+endfunction
+" end
+
 
 " === Hooks
 Plug 'airblade/vim-gitgutter'

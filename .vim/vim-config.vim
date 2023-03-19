@@ -245,6 +245,10 @@ nnoremap ˙ <C-w>h
 nnoremap ∆ <C-w>j
 nnoremap ˚ <C-w>k
 nnoremap ¬ <C-w>l
+inoremap ˙ <esc><C-w>h
+inoremap ∆ <esc><C-w>j
+inoremap ˚ <esc><C-w>k
+inoremap ¬ <esc><C-w>l
 
 " Incrementing and decrementing visual blocks
 " https://stackoverflow.com/questions/23481635/how-to-use-vims-normal-mode-ctrl-a-number-increment-in-visual-block-mode
@@ -552,6 +556,18 @@ if !has('nvim')
     return ''
   endfunction
 endif
+
+" ---------------------------------------- Terminal Mode config
+tnoremap <leader><esc> <C-\><C-n>
+autocmd TermOpen * setlocal nonumber norelativenumber
+autocmd TermOpen * startinsert
+" https://github.com/neovim/neovim/issues/3192
+nnoremap <leader>gt :vs|:te
+
+tnoremap ˙ <C-\><C-n><C-w>h
+tnoremap ∆ <C-\><C-n><C-w>j
+tnoremap ˚ <C-\><C-n><C-w>k
+tnoremap ¬ <C-\><C-n><C-w>l
 
 " ---------------------------------------- From Damian Conway
 " https://github.com/ninrod/damian_conway_oscon_2013_tarball
