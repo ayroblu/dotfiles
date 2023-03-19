@@ -119,6 +119,22 @@ function setupAerial()
 end
 pcall(setupAerial)
 
+function setupToggleTerm()
+  require("toggleterm").setup{
+    size = function(term)
+      if term.direction == "horizontal" then
+        return 20
+      elseif term.direction == "vertical" then
+        return vim.o.columns * 0.4
+      end
+    end,
+    open_mapping = [[†]],
+    direction = "float",
+  }
+  -- vim.cmd [[nnoremap <silent><leader>gg <Cmd>exe v:count1 . "ToggleTerm direction=vertical"<CR>]]
+end
+pcall(setupToggleTerm)
+
 require('lsp-setup')
 
 -- Configure completion
@@ -189,8 +205,8 @@ if os.getenv("HOME") == "/home/sandbox" then
     mapping = {
       ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
       ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
-      ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),

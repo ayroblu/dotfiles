@@ -372,6 +372,110 @@ command! -bang -nargs=? -complete=dir Files
 " https://github.com/junegunn/fzf.vim/issues/538
 command! -bang -nargs=? -complete=dir QFiles
   \ call fzf#vim#files('', fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline', '--query', <q-args>]}), <bang>0)
+" command! -bang UnlistedBuffers
+" \ call fzf#vim#buffers('!i$ '.<q-args>, {
+" \   'down': '40%',
+" \   'options': '
+" \     --with-nth 1,4
+" \     --nth 1,2
+" \     --delimiter "\t"
+" \     --reverse
+" \     --preview-window="70%"
+" \     --preview "
+" \       tail -n +\$(echo {3} | tr -d \";\\\"\") {2} |
+" \       head -n 16 |
+" \       bat -l '.expand('%:e').' --color=always --decorations=never
+" \     "
+" \   '
+" \ })
+
+" ------ start unlisted buffers
+" Copied code from: https://github.com/junegunn/fzf.vim/blob/711fb41e39e2ad3abec1ec9720782acbac6fb6b4/autoload/fzf/vim.vim#L666
+" There were some differences between Buffers and this command to fzf#run
+" --expect=ctrl-v,ctrl-x,ctrl-t'
+" 'sinklist': function('57'),
+" '_action': {'ctrl-v': 'vsplit', 'ctrl-x': 'split', 'ctrl-t': 'tab split'}
+
+" function! s:find_open_window(b)
+"   let [tcur, tcnt] = [tabpagenr() - 1, tabpagenr('$')]
+"   for toff in range(0, tabpagenr('$') - 1)
+"     let t = (tcur + toff) % tcnt + 1
+"     let buffers = tabpagebuflist(t)
+"     for w in range(1, len(buffers))
+"       let b = buffers[w - 1]
+"       if b == a:b
+"         return [t, w]
+"       endif
+"     endfor
+"   endfor
+"   return [0, 0]
+" endfunction
+
+" function! s:jump(t, w)
+"   execute a:t.'tabnext'
+"   execute a:w.'wincmd w'
+" endfunction
+
+" function! s:bufopen(lines)
+"   echom len(a:lines)
+"   if len(a:lines) < 2
+"     return
+"   endif
+"   let b = matchstr(a:lines[1], '\[\zs[0-9]*\ze\]')
+"   if empty(a:lines[0]) && get(g:, 'fzf_buffers_jump')
+"     let [t, w] = s:find_open_window(b)
+"     if t
+"       call s:jump(t, w)
+"       return
+"     endif
+"   endif
+"   echom 'failleeddd'
+"   let cmd = s:action_for(a:lines[0])
+"   if !empty(cmd)
+"     execute 'silent' cmd
+"   endif
+"   execute 'buffer' b
+" endfunction
+" " function! s:bufopen(e)
+" "   execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+" " endfunction
+" function! s:sort_buffers(...)
+"   let [b1, b2] = map(copy(a:000), 'get(g:fzf#vim#buffers, v:val, v:val)')
+"   " Using minus between a float and a number in a sort function causes an error
+"   return b1 < b2 ? 1 : -1
+" endfunction
+" function! s:buflisted()
+"   return filter(range(1, bufnr('$')), 'getbufvar(v:val, "&filetype") != "qf"')
+" endfunction
+" function! s:buflisted_sorted()
+"   return sort(s:buflisted(), 's:sort_buffers')
+" endfunction
+" function! s:buffers(...)
+"   let [query, args] = (a:0 && type(a:1) == type('')) ?
+"         \ [a:1, a:000[1:]] : ['', a:000]
+"   let sorted = s:buflisted_sorted()
+"   let header_lines = '--header-lines=' . (bufnr('') == get(sorted, 0, 0) ? 1 : 0)
+"   let tabstop = len(max(sorted)) >= 4 ? 9 : 8
+
+"   let opts = {
+"   \ 'source':  map(sorted, 'fzf#vim#_format_buffer(v:val)'),
+"   \ 'sink*':   function('s:bufopen'),
+"   \ 'options': ['+m', '-x', '--tiebreak=index', header_lines, '--ansi', '-d', '\t', '--with-nth', '3..', '-n', '2,1..2', '--prompt', 'Buf> ', '--query', query, '--preview-window', '+{2}-/2', '--tabstop', tabstop]
+"   \}
+"   echom opts
+"   let [extra, bang]  = args
+"   let extra = copy(extra)
+"   let eopts  = has_key(extra, 'options') ? remove(extra, 'options') : ''
+"   let merged = extend(copy(opts), extra)
+"   call extend(merged.options, eopts)
+
+"   return fzf#run(fzf#wrap('buffers', merged, bang))
+" endfunction
+" command! -bar -bang -nargs=? -complete=buffer UnlistedBuffers call s:buffers(<q-args>, fzf#vim#with_preview({ "placeholder": "{1}" }), <bang>0)
+
+" nnoremap <silent> <Leader><Leader><Tab> :UnlistedBuffers<CR>
+" ------ end unlisted buffers
+
 " https://github.com/junegunn/fzf.vim/issues/800#issuecomment-533801609
 " Sorting issue: https://github.com/junegunn/fzf.vim/pull/620
 " !i$ for imports - mainly python
@@ -621,17 +725,7 @@ autocmd FileType python nnoremap <buffer> <leader>i :ImportName<cr>
 ""let g:ale_javascript_prettier_use_local_config = 1
 "" Disable the loclist (just annoying right now) can be opened with :lopen
 "let g:ale_open_list=0
-
-" Rust vim specific
-" http://seenaburns.com/vim-setup-for-rust/
-"  - Cleaner
-" https://about.okhin.fr/2018/08/03/my-vim-setup-with-some-rust-specifities/
-"  - more ide
-" https://asquera.de/blog/2017-03-03/setting-up-a-rust-devenv/
-"  - vscode
-" let g:rustfmt_autosave = 1
-" autocmd FileType rust let b:ale_linters = {'rust': ['rls']}
-" autocmd FileType rust nnoremap <buffer> <leader>e :RustRun<cr>
+"
 "au BufNewFile,BufReadPost *.md set filetype=markdown
 
 "Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}

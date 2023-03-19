@@ -249,6 +249,11 @@ inoremap ˙ <esc><C-w>h
 inoremap ∆ <esc><C-w>j
 inoremap ˚ <esc><C-w>k
 inoremap ¬ <esc><C-w>l
+nnoremap Ó :vertical resize -5<cr>
+nnoremap Ô :resize +5<cr>
+" This is wrong but Shift-Alt-K doesn't seem to work? Uses I instead
+nnoremap ˆ :resize -5<cr>
+nnoremap Ò :vertical resize +5<cr>
 
 " Incrementing and decrementing visual blocks
 " https://stackoverflow.com/questions/23481635/how-to-use-vims-normal-mode-ctrl-a-number-increment-in-visual-block-mode
@@ -441,6 +446,19 @@ if !has('nvim')
   let &t_EI = "\e[2 q"
 endif
 
+"let &t_SI.="\e[5 q" "SI = INSERT mode
+"let &t_SR.="\e[4 q" "SR = REPLACE mode
+"let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
+
+"Cursor settings:
+
+"  1 -> blinking block
+"  2 -> solid block
+"  3 -> blinking underscore
+"  4 -> solid underscore
+"  5 -> blinking vertical bar
+"  6 -> solid vertical bar
+
 " optional reset cursor on start: #doesn't work with alfred
 "augroup myCmds
 "  autocmd!
@@ -573,6 +591,11 @@ tnoremap ˙ <C-\><C-n><C-w>h
 tnoremap ∆ <C-\><C-n><C-w>j
 tnoremap ˚ <C-\><C-n><C-w>k
 tnoremap ¬ <C-\><C-n><C-w>l
+tnoremap Ó <C-\><C-n><C-w>H
+tnoremap Ô <C-\><C-n><C-w>J
+" This is wrong but Shift-Alt-K doesn't seem to work? Uses I instead
+tnoremap ˆ <C-\><C-n><C-w>K
+tnoremap Ò <C-\><C-n><C-w>L
 
 " ---------------------------------------- From Damian Conway
 " https://github.com/ninrod/damian_conway_oscon_2013_tarball

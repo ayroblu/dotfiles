@@ -25,8 +25,13 @@ if exists('g:started_by_firenvim')
   au BufEnter *.* call timer_start(100, function("RunOnFirenvim"))
 endif
 
+Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
+
 " lsp
 Plug 'neovim/nvim-lspconfig'
+Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'MunifTanjim/prettier.nvim'
+"autocmd FileType css,graphql,html,javascript,javascriptreact,json,less,markdown,scss,typescript,typescriptreact,yaml autocmd BufWritePre <buffer> Prettier
 
 " Plugins for Metals, a language server for Scala
 Plug 'nvim-lua/plenary.nvim'
@@ -37,4 +42,10 @@ Plug 'scalameta/nvim-metals'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
+" https://vi.stackexchange.com/questions/38203/nvim-lspconfig-omnifunc-opens-preview-window
+set completeopt-=preview
+
