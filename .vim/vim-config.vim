@@ -325,7 +325,7 @@ nnoremap ZV :qa!<cr>
 nnoremap <Leader>ss :w<CR>
 nnoremap <Leader>se :wq<CR>
 nnoremap <Leader>sa :wqa<CR>
-nnoremap <Leader>st :q<CR>
+nnoremap <Leader>st :bd<CR>
 nnoremap <Leader>sx :qa<CR>
 nnoremap <Leader>sc :cq<CR>
 nnoremap <Leader>sv :qa!<CR>
@@ -558,11 +558,13 @@ if !has('nvim')
 endif
 
 " ---------------------------------------- Terminal Mode config
-tnoremap <leader><esc> <C-\><C-n>
+tnoremap jk <C-\><C-n>
 autocmd TermOpen * setlocal nonumber norelativenumber
 autocmd TermOpen * startinsert
+" Kinda nice when switching in the same tab, but not when switching tabs
+"autocmd BufEnter term://* startinsert
 " https://github.com/neovim/neovim/issues/3192
-nnoremap <leader>gt :vs|:te
+nnoremap <leader>gt :vs\|:te<cr>
 
 tnoremap ˙ <C-\><C-n><C-w>h
 tnoremap ∆ <C-\><C-n><C-w>j
