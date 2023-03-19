@@ -75,46 +75,51 @@ function setupTreeSitter()
 end
 pcall(setupTreeSitter)
 
-require('aerial').setup({
-  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
-  on_attach = function(bufnr)
-    -- Jump forwards/backwards with '{' and '}'
-    vim.keymap.set('n', '<Leader>{', '<cmd>AerialPrev<CR>', {buffer = bufnr})
-    vim.keymap.set('n', '<Leader>}', '<cmd>AerialNext<CR>', {buffer = bufnr})
-  end,
-  layout = {
-    max_width = { 40, 0.4 },
-  },
-  filter_kind = {
-    "Class",
-    "Constructor",
-    "Constant",
-    "Enum",
-    "Function",
-    "Interface",
-    "Module",
-    "Method",
-    "Struct",
-    "Variable",
--- Event
--- Field
--- File
--- Key
--- Namespace
--- Null
--- Number
--- Object
--- Operator
--- Package
--- Property
--- String
--- TypeParameter
+function setupAerial()
+  require('aerial').setup({
+    -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+    on_attach = function(bufnr)
+      -- Jump forwards/backwards with '{' and '}'
+      vim.keymap.set('n', '<Leader>{', '<cmd>AerialPrev<CR>', {buffer = bufnr})
+      vim.keymap.set('n', '<Leader>}', '<cmd>AerialNext<CR>', {buffer = bufnr})
+    end,
+    layout = {
+      max_width = { 40, 0.4 },
+    },
+    filter_kind = {
+      "Class",
+      "Constructor",
+      "Constant",
+      "Enum",
+      "Function",
+      "Interface",
+      "Module",
+      "Method",
+      "Struct",
+      "Variable",
+  -- Event
+  -- Field
+  -- File
+  -- Key
+  -- Namespace
+  -- Null
+  -- Number
+  -- Object
+  -- Operator
+  -- Package
+  -- Property
+  -- String
+  -- TypeParameter
 
-  },
-  open_automatic = false,
-})
--- You probably also want to set a keymap to toggle aerial
-vim.keymap.set('n', '<leader>l', '<cmd>AerialToggle!<CR>')
+    },
+    open_automatic = false,
+  })
+  -- You probably also want to set a keymap to toggle aerial
+  vim.keymap.set('n', '<leader>l', '<cmd>AerialToggle!<CR>')
+end
+pcall(setupAerial)
+
+require('lsp-setup')
 
 -- Configure completion
 if os.getenv("HOME") == "/home/sandbox" then

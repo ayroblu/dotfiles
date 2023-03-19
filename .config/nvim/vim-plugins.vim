@@ -25,6 +25,9 @@ if exists('g:started_by_firenvim')
   au BufEnter *.* call timer_start(100, function("RunOnFirenvim"))
 endif
 
+" lsp
+Plug 'neovim/nvim-lspconfig'
+
 " Plugins for Metals, a language server for Scala
 Plug 'nvim-lua/plenary.nvim'
 Plug 'mfussenegger/nvim-dap'
