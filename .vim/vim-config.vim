@@ -558,11 +558,14 @@ if !has('nvim')
 endif
 
 " ---------------------------------------- Terminal Mode config
-tnoremap jk <C-\><C-n>
-autocmd TermOpen * setlocal nonumber norelativenumber
-autocmd TermOpen * startinsert
+tnoremap <C-k> <C-\><C-n>
+if has('nvim')
+  autocmd TermOpen * setlocal nonumber norelativenumber
+  autocmd TermOpen * startinsert
+endif
 " Kinda nice when switching in the same tab, but not when switching tabs
 "autocmd BufEnter term://* startinsert
+
 " https://github.com/neovim/neovim/issues/3192
 nnoremap <leader>gt :vs\|:te<cr>
 

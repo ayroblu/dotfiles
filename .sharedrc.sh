@@ -34,7 +34,7 @@ alias vigit="vi ~/.gitconfig*"
 alias reindexspotlight='sudo mdutil -E /'
 # https://vi.stackexchange.com/questions/4682/how-can-i-suppress-the-reading-from-stdin-message-from-within-vim
 alias vpage="vim -c 'set ft=man ts=8 nomod nolist nonu noma' --not-a-term -"
-alias nvpage="nvim -c 'set ft=man ts=8 nomod nolist nonu noma' -"
+alias nvpage="nvim -c 'set ft=man ts=8 nomod nolist nonu noma' --headless -"
 # https://unix.stackexchange.com/questions/80151/show-path-in-a-human-readable-way
 alias echopath='echo -e ${PATH//:/\\n}'
 alias apple-enable='xattr -d com.apple.quarantine'
@@ -105,7 +105,8 @@ pathadd "/usr/local/anaconda3/bin"
 exists bat && export BAT_THEME="GitHub"
 export VISUAL='nvim'
 export EDITOR="$VISUAL"
-export MANPAGER="col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -"
+#export MANPAGER="col -b | nvim -c 'set ft=man ts=8 nomod nolist nonu noma' --headless -"
+export MANPAGER="nvim -c 'Man!' -o -"
 
 export GOPATH=~/ws/go
 export GOBIN=~/ws/go/bin
