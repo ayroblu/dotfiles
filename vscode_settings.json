@@ -243,10 +243,38 @@
       "after": [],
       "commands": [
         {
-          "command": "workbench.action.quickOpen"
+          "command": "extension.fuzzySearch"
+          // "command": "workbench.action.quickOpen"
         }
       ]
-    }
+    },
+    {
+      "before": ["<leader>", "s", "s"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.files.save"
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "s", "t"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.closeActiveEditor"
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "s", "x"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.closeAllEditors"
+        }
+      ]
+    },
     // I don't use these cause they don't go well up and down
     // {
     //   "before": ["j"],
