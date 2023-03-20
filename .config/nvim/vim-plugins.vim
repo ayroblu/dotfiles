@@ -4,6 +4,9 @@ Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 Plug 'stevearc/aerial.nvim'
 
+Plug 'MunifTanjim/nui.nvim'
+Plug 'folke/noice.nvim'
+
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 if exists('g:started_by_firenvim')
   let g:firenvim_config = {

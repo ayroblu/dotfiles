@@ -66,8 +66,11 @@ if has('nvim')
     set background=dark
     silent! colorscheme tokyonight
   else
+    if has("termguicolors")
+      set termguicolors
+    endif
     set background=light
-    silent! colorscheme solarized
+    silent! colorscheme NeoSolarized
   endif
 else
   syntax enable

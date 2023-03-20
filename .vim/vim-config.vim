@@ -12,7 +12,9 @@ hi CursorLine   cterm=bold,underline ctermbg=NONE ctermfg=NONE guibg=blue guifg=
 set splitright splitbelow
 set scrolloff=1
 set smartindent
-set lazyredraw "perf
+if !has('nvim')
+  set lazyredraw "perf
+endif
 set nobackup " swap files are relatively pointless
 set noswapfile " swap files are relatively pointless
 set tabpagemax=100 "normally 10
@@ -168,7 +170,7 @@ let g:netrw_winsize = 25
 let g:netrw_preview = 1
 "let g:netrw_altv = 1
 let g:netrw_alto = 0
-nnoremap - :call OpenNetrw()<cr>
+nnoremap <silent> - :call OpenNetrw()<cr>
 "nnoremap - :Ex<cr>
 function! OpenNetrw()
   let file = '\V'.expand('%:t')

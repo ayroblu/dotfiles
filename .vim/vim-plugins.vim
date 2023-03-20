@@ -1,6 +1,14 @@
 " === Theme
+Plug 'overcache/NeoSolarized'
+let g:neosolarized_italic = 1
+if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+" silent! colorscheme NeoSolarized
 Plug 'altercation/vim-colors-solarized'
 "autocmd BufReadPost <buffer> hi MatchParen cterm=bold,underline ctermbg=none ctermfg=red
+" silent! colorscheme solarized
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -131,6 +139,8 @@ let g:session_autoload = 'no'
 let g:session_default_overwrite = 1
 " Basically you just care about :OpenSession, don't worry about anything else
 " Sometimes you need to worry about :DeleteSession
+
+Plug 'RRethy/vim-illuminate'
 
 " === Commands and functions
 Plug 'knsh14/vim-github-link'
@@ -329,8 +339,8 @@ set rtp+=/opt/homebrew/opt/fzf
 Plug 'junegunn/fzf.vim'
 let g:fzf_layout = { 'down': '50%' }
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md
-noremap <leader><Tab> :Buffers<CR>
-nmap <Leader>t :Files<CR>
+noremap <silent> <leader><Tab> :Buffers<CR>
+nmap <silent> <Leader>t :Files<CR>
 nnoremap <silent> <Leader>e :Files <C-R>=split(expand('%:h'),'/')[0]<CR><CR>
 "nmap <Leader><leader>r :BTags<CR>
 "nmap <Leader><Leader>t :Tags<CR>
@@ -338,13 +348,13 @@ nnoremap <silent> <Leader>e :Files <C-R>=split(expand('%:h'),'/')[0]<CR><CR>
 nnoremap <silent> <Leader><Leader>ts :QFiles <C-R>=expand('%:h')<CR><CR>
 nnoremap <silent> <Leader><Leader>tr :Files <C-R>=expand('%:h')<CR><CR>
 nnoremap <silent> <Leader><Leader>tt :Files <C-R>=trim(system('git rev-parse --show-toplevel'))<CR><CR>
-nnoremap <Leader>/ :Rg <C-R><C-W>
-nnoremap <Leader>* :Rg <C-R><C-W><CR>
-vnoremap <Leader>/ y:Rg \b<C-R>0\b<CR>
-nnoremap <Leader>: :History:<CR>
-nnoremap <Leader>h/ :History/<CR>
-nnoremap <Leader>hh :History<CR>
-"nnoremap <Leader>b :call ErrorWrapMissing("Buffers")<CR>
+nnoremap <silent> <Leader>/ :Rg <C-R><C-W>
+nnoremap <silent> <Leader>* :Rg <C-R><C-W><CR>
+vnoremap <silent> <Leader>/ y:Rg \b<C-R>0\b<CR>
+nnoremap <silent> <Leader>: :History:<CR>
+nnoremap <silent> <Leader>h/ :History/<CR>
+nnoremap <silent> <Leader>hh :History<CR>
+"nnoremap <silent> <Leader>b :call ErrorWrapMissing("Buffers")<CR>
 
 " Custom setup for previews on Rg and Files
 command! -bang -nargs=* Rg
@@ -524,11 +534,11 @@ Plug 'easymotion/vim-easymotion'
 " Mainly use this to search
 " <leader>f<char>
 " <leader><leader>f<char><char>
-map  <Leader>f <Plug>(easymotion-s)
+map <silent> <Leader>f <Plug>(easymotion-s)
 "map  <Leader>f <Plug>(easymotion-f)
 "nmap <Leader>f <Plug>(easymotion-overwin-f)
 "map  <Leader>F <Plug>(easymotion-F)
-map  <Leader><leader>f <Plug>(easymotion-s2)
+map <silent> <Leader><leader>f <Plug>(easymotion-s2)
 let g:EasyMotion_do_mapping = 0
 
 Plug 'tpope/vim-vinegar' " Making netrw file management easier
@@ -570,7 +580,7 @@ let g:tagbar_type_typescript = {
     \ 'e:enums',
   \ ]
 \ }
-nnoremap <leader>o :TagbarToggle<cr>
+nnoremap <silent> <leader>o :TagbarToggle<cr>
 "autocmd VimEnter * nested :call tagbar#autoopen(1)
 
 " === Text objects
@@ -674,7 +684,7 @@ let g:jedi#usages_command = '<leader>n'
 let g:jedi#completions_command = '<C-x><C-o>'
 let g:jedi#rename_command = '<leader>r'
 let g:jedi#popup_select_first = 0
-autocmd FileType python nnoremap <buffer> <leader>b :cclose<cr>
+autocmd FileType python nnoremap <buffer><silent> <leader>b :cclose<cr>
 
 Plug 'tell-k/vim-autoflake'
 " :Autoflake to remove unused imports

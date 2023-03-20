@@ -14,6 +14,7 @@ Table of Contents
 - [Setting up my mac](#setting-up-my-mac)
   - [How to setup packages](#how-to-setup-packages)
   - [Common brew packages](#common-brew-packages)
+- [Font](#font)
 - [Custom git setup](#custom-git-setup)
 - [Custom Caching setup](#custom-caching-setup)
 - [Rust setup](#rust-setup)
@@ -71,6 +72,11 @@ Setting up my mac
   - Doesn't work?
 - python jq fd gitdelta node neovim fzf ripgrep tmux bat tree chafa coursier exiftool extract_url htop less make rustup-init trash urlview
 - charles vimmotion keepingyouawake espanso rectangle raycast dbeaver-community docker dropbox fuwari finestructure/Hummingbird/hummingbird imageoptim keycastr visual-studio-code flipper android-studio macvim
+
+Font
+----
+
+I like Monaco, I think it's a good fixed width font but it doesn't support bold, italics. Clone and add to font book: git@github.com:cseelus/monego.git
 
 Custom git setup
 ----------------

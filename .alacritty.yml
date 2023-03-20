@@ -39,12 +39,14 @@ schemes:
 
 colors: *solarized_light
 
-# env:
-#   TERM: xterm-256color
+# True color support: https://gist.github.com/andersevenrud/015e61af2fd264371032763d4ed965b6
+env:
+  TERM: xterm-256color
 
 font:
   normal:
-    family: Monaco
+    #family: Monaco
+    family: Monego
 
   # Default is 11
   size: 13.0
