@@ -35,9 +35,11 @@ endfunction
 
 
 " === Hooks
-Plug 'airblade/vim-gitgutter'
-let g:gitgutter_realtime = 0
-let g:gitgutter_eager = 0
+if !has('nvim')
+  Plug 'airblade/vim-gitgutter'
+  let g:gitgutter_realtime = 0
+  let g:gitgutter_eager = 0
+endif
 
 Plug 'svermeulen/vim-yoink'
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)

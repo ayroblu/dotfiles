@@ -83,8 +83,10 @@ endif
 " we want vim to follow terminal background
 hi Normal ctermbg=NONE
 
-" https://github.com/airblade/vim-gitgutter/issues/696
-hi! link SignColumn LineNr
+if !has('nvim')
+  " https://github.com/airblade/vim-gitgutter/issues/696
+  hi! link SignColumn LineNr
+endif
 
 " overwrite colour scheme for folds
 highlight Folded ctermfg=brown

@@ -233,29 +233,29 @@ nnoremap <C-v><C-v> :call setreg("\"", Isystem("pbpaste"))<CR>p
 
 "Tab mappings
 " tab navigation like firefox
-nnoremap {         :tabprevious<CR>
-nnoremap }         :tabnext<CR>
+nnoremap <silent> {         :tabprevious<CR>
+nnoremap <silent> }         :tabnext<CR>
 "nnoremap <C-t>     :tabnew<CR>
 "inoremap <C-{>     <Esc>:tabprevious<CR>
 "inoremap <C-}>     <Esc>:tabnext<CR>
 "inoremap <C-t>     <Esc>:tabnew<CR>
-nnoremap (         :tabmove -1<cr>
-nnoremap )         :tabmove +1<cr>
+nnoremap <silent> (         :tabmove -1<cr>
+nnoremap <silent> )         :tabmove +1<cr>
 
 " Window mappings (use alt hjkl)
-nnoremap ˙ <C-w>h
-nnoremap ∆ <C-w>j
-nnoremap ˚ <C-w>k
-nnoremap ¬ <C-w>l
-inoremap ˙ <esc><C-w>h
-inoremap ∆ <esc><C-w>j
-inoremap ˚ <esc><C-w>k
-inoremap ¬ <esc><C-w>l
-nnoremap Ó :vertical resize -5<cr>
-nnoremap Ô :resize +5<cr>
+nnoremap <silent> ˙ <C-w>h
+nnoremap <silent> ∆ <C-w>j
+nnoremap <silent> ˚ <C-w>k
+nnoremap <silent> ¬ <C-w>l
+inoremap <silent> ˙ <esc><C-w>h
+inoremap <silent> ∆ <esc><C-w>j
+inoremap <silent> ˚ <esc><C-w>k
+inoremap <silent> ¬ <esc><C-w>l
+nnoremap <silent> Ó :vertical resize -5<cr>
+nnoremap <silent> Ô :resize +5<cr>
 " This is wrong but Shift-Alt-K doesn't seem to work? Uses I instead
-nnoremap ˆ :resize -5<cr>
-nnoremap Ò :vertical resize +5<cr>
+nnoremap <silent> ˆ :resize -5<cr>
+nnoremap <silent> Ò :vertical resize +5<cr>
 
 " Incrementing and decrementing visual blocks
 " https://stackoverflow.com/questions/23481635/how-to-use-vims-normal-mode-ctrl-a-number-increment-in-visual-block-mode

@@ -156,6 +156,21 @@ local function setupLsp()
       vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
       vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
       vim.keymap.set('n', '<leader>ac', vim.lsp.buf.code_action, opts)
+
+      -- https://github.com/neovim/neovim/issues/20457#issuecomment-1266782345
+      vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)
+        config = config or {}
+        config.focus_id = ctx.method
+        if not (result and result.contents) then
+          return
+        end
+        local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+        markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
+        if vim.tbl_isempty(markdown_lines) then
+          return
+        end
+        return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
+      end
       -- vim.keymap.set('n', '<leader>f', function()
       --   vim.lsp.buf.format { async = true }
       -- end, opts)
