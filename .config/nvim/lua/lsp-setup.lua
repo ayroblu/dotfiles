@@ -69,6 +69,7 @@ local function setupLsp()
   lspconfig.flow.setup {}
   -- npx relay-compiler
   lspconfig.relay_lsp.setup {
+    cmd = { "./scripts/relay-for-extension", "lsp" },
     root_dir = root_pattern("relay.config.*")
   }
   -- npm i -g vscode-langservers-extracted
@@ -103,7 +104,9 @@ local function setupLsp()
   lspconfig.pyright.setup {}
   -- npm i -g typescript-language-server
   lspconfig.tsserver.setup {
-    capabilities = capabilities
+    filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+    root_dir = root_pattern("tsconfig.json"),
+    capabilities = capabilities,
   }
   -- npm i -g vscode-langservers-extracted
   lspconfig.cssls.setup {
