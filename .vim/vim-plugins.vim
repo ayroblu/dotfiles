@@ -703,41 +703,37 @@ command! Aflake :call Autoflake() | redraw!
 " Use :ImportName, also ~/.vim/python-imports.cfg
 autocmd FileType python nnoremap <buffer> <leader>i :ImportName<cr>
 
-"Plug 'w0rp/ale'
-""autocmd FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
-"autocmd FileType javascript,typescript,typescriptreact let b:ale_linters = []
-"autocmd FileType javascript let b:ale_linters_ignore = ['tsserver']
-"autocmd FileType swift let b:ale_linters_ignore = ['apple-swift-format', 'swiftlint']
-"" Enable ale for things coc doesn't support yet
-"autocmd FileType vim,javascript nmap <silent> ]j :ALENextWrap<cr>
-"autocmd FileType vim,javascript nmap <silent> [j :ALEPreviousWrap<cr>
-""\ 'typescript': ['tslint', 'eslint', 'prettier'],
-""\ 'typescriptreact': ['tslint', 'eslint', 'prettier'],
-""\ 'javascript': ['eslint', 'prettier'],
-""\ 'css': ['prettier'],
-""\ 'json': ['prettier'],
-""\ 'scala': ['scalafmt'],
-"" Still use ale for python
-"" ALE Fixers are slow compared to Coc, use sparingly
-"let g:ale_fixers = {
-"\ 'typescript': [],
-"\ 'typescriptreact': [],
-"\ 'javascript': [],
-"\ 'css': [],
-"\ 'python': ['black', 'isort'],
-"\ 'terraform': ['terraform'],
+Plug 'w0rp/ale'
+"autocmd FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
+autocmd FileType javascript,typescript,typescriptreact let b:ale_linters = []
+autocmd FileType javascript let b:ale_linters_ignore = ['tsserver']
+autocmd FileType swift let b:ale_linters_ignore = ['apple-swift-format', 'swiftlint']
+" Enable ale for things coc doesn't support yet
+autocmd FileType vim,javascript nmap <silent> ]j :ALENextWrap<cr>
+autocmd FileType vim,javascript nmap <silent> [j :ALEPreviousWrap<cr>
+"\ 'typescript': ['tslint', 'eslint', 'prettier'],
+"\ 'typescriptreact': ['tslint', 'eslint', 'prettier'],
+"\ 'javascript': ['eslint', 'prettier'],
+"\ 'css': ['prettier'],
+"\ 'json': ['prettier'],
 "\ 'scala': ['scalafmt'],
-"\}
-""\ 'markdown': ['prettier'],
-"let g:ale_pattern_options = {
-"\   '.*\.json$': {'ale_enabled': 0},
-"\   '.*\.graphql$': {'ale_enabled': 0},
-"\}
-"let g:ale_fix_on_save = 1
-""let g:ale_javascript_prettier_use_local_config = 1
-"" Disable the loclist (just annoying right now) can be opened with :lopen
-"let g:ale_open_list=0
-"
+"\ 'markdown': ['prettier'],
+" Still use ale for python
+" ALE Fixers are slow compared to Coc, use sparingly
+let g:ale_fixers = {
+\ 'python': ['black', 'isort']
+\}
+" \   '.*\.json$': {'ale_enabled': 0},
+" \   '.*\.graphql$': {'ale_enabled': 0},
+let g:ale_pattern_options = {
+\   '.*\.py$': {'ale_enabled': 1},
+\}
+let g:ale_enabled = 0
+let g:ale_fix_on_save = 1
+"let g:ale_javascript_prettier_use_local_config = 1
+" Disable the loclist (just annoying right now) can be opened with :lopen
+let g:ale_open_list=0
+
 "au BufNewFile,BufReadPost *.md set filetype=markdown
 
 "Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}

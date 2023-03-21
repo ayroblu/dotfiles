@@ -77,6 +77,7 @@ if [ -f /opt/homebrew/bin/brew ]; then
 fi
 
 [ -f /usr/local/opt/libffi/lib/pkgconfig ] && export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+[ -d /opt/homebrew/lib/pkgconfig ] && export PKG_CONFIG_PATH="/opt/homebrew/lib/pkgconfig:/opt/homebrew/opt/jpeg/lib/pkgconfig"
 exists node && export NODE_OPTIONS=--max-old-space-size=8192
 exists brew && export HOMEBREW_NO_AUTO_UPDATE=1
 exists brew && export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1

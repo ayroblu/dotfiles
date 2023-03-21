@@ -191,7 +191,7 @@ local function setupPrettier()
   local event = "BufWritePre" -- or "BufWritePost"
   local async = event == "BufWritePost"
 
-  null_ls.setup({
+  null_ls.setup {
     on_attach = function(client, bufnr)
       if client.supports_method("textDocument/formatting") then
         -- vim.keymap.set("n", "<Leader>f", function()
@@ -216,7 +216,7 @@ local function setupPrettier()
         end, { buffer = bufnr, desc = "[lsp] format" })
       end
     end,
-  })
+  }
   local prettier = require("prettier")
 
   prettier.setup({
