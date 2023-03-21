@@ -46,7 +46,7 @@ env:
 font:
   normal:
     #family: Monaco
-    family: Monego
+    family: Monego Nerd Font Fix
 
   # Default is 11
   size: 13.0

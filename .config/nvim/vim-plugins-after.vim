@@ -153,7 +153,7 @@ function setupGitSigns()
       map('n', '<leader>hp', gs.preview_hunk)
       map('n', '<leader>hb', function() gs.blame_line{full=true} end)
       map('n', '<leader>htb', gs.toggle_current_line_blame)
-      map('n', '<leader>hhd', gs.diffthis)
+      map('n', '<leader>hd', gs.diffthis)
       map('n', '<leader>hD', function() gs.diffthis('~') end)
       map('n', '<leader>htd', gs.toggle_deleted)
 

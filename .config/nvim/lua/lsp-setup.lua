@@ -26,6 +26,7 @@ local function setupLsp()
   local root_pattern = require('lspconfig.util').root_pattern
   local utils = require('utils')
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  require("lspsaga").setup({})
 
   -- brew install lua-language-server
   lspconfig.lua_ls.setup {
@@ -58,7 +59,7 @@ local function setupLsp()
   lspconfig.bashls.setup {}
   -- npm i -g vscode-langservers-extracted
   lspconfig.eslint.setup({
-    on_attach = function(client, bufnr)
+    on_attach = function(_, bufnr)
       vim.api.nvim_create_autocmd("BufWritePre", {
         buffer = bufnr,
         command = "EslintFixAll",
@@ -125,9 +126,8 @@ local function setupLsp()
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
   vim.keymap.set('n', '<leader>ai', vim.diagnostic.open_float)
-  vim.keymap.set('n', '[[', vim.diagnostic.goto_prev)
-  vim.keymap.set('n', ']]', vim.diagnostic.goto_next)
-  -- vim.keymap.set('n', '<leader>aa', vim.diagnostic.setloclist)
+  -- vim.keymap.set('n', '[[', vim.diagnostic.goto_prev)
+  -- vim.keymap.set('n', ']]', vim.diagnostic.goto_next)
   vim.keymap.set('n', '<leader>aa', vim.diagnostic.setqflist)
   vim.keymap.set('n', '<leader>ae', '<cmd>lua vim.diagnostic.setqflist({severity = "E"})<cr>')
   vim.keymap.set('n', '<leader>aw', '<cmd>lua vim.diagnostic.setqflist({severity = "W"})<cr>')
@@ -149,7 +149,7 @@ local function setupLsp()
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
       vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-      vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+      -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
       vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
       vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
       vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
@@ -158,7 +158,36 @@ local function setupLsp()
       end, opts)
       vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
       vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-      vim.keymap.set('n', '<leader>ac', vim.lsp.buf.code_action, opts)
+      -- vim.keymap.set('n', '<leader>ac', vim.lsp.buf.code_action, opts)
+
+      vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
+      vim.keymap.set({"n","v"}, "<leader>ac", "<cmd>Lspsaga code_action<CR>")
+      -- vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>")
+      -- vim.keymap.set("n", "rn", "<cmd>Lspsaga rename ++project<CR>")
+      -- vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>")
+      -- vim.keymap.set("n","gd", "<cmd>Lspsaga goto_definition<CR>")
+      -- vim.keymap.set("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>")
+      vim.keymap.set("n","gt", "<cmd>Lspsaga goto_type_definition<CR>")
+      vim.keymap.set("n", "<leader>dl", "<cmd>Lspsaga show_line_diagnostics<CR>")
+      vim.keymap.set("n", "<leader>dc", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
+      vim.keymap.set("n", "<leader>db", "<cmd>Lspsaga show_buf_diagnostics<CR>")
+      vim.keymap.set("n", "[[", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
+      vim.keymap.set("n", "]]", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+      -- vim.keymap.set("n", "[E", function()
+      --   require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+      -- end)
+      -- vim.keymap.set("n", "]E", function()
+      --   require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+      -- end)
+      --
+      -- vim.keymap.set("n","<leader>o", "<cmd>Lspsaga outline<CR>")
+      -- vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc ++quiet<CR>")
+      -- vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc ++keep<CR>")
+      -- vim.keymap.set("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
+      -- vim.keymap.set("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
+
+      -- Floating terminal
+      -- vim.keymap.set({"n", "t"}, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
 
       -- https://github.com/neovim/neovim/issues/20457#issuecomment-1266782345
       vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)

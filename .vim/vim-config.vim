@@ -647,5 +647,5 @@ function! s:DiffGitWithSaved()
   setf diff
 endfunction
 com! DiffGitSaved call s:DiffGitWithSaved()
-nmap <leader>d :DiffGitSaved<CR>
+nmap <leader>dd :DiffGitSaved<CR>
 

@@ -9,6 +9,9 @@ Plug 'folke/noice.nvim'
 
 Plug 'lewis6991/gitsigns.nvim'
 
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'glepnir/lspsaga.nvim'
+
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 if exists('g:started_by_firenvim')
   let g:firenvim_config = {

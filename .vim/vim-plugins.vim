@@ -142,7 +142,8 @@ let g:session_default_overwrite = 1
 " Basically you just care about :OpenSession, don't worry about anything else
 " Sometimes you need to worry about :DeleteSession
 
-Plug 'RRethy/vim-illuminate'
+" Too much drawing, a bit slow
+" Plug 'RRethy/vim-illuminate'
 
 " === Commands and functions
 Plug 'knsh14/vim-github-link'
