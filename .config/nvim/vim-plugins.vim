@@ -5,7 +5,7 @@ Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'stevearc/aerial.nvim'
 
 Plug 'MunifTanjim/nui.nvim'
-Plug 'folke/noice.nvim'
+" Plug 'folke/noice.nvim'
 
 Plug 'lewis6991/gitsigns.nvim'
 

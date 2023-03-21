@@ -198,13 +198,13 @@ end
 pcall(setupToggleTerm)
 
 function setupNoice()
-  -- https://github.com/neovim/nvim-lspconfig/issues/1931#issuecomment-1297599534
-  -- local filter = {
-  --   event = "msg_show",
-  --   min_height = 10,
-  --   ["not"] = { kind = { "search_count", "echo" } },
-  -- }
   require("noice").setup({
+    routes = {
+      {
+        view = "notify",
+        filter = { event = "msg_showmode" },
+      },
+    },
     lsp = {
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
       override = {
