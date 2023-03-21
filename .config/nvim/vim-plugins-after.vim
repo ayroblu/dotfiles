@@ -50,6 +50,7 @@ else
     autocmd FileType scala nnoremap <buffer><silent> <leader>dso <cmd>lua require'dap'.step_over()<CR>
     autocmd FileType scala nnoremap <buffer><silent> <leader>dsi <cmd>lua require'dap'.step_into()<CR>
     autocmd FileType scala nnoremap <buffer><silent> <leader>dl  <cmd>lua require'dap'.run_last()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>ws  <cmd>lua require'metals'.hover_worksheet()<CR>
   augroup end
 endif
 
@@ -254,7 +255,7 @@ local function setupMetals()
   -- OPTIONS -----------------------
   ----------------------------------
   -- global
-  -- vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
+  vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
   -- vim.opt_global.shortmess:remove("F"):append("c")
 
   -- LSP mappings (commented out cause can't target just scala)
@@ -333,8 +334,7 @@ local function setupMetals()
   -- metals_config.init_options.statusBarProvider = "on"
 
   -- Example if you are using cmp how to make sure the correct capabilities for snippets are set
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  metals_config.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+  metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
 
   -- Debug settings if you're using nvim-dap
   local dap = require("dap")
