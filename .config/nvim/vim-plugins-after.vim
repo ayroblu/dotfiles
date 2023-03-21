@@ -38,6 +38,19 @@ if $HOME ==# '/home/sandbox'
 
     autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc
   augroup end
+else
+  augroup metals_lsp
+    autocmd FileType scala setl shortmess+=c
+    autocmd FileType scala setl shortmess-=F
+    autocmd FileType scala nnoremap <buffer><silent> <leader>or  :MetalsOrganizeImports<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>dc  <cmd>lua require'dap'.continue()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>dr  <cmd>lua require'dap'.repl.toggle()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>dK  <cmd>lua require'dap.ui.widgets'.hover()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>dt  <cmd>lua require'dap'.toggle_breakpoint()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>dso <cmd>lua require'dap'.step_over()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>dsi <cmd>lua require'dap'.step_into()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>dl  <cmd>lua require'dap'.run_last()<CR>
+  augroup end
 endif
 
 lua <<EOF
@@ -176,20 +189,20 @@ function setupToggleTerm()
     open_mapping = [[†]],
     direction = "float",
   }
-  vim.cmd [[nnoremap <leader>rw <Cmd>exe "ToggleTermSendCurrentLine " . v:count1<CR>j]]
+  -- vim.cmd [[nnoremap <leader>rw <Cmd>exe "ToggleTermSendCurrentLine " . v:count1<CR>j]]
   -- visual selection doesn't work that well, needs double visual to actually select
-  vim.cmd [[xnoremap <leader>rw <Cmd>exe "ToggleTermSendVisualSelection " . v:count1<CR>]]
+  -- vim.cmd [[xnoremap <leader>rw <Cmd>exe "ToggleTermSendVisualSelection " . v:count1<CR>]]
   -- vim.cmd [[nnoremap <silent><leader>gg <Cmd>exe v:count1 . "ToggleTerm direction=vertical"<CR>]]
 end
 pcall(setupToggleTerm)
 
 function setupNoice()
   -- https://github.com/neovim/nvim-lspconfig/issues/1931#issuecomment-1297599534
-  local filter = {
-    event = "msg_show",
-    min_height = 10,
-    ["not"] = { kind = { "search_count", "echo" } },
-  }
+  -- local filter = {
+  --   event = "msg_show",
+  --   min_height = 10,
+  --   ["not"] = { kind = { "search_count", "echo" } },
+  -- }
   require("noice").setup({
     lsp = {
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -225,26 +238,24 @@ pcall(setupNoice)
 
 require('lsp-setup')
 
+local function setupMetals()
 -- Configure completion
-if os.getenv("HOME") == "/home/sandbox" then
   -- https://github.com/scalameta/nvim-metals/discussions/39
-  local api = vim.api
-  local cmd = vim.cmd
 
-  local function map(mode, lhs, rhs, opts)
-    local options = { noremap = true }
-    if opts then
-      options = vim.tbl_extend("force", options, opts)
-    end
-    api.nvim_set_keymap(mode, lhs, rhs, options)
-  end
+  -- local function map(mode, lhs, rhs, opts)
+  --   local options = { noremap = true }
+  --   if opts then
+  --     options = vim.tbl_extend("force", options, opts)
+  --   end
+  --   api.nvim_set_keymap(mode, lhs, rhs, options)
+  -- end
 
   ----------------------------------
   -- OPTIONS -----------------------
   ----------------------------------
   -- global
-  vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
-  vim.opt_global.shortmess:remove("F"):append("c")
+  -- vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
+  -- vim.opt_global.shortmess:remove("F"):append("c")
 
   -- LSP mappings (commented out cause can't target just scala)
   --map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
@@ -278,28 +289,28 @@ if os.getenv("HOME") == "/home/sandbox" then
   --map("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]])
 
 
-  local cmp = require'cmp'
-  cmp.setup({
-    snippet = {
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
-      end,
-    },
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-    })
-  })
-  cmp.setup.filetype('scala', {
-    mapping = {
-      ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
-      ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
-      ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-      ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-    },
-  })
+  -- local cmp = require'cmp'
+  -- cmp.setup({
+  --   snippet = {
+  --     expand = function(args)
+  --       vim.fn["vsnip#anonymous"](args.body)
+  --     end,
+  --   },
+  --   sources = cmp.config.sources({
+  --     { name = 'nvim_lsp' },
+  --   })
+  -- })
+  -- cmp.setup.filetype('scala', {
+  --   mapping = {
+  --     ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
+  --     ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
+  --     ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+  --     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+  --     ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  --     ['<C-Space>'] = cmp.mapping.complete(),
+  --     ['<C-e>'] = cmp.mapping.abort(),
+  --   },
+  -- })
 
   ----------------------------------
   -- LSP Setup ---------------------
@@ -353,8 +364,8 @@ if os.getenv("HOME") == "/home/sandbox" then
   end
 
   -- Autocmd that will actually be in charging of starting the whole thing
-  local nvim_metals_group = api.nvim_create_augroup("nvim-metals", { clear = true })
-  api.nvim_create_autocmd("FileType", {
+  local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+  vim.api.nvim_create_autocmd("FileType", {
     -- NOTE: You may or may not want java included here. You will need it if you
     -- want basic Java support but it may also conflict if you are using
     -- something like nvim-jdtls which also works on a java filetype autocmd.
@@ -365,6 +376,11 @@ if os.getenv("HOME") == "/home/sandbox" then
     group = nvim_metals_group,
   })
 
+end
+if os.getenv("HOME") == "/home/sandbox" then
+  setupMetals()
+else
+  pcall(setupMetals)
 end
 EOF
 set foldmethod=expr

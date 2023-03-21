@@ -24,6 +24,8 @@ set display+=lastline "long lines show to the end instead of @ sign
 set complete+=kspell " autocomplete includes the dictionary if enabled
 "set synmaxcol=1000 " Stop trying to syntax highlight after synmaxcol characters. Vim is very slow with syntax highlighting long lines
 
+" git and lsp use these stop the movement
+set signcolumn=yes
 set foldmethod=syntax
 set foldlevel=20
 

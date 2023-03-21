@@ -33,9 +33,7 @@ runtime vim-help.vim
 runtime vim-config.vim
 
 " REPL + code execution
-if !has('nvim')
-  runtime vim-repl.vim
-endif
+runtime vim-repl.vim
 
 " Checkbox helper for markdown
 runtime vim-checkbox.vim

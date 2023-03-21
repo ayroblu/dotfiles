@@ -203,9 +203,9 @@ local function setupLsp()
         end
         return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
       end
-      -- vim.keymap.set('n', '<leader>f', function()
-      --   vim.lsp.buf.format { async = true }
-      -- end, opts)
+      vim.keymap.set('n', '<leader>lf', function()
+        vim.lsp.buf.format { async = true }
+      end, opts)
       --vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
     end,
   })
@@ -223,9 +223,9 @@ local function setupPrettier()
   null_ls.setup {
     on_attach = function(client, bufnr)
       if client.supports_method("textDocument/formatting") then
-        -- vim.keymap.set("n", "<Leader>f", function()
-        --   vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
-        -- end, { buffer = bufnr, desc = "[lsp] format" })
+        vim.keymap.set("n", "<Leader>lf", function()
+          vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+        end, { buffer = bufnr, desc = "[lsp] format" })
 
         -- format on save
         vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
@@ -240,7 +240,7 @@ local function setupPrettier()
       end
 
       if client.supports_method("textDocument/rangeFormatting") then
-        vim.keymap.set("x", "<Leader>f", function()
+        vim.keymap.set("x", "<Leader>lf", function()
           vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
         end, { buffer = bufnr, desc = "[lsp] format" })
       end
