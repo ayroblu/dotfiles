@@ -12,7 +12,7 @@ if $HOME ==# '/home/sandbox'
     autocmd FileType scala nnoremap <buffer><silent> <leader>cl  <cmd>lua vim.lsp.codelens.run()<CR>
     autocmd FileType scala nnoremap <buffer><silent> <leader>sh  <cmd>lua vim.lsp.signature_help()<CR>
     autocmd FileType scala nnoremap <buffer><silent> <leader>rn  <cmd>lua vim.lsp.buf.rename()<CR>
-    autocmd FileType scala nnoremap <buffer><silent> <leader>lf   <cmd>lua vim.lsp.buf.formatting()<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>j   <cmd>lua vim.lsp.buf.formatting()<CR>
     autocmd FileType scala nnoremap <buffer><silent> <leader>ac  <cmd>lua vim.lsp.buf.code_action()<CR>
     autocmd FileType scala nnoremap <buffer><silent> <leader>ws  <cmd>lua require'metals'.hover_worksheet()<CR>
     " All workspace diagnostics, errors, or warnings only
