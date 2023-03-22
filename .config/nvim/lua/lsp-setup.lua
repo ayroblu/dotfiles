@@ -26,7 +26,11 @@ local function setupLsp()
   local root_pattern = require('lspconfig.util').root_pattern
   local utils = require('utils')
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  require("lspsaga").setup({})
+  require("lspsaga").setup {
+    symbol_in_winbar = {
+     enable = false,
+    },
+  }
 
   -- brew install lua-language-server
   lspconfig.lua_ls.setup {
@@ -161,13 +165,13 @@ local function setupLsp()
       -- vim.keymap.set('n', '<leader>ac', vim.lsp.buf.code_action, opts)
 
       vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
-      vim.keymap.set({"n","v"}, "<leader>ac", "<cmd>Lspsaga code_action<CR>")
+      vim.keymap.set({ "n", "v" }, "<leader>ac", "<cmd>Lspsaga code_action<CR>")
       -- vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>")
       -- vim.keymap.set("n", "rn", "<cmd>Lspsaga rename ++project<CR>")
       -- vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>")
       -- vim.keymap.set("n","gd", "<cmd>Lspsaga goto_definition<CR>")
       -- vim.keymap.set("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>")
-      vim.keymap.set("n","gt", "<cmd>Lspsaga goto_type_definition<CR>")
+      vim.keymap.set("n", "gt", "<cmd>Lspsaga goto_type_definition<CR>")
       vim.keymap.set("n", "<leader>dl", "<cmd>Lspsaga show_line_diagnostics<CR>")
       vim.keymap.set("n", "<leader>dc", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
       vim.keymap.set("n", "<leader>db", "<cmd>Lspsaga show_buf_diagnostics<CR>")

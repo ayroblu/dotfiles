@@ -80,6 +80,7 @@ endif
 
 " we want vim to follow terminal background
 hi Normal ctermbg=NONE
+hi Normal guibg=NONE
 
 if !has('nvim')
   " https://github.com/airblade/vim-gitgutter/issues/696
