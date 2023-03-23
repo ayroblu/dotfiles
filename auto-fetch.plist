@@ -22,6 +22,22 @@
       <key>Hour</key>
       <integer>11</integer>
     </dict>
+    <dict>
+      <key>Hour</key>
+      <integer>12</integer>
+    </dict>
+    <dict>
+      <key>Hour</key>
+      <integer>14</integer>
+    </dict>
+    <dict>
+      <key>Hour</key>
+      <integer>16</integer>
+    </dict>
+    <dict>
+      <key>Hour</key>
+      <integer>18</integer>
+    </dict>
   </array>
 </dict>
 </plist>
