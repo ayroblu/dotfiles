@@ -224,7 +224,11 @@ local function setupPrettier()
   local event = "BufWritePre" -- or "BufWritePost"
   local async = event == "BufWritePost"
 
+  local sources = {
+    null_ls.builtins.formatting.prettier,
+  }
   null_ls.setup {
+    sources = sources,
     on_attach = function(client, bufnr)
       if client.supports_method("textDocument/formatting") then
         vim.keymap.set("n", "<Leader>j", function()
