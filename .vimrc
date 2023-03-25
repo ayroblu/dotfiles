@@ -66,6 +66,8 @@ if has('nvim')
   else
     if has("termguicolors")
       set termguicolors
+      " we want vim to follow terminal background
+      hi Normal guibg=NONE
     endif
     set background=light
     silent! colorscheme NeoSolarized
@@ -80,7 +82,6 @@ endif
 
 " we want vim to follow terminal background
 hi Normal ctermbg=NONE
-hi Normal guibg=NONE
 
 if !has('nvim')
   " https://github.com/airblade/vim-gitgutter/issues/696
