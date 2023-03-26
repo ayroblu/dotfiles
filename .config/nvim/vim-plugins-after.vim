@@ -42,7 +42,7 @@ else
   augroup metals_lsp
     autocmd FileType scala setl shortmess+=c
     autocmd FileType scala setl shortmess-=F
-    autocmd FileType scala nnoremap <buffer><silent> <leader>or  :MetalsOrganizeImports<CR>
+    autocmd FileType scala nnoremap <buffer><silent> <leader>ao  :MetalsOrganizeImports<CR>
     autocmd FileType scala nnoremap <buffer><silent> <leader>dc  <cmd>lua require'dap'.continue()<CR>
     autocmd FileType scala nnoremap <buffer><silent> <leader>dr  <cmd>lua require'dap'.repl.toggle()<CR>
     autocmd FileType scala nnoremap <buffer><silent> <leader>dK  <cmd>lua require'dap.ui.widgets'.hover()<CR>

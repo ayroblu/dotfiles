@@ -108,11 +108,26 @@ local function setupLsp()
   -- npm install -g pyright
   lspconfig.pyright.setup {}
   -- npm i -g typescript-language-server
-  lspconfig.tsserver.setup {
-    filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-    root_dir = root_pattern("tsconfig.json"),
-    capabilities = capabilities,
-  }
+  -- lspconfig.tsserver.setup {
+  --   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+  --   root_dir = root_pattern("tsconfig.json"),
+  --   capabilities = capabilities,
+  -- }
+  local typescript = require('typescript')
+  -- :TypescriptRenameFile
+  typescript.setup({
+    server = { -- pass options to lspconfig's setup method
+      filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+      root_dir = root_pattern("tsconfig.json"),
+      capabilities = capabilities,
+      on_attach = function()
+        vim.keymap.set('n', '<leader>am', typescript.actions.addMissingImports)
+        vim.keymap.set('n', '<leader>ao', typescript.actions.organizeImports)
+        vim.keymap.set('n', 'gD', '<cmd>TypescriptGoToSourceDefinition<cr>')
+        vim.keymap.set('n', '<leader>rf', '<cmd>TypescriptRenameFile<cr>')
+      end,
+    },
+  })
   -- npm i -g vscode-langservers-extracted
   lspconfig.cssls.setup {
     capabilities = capabilities,
@@ -149,7 +164,7 @@ local function setupLsp()
       -- Buffer local mappings.
       -- See `:help vim.lsp.*` for documentation on any of the below functions
       local opts = { buffer = ev.buf }
-      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+      -- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
       vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
