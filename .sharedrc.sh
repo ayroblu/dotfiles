@@ -66,12 +66,21 @@ localip() {
 }
 
 # -------------- Misc env vars
+# https://superuser.com/questions/39751/add-directory-to-path-if-its-not-already-there
+pathadd() {
+  if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+    PATH="$1${PATH:+":$PATH"}"
+  fi
+}
+
 # /opt/homebrew/bin/brew shellenv
 if [ -f /opt/homebrew/bin/brew ]; then
   export HOMEBREW_PREFIX="/opt/homebrew";
   export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
   export HOMEBREW_REPOSITORY="/opt/homebrew";
-  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+  #export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+  pathadd /opt/homebrew/bin
+  pathadd /opt/homebrew/sbin
   export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
   export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 fi
@@ -82,12 +91,6 @@ exists node && export NODE_OPTIONS=--max-old-space-size=8192
 exists brew && export HOMEBREW_NO_AUTO_UPDATE=1
 exists brew && export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
 
-# https://superuser.com/questions/39751/add-directory-to-path-if-its-not-already-there
-pathadd() {
-  if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-    PATH="$1${PATH:+":$PATH"}"
-  fi
-}
 pathadd ~/.cargo/bin
 pathadd ~/.poetry/bin
 pathadd /usr/local/opt/mysql-client/bin
