@@ -318,6 +318,19 @@ endif
 
 " Yank current file path
 nnoremap yp :let @" = expand("%:p")<CR>
+nnoremap <silent> ygp :let @" = system('git ls-tree --name-only --full-name HEAD '.expand("%:p"))[:-2]<cr>
+" ideally just get the last buffer
+"nnoremap <silent> <leader>yr :call system("grealpath --relative-to=".@"." ".system('git ls-tree --name-only --full-name HEAD '.expand("%:p"))[:-2])<cr>
+nnoremap <silent> ygr :call <SID>RelGitPath()<cr>
+function! s:RelGitPath()
+  let currGitPath = system('git ls-tree --name-only --full-name HEAD '.expand("%:p"))[:-2]
+  let @" = system("grealpath --relative-to=\"$(dirname ".@".")\" ".currGitPath)[:-2]
+endfunction
+nnoremap <silent> ygo :call <SID>RelGitRevPath()<cr>
+function! s:RelGitRevPath()
+  let currGitPath = system('git ls-tree --name-only --full-name HEAD "'.expand("%:p").'"')[:-2]
+  let @" = system("grealpath --relative-to=\"$(dirname ".currGitPath.")\" \"".@"."\"")[:-2]
+endfunction
 
 " Insert single character
 nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
