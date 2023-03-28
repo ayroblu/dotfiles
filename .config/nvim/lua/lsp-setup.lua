@@ -28,7 +28,7 @@ local function setupLsp()
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
   require("lspsaga").setup {
     symbol_in_winbar = {
-     enable = false,
+      enable = false,
     },
   }
 
@@ -240,7 +240,10 @@ local function setupPrettier()
   local async = event == "BufWritePost"
 
   local sources = {
-    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.prettier.with({
+      filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less",
+        "json", "jsonc", "graphql" },
+    })
   }
   null_ls.setup {
     sources = sources,

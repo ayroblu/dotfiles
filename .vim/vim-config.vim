@@ -286,8 +286,9 @@ autocmd FileType typescript setl indentexpr=
 autocmd FileType swift,objc,objcpp setl textwidth=0
 
 " Handle special file types: https://vim.fandom.com/wiki/Forcing_Syntax_Coloring_for_files_with_odd_extensions
-"autocmd BufNewFile,BufRead PROJECT set syntax=yaml
-autocmd BufNewFile,BufRead *.keymap set syntax=c
+autocmd BufNewFile,BufRead *.keymap setl syntax=c
+autocmd BufNewFile,BufRead tsconfig.json setl ft=jsonc
+
 
 " nnoremap <C-L> :redraw!
 
