@@ -12,7 +12,7 @@ local function setupCmp()
     mapping = {
       ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
       ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
-      ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs( -4), { 'i', 'c' }),
       ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
       ['<C-space>'] = cmp.mapping.complete(),
@@ -259,7 +259,13 @@ local function setupPrettier()
           buffer = bufnr,
           group = group,
           callback = function()
-            vim.lsp.buf.format({ bufnr = bufnr, async = async })
+            vim.lsp.buf.format({
+              bufnr = bufnr,
+              async = async,
+              filter = function(client)
+                return client.name ~= "tsserver" and client.name ~= "cssmodules_ls"
+              end
+            })
           end,
           desc = "[lsp] format on save",
         })
@@ -272,6 +278,7 @@ local function setupPrettier()
       end
     end,
   }
+
   local prettier = require("prettier")
 
   prettier.setup({

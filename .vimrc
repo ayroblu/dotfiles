@@ -66,11 +66,11 @@ if has('nvim')
   else
     if has("termguicolors")
       set termguicolors
-      " we want vim to follow terminal background
-      hi Normal guibg=NONE
     endif
     set background=light
     silent! colorscheme NeoSolarized
+    " we want vim to follow terminal background
+    hi Normal guibg=NONE
   endif
 else
   syntax enable
