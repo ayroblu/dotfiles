@@ -123,6 +123,7 @@ local function setupLsp()
       on_attach = function()
         vim.keymap.set('n', '<leader>am', typescript.actions.addMissingImports)
         vim.keymap.set('n', '<leader>ao', typescript.actions.organizeImports)
+        vim.keymap.set('n', '<leader>ar', typescript.actions.removeUnused)
         vim.keymap.set('n', 'gD', '<cmd>TypescriptGoToSourceDefinition<cr>')
         vim.keymap.set('n', '<leader>rf', '<cmd>TypescriptRenameFile<cr>')
       end,
