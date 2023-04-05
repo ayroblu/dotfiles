@@ -231,6 +231,12 @@ mergepdf() {
 # Also consider using ocrmypdf if you want to search it
 # https://unix.stackexchange.com/questions/301318/how-to-ocr-a-pdf-file-and-get-the-text-stored-within-the-pdf
 
+watchrun() {
+  INPUT="$1"
+  SCRIPT="$2"
+  fswatch -o "$1" | xargs -n1 -I{} "$2"
+}
+
 videoToGif() {
   local filename="$1"
   local new_filename="${filename%.*}.gif"
