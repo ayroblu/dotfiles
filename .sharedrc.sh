@@ -164,6 +164,9 @@ stash(){
   "$@"
   git stash pop
 }
+nohooks(){
+  HUSKY_SKIP_HOOKS=1 "$@"
+}
 
 copyDockerFile() {
   if [ "$#" -ne 3 ]; then
