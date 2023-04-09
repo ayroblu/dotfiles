@@ -73,10 +73,10 @@ local function setupLsp()
   -- npx flow
   lspconfig.flow.setup {}
   -- npx relay-compiler
-  lspconfig.relay_lsp.setup {
-    cmd = { "./scripts/relay-for-extension", "lsp" },
-    root_dir = root_pattern("relay.config.*")
-  }
+  -- lspconfig.relay_lsp.setup {
+  --   cmd = { "./scripts/relay-for-extension", "lsp" },
+  --   root_dir = root_pattern("relay.config.*")
+  -- }
   -- npm i -g vscode-langservers-extracted
   lspconfig.html.setup {
     capabilities = capabilities,
