@@ -65,6 +65,9 @@ localip() {
     | pcregrep -Mo1 " Addresses : <array> {\n    0 : ([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})"
 }
 
+# https://apple.stackexchange.com/questions/398952/how-to-identify-the-largest-files-in-a-directory-including-in-its-subdirectories
+alias list-largest-files="find . -type f -exec stat -f '%z %N' {} + | sort -nr"
+
 # -------------- Misc env vars
 # https://superuser.com/questions/39751/add-directory-to-path-if-its-not-already-there
 pathadd() {
