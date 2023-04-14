@@ -50,86 +50,11 @@ _fzf_complete_brew() {
     return 1
   fi
 }
-_fzf_complete_git() {
-  ARGS="$@"
-  if [[ $ARGS == 'git add '* ]]; then
-    local options="$(cache_fzf.js "git co")"
-    _fzf_complete --multi -- "$@" < <(
-      echo $options
-    )
-  elif [[ $ARGS == 'git co '* ]]; then
-    local options="$(cache_fzf.js "git co")"
-    _fzf_complete --multi -- "$@" < <(
-      echo $options
-    )
-  elif [[ $ARGS == 'git cob '* ]]; then
-    local options="$(git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)')"
-    _fzf_complete --multi -- "$@" < <(
-      echo $options
-    )
-  else
-    return 1
-  fi
-}
-_fzf_complete_yarn() {
-  ARGS="$@"
-  if [[ $ARGS == 'yarn test'* ]]; then
-    local options="$(rg --files --hidden --glob '!.git' -g '*.test.ts*' -g '*.test.js*' -g '*.it.ts*' -g '*.it.js*' 2> /dev/null)"
-    _fzf_complete --multi -- "$@" < <(
-      echo $options
-    )
-  else
-    return 1
-  fi
-}
 _fzf_complete_pip() {
   ARGS="$@"
   if [[ $ARGS == 'pip uninstall'* ]]; then
     local options="$(pip list 2> /dev/null | tail -n +3 | awk '{print $1}' | rg -v '^(setuptools|wheel)$')"
     _fzf_complete --multi --preview 'pip show {}' -- "$@" < <(
-      echo $options
-    )
-  else
-    return 1
-  fi
-}
-_fzf_complete_node() {
-  ARGS="$@"
-  if [[ $ARGS == 'node '* ]]; then
-    local options="$(rg --files --hidden --glob '!.git' -g '*.ts*' -g '*.js*' 2> /dev/null)"
-    _fzf_complete --multi -- "$@" < <(
-      echo $options
-    )
-  else
-    return 1
-  fi
-}
-_fzf_complete_bloop() {
-  ARGS="$@"
-  if [[ $ARGS == 'bloop test '* ]]; then
-    local options="$(bloop autocomplete --format zsh --mode projects 2> /dev/null)"
-    _fzf_complete --multi -- "$@" < <(
-      echo $options
-    )
-  elif [[ $ARGS == 'bloop compile '* ]]; then
-    local options="$(bloop autocomplete --format zsh --mode projects 2> /dev/null)"
-    _fzf_complete --multi -- "$@" < <(
-      echo $options
-    )
-  else
-    return 1
-  fi
-}
-_fzf_complete_bloop() {
-  ARGS="$@"
-  if [[ $ARGS == 'bloop test '* ]]; then
-    local options="$(bloop autocomplete --format zsh --mode projects 2> /dev/null)"
-    _fzf_complete --multi -- "$@" < <(
-      echo $options
-    )
-  elif [[ $ARGS == 'bloop build '* ]]; then
-    local options="$(bloop autocomplete --format zsh --mode projects 2> /dev/null)"
-    _fzf_complete --multi -- "$@" < <(
       echo $options
     )
   else

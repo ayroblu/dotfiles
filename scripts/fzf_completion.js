@@ -49,85 +49,12 @@ const allCmds = [
     ]
   },
   {
-    name: "git",
-    cmds: [
-      {
-        cmdTrigger: "git add ",
-        cmdListOptions: 'cache_fzf.js "git co"',
-        // cmdListOptions: 'git status -s | sed s/^...//',
-        fzfOptions: "--multi"
-      },
-      {
-        cmdTrigger: "git co ",
-        cmdListOptions: 'cache_fzf.js "git co"',
-        // cmdListOptions: 'git status -s | sed s/^...//',
-        fzfOptions: "--multi"
-      },
-      {
-        cmdTrigger: "git cob ",
-        cmdListOptions:
-          "git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)'",
-        fzfOptions: "--multi"
-      }
-    ]
-  },
-  {
-    name: "yarn",
-    cmds: [
-      {
-        cmdTrigger: "yarn test",
-        cmdListOptions: `rg --files --hidden --glob '!.git' -g '*.test.ts*' -g '*.test.js*' -g '*.it.ts*' -g '*.it.js*' 2> /dev/null`,
-        fzfOptions: "--multi"
-      }
-    ]
-  },
-  {
     name: "pip",
     cmds: [
       {
         cmdTrigger: "pip uninstall",
         cmdListOptions: `pip list 2> /dev/null | tail -n +3 | awk '{print $1}' | rg -v '^(setuptools|wheel)$'`,
         fzfOptions: `--multi --preview 'pip show {}'`
-      }
-    ]
-  },
-  {
-    name: "node",
-    cmds: [
-      {
-        cmdTrigger: "node ",
-        cmdListOptions: `rg --files --hidden --glob '!.git' -g '*.ts*' -g '*.js*' 2> /dev/null`,
-        fzfOptions: "--multi"
-      }
-    ]
-  },
-  {
-    name: "bloop",
-    cmds: [
-      {
-        cmdTrigger: "bloop test ",
-        cmdListOptions: `bloop autocomplete --format zsh --mode projects 2> /dev/null`,
-        fzfOptions: "--multi"
-      },
-      {
-        cmdTrigger: "bloop compile ",
-        cmdListOptions: `bloop autocomplete --format zsh --mode projects 2> /dev/null`,
-        fzfOptions: "--multi"
-      }
-    ]
-  },
-  {
-    name: "bloop",
-    cmds: [
-      {
-        cmdTrigger: "bloop test ",
-        cmdListOptions: `bloop autocomplete --format zsh --mode projects 2> /dev/null`,
-        fzfOptions: "--multi"
-      },
-      {
-        cmdTrigger: "bloop build ",
-        cmdListOptions: `bloop autocomplete --format zsh --mode projects 2> /dev/null`,
-        fzfOptions: "--multi"
       }
     ]
   },
