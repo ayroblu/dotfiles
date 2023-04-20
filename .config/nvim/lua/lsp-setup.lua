@@ -30,6 +30,10 @@ local function setupLsp()
     symbol_in_winbar = {
       enable = false,
     },
+    lightbulb = {
+      enable = false,
+      enable_in_insert = false,
+    },
   }
 
   -- brew install lua-language-server
@@ -224,6 +228,7 @@ local function setupLsp()
         return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
       end
       vim.keymap.set('n', '<leader>j', function()
+        if vim.fn.exists(':EslintFixAll') > 0 then vim.cmd('EslintFixAll') end
         vim.lsp.buf.format { async = true }
       end, opts)
       --vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
@@ -246,13 +251,14 @@ local function setupPrettier()
         "json", "jsonc", "graphql" },
     })
   }
+  ---@diagnostic disable-next-line: redundant-parameter
   null_ls.setup {
     sources = sources,
     on_attach = function(client, bufnr)
       if client.supports_method("textDocument/formatting") then
-        vim.keymap.set("n", "<Leader>j", function()
-          vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
-        end, { buffer = bufnr, desc = "[lsp] format" })
+        -- vim.keymap.set("n", "<Leader>j", function()
+        --   vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+        -- end, { buffer = bufnr, desc = "[lsp] format" })
 
         -- format on save
         vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
