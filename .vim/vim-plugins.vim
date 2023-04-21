@@ -659,9 +659,9 @@ Plug 'dhruvasagar/vim-table-mode'
 let g:table_mode_map_prefix = ',t'
 
 " Plugins for org mode (disabled cause GetOrgFolding() is extremely slow)
-"Plug 'inkarkat/vim-SyntaxRange'
-"Plug 'tpope/vim-speeddating'
-"Plug 'jceb/vim-orgmode'
+Plug 'inkarkat/vim-SyntaxRange'
+Plug 'tpope/vim-speeddating'
+Plug 'jceb/vim-orgmode'
 
 " Plug 'arecarn/vim-fold-cycle'
 "Current mappings
@@ -917,7 +917,6 @@ let g:ale_open_list=0
 " Twitter specific
 "Plug 'jrozner/vim-antlr'
 Plug 'pantsbuild/vim-pants'
-
 " === old
 
 "Plug 'garbas/vim-snipmate'
