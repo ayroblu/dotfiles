@@ -43,6 +43,7 @@ Table of Contents
 - [Emacs](#emacs)
 - [Remote pbcopy (deprecated)](#remote-pbcopy-deprecated)
 - [Auto Fetch](#auto-fetch)
+- [Print to ReMarkable](#print-to-remarkable)
 
 <!-- vim-markdown-toc -->
 
@@ -419,4 +420,21 @@ You can run it manually with
 
 ```sh
 launchctl start local.autoFetch
+```
+
+Print to ReMarkable
+-------------------
+> https://github.com/juruen/rmapi/blob/master/docs/tutorial-print-macosx.md
+
+See the `~/Library/PDF Services` directory for the workflow. Note I couldn't make any logs
+
+1. Automator
+2. PDF Plugin
+3. Code and save ⌘s
+
+```sh
+for f in "$@"
+do
+	/Users/blu/ws/rmapi/rmapi put "$f" "To read"
+done
 ```
