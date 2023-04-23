@@ -88,6 +88,10 @@ if [ -f /opt/homebrew/bin/brew ]; then
   export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 fi
 
+exists() {
+  command -v "$1" >/dev/null 2>&1
+}
+
 [ -f /usr/local/opt/libffi/lib/pkgconfig ] && export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 [ -d /opt/homebrew/lib/pkgconfig ] && export PKG_CONFIG_PATH="/opt/homebrew/lib/pkgconfig:/opt/homebrew/opt/jpeg/lib/pkgconfig"
 exists node && export NODE_OPTIONS=--max-old-space-size=8192

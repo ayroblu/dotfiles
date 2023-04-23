@@ -1,4 +1,6 @@
 env shellshock="() { :; }; echo 'Shellshockable!'" bash -c "echo -n ''"
+export BASH_SILENCE_DEPRECATION_WARNING=1
+echo 'Note you are running bash'
 
 # Makes homebrew stuff work first
 #export PATH='/usr/local/bin:$PATH'
