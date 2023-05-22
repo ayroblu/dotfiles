@@ -12,8 +12,8 @@ Table of Contents
 <!-- vim-markdown-toc GFM -->
 
 - [Setting up my mac](#setting-up-my-mac)
-  - [How to setup packages](#how-to-setup-packages)
-  - [Common brew packages](#common-brew-packages)
+	- [How to setup packages](#how-to-setup-packages)
+	- [Common brew packages](#common-brew-packages)
 - [Font](#font)
 - [Custom git setup](#custom-git-setup)
 - [Custom Caching setup](#custom-caching-setup)
@@ -26,18 +26,18 @@ Table of Contents
 - [Vim Setup](#vim-setup)
 - [FZF setup](#fzf-setup)
 - [VS Code Setup](#vs-code-setup)
-  - [History](#history)
+	- [History](#history)
 - [Vrapper Setup](#vrapper-setup)
 - [vifm](#vifm)
 - [vimium](#vimium)
-  - [Kill sticky and similar bookmarks](#kill-sticky-and-similar-bookmarks)
+	- [Kill sticky and similar bookmarks](#kill-sticky-and-similar-bookmarks)
 - [Vimium C](#vimium-c)
-  - [Custom CSS](#custom-css)
+	- [Custom CSS](#custom-css)
 - [CRKBD Keyboard Layout](#crkbd-keyboard-layout)
-  - [Required steps to build](#required-steps-to-build)
-  - [OS steps](#os-steps)
-  - [2021-03-28 layout](#2021-03-28-layout)
-  - [Building a new layout from qmk configurator](#building-a-new-layout-from-qmk-configurator)
+	- [Required steps to build](#required-steps-to-build)
+	- [OS steps](#os-steps)
+	- [2021-03-28 layout](#2021-03-28-layout)
+	- [Building a new layout from qmk configurator](#building-a-new-layout-from-qmk-configurator)
 - [MacOS Keyboard Layout](#macos-keyboard-layout)
 - [Plover](#plover)
 - [Emacs](#emacs)
@@ -428,13 +428,25 @@ Print to ReMarkable
 
 See the `~/Library/PDF Services` directory for the workflow. Note I couldn't make any logs
 
-1. Automator
-2. PDF Plugin
-3. Code and save ⌘s
+1. Download and setup rmapi
+2. Automator
+3. PDF Plugin
+4. Code and save ⌘s
+
+```sh
+cd ws
+mkdir rmapi
+cd rmapi
+curl -L  https://github.com/juruen/rmapi/releases/download/v0.0.24/rmapi-macosx.zip -o rmapi.zip -o rmapi.zip
+unzip rmapi.zip
+./rmapi
+```
+
+Script to go in automator
 
 ```sh
 for f in "$@"
 do
-	/Users/blu/ws/rmapi/rmapi put "$f" "To read"
+  /Users/blu/ws/rmapi/rmapi put "$f" "To read"
 done
 ```
