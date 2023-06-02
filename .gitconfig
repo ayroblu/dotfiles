@@ -28,6 +28,9 @@
   # git commit -C <bad_commit>     # commit fixes using same log message as before
   # git rebase --continue          # base all later changes onto this
 
+  # Merge conflict for generated files: `git co --theirs .`
+  # Also consider --ours, and `git r -X theirs`
+
   amend = commit -a --amend --no-edit
   abandon = !BRANCH=`git rev-parse --abbrev-ref HEAD` && git reset --hard && git checkout $(git mainmaster) && git branch -D $BRANCH
   # get main branch

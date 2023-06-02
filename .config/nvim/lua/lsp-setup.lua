@@ -36,6 +36,9 @@ local function setupLsp()
   --   },
   -- }
 
+  -- ln -s ~/ws/dotfiles/custom_lsp/stratols.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua
+  lspconfig.stratols.setup {}
+
   -- brew install lua-language-server
   lspconfig.lua_ls.setup {
     settings = {
