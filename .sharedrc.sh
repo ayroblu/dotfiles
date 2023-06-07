@@ -284,3 +284,17 @@ portscan() {
     timeout 1 bash -c "</dev/tcp/$IP_ADDRESS/$PORT &>/dev/null" &&  echo "port $PORT is open"
   done
 }
+
+tmpl-tool() {
+  if [ $# -lt 3 ]; then
+    echo 'tmpl-tool <template-name> <component-name> <destination>'
+    exit 1
+  fi
+
+  # https://stackoverflow.com/questions/2013547/assigning-default-values-to-shell-variables-with-a-single-command-in-bash
+  : "${TMPL_HOME:=$HOME/ws/deps/code-templates}"
+  cp -a "$TMPL_HOME"/"$1"/* "$3"
+
+  regexReplaceSingle __NAME__ "$2" "$3"
+}
+

@@ -12,6 +12,6 @@ run() {
     return
   fi
   echo "Edited: $file"
-  echo "$updated" | pbcopy
+  echo "$updated" | perl -pe 'chomp if eof' | pbcopy
 }
 run
