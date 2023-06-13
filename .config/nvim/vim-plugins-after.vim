@@ -176,7 +176,9 @@ function setupGitSigns()
     end
   }
 end
-pcall(setupGitSigns)
+if not string.find(vim.api.nvim_buf_get_name(0), "workspace/source") then
+  pcall(setupGitSigns)
+end
 
 function setupToggleTerm()
   require("toggleterm").setup{
