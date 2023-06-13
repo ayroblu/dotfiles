@@ -176,7 +176,7 @@ function setupGitSigns()
     end
   }
 end
-if not string.find(vim.api.nvim_buf_get_name(0), "workspace/source") then
+if not string.find(vim.api.nvim_buf_get_name(0), "workspace/source") and not string.find(vim.fn.getcwd(), "workspace/source") then
   pcall(setupGitSigns)
 end
 
