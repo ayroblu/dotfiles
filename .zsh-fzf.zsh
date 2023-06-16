@@ -98,6 +98,16 @@ zle     -N   fzf-yank-history-widget
 bindkey '^Y' fzf-yank-history-widget
 
 
+# Tmux buffer action - get filepaths
+fzf-tmux-filepaths-widget() {
+  local result=$(tmux_paths.js | fzf-down --ansi --multi --no-sort \
+      --preview 'preview-unknown {}' | join-lines)
+  zle reset-prompt
+  LBUFFER+=$result
+}
+zle -N fzf-tmux-filepaths-widget
+bindkey '^e^t' fzf-tmux-filepaths-widget
+
 
 # (EXPERIMENTAL) Advanced customization of fzf options via _fzf_comprun function
 # - The first argument to the function is the name of the command.
