@@ -53,6 +53,13 @@ set nofixeol
 " https://stackoverflow.com/questions/26708822/why-do-vim-experts-prefer-buffers-over-tabs
 set hidden " can switch to another buffer when you have unsaved changes
 
+" default is jtcroql, see help fo-table
+" set -= only supports one character at a time
+" o: don't auto insert comments on "o", t: don't auto wrap, n: recognise lists
+set formatoptions-=t
+set formatoptions-=o
+set formatoptions+=n
+
 " Tab completion, as much as possible, list options, then tab through each option
 "set wildmode=longest,list,full
 "set wildmenu
