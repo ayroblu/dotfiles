@@ -518,6 +518,7 @@ command Notes :n ~/Dropbox/Notes/Notes.md
 nnoremap <leader>nn :Notes<cr>
 nnoremap <leader>nd :tabe<cr>:lcd ~/ws/dotfiles<cr>:n ~/ws/dotfiles/.sharedshrc<cr>
 nnoremap <leader>nv :tabe<cr>:lcd ~/<cr>:n ~/.vimrc<cr>
+nnoremap <leader>ns :tabe<cr>:lcd ~/ws/deps/espanso/match<cr>:n twitter.yml *.yml<cr>
 
 " clear auto commands with !au (if you want) and reload vim, can use RestartVim in MacVim?
 command Reload :au! | so ~/.vimrc
