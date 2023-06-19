@@ -31,6 +31,12 @@ local function str_not_contains(input, str_search)
   return filter(input, function(x) return not string.find(x, str_search, 1, true) end)
 end
 
+function Set(list)
+  local set = {}
+  for _, l in ipairs(list) do set[l] = true end
+  return set
+end
+
 -- print("plugins", dump(str_not_contains(vim.api.nvim_get_runtime_file("", true), ".vim")))
 local exports = {
   dump = dump,

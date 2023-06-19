@@ -69,14 +69,7 @@ local function setupLsp()
   -- npm i -g bash-language-server
   lspconfig.bashls.setup {}
   -- npm i -g vscode-langservers-extracted
-  lspconfig.eslint.setup({
-    on_attach = function(_, bufnr)
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        buffer = bufnr,
-        command = "EslintFixAll",
-      })
-    end,
-  })
+  lspconfig.eslint.setup {}
   -- npx flow
   lspconfig.flow.setup {}
   -- npx relay-compiler
@@ -148,7 +141,6 @@ local function setupLsp()
       ['rust-analyzer'] = {},
     },
   }
-
 
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -222,6 +214,7 @@ local function setupLsp()
       -- vim.keymap.set({"n", "t"}, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
 
       -- https://github.com/neovim/neovim/issues/20457#issuecomment-1266782345
+      ---@diagnostic disable-next-line: duplicate-set-field
       vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)
         config = config or {}
         config.focus_id = ctx.method
@@ -235,11 +228,47 @@ local function setupLsp()
         end
         return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
       end
-      vim.keymap.set('n', '<leader>j', function()
+      local supported_formatting_clients = Set { "null-ls", "lua_ls" }
+      local function format()
+        -- local before = vim.loop.now()
+        -- print("before eslint", string.format("%s:%03d", os.date("%H:%M:%S"), vim.loop.now() % 1000))
+        -- print("after eslint", string.format("%s:%03d", os.date("%H:%M:%S"), vim.loop.now() % 1000),
+        --   vim.loop.now() - before)
+        -- vim.cmd "Prettier"
+        -- print("after prettier", string.format("%s:%03d", os.date("%H:%M:%S"), vim.loop.now() % 1000),
+        --   vim.loop.now() - before)
         if vim.fn.exists(':EslintFixAll') > 0 then vim.cmd('EslintFixAll') end
-        vim.lsp.buf.format { async = true }
-      end, opts)
-      --vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
+        -- if vim.fn.exists(':Prettier') > 0 then vim.cmd("Prettier") end
+        vim.lsp.buf.format({
+          filter = function(client)
+            print("client", client.name)
+            return supported_formatting_clients[client.name]
+          end
+        })
+      end
+      vim.keymap.set('n', '<leader>j', format, opts)
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        callback = format,
+        -- local before = vim.loop.now()
+        -- print("before eslint", string.format("%s:%03d", os.date("%H:%M:%S"), vim.loop.now() % 1000))
+        -- vim.cmd "EslintFixAll"
+        -- -- vim.lsp.buf.format({
+        -- --   filter = function(client)
+        -- --     return client.name ~= "tsserver" and client.name ~= "cssmodules_ls"
+        -- --   end
+        -- -- })
+        -- print("after eslint", string.format("%s:%03d", os.date("%H:%M:%S"), vim.loop.now() % 1000),
+        --   vim.loop.now() - before)
+        -- vim.cmd "Prettier"
+        -- print("after prettier", string.format("%s:%03d", os.date("%H:%M:%S"), vim.loop.now() % 1000),
+        --   vim.loop.now() - before)
+        desc = "[lsp] format on save",
+      })
+      --   if client.supports_method("textDocument/rangeFormatting") then
+      --     vim.keymap.set("x", "<Leader>j", function()
+      --       vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      --     end, { buffer = bufnr, desc = "[lsp] format" })
+      --   end
     end,
   })
 end
@@ -249,50 +278,15 @@ pcall(setupLsp)
 local function setupPrettier()
   local null_ls = require("null-ls")
 
-  local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
-  local event = "BufWritePre" -- or "BufWritePost"
-  local async = event == "BufWritePost"
-
   local sources = {
     null_ls.builtins.formatting.prettier.with({
       filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less",
         "json", "jsonc", "graphql" },
+      only_local = "node_modules/.bin",
     })
   }
   ---@diagnostic disable-next-line: redundant-parameter
-  null_ls.setup {
-    sources = sources,
-    on_attach = function(client, bufnr)
-      if client.supports_method("textDocument/formatting") then
-        -- vim.keymap.set("n", "<Leader>j", function()
-        --   vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
-        -- end, { buffer = bufnr, desc = "[lsp] format" })
-
-        -- format on save
-        vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
-        vim.api.nvim_create_autocmd(event, {
-          buffer = bufnr,
-          group = group,
-          callback = function()
-            vim.lsp.buf.format({
-              bufnr = bufnr,
-              async = async,
-              filter = function(client)
-                return client.name ~= "tsserver" and client.name ~= "cssmodules_ls"
-              end
-            })
-          end,
-          desc = "[lsp] format on save",
-        })
-      end
-
-      if client.supports_method("textDocument/rangeFormatting") then
-        vim.keymap.set("x", "<Leader>j", function()
-          vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
-        end, { buffer = bufnr, desc = "[lsp] format" })
-      end
-    end,
-  }
+  null_ls.setup { sources = sources }
 
   local prettier = require("prettier")
 
