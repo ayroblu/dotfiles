@@ -241,27 +241,18 @@ local function setupLsp()
         -- if vim.fn.exists(':Prettier') > 0 then vim.cmd("Prettier") end
         vim.lsp.buf.format({
           filter = function(client)
-            print("client", client.name)
             return supported_formatting_clients[client.name]
           end
         })
       end
       vim.keymap.set('n', '<leader>j', format, opts)
+      local bufnr = vim.api.nvim_get_current_buf()
+      local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+      vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
       vim.api.nvim_create_autocmd("BufWritePre", {
         callback = format,
-        -- local before = vim.loop.now()
-        -- print("before eslint", string.format("%s:%03d", os.date("%H:%M:%S"), vim.loop.now() % 1000))
-        -- vim.cmd "EslintFixAll"
-        -- -- vim.lsp.buf.format({
-        -- --   filter = function(client)
-        -- --     return client.name ~= "tsserver" and client.name ~= "cssmodules_ls"
-        -- --   end
-        -- -- })
-        -- print("after eslint", string.format("%s:%03d", os.date("%H:%M:%S"), vim.loop.now() % 1000),
-        --   vim.loop.now() - before)
-        -- vim.cmd "Prettier"
-        -- print("after prettier", string.format("%s:%03d", os.date("%H:%M:%S"), vim.loop.now() % 1000),
-        --   vim.loop.now() - before)
+        buffer = bufnr,
+        group = group,
         desc = "[lsp] format on save",
       })
       --   if client.supports_method("textDocument/rangeFormatting") then

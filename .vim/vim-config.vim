@@ -56,9 +56,13 @@ set hidden " can switch to another buffer when you have unsaved changes
 " default is jtcroql, see help fo-table
 " set -= only supports one character at a time
 " o: don't auto insert comments on "o", t: don't auto wrap, n: recognise lists
-set formatoptions-=t
-set formatoptions-=o
-set formatoptions+=n
+" Autocmd cause ftplugins set it too
+augroup formatOptions
+  autocmd!
+  autocmd FileType * set formatoptions-=t
+  autocmd FileType * set formatoptions-=o
+  autocmd FileType * set formatoptions+=n
+augroup END
 
 " Tab completion, as much as possible, list options, then tab through each option
 "set wildmode=longest,list,full
