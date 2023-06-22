@@ -60,6 +60,7 @@ if !exists('$VIM_VERY_FAST')
       runtime! vim-plugins-after.vim
     endif
   else
+    " Copy paste of what's in vim-plugins.vim
     call plug#begin()
     Plug 'overcache/NeoSolarized'
     let g:neosolarized_italic = 1
