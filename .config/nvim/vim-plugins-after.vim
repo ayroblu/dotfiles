@@ -75,7 +75,7 @@ function setupTreeSitter()
 
     highlight = {
       -- `false` will disable the whole extension
-      enable = true,
+      enable = false,
 
       -- list of language that will be disabled
       disable = {},

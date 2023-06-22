@@ -100,6 +100,17 @@ let g:autotagStartMethod='fork'
 Plug 'tpope/vim-sleuth'
 " Indentation detection
 
+function! LoadVimSleuth()
+  if b:is_minified_file
+    let g:sleuth_heuristics = 0
+  endif
+endfunction
+augroup minifiedSleuthLoad
+  autocmd!
+  autocmd BufReadPost * call LoadVimSleuth()
+augroup END
+
+
 Plug 'osyo-manga/vim-anzu' " show search progress
 " mapping
 nmap n <Plug>(anzu-n-with-echo)

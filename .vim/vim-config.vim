@@ -1,3 +1,25 @@
+" Use this to make loading minified files tolerable
+function! BufferTextExceedsLimit() abort
+  if exists('$VIM_VERY_FAST')
+    return 1
+  endif
+  if exists('b:is_minified_file')
+    return b:is_minified_file
+  endif
+  let lines = getline(1, '$')
+  for line in lines
+    if len(line) > 1000
+      return 1
+    endif
+  endfor
+  return 0
+endfunction
+augroup minifiedCheck
+  autocmd!
+  autocmd BufNewFile,BufReadPost,FileType * let b:is_minified_file = BufferTextExceedsLimit()
+        \| if b:is_minified_file | syntax off | endif
+augroup END
+
 " ---------------------------------------- Main layout
 set shiftwidth=2
 set softtabstop=2
@@ -7,7 +29,8 @@ set number
 set expandtab
 " help foldtext, disable and `set fillchars?` to see default
 set fillchars=vert:\|
-set cursorline mouse=a
+set mouse=a
+set cursorline
 hi CursorLine   cterm=bold,underline ctermbg=NONE ctermfg=NONE guibg=blue guifg=orange "Set cursor line highlight colours
 set splitright splitbelow
 set scrolloff=1

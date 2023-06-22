@@ -1,4 +1,13 @@
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+function! LoadTreesitter()
+  if !b:is_minified_file
+    exec 'TSBufEnable highlight'
+  endif
+endfunction
+augroup minifiedTreesitterLoad
+  autocmd!
+  autocmd FileType * call LoadTreesitter()
+augroup END
 
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 

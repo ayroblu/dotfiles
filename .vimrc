@@ -49,13 +49,51 @@ else
   runtime macros/matchit.vim
 endif
 
-" Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
-if filereadable(expand('~/.vim/autoload/plug.vim'))
-  call plug#begin()
-  runtime! vim-plugins.vim
-  call plug#end()
+if !exists('$VIM_VERY_FAST')
+  if !exists('$VIM_FAST')
+    " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
+    if filereadable(expand('~/.vim/autoload/plug.vim'))
+      call plug#begin()
+      runtime! vim-plugins.vim
+      call plug#end()
 
-  runtime! vim-plugins-after.vim
+      runtime! vim-plugins-after.vim
+    endif
+  else
+    call plug#begin()
+    Plug 'overcache/NeoSolarized'
+    let g:neosolarized_italic = 1
+    if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+      let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+      let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    endif
+
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    let g:airline_extensions = []
+    let g:airline#extensions#branch#enabled=1
+    let g:airline#extensions#branch#empty_message='no repo'
+    let g:airline_theme='solarized'
+
+    " https://github.com/vim-airline/vim-airline-themes/issues/180#issue-471090136
+    let s:saved_theme = []
+
+    let g:airline_theme_patch_func = 'AirlineThemePatch'
+    function! AirlineThemePatch(palette)
+      for colors in values(a:palette)
+        if has_key(colors, 'airline_c') && len(s:saved_theme) ==# 0
+          let s:saved_theme = colors.airline_c
+        endif
+        if has_key(colors, 'airline_term')
+          let colors.airline_term = s:saved_theme
+        endif
+      endfor
+    endfunction
+    " end
+    call plug#end()
+  endif
+else
+  set nocursorline
 endif
 
 " --------------- Finally colour scheme
