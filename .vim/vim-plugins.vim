@@ -33,6 +33,7 @@ function! AirlineThemePatch(palette)
 endfunction
 " end
 
+Plug 'TaDaa/vimade'
 
 " === Hooks
 if !has('nvim')
@@ -361,6 +362,7 @@ nnoremap <silent> <Leader>e :Files <C-R>=split(expand('%:h'),'/')[0]<CR><CR>
 " https://github.com/junegunn/fzf.vim/issues/360
 nnoremap <silent> <Leader><Leader>ts :QFiles <C-R>=expand('%:h')<CR><CR>
 nnoremap <silent> <Leader><Leader>tr :Files <C-R>=expand('%:h')<CR><CR>
+nnoremap <Leader><Leader>te :Files <C-R>=expand('%:h:h')<CR>
 nnoremap <silent> <Leader><Leader>tt :Files <C-R>=trim(system('git rev-parse --show-toplevel'))<CR><CR>
 nnoremap <silent> <Leader>/ :Rg <C-R><C-W>
 nnoremap <silent> <Leader>* :Rg <C-R><C-W><CR>
@@ -369,6 +371,10 @@ nnoremap <silent> <Leader>: :History:<CR>
 nnoremap <silent> <Leader>h/ :History/<CR>
 nnoremap <silent> <Leader>hh :History<CR>
 "nnoremap <silent> <Leader>b :call ErrorWrapMissing("Buffers")<CR>
+
+" augroup fzf
+"   autocmd FileType fzf tnoremap <c-h> <Esc>:Files <C-R>=expand('%:h:h')<cr>
+" augroup END
 
 " Custom setup for previews on Rg and Files
 command! -bang -nargs=* Rg

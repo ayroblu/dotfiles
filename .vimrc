@@ -16,6 +16,11 @@ scriptencoding utf-8
 "
 " Gcd helps with the filenames issues if they use full rather than short paths
 "
+" https://github.com/junegunn/fzf.vim/issues/528#issuecomment-368260699
+" cfdo and cdo
+" Rg thing
+" cdo s/thing/newthing/g | :w
+"
 " Thoughts on how to do interactive shell:
 " 1. yank current selection to 'interactive' buffer
 " 2. run current selection in interactive shell: https://stackoverflow.com/questions/40289706/execute-selection-from-script-in-vim
