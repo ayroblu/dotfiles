@@ -283,10 +283,10 @@ nnoremap <silent> ˙ <C-w>h
 nnoremap <silent> ∆ <C-w>j
 nnoremap <silent> ˚ <C-w>k
 nnoremap <silent> ¬ <C-w>l
-inoremap <silent> ˙ <esc><C-w>h
-inoremap <silent> ∆ <esc><C-w>j
-inoremap <silent> ˚ <esc><C-w>k
-inoremap <silent> ¬ <esc><C-w>l
+" inoremap <silent> ˙ <esc><C-w>h
+" inoremap <silent> ∆ <esc><C-w>j
+" inoremap <silent> ˚ <esc><C-w>k
+" inoremap <silent> ¬ <esc><C-w>l
 nnoremap <silent> Ó :vertical resize -5<cr>
 nnoremap <silent> Ô :resize +5<cr>
 " This is wrong but Shift-Alt-K doesn't seem to work? Uses I instead
