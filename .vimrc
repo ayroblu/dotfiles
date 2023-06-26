@@ -14,6 +14,8 @@ scriptencoding utf-8
 " :cq - quit mergetool with failure
 " Test colours: :source $VIMRUNTIME/syntax/colortest.vim
 "
+" Gcd helps with the filenames issues if they use full rather than short paths
+"
 " Thoughts on how to do interactive shell:
 " 1. yank current selection to 'interactive' buffer
 " 2. run current selection in interactive shell: https://stackoverflow.com/questions/40289706/execute-selection-from-script-in-vim
