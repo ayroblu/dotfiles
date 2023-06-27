@@ -75,6 +75,7 @@
   # Why did I need the git prefix? Must have a reason
   #du = "!cd \"${GIT_PREFIX:-.}\"; git diff $(git merge-base HEAD $(git upstream))...HEAD"
   du = "!git diff $(git merge-base HEAD $(git upstream))"
+  dus = du --stat
   dm = "!git diff $(git merge-base HEAD origin/$(git mainmaster))"
   #du = "!f() { git diff $(git merge-base HEAD $(git upstream)) \"$@\"; }; f"
   dw = d --color-words
@@ -120,6 +121,8 @@
   ra = rebase --abort
   rbi = !git rebase -i $(git mb)
   rc = rebase --continue
+  rs = restore --staged
+  rsw = restore --staged --worktree
   # https://git-scm.com/book/en/v2/Git-Tools-Searching -L line log search is way more powerful
   searchlog = log -p -G
   s = status
