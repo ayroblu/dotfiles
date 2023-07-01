@@ -26,15 +26,15 @@ local function setupLsp()
   local root_pattern = require('lspconfig.util').root_pattern
   local utils = require('utils')
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  -- require("lspsaga").setup {
-  --   symbol_in_winbar = {
-  --     enable = false,
-  --   },
-  --   lightbulb = {
-  --     enable = false,
-  --     enable_in_insert = false,
-  --   },
-  -- }
+  require("lspsaga").setup {
+    symbol_in_winbar = {
+      enable = false,
+    },
+    lightbulb = {
+      enable = false,
+      enable_in_insert = false,
+    },
+  }
 
   -- ln -s ~/ws/dotfiles/custom_lsp/stratols.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua
   if vim.loop.fs_stat(vim.env.HOME ..
@@ -184,21 +184,23 @@ local function setupLsp()
       end, opts)
       vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
       vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-      vim.keymap.set('n', '<leader>ac', vim.lsp.buf.code_action, opts)
+      -- vim.keymap.set('n', '<leader>ac', vim.lsp.buf.code_action, opts)
 
-      -- vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
-      -- vim.keymap.set({ "n", "v" }, "<leader>ac", "<cmd>Lspsaga code_action<CR>")
-      -- -- vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>")
-      -- -- vim.keymap.set("n", "rn", "<cmd>Lspsaga rename ++project<CR>")
-      -- -- vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>")
-      -- -- vim.keymap.set("n","gd", "<cmd>Lspsaga goto_definition<CR>")
-      -- -- vim.keymap.set("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>")
-      -- vim.keymap.set("n", "gt", "<cmd>Lspsaga goto_type_definition<CR>")
-      -- vim.keymap.set("n", "<leader>dl", "<cmd>Lspsaga show_line_diagnostics<CR>")
-      -- vim.keymap.set("n", "<leader>dc", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
-      -- vim.keymap.set("n", "<leader>db", "<cmd>Lspsaga show_buf_diagnostics<CR>")
-      -- vim.keymap.set("n", "[[", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
-      -- vim.keymap.set("n", "]]", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+      vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
+      vim.keymap.set({ "n", "v" }, "<leader>ac", "<cmd>Lspsaga code_action<CR>")
+      vim.keymap.set("n", "gt", "<cmd>Lspsaga goto_type_definition<CR>")
+      vim.keymap.set("n", "<leader>dl", "<cmd>Lspsaga show_line_diagnostics<CR>")
+      vim.keymap.set("n", "<leader>dc", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
+      vim.keymap.set("n", "<leader>db", "<cmd>Lspsaga show_buf_diagnostics<CR>")
+      vim.keymap.set("n", "[[", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
+      vim.keymap.set("n", "]]", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+
+      -- -- lspsaga versions: don't want
+      -- vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>")
+      -- vim.keymap.set("n", "rn", "<cmd>Lspsaga rename ++project<CR>")
+      -- vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>")
+      -- vim.keymap.set("n","gd", "<cmd>Lspsaga goto_definition<CR>")
+      -- vim.keymap.set("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>")
       --
       -- vim.keymap.set("n", "[E", function()
       --   require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
