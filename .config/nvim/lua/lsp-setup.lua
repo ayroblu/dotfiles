@@ -52,13 +52,19 @@ local function setupLsp()
         },
         diagnostics = {
           -- Get the language server to recognize the `vim` global
-          globals = { 'vim' },
+          globals = { 'vim', 'hs' },
         },
         workspace = {
           -- Make the server aware of Neovim runtime files
           -- library = vim.api.nvim_get_runtime_file("", true),
           -- with nothing: 2s, with this, 3s, with everything: 15s
           library = utils.str_not_contains(vim.api.nvim_get_runtime_file("", true), ".vim"),
+          -- -- not sure how to make hammerspoon work
+          -- -- https://www.reddit.com/r/neovim/comments/pla7bv/since_everyone_is_getting_more_familiar_with_lua/
+          -- library = utils.table_concat(
+          --   utils.str_not_contains(vim.api.nvim_get_runtime_file("", true), ".vim"),
+          --   { ['/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/'] = true }
+          -- ),
           -- https://github.com/neovim/nvim-lspconfig/issues/1700
           checkThirdParty = false,
         },

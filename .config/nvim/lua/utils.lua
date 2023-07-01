@@ -31,6 +31,13 @@ local function str_not_contains(input, str_search)
   return filter(input, function(x) return not string.find(x, str_search, 1, true) end)
 end
 
+local function table_concat(t1, t2)
+  for i = 1, #t2 do
+    t1[#t1 + 1] = t2[i]
+  end
+  return t1
+end
+
 function Set(list)
   local set = {}
   for _, l in ipairs(list) do set[l] = true end
@@ -43,6 +50,7 @@ local exports = {
   filter = filter,
   str_contains = str_contains,
   str_not_contains = str_not_contains,
+  table_concat = table_concat,
 }
 
 return exports
