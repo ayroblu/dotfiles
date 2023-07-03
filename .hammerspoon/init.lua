@@ -125,7 +125,7 @@ local function getSecondBigScreenSpaceIds()
     local removeSets = Set({ smallestScreen:id(), primaryScreen:id() })
     RemoveWhere(screens, function(screen) return removeSets[screen:id()] end)
     local spaces = hs.spaces.allSpaces()
-    local screenId = screens[1]
+    local screenId = screens[1]:getUUID()
     return spaces[screenId]
 end
 
