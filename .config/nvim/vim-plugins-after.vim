@@ -55,6 +55,12 @@ else
 endif
 
 lua <<EOF
+function setupOil()
+  require("oil").setup()
+  vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
+end
+pcall(setupOil)
+
 function setupTreeSitter()
   require'nvim-treesitter.configs'.setup {
     -- One of "all", "maintained" (parsers with maintainers), or a list of languages

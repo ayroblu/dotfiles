@@ -239,7 +239,7 @@ local function setupLsp()
         end
         return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
       end
-      local supported_formatting_clients = Set { "null-ls", "lua_ls" }
+      local supported_formatting_clients = Set { "null-ls", "lua_ls", "metals" }
       local function format()
         -- local before = vim.loop.now()
         -- print("before eslint", string.format("%s:%03d", os.date("%H:%M:%S"), vim.loop.now() % 1000))

@@ -264,6 +264,12 @@ videoToGif480x4() {
   # https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/
   ffmpeg -i "$filename" -filter_complex "[0:v] fps=12,scale=480:-1,setpts=0.25*PTS,split [a][b];[a] palettegen [p];[b][p] paletteuse" "$new_filename"
 }
+videoToGif720() {
+  local filename="$1"
+  local new_filename="${filename%.*}.720.gif"
+  # https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/
+  ffmpeg -i "$filename" -filter_complex "[0:v] fps=6,scale=720:-1,split [a][b];[a] palettegen [p];[b][p] paletteuse" "$new_filename"
+}
 videoToGif1280() {
   local filename="$1"
   local new_filename="${filename%.*}.1280.gif"

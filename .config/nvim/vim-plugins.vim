@@ -47,6 +47,8 @@ command! -count=1 TermWebTest TermExec cmd="web test --watch %"
 command! -count=1 TermBazelBuild TermExec cmd="ibazel build %"
 command! -count=1 TermBazelTest TermExec cmd="ibazel test %"
 
+Plug 'stevearc/oil.nvim'
+
 " lsp
 Plug 'neovim/nvim-lspconfig'
 Plug 'jose-elias-alvarez/null-ls.nvim'
