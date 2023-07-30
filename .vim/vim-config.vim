@@ -381,10 +381,13 @@ nnoremap ZX :qa<cr>
 nnoremap ZC :cq<cr>
 nnoremap ZV :qa!<cr>
 nnoremap <Leader>ss :w<CR>
+nnoremap <Leader>sh :wq<CR>
 nnoremap <Leader>se :wq<CR>
 nnoremap <Leader>sa :wqa<CR>
+nnoremap <Leader>sn :wqa<CR>
 nnoremap <Leader>st :q<CR>
 nnoremap <Leader>sx :qa<CR>
+nnoremap <Leader>sr :qa<CR>
 nnoremap <Leader>sc :cq<CR>
 nnoremap <Leader>sv :qa!<CR>
 
