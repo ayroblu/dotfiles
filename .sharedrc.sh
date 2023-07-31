@@ -283,6 +283,10 @@ videoToGif1280x4() {
   ffmpeg -i "$filename" -filter_complex "[0:v] fps=12,scale=1280:-1,setpts=0.25*PTS,split [a][b];[a] palettegen [p];[b][p] paletteuse" "$new_filename"
 }
 
+killport() {
+  lsof -nti:"$1" | xargs kill -9
+}
+
 portscan() {
   local IP_ADDRESS="$1"
   local MIN_PORT="${2:-1}"

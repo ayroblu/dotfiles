@@ -33,7 +33,7 @@ function! AirlineThemePatch(palette)
 endfunction
 " end
 
-Plug 'TaDaa/vimade'
+"Plug 'TaDaa/vimade'
 
 " === Hooks
 if !has('nvim')

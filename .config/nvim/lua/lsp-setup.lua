@@ -80,7 +80,9 @@ local function setupLsp()
   -- npm i -g vscode-langservers-extracted
   lspconfig.eslint.setup {}
   -- npx flow
-  lspconfig.flow.setup {}
+  if utils.str_not_contains(vim.fn.getcwd(), "web-gryphon") then
+    lspconfig.flow.setup {}
+  end
   -- npx relay-compiler
   -- lspconfig.relay_lsp.setup {
   --   cmd = { "./scripts/relay-for-extension", "lsp" },
