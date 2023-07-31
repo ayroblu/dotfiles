@@ -80,7 +80,7 @@ local function setupLsp()
   -- npm i -g vscode-langservers-extracted
   lspconfig.eslint.setup {}
   -- npx flow
-  if utils.str_not_contains(vim.fn.getcwd(), "web-gryphon") then
+  if not string.find(vim.fn.getcwd(), "web-gryphon", 1, true) then
     lspconfig.flow.setup {}
   end
   -- npx relay-compiler
