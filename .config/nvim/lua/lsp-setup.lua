@@ -256,7 +256,8 @@ local function setupLsp()
         vim.lsp.buf.format({
           filter = function(client)
             return supported_formatting_clients[client.name]
-          end
+          end,
+          timeout = 5000,
         })
       end
 
