@@ -24,6 +24,9 @@ defaults write com.apple.BezelServices kDimTime -int 15
 # https://apple.stackexchange.com/questions/33600/how-can-i-make-auto-hide-show-for-the-dock-faster
 defaults write com.apple.dock autohide-time-modifier -int 0;killall Dock
 
+# https://apple.stackexchange.com/questions/59556/is-there-a-way-to-completely-disable-dock
+defaults write com.apple.dock autohide-delay -float 2000; killall Dock
+
 # Chrome: Disable left right to go back and forward in history
 # https://superuser.com/questions/840102/how-do-you-disable-swipe-history-navigation-in-chrome
 # defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
