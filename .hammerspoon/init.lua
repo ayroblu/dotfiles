@@ -170,6 +170,16 @@ end
 
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "0", layoutSimple)
 
+local function moveMouse()
+    local window = hs.window.focusedWindow()
+    local topLeft = window:topLeft()
+    local halfSize = window:size():getcenter()
+    local center = { x = topLeft.x + halfSize.x, y = topLeft.y + halfSize.y }
+    hs.mouse.absolutePosition(center)
+end
+
+hs.hotkey.bind({ "cmd", "alt", "ctrl", "shift" }, "e", moveMouse)
+
 -- hs.hotkey.bind({"cmd", "alt", "ctrl"}, "H", function()
 --   local win = hs.window.focusedWindow()
 --   local f = win:frame()
