@@ -36,6 +36,7 @@ local function getNameToSpaceId()
     end
     return result
 end
+
 local function getAllSpaceIds()
     local spaces = hs.spaces.allSpaces()
     local result = {}
@@ -46,10 +47,12 @@ local function getAllSpaceIds()
     end
     return Set(result)
 end
+
 local function moveCurrentWindowToSpaceId(spaceId)
     local currentWindow = hs.window.focusedWindow()
     hs.spaces.moveWindowToSpace(currentWindow, spaceId)
 end
+
 -- local nameToSpaceId = getNameToSpaceId()
 local nameToSpaceId = {}
 local function moveCurrentWindowToSpaceNumFn(numStr)
@@ -179,6 +182,7 @@ local function moveMouse()
 end
 
 hs.hotkey.bind({ "cmd", "alt", "ctrl", "shift" }, "e", moveMouse)
+hs.hotkey.bind({ "shift", "alt", "ctrl" }, "f17", moveMouse)
 
 -- hs.hotkey.bind({"cmd", "alt", "ctrl"}, "H", function()
 --   local win = hs.window.focusedWindow()
@@ -192,7 +196,7 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl", "shift" }, "e", moveMouse)
 local function reloadConfig(files)
     local doReload = false
     for _, file in pairs(files) do
-        if file:sub( -4) == ".lua" then
+        if file:sub(-4) == ".lua" then
             doReload = true
         end
     end
