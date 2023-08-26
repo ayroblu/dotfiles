@@ -1,0 +1,5 @@
+# Only doing this for vim-sleuth setting default tab width
+root=true
+
+[*]
+tab_width=2

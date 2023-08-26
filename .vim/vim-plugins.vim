@@ -939,6 +939,16 @@ let g:ale_open_list=0
 " Twitter specific
 "Plug 'jrozner/vim-antlr'
 Plug 'pantsbuild/vim-pants'
+
+" included in polyglot
+"Plug 'othree/html5.vim'
+"Plug 'pangloss/vim-javascript'
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
+let g:svelte_preprocessors = ['typescript']
+" Remove indents if you want
+" let g:svelte_indent_script = 0
+" let g:svelte_indent_style = 0
+
 " === old
 
 "Plug 'garbas/vim-snipmate'
