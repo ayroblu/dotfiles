@@ -310,3 +310,10 @@ tmpl-tool() {
   regexReplaceSingle __NAME__ "$2" "$3"
 }
 
+generate-favicons-svg() {
+  if [ $# -ne 2 ]; then
+    echo 'generate-favicons-svg <svg-file> <destination>'
+    exit 1
+  fi
+  inkscape -w 128 -h 128 "$1" -o favicon.png
+}
