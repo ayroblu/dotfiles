@@ -135,6 +135,10 @@
   sls = sl --stat
   sll = sls -U0
 
+  # Commits grouped by author in the past month
+  stat = "shortlog --since=\"1 month ago\" -n -s --format='[%h] %s'"
+  stats = stat -s
+
   # Submodule fixes
   su = submodule update --init --recursive
 
