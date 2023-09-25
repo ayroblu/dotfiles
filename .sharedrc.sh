@@ -298,16 +298,22 @@ portscan() {
 }
 
 tmpl-tool() {
-  if [ $# -lt 3 ]; then
-    echo 'tmpl-tool <template-name> <component-name> <destination>'
-    exit 1
-  fi
-
   # https://stackoverflow.com/questions/2013547/assigning-default-values-to-shell-variables-with-a-single-command-in-bash
   : "${TMPL_HOME:=$HOME/ws/deps/code-templates}"
-  cp -a "$TMPL_HOME"/"$1"/* "$3"
 
-  regexReplaceSingle __NAME__ "$2" "$3"
+  if [ $# -lt 3 ]; then
+    echo 'tmpl-tool <template-name> <component-name> <destination>'
+    echo '  existing templates: '"$(ls "$TMPL_HOME")"
+    return 1
+  fi
+
+  if [ -e "$TMPL_HOME/$1/build.ts" ]; then
+    bun "$TMPL_HOME/$1/build.ts" "$2" "$3"
+  else
+    cp -a "$TMPL_HOME"/"$1"/* "$3"
+
+    regexReplaceSingle __NAME__ "$2" "$3"
+  fi
 }
 
 generate-favicons-svg() {
@@ -316,4 +322,10 @@ generate-favicons-svg() {
     exit 1
   fi
   inkscape -w 128 -h 128 "$1" -o favicon.png
+}
+
+fsremove() {
+  local fsname="$1"
+  rg "$fsname" --files-with-matches -g '*.js' | xargs tools/code-mods/feature-switches/run.js --fsname "$1" --isTrue="$2"
+  sed -i '' -e "/$fsname/d" src/app/featureSwitches.js
 }

@@ -53,6 +53,7 @@
   cfd = clean -fd
   ci = commit -am
   cm = commit -m
+  cf = commit -a --fixup
   co = checkout
   # git cherry-pick A^..B # A to B inclusive
   # git cod 'Dec 25 2018'
@@ -184,6 +185,8 @@
   layout = "MERGED"
 [rerere]
   enabled = true
+[rebase]
+  autosquash = true
 [fetch]
   prune = true
 [http]
