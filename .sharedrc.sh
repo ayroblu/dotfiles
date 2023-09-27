@@ -329,3 +329,24 @@ fsremove() {
   rg "$fsname" --files-with-matches -g '*.js' | xargs tools/code-mods/feature-switches/run.js --fsname "$1" --isTrue="$2"
   sed -i '' -e "/$fsname/d" src/app/featureSwitches.js
 }
+
+llamachat() {
+  cd ~/ws/llama.cpp || exit
+  ./main -m models/codellama-13b-instruct.Q5_K_M.gguf -e --temp 0.7 --color -p "$1" 2> /dev/null
+}
+chat() {
+  local PROMPT="<s>[INST] <<SYS>>
+Provide answers in TypeScript
+<</SYS>>
+
+$1 [/INST]"
+  llamachat "$PROMPT"
+}
+llamainfill() {
+  cd ~/ws/llama.cpp || exit
+  ./main -m models/codellama-13b.Q5_K_M.gguf -e --temp 0.7 --color -p "$1" 2> /dev/null
+}
+infill() {
+  local PROMPT="<PRE> $1 <SUF>$2 <MID>"
+  llamachat "$PROMPT"
+}
