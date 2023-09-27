@@ -331,8 +331,7 @@ fsremove() {
 }
 
 llamachat() {
-  cd ~/ws/llama.cpp || exit
-  ./main -m models/codellama-13b-instruct.Q5_K_M.gguf -e --temp 0.7 --color -p "$1" 2> /dev/null
+  (cd ~/ws/llama.cpp && ./main -m models/codellama-13b-instruct.Q5_K_M.gguf -e --temp 0.7 --color -p "$1" 2> /dev/null)
 }
 chat() {
   local PROMPT="<s>[INST] <<SYS>>
@@ -343,10 +342,9 @@ $1 [/INST]"
   llamachat "$PROMPT"
 }
 llamainfill() {
-  cd ~/ws/llama.cpp || exit
-  ./main -m models/codellama-13b.Q5_K_M.gguf -e --temp 0.7 --color -p "$1" 2> /dev/null
+  (cd ~/ws/llama.cpp && ./main -m models/codellama-13b.Q5_K_M.gguf -e --temp 0.7 --color -p "$1" 2> /dev/null)
 }
 infill() {
   local PROMPT="<PRE> $1 <SUF>$2 <MID>"
-  llamachat "$PROMPT"
+  llamainfill "$PROMPT"
 }
