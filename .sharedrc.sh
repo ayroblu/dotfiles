@@ -372,20 +372,39 @@ fsremove() {
 }
 
 llamachat() {
-  (cd ~/ws/llama.cpp && ./main -m models/codellama-13b-instruct.Q5_K_M.gguf -e --temp 0.7 --color -p "$1" 2> /dev/null)
+  (cd ~/ws/llama.cpp && ./main -m models/codellama-${1}b-instruct.Q5_K_M.gguf -e -c 5000 --temp 0.7 --color -p "$2" 2> /dev/null)
 }
-chat() {
+chat-basic() {
   local PROMPT="<s>[INST] <<SYS>>
 Provide answers in TypeScript
 <</SYS>>
 
-$1 [/INST]"
-  llamachat "$PROMPT"
+$2 [/INST]"
+  llamachat $1 "$PROMPT"
 }
+chat7() {
+  chat-basic 7 "$1"
+}
+chat13() {
+  chat-basic 13 "$1"
+}
+chat() {
+  chat7 "$1"
+}
+
 llamainfill() {
-  (cd ~/ws/llama.cpp && ./main -m models/codellama-13b.Q5_K_M.gguf -e --temp 0.7 --color -p "$1" 2> /dev/null)
+  (cd ~/ws/llama.cpp && ./main -m models/codellama-${1}b.Q5_K_M.gguf -e -c 100000 --temp 0.7 --color -p "$2" 2> /dev/null)
+}
+infill-basic() {
+  local PROMPT="<PRE> $2 <SUF>$3 <MID>"
+  llamainfill $1 "$PROMPT"
+}
+infill7() {
+  infill-basic 7 "$1"
+}
+infill13() {
+  infill-basic 13 "$1"
 }
 infill() {
-  local PROMPT="<PRE> $1 <SUF>$2 <MID>"
-  llamainfill "$PROMPT"
+  infill7 "$1"
 }
