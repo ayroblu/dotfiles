@@ -27,7 +27,7 @@ console.log(uniqueResults.join('\n'))
 function findFiles(line) {
   const parts = line.split(' ');
   return parts.filter(part => {
-    return (currentDirFiles.some(f => part.startsWith(f)) || part.startsWith('/')) && fs.existsSync(part)
+    return (currentDirFiles.some(f => part.startsWith(f)) || part.startsWith('/')) && fs.existsSync(part) && !fs.lstatSync(part).isDirectory()
   });
 }
 

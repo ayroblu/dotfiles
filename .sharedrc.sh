@@ -213,9 +213,50 @@ regexReplaceSingle() {
   if [ -f "$FILEDIR" ]; then
     perl -i -pe "BEGIN{undef $/;} s/$BEFORE_ESCAPED/$AFTER/gsm" "$FILEDIR"
   elif [ -d "$FILEDIR" ]; then
+    # perl: -i: inplace, -p: print each line, -e: execute perlscript
     rg --pcre2 "$BEFORE" --files-with-matches "$FILEDIR" | xargs perl -i -pe "s/$BEFORE_ESCAPED/$AFTER/g"
   fi
 }
+replace() {
+  BEFORE="$1"
+  BEFORE_ESCAPED="$(echo "$1" | sed 's/\//\\\//g')"
+  AFTER="$(echo "$2" | sed 's/\//\\\//g')"
+  FILEDIR="${3:-.}"
+  # rg --files-with-matches -FU "$BEFORE" "$FILEDIR" | BEFORE="$1" AFTER="$2" xargs ruby -p -i -e "gsub(ENV['BEFORE'], ENV['AFTER'])"
+  # IFS=$'\n' TEMP=( $(rg --files-with-matches "$BEFORE" "$FILEDIR") )
+  # rg --files-with-matches -FU "$BEFORE" "$FILEDIR" | xargs AFTER="$2" echo "$AFTER"
+  rg -FU "$BEFORE" --files-with-matches -g "**/__tests__/**" "$FILEDIR" | xargs perl -i -pe "BEGIN{undef $/;} s/\\Q$BEFORE_ESCAPED/$AFTER/gsm"
+  # rg --files-with-matches -FU "$BEFORE" "$FILEDIR" | while read -r f
+  # do
+  #   echo "File" "$f"
+  #   perl -i -pe "s/\\Q$BEFORE/$AFTER/g" "$f"
+  #   # PREV="$BEFORE" AFT="$AFTER" ruby -p -i -e "gsub(ENV['PREV'], ENV['AFT'])" "$f"
+  # done
+}
+#rgr() {
+#  local TEMP
+#  local TEMPFILE
+#  # TEMP="$(rg --files-with-matches "$@")"
+#  IFS=$'\n' TEMP=( $(rg --files-with-matches "$@") )
+#  for file in "${TEMP[@]}"; do
+#    echo "file $file"
+#    TEMPFILE="$(rg --passthru "$@" "$file")"
+#    echo "$TEMPFILE" > "$file"
+#  done
+#  # read -r TEMP < <(rg --files-with-matches "$@")
+#
+#  # rg --files-with-matches "$@" | while read -r f
+#  # do
+#  #   echo "File" "$f"
+#  #   TEMPFILE="$(rg "$@")"
+#  #   echo "$TEMPFILE" > "$f"
+#  # done
+#  # for f in "${TEMP[@]}"; do
+#  #   echo "File" "$f"
+#  #   #TEMPFILE=$(rg "$@")
+#  #   #echo "$TEMPFILE" > "$f"
+#  # done
+#}
 # files: rename 's/^/MyVacation2011_/g' *.jpg
 # for f in *.jpg; do mv "$f" "$(echo "$f" | sed s/IMG/VACATION/)"; done
 
