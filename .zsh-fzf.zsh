@@ -46,12 +46,19 @@ git-ls-files() {
 exists rg && export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #export FZF_CTRL_T_COMMAND='default-fzf-cmd'
-export FZF_DEFAULT_OPTS="--height 60% --reverse --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --preview-window down:60%:wrap --bind 'up:preview-up,down:preview-down,ctrl-d:preview-page-down,ctrl-u:preview-page-up,ctrl-f:half-page-down,ctrl-b:half-page-up,ctrl-e:toggle-preview'"
+export FZF_DEFAULT_OPTS="--height 60% --keep-right --reverse --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --preview-window down:60%:wrap --bind 'up:preview-up,down:preview-down,ctrl-d:preview-page-down,ctrl-u:preview-page-up,ctrl-f:half-page-down,ctrl-b:half-page-up,ctrl-e:toggle-preview'"
 export FZF_CTRL_T_OPTS="--preview 'preview-unknown {}'"
 export FZF_COMPLETION_OPTS="$FZF_CTRL_T_OPTS"
 # Support alt-c for changing directory
 bindkey "ç" fzf-cd-widget
 
+fzf-preview-window-calc() {
+  if [ "$COLUMNS" -gt 160 ]; then
+    echo "right:60%"
+  else
+    echo "down:60%"
+  fi
+}
 fzf-dir() {
   _fzf_compgen_dir . |
     fzf-down --ansi --multi --no-sort --preview-window down:50% \
@@ -136,14 +143,14 @@ is_in_git_repo() {
 }
 
 fzf-down() {
-  fzf --height 50% "$@" --border
+  fzf --height 90% "$@" --border --preview-window "$(fzf-preview-window-calc)"
 }
 
 fzf_gf() {
   is_in_git_repo || return
   git -c color.status=always status --short 2> /dev/null |
     fzf-down -m --ansi --nth 2..,.. \
-      --preview '(git diff --color=always -- {-1} 2> /dev/null | sed 1,4d; cat {-1}) | head -500' |
+      --preview '(git diff --color=always -- {-1} 2> /dev/null | sed 1,4d) | head -500' |
     cut -c4- | sed 's/.* -> //'
 }
 
@@ -152,7 +159,7 @@ fzf_gg() {
   is_in_git_repo || return
   git du --name-only --relative=$(git rev-parse --show-prefix) 2> /dev/null |
     fzf-down -m --ansi \
-      --preview '(git diff --color=always -- {-1} 2> /dev/null | sed 1,4d; cat {-1}) | head -500'
+      --preview '(git diff --color=always "$(git merge-base HEAD $(git upstream))" -- {-1} 2> /dev/null | sed 1,4d) | head -500'
 }
 
 fzf_gb() {
