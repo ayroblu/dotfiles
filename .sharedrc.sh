@@ -393,7 +393,7 @@ chat() {
 }
 
 llamainfill() {
-  (cd ~/ws/llama.cpp && ./main -m models/codellama-${1}b.Q5_K_M.gguf -e -c 100000 --temp 0.7 --color -p "$2" 2> /dev/null)
+  (cd ~/ws/llama.cpp && ./main -m models/codellama-${1}b.Q5_K_M.gguf -e -c 10000 --temp 0.7 --color -p "$2" 2> /dev/null)
 }
 infill-basic() {
   local PROMPT="<PRE> $2 <SUF>$3 <MID>"

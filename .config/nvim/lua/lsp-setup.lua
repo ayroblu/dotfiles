@@ -41,6 +41,11 @@ local function setupLsp()
     '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua') then
     lspconfig.stratols.setup {}
   end
+  -- ln -s ~/ws/dotfiles/custom_lsp/llama_ls.lua ~/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua
+  if vim.loop.fs_stat(vim.env.HOME ..
+    '/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua') then
+    lspconfig.llama_ls.setup {}
+  end
 
   -- brew install lua-language-server
   lspconfig.lua_ls.setup {
@@ -140,6 +145,7 @@ local function setupLsp()
       end,
     },
   })
+
   -- npm i -g vscode-langservers-extracted
   lspconfig.cssls.setup {
     capabilities = capabilities,
