@@ -51,6 +51,7 @@ Plug 'stevearc/oil.nvim'
 
 " lsp
 Plug 'neovim/nvim-lspconfig'
+" Plug 'stevearc/flow-coverage.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'MunifTanjim/prettier.nvim'
 "autocmd FileType css,graphql,html,javascript,javascriptreact,json,less,markdown,scss,typescript,typescriptreact,yaml autocmd BufWritePre <buffer> Prettier

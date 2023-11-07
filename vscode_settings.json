@@ -274,7 +274,7 @@
           "command": "workbench.action.closeAllEditors"
         }
       ]
-    },
+    }
     // I don't use these cause they don't go well up and down
     // {
     //   "before": ["j"],
@@ -363,7 +363,7 @@
   "vim.easymotionMarkerFontFamily": "Helvetica Neue",
   "vim.easymotionMarkerHeight": 18,
   "editor.suggestSelection": "first",
-  "workbench.editor.showTabs": true,
+  "workbench.editor.showTabs": "multiple",
   // Python
   // Example with flake8 and mypy and black (put this in your workspace settings)
   // "python.linting.pylintEnabled": false,
@@ -393,8 +393,8 @@
     "**/.ammonite": true
   },
   "metals.showImplicitArguments": true,
+  "flow.showUncovered": true,
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "sourcegraph.accessToken": '4feb1895534e9789b281c98957eaad696f3aac01',
+  }
 }

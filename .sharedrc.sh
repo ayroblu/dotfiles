@@ -371,6 +371,13 @@ fsremove() {
   sed -i '' -e "/$fsname/d" src/app/featureSwitches.js
 }
 
+makedir() {
+  local dir="$1"
+  # remove first param from "$@"
+  shift
+  (cd "$dir" && gmake "$@")
+}
+
 llamachat() {
   (cd ~/ws/llama.cpp && ./main -m models/codellama-${1}b-instruct.Q5_K_M.gguf -e -c 5000 --temp 0.7 --color -p "$2" 2> /dev/null)
 }

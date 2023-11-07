@@ -355,6 +355,7 @@ Plug 'junegunn/fzf.vim'
 let g:fzf_layout = { 'down': '50%' }
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md
 noremap <silent> <leader><Tab> :Buffers<CR>
+" noremap <silent> <leader><Esc> :GFiles?<CR>
 nmap <silent> <Leader>t :Files<CR>
 nnoremap <silent> <Leader>e :Files <C-R>=split(expand('%:h'),'/')[0]<CR><CR>
 "nmap <Leader><leader>r :BTags<CR>
