@@ -181,6 +181,10 @@ else
   set shortmess-=F
 endif
 
+" python defines their own mappings ????
+" /usr/local/Cellar/neovim/0.9.4/share/nvim/runtime/ftplugin/python.vim
+let g:no_python_maps = 1
+
 " Turns off the bell (audible)
 "set visualbell t_vb=
 " sets default font to what is in macos terminal

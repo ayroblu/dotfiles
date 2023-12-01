@@ -382,6 +382,7 @@
   // "python.formatting.blackPath": "cblack",
   "python.jediEnabled": false,
   "python.sortImports.args": ["--settings-path=${workspaceFolder}"],
+  "python.analysis.typeCheckingMode": "strict",
   "[python]": {
     "editor.codeActionsOnSave": {
       "source.organizeImports": true

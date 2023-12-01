@@ -31,6 +31,7 @@
   # Merge conflict for generated files: `git co --theirs .`
   # Also consider --ours, and `git r -X theirs`
 
+  aa = add -A
   amend = commit -a --amend --no-edit
   abandon = !BRANCH=`git rev-parse --abbrev-ref HEAD` && git reset --hard && git checkout $(git mainmaster) && git branch -D $BRANCH
   # get main branch

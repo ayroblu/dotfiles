@@ -97,8 +97,8 @@ exists() {
 [ -f /usr/local/opt/libffi/lib/pkgconfig ] && export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 [ -d /opt/homebrew/lib/pkgconfig ] && export PKG_CONFIG_PATH="/opt/homebrew/lib/pkgconfig:/opt/homebrew/opt/jpeg/lib/pkgconfig"
 exists node && export NODE_OPTIONS=--max-old-space-size=8192
-exists brew && export HOMEBREW_NO_AUTO_UPDATE=1
-exists brew && export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
+#exists brew && export HOMEBREW_NO_AUTO_UPDATE=1
+#exists brew && export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
 
 pathadd ~/.cargo/bin
 pathadd ~/.poetry/bin
@@ -336,6 +336,14 @@ portscan() {
     echo -ne "Scanning port: $PORT\r"
     timeout 1 bash -c "</dev/tcp/$IP_ADDRESS/$PORT &>/dev/null" &&  echo "port $PORT is open"
   done
+}
+
+setup-pythonpath() {
+  # https://stackoverflow.com/questions/4757178/how-do-you-set-your-pythonpath-in-an-already-created-virtualenv/47184788#47184788
+  local current_path="$(pwd)"
+  cd $(python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
+  echo "$current_path" > pypath.pth
+  cd -
 }
 
 tmpl-tool() {
