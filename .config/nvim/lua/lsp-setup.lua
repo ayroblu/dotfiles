@@ -12,7 +12,7 @@ local function setupCmp()
     mapping = {
       ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
       ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
-      ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs( -4), { 'i', 'c' }),
+      ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
       ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
       ['<C-space>'] = cmp.mapping.complete(),
@@ -38,7 +38,7 @@ local function setupLsp()
 
   -- ln -s ~/ws/dotfiles/custom_lsp/stratols.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua
   if vim.loop.fs_stat(vim.env.HOME ..
-      '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua') then
+    '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua') then
     lspconfig.stratols.setup {}
   end
   -- ln -s ~/ws/dotfiles/custom_lsp/llama_ls.lua ~/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua
@@ -259,6 +259,9 @@ local function setupLsp()
         -- vim.cmd "Prettier"
         -- print("after prettier", string.format("%s:%03d", os.date("%H:%M:%S"), vim.loop.now() % 1000),
         --   vim.loop.now() - before)
+        if vim.bo.filetype == 'python' then
+          if vim.fn.exists(':ALEFix') > 0 then vim.cmd('ALEFix') end
+        end
         if vim.fn.exists(':EslintFixAll') > 0 then vim.cmd('EslintFixAll') end
         -- prettier errors on non supported filetypes
         -- if vim.fn.exists(':Prettier') > 0 then vim.cmd("Prettier") end

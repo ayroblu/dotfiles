@@ -321,6 +321,7 @@ autocmd FileType sh setl indentexpr=
 autocmd FileType scala setl indentexpr=
 autocmd FileType javascript setl indentexpr=
 autocmd FileType typescript setl indentexpr=
+autocmd FileType python setl indentexpr=
 autocmd FileType swift,objc,objcpp setl textwidth=0
 
 " Handle special file types: https://vim.fandom.com/wiki/Forcing_Syntax_Coloring_for_files_with_odd_extensions
