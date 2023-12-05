@@ -339,9 +339,10 @@ portscan() {
 }
 
 setup-pythonpath() {
-  # https://stackoverflow.com/questions/4757178/how-do-you-set-your-pythonpath-in-an-already-created-virtualenv/47184788#47184788
+  # uses legacy distutils: https://stackoverflow.com/questions/4757178/how-do-you-set-your-pythonpath-in-an-already-created-virtualenv/47184788#47184788
+  # with updated sysconfig: https://stackoverflow.com/questions/122327/how-do-i-find-the-location-of-my-python-site-packages-directory/52638888#52638888
   local current_path="$(pwd)"
-  cd $(python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
+  cd $(python -c "from sysconfig import get_path; print(get_path('purelib'))")
   echo "$current_path" > pypath.pth
   cd -
 }
