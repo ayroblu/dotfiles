@@ -323,6 +323,13 @@ videoToGif1280x4() {
   # https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/
   ffmpeg -i "$filename" -filter_complex "[0:v] fps=12,scale=1280:-1,setpts=0.25*PTS,split [a][b];[a] palettegen [p];[b][p] paletteuse" "$new_filename"
 }
+video-transcode() {
+  # https://unix.stackexchange.com/questions/28803/how-can-i-reduce-a-videos-size-with-ffmpeg
+  local filename="$1"
+  local new_filename="${filename%.*}.h265.mp4"
+  ffmpeg -i "$filename" -vcodec libx265 -crf 28 "$new_filename"
+  # ffmpeg -i input.mp4 -c:v libaom-av1 -crf 30 av1_test.mkv - av1
+}
 
 killport() {
   lsof -nti:"$1" | xargs kill -9
@@ -385,6 +392,10 @@ makedir() {
   # remove first param from "$@"
   shift
   (cd "$dir" && gmake "$@")
+}
+
+cdgitroot() {
+  cd "$(git root)" || return
 }
 
 llamachat() {
