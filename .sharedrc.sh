@@ -10,6 +10,8 @@ alias random='openssl rand -base64 32'
 alias l='ls -A'
 alias ls='ls -A'
 alias ll='ls -Alh'
+# copy on write optimisation.
+alias cp='cp -c'
 # macos doesn't auto sort by CPU
 alias top='top -o cpu'
 alias e='emacs'
@@ -110,8 +112,8 @@ pathadd /usr/local/opt/make/libexec/gnubin
 pathadd /opt/homebrew/opt/make/libexec/gnubin
 pathadd /opt/homebrew/opt/python/libexec/bin
 # qmk_firmware
-pathadd "/usr/local/opt/avr-gcc@8/bin"
-pathadd "/usr/local/opt/arm-gcc-bin@8/bin"
+pathadd "/opt/homebrew/opt/avr-gcc@8/bin"
+pathadd "/opt/homebrew/opt/arm-gcc-bin@8/bin"
 pathadd "/usr/local/anaconda3/bin"
 
 #
@@ -281,11 +283,8 @@ mergepdf() {
 # Also consider using ocrmypdf if you want to search it
 # https://unix.stackexchange.com/questions/301318/how-to-ocr-a-pdf-file-and-get-the-text-stored-within-the-pdf
 
-watchrun() {
-  INPUT="$1"
-  SCRIPT="$2"
-  fswatch -o "$1" | xargs -n1 -I{} "$2"
-}
+# instead of fswatch, entr: just do:
+# rg --files aoc_2023/day_23 -g '*.rs' | entr cargo build --release --bin day_23p2
 
 videoToGif() {
   local filename="$1"

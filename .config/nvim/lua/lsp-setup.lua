@@ -38,12 +38,12 @@ local function setupLsp()
 
   -- ln -s ~/ws/dotfiles/custom_lsp/stratols.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua
   if vim.loop.fs_stat(vim.env.HOME ..
-    '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua') then
+        '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua') then
     lspconfig.stratols.setup {}
   end
   -- ln -s ~/ws/dotfiles/custom_lsp/llama_ls.lua ~/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua
   if vim.loop.fs_stat(vim.env.HOME ..
-    '/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua') then
+        '/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua') then
     lspconfig.llama_ls.setup {}
   end
 
@@ -152,6 +152,7 @@ local function setupLsp()
   }
   -- npm install -g cssmodules-language-server
   lspconfig.cssmodules_ls.setup {}
+  -- rustup component add rust-analyzer
   lspconfig.rust_analyzer.setup {
     -- Server-specific settings. See `:help lspconfig-setup`
     settings = {
@@ -250,7 +251,7 @@ local function setupLsp()
         end
         return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
       end
-      local supported_formatting_clients = Set { "null-ls", "lua_ls", "metals" }
+      local supported_formatting_clients = Set { "null-ls", "lua_ls", "rust_analyzer", "metals" }
       local function format()
         -- local before = vim.loop.now()
         -- print("before eslint", string.format("%s:%03d", os.date("%H:%M:%S"), vim.loop.now() % 1000))
@@ -300,7 +301,7 @@ local function setupPrettier()
   local sources = {
     null_ls.builtins.formatting.prettier.with({
       filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less",
-        "json", "jsonc", "graphql" },
+        "html", "json", "jsonc", "graphql" },
       only_local = "node_modules/.bin",
     })
   }
@@ -317,6 +318,7 @@ local function setupPrettier()
       "javascript",
       "javascriptreact",
       "json",
+      "html",
       "less",
       "scss",
       "typescript",

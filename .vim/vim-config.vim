@@ -185,6 +185,15 @@ endif
 " /usr/local/Cellar/neovim/0.9.4/share/nvim/runtime/ftplugin/python.vim
 let g:no_python_maps = 1
 
+" rust also does
+" /usr/local/Cellar/neovim/0.9.4/share/nvim/runtime/ftplugin/rust.vim
+autocmd FileType rust silent! nunmap <buffer> [[
+autocmd FileType rust silent! nunmap <buffer> ]]
+autocmd FileType rust silent! xunmap <buffer> [[
+autocmd FileType rust silent! xunmap <buffer> ]]
+autocmd FileType rust silent! ounmap <buffer> [[
+autocmd FileType rust silent! ounmap <buffer> ]]
+
 " Turns off the bell (audible)
 "set visualbell t_vb=
 " sets default font to what is in macos terminal
@@ -228,6 +237,10 @@ autocmd FileType netrw nmap <buffer> v i:Vifm<cr>
 " ---------------------------------------- Mappings
 " set spell spelllang=en_nz " ]s [s ]S [S " next spelling error
 nnoremap <Leader>sp :setl spell!<CR>
+
+" https://gist.github.com/mre/5848964
+" text to speech
+vnoremap <leader>v :w<Home>silent <End> !say <CR>
 
 " Show help we defined above
 nnoremap <leader>? :call ShowPersonalHelp()<cr>
