@@ -61,7 +61,7 @@
   cod = !"f() { echo git checkout `git rev-list -1 --before=\"$1\" --first-parent $(git upstream)`; }; f"
   # checkout original
   coo = "!git checkout $(git mb)"
-  count-lines = "! git log --author=\"$1\" --pretty=tformat: --numstat $2 | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf \"added lines: %s, removed lines: %s, total lines: %s\\n\", add, subs, loc }' #"
+  count-lines = "! author=\"$1\"; shift; git log --author=\"$author\" --pretty=tformat: --numstat \"$@\" | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf \"added lines: %s, removed lines: %s, total lines: %s\\n\", add, subs, loc }' #"
 
   # only works on git repos that you cloned
   default = !"basename $(git symbolic-ref --short refs/remotes/origin/HEAD)"
@@ -209,4 +209,6 @@
   conflictstyle = diff3
 [diff]
   colorMoved = default
+[submodule]
+  recurse = true
 
