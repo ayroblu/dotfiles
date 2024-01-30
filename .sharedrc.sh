@@ -329,6 +329,11 @@ video-transcode() {
   ffmpeg -i "$filename" -vcodec libx265 -crf 28 "$new_filename"
   # ffmpeg -i input.mp4 -c:v libaom-av1 -crf 30 av1_test.mkv - av1
 }
+video-720p() {
+  local filename="$1"
+  local new_filename="${filename%.*}.h264.mp4"
+  ffmpeg -i "$filename" -filter:v scale=-1:720 "$new_filename"
+}
 
 killport() {
   lsof -nti:"$1" | xargs kill -9
