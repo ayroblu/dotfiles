@@ -332,7 +332,7 @@ video-transcode() {
 video-720p() {
   local filename="$1"
   local new_filename="${filename%.*}.h264.mp4"
-  ffmpeg -i "$filename" -filter:v scale=-1:720 "$new_filename"
+  ffmpeg -i "$filename" -filter:v scale=-2:720 "$new_filename"
 }
 
 killport() {
