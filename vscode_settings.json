@@ -385,7 +385,7 @@
   "python.analysis.typeCheckingMode": "strict",
   "[python]": {
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true
+      "source.organizeImports": "explicit"
     }
   },
   "files.watcherExclude": {

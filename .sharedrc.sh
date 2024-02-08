@@ -178,6 +178,9 @@ stash(){
 nohooks(){
   HUSKY_SKIP_HOOKS=1 "$@"
 }
+export-nohooks(){
+  export HUSKY_SKIP_HOOKS=1
+}
 
 copyDockerFile() {
   if [ "$#" -ne 3 ]; then
