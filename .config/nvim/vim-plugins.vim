@@ -9,6 +9,12 @@ augroup minifiedTreesitterLoad
   autocmd FileType * call LoadTreesitter()
 augroup END
 
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+
+Plug 'chrisgrieser/nvim-various-textobjs'
+
+" Plug 'Dkendal/nvim-treeclimber'
+
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 Plug 'stevearc/aerial.nvim'

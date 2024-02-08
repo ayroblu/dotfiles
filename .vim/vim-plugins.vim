@@ -146,6 +146,13 @@ let g:mta_filetypes = {
 \}
 nnoremap <leader>% :MtaJumpToOtherTag<cr>
 
+" I think this is still lisp specific
+" Plug 'guns/vim-sexp'
+" nnoremap <Right> <Plug>(sexp_move_to_next_element_head)
+" nnoremap <Left> <Plug>(sexp_move_to_prev_element_head)
+" nnoremap <Up> <Plug>(sexp_move_to_prev_top_element)
+" nnoremap <Down> <Plug>(sexp_move_to_next_top_element)
+
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 let g:session_autosave = 'yes'
@@ -336,9 +343,26 @@ nmap ysa' ys2i'
 nmap ysa" ys2i"
 nmap ysa` ys2i`
 
+Plug 'machakann/vim-sandwich'
+" similar to surround
+" sr"' - change existing
+" sr'<tag> - tags
+" srt' - reverse tag -> '
+" sd" - delete "
+" saiw] - insert no space
+" sas) - line
+" saiwffunc<cr> - func, param -> func(param)
+" sdf - delete, func(param) -> param
+" sdF - delete surrounding func
+" saiwt div.class1 - insert html tag with emmet syntax
+
 Plug 'tommcdo/vim-exchange'
 " visual: X to select text to swap, same on the text to swap with
+" https://github.com/tommcdo/vim-exchange/issues/56 - `] to keep cursor loc
+vmap X <Plug>(Exchange)`]
 " cxc to cancel
+" Todo: `] always goes to the end of the selection, want original pos
+" https://superuser.com/questions/691130/vim-jump-to-previous-cursor-position-not-edit-point
 
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
@@ -609,6 +633,11 @@ let g:tagbar_type_typescript = {
 nnoremap <silent> <leader>o :TagbarToggle<cr>
 "autocmd VimEnter * nested :call tagbar#autoopen(1)
 
+Plug 'mattn/emmet-vim'
+" <c-y>, - perform action under cursor e.g. div>ul.class>li
+"   - if you have visually selected normal text then you will get a text
+"   prompt to insert with placeholder like Tag: div>*
+
 " === Text objects
 Plug 'wellle/targets.vim'
 " changes behaviour to also perform seeking so you don't need to wory as much about cursor
@@ -618,9 +647,15 @@ Plug 'wellle/targets.vim'
 " cin) - change in next parens, doesn't need to be inside
 " cil) - change in last parens, doesn't need to be inside
 
-"Plug 'bkad/CamelCaseMotion'
-let g:camelcasemotion_key = ','
+Plug 'bkad/CamelCaseMotion'
 " Use , as camel case word object: i.e. ci,w
+let g:camelcasemotion_key = ','
+nnoremap <silent> ∑ <Plug>CamelCaseMotion_w
+nnoremap <silent> ∫ <Plug>CamelCaseMotion_b
+vnoremap <silent> ∑ <Plug>CamelCaseMotion_w
+vnoremap <silent> ∫ <Plug>CamelCaseMotion_b
+" nnoremap <silent> ´ <Plug>CamelCaseMotion_e
+" nnoremap <silent> ge <Plug>CamelCaseMotion_ge
 
 "Plug 'vim-scripts/argtextobj.vim'
 " Adds argument (a) so caa, cia
