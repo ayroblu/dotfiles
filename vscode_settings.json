@@ -203,6 +203,24 @@
       ]
     },
     {
+      "before": ["[", "["],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.marker.previous"
+        }
+      ]
+    },
+    {
+      "before": ["]", "]"],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.marker.next"
+        }
+      ]
+    },
+    {
       "before": ["<leader>", ","],
       "after": [],
       "commands": [

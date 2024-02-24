@@ -102,6 +102,7 @@
   llfsc = ll -c --first-parent --stat
   #lfa = lf --author-date-order  --no-merges
   mb = !git merge-base HEAD $(git upstream)
+  mbm = "!git merge-base HEAD origin/$(git mainmaster)"
 
   mainmaster = !"git branch --format='%(refname:short)' | rg '^(main|master)$'"
 

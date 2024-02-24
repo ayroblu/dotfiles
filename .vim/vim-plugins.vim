@@ -654,8 +654,10 @@ nnoremap <silent> ∑ <Plug>CamelCaseMotion_w
 nnoremap <silent> ∫ <Plug>CamelCaseMotion_b
 vnoremap <silent> ∑ <Plug>CamelCaseMotion_w
 vnoremap <silent> ∫ <Plug>CamelCaseMotion_b
-" nnoremap <silent> ´ <Plug>CamelCaseMotion_e
-" nnoremap <silent> ge <Plug>CamelCaseMotion_ge
+nnoremap <silent> ´ <Plug>CamelCaseMotion_e
+nnoremap <silent> ©´ <Plug>CamelCaseMotion_ge
+vnoremap <silent> ´ <Plug>CamelCaseMotion_e
+vnoremap <silent> ©´ <Plug>CamelCaseMotion_ge
 
 "Plug 'vim-scripts/argtextobj.vim'
 " Adds argument (a) so caa, cia

@@ -1,0 +1,3 @@
+#!/bin/zsh
+local flowpath="$(git root)/tmp/flow-0.225.1/flow"
+[ -f "$flowpath" ] && "$flowpath" --no-auto-start 2> /dev/null > /dev/null && "$flowpath" lsp || echo ""

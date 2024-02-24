@@ -12,7 +12,7 @@ local function setupCmp()
     mapping = {
       ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
       ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
-      ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs( -4), { 'i', 'c' }),
       ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
       ['<C-space>'] = cmp.mapping.complete(),
@@ -38,12 +38,12 @@ local function setupLsp()
 
   -- ln -s ~/ws/dotfiles/custom_lsp/stratols.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua
   if vim.loop.fs_stat(vim.env.HOME ..
-        '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua') then
+      '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua') then
     lspconfig.stratols.setup {}
   end
   -- ln -s ~/ws/dotfiles/custom_lsp/llama_ls.lua ~/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua
   if vim.loop.fs_stat(vim.env.HOME ..
-        '/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua') then
+      '/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua') then
     lspconfig.llama_ls.setup {}
   end
 
@@ -85,9 +85,10 @@ local function setupLsp()
   -- npm i -g vscode-langservers-extracted
   lspconfig.eslint.setup {}
   -- npx flow
-  if not string.find(vim.fn.getcwd(), "web-gryphon", 1, true) then
-    lspconfig.flow.setup {}
-  end
+  lspconfig.flow.setup {
+    -- cmd = { "npx", "--no-install", "flow", "lsp" }
+    cmd = { "web-flow-lsp" }
+  }
   -- npx relay-compiler
   -- lspconfig.relay_lsp.setup {
   --   cmd = { "./scripts/relay-for-extension", "lsp" },

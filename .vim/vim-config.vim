@@ -387,8 +387,8 @@ function! s:RelGitRevPath()
 endfunction
 
 " Insert single character
-nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
-nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
+" nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
+" nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
 
 nnoremap ZS :w<cr>
 " quit vim all
