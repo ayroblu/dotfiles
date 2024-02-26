@@ -59,13 +59,13 @@ xmap y <plug>(YoinkYankPreserveCursorPosition)
 Plug 'PeterRincker/vim-searchlight'
 
 " From Damian Conway
-Plug 'schoettl/listtrans.vim'
+"Plug 'schoettl/listtrans.vim'
 " ;l toggles between bulleted list and text with commas and the last one has
 " ', and'
 " If there are already commas in our list, use semicolons
 " If not using and, but say "but not", then append to penultimate item
-nnoremap ;l   :call ListTrans_toggle_format()<CR>
-vnoremap ;l   :call ListTrans_toggle_format('visual')<CR>
+" nnoremap ;l   :call ListTrans_toggle_format()<CR>
+" vnoremap ;l   :call ListTrans_toggle_format('visual')<CR>
 
 " From Damian Conway
 Plug 'nixon/vim-vmath'
@@ -168,7 +168,7 @@ let g:session_default_overwrite = 1
 Plug 'knsh14/vim-github-link'
 nnoremap <Leader>yg :GetCommitLink<CR>
 
-Plug 'PeterRincker/vim-argumentative'
+" Plug 'PeterRincker/vim-argumentative'
 " <, or >, for move argument left or right
 
 " Plug 'terryma/vim-multiple-cursors'
@@ -639,7 +639,7 @@ Plug 'mattn/emmet-vim'
 "   prompt to insert with placeholder like Tag: div>*
 
 " === Text objects
-Plug 'wellle/targets.vim'
+" Plug 'wellle/targets.vim'
 " changes behaviour to also perform seeking so you don't need to wory as much about cursor
 " placement. Doesn't work in comments
 " da, - delete in comma
@@ -647,7 +647,7 @@ Plug 'wellle/targets.vim'
 " cin) - change in next parens, doesn't need to be inside
 " cil) - change in last parens, doesn't need to be inside
 
-Plug 'bkad/CamelCaseMotion'
+"Plug 'bkad/CamelCaseMotion'
 " Use , as camel case word object: i.e. ci,w
 let g:camelcasemotion_key = ','
 nnoremap <silent> ∑ <Plug>CamelCaseMotion_w
@@ -706,7 +706,7 @@ autocmd FileType markdown nnoremap <buffer> <Leader>R :MarkdownRunnerInsert<CR>
 Plug 'godlygeek/tabular'
 " Necessary for vim-markdown TableFormat
 
-Plug 'dhruvasagar/vim-table-mode'
+"Plug 'dhruvasagar/vim-table-mode'
 " :TableModeToggle - ,tm
 " :TableModeRealign - ,tr
 " || for horizontal rule
