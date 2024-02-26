@@ -47,13 +47,13 @@ local function setupTextObjects()
   vim.keymap.set({ "o", "x" }, "as", '<cmd>lua require("various-textobjs").subword("outer")<CR>')
   vim.keymap.set({ "o", "x" }, "is", '<cmd>lua require("various-textobjs").subword("inner")<CR>')
 
-  vim.keymap.set({ "o", "x" }, "iv", "<cmd>lua require('various-textobjs').value('inner')<CR>")
-  vim.keymap.set({ "o", "x" }, "av", "<cmd>lua require('various-textobjs').value('outer')<CR>")
+  -- vim.keymap.set({ "o", "x" }, "iv", "<cmd>lua require('various-textobjs').value('inner')<CR>")
+  -- vim.keymap.set({ "o", "x" }, "av", "<cmd>lua require('various-textobjs').value('outer')<CR>")
 
-  vim.keymap.set({ "o", "x" }, "ik", "<cmd>lua require('various-textobjs').key('inner')<CR>")
-  vim.keymap.set({ "o", "x" }, "ak", "<cmd>lua require('various-textobjs').key('outer')<CR>")
+  -- vim.keymap.set({ "o", "x" }, "ik", "<cmd>lua require('various-textobjs').key('inner')<CR>")
+  -- vim.keymap.set({ "o", "x" }, "ak", "<cmd>lua require('various-textobjs').key('outer')<CR>")
 
-  vim.keymap.set({ "o", "x" }, "gc", "<cmd>lua require('various-textobjs').multiCommentedLines()<CR>")
+  -- vim.keymap.set({ "o", "x" }, "gc", "<cmd>lua require('various-textobjs').multiCommentedLines()<CR>")
 
   require 'nvim-treesitter.configs'.setup {
     textobjects = {
@@ -73,8 +73,8 @@ local function setupTextObjects()
           ["i="] = "@assignment.inner",
           ["=l"] = "@assignment.lhs",
           ["=r"] = "@assignment.rhs",
-          ["ia"] = "@call.inner",
-          ["aa"] = "@call.outer",
+          ["ie"] = "@call.inner",
+          ["ae"] = "@call.outer",
           ["ib"] = "@block.inner",
           ["ab"] = "@block.outer",
           ["i<"] = "@conditional.inner",
@@ -126,15 +126,16 @@ local function setupTextObjects()
         enable = true,
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
-          ["]m"] = "@function.outer",
+          ["]f"] = "@function.outer",
           ["]="] = "@assignment.outer",
           ["]<"] = "@conditional.outer",
           ["]p"] = "@parameter.outer",
           ["]("] = "@call.outer",
+          ["]b"] = "@block.inner",
           -- ["]]"] = { query = "@class.outer", desc = "Next class start" },
           --
           -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
-          ["]o"] = "@loop.*",
+          -- ["]l"] = "@loop.*",
           -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
           --
           -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
@@ -143,19 +144,22 @@ local function setupTextObjects()
           -- ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
         },
         goto_next_end = {
-          ["]M"] = "@function.outer",
+          ["]F"] = "@function.outer",
+          ["]B"] = "@block.inner",
           -- ["]["] = "@class.outer",
         },
         goto_previous_start = {
-          ["[m"] = "@function.outer",
+          ["[F"] = "@function.outer",
           ["[="] = "@assignment.outer",
           ["[<"] = "@conditional.outer",
           ["[p"] = "@parameter.outer",
           ["[("] = "@call.outer",
+          ["[b"] = "@block.inner",
           -- ["[["] = "@class.outer",
         },
         goto_previous_end = {
-          ["[M"] = "@function.outer",
+          ["[F"] = "@function.outer",
+          ["[B"] = "@block.inner",
           -- ["[]"] = "@class.outer",
         },
         -- Below will go to either the start or the end, whichever is closer.
