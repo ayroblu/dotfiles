@@ -307,7 +307,7 @@ nnoremap <silent> ¬ <C-w>l
 nnoremap <silent> Ó :vertical resize -5<cr>
 nnoremap <silent> Ô :resize +5<cr>
 " This is wrong but Shift-Alt-K doesn't seem to work? Uses I instead
-nnoremap <silent> ˆ :resize -5<cr>
+" nnoremap <silent> ˆ :resize -5<cr>
 nnoremap <silent> Ò :vertical resize +5<cr>
 
 " Incrementing and decrementing visual blocks
@@ -341,6 +341,13 @@ autocmd FileType swift,objc,objcpp setl textwidth=0
 autocmd BufNewFile,BufRead *.keymap setl syntax=c
 autocmd BufNewFile,BufRead tsconfig.json setl ft=jsonc
 autocmd BufNewFile,BufRead coc-settings.json setl ft=jsonc
+autocmd BufNewFile,BufRead vscode_settings.json setl ft=jsonc
+
+" custom flow type
+au BufRead * if join(getline(0, 3)) =~ '@flow' | setlocal ft=javascriptflow syntax=javascript | endif
+
+autocmd BufNewFile,BufRead *.flow setl ft=javascriptflow
+autocmd FileType javascriptflow set syntax=javascript
 
 
 " nnoremap <C-L> :redraw!
@@ -669,7 +676,7 @@ tnoremap ¬ <C-\><C-n><C-w>l
 tnoremap Ó <C-\><C-n><C-w>H
 tnoremap Ô <C-\><C-n><C-w>J
 " This is wrong but Shift-Alt-K doesn't seem to work? Uses I instead
-tnoremap ˆ <C-\><C-n><C-w>K
+" tnoremap ˆ <C-\><C-n><C-w>K
 tnoremap Ò <C-\><C-n><C-w>L
 
 " ---------------------------------------- From Damian Conway

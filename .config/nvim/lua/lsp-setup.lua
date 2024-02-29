@@ -86,8 +86,10 @@ local function setupLsp()
   lspconfig.eslint.setup {}
   -- npx flow
   lspconfig.flow.setup {
-    -- cmd = { "npx", "--no-install", "flow", "lsp" }
-    cmd = { "web-flow-lsp" }
+    cmd = { "npx", "--no-install", "flow", "lsp" },
+    filetypes = { "javascriptflow" }
+    -- default: filetypes = { "javascript", "javascriptreact", "javascript.jsx" }
+    -- cmd = { "web-flow-lsp" }
   }
   -- npx relay-compiler
   -- lspconfig.relay_lsp.setup {
@@ -301,8 +303,9 @@ local function setupPrettier()
 
   local sources = {
     null_ls.builtins.formatting.prettier.with({
-      filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less",
-        "html", "json", "jsonc", "graphql" },
+      filetypes = { "javascriptflow", "javascript", "javascriptreact",
+        "typescript", "typescriptreact", "vue", "css", "scss", "less", "html",
+        "json", "jsonc", "graphql" },
       only_local = "node_modules/.bin",
     })
   }
@@ -317,6 +320,7 @@ local function setupPrettier()
       "css",
       "graphql",
       "javascript",
+      "javascriptflow",
       "javascriptreact",
       "json",
       "html",
