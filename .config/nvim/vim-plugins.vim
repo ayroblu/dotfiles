@@ -61,7 +61,8 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'MunifTanjim/prettier.nvim'
 "autocmd FileType css,graphql,html,javascript,javascriptreact,json,less,markdown,scss,typescript,typescriptreact,yaml autocmd BufWritePre <buffer> Prettier
-Plug 'jose-elias-alvarez/typescript.nvim'
+" Plug 'jose-elias-alvarez/typescript.nvim'
+Plug 'pmizio/typescript-tools.nvim'
 
 " Plugins for Metals, a language server for Scala
 Plug 'nvim-lua/plenary.nvim'
