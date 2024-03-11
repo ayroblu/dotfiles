@@ -76,7 +76,7 @@
   #du = !git diff $(git merge-base HEAD $(git upstream))...HEAD
   # Why did I need the git prefix? Must have a reason
   #du = "!cd \"${GIT_PREFIX:-.}\"; git diff $(git merge-base HEAD $(git upstream))...HEAD"
-  du = "!git diff $(git merge-base HEAD $(git upstream))"
+  du = "!git diff \"$(git mb)\""
   dus = du --stat
   dm = "!git diff $(git merge-base HEAD origin/$(git mainmaster))"
   #du = "!f() { git diff $(git merge-base HEAD $(git upstream)) \"$@\"; }; f"

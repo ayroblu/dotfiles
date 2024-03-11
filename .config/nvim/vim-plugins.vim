@@ -15,6 +15,8 @@ Plug 'chrisgrieser/nvim-various-textobjs'
 
 " Plug 'Dkendal/nvim-treeclimber'
 
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 Plug 'stevearc/aerial.nvim'

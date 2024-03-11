@@ -337,6 +337,11 @@ video-720p() {
   local new_filename="${filename%.*}.h264.mp4"
   ffmpeg -i "$filename" -filter:v scale=-2:720 "$new_filename"
 }
+video-1080p() {
+  local filename="$1"
+  local new_filename="${filename%.*}.h264.mp4"
+  ffmpeg -i "$filename" -filter:v scale=-2:1080 "$new_filename"
+}
 
 killport() {
   lsof -nti:"$1" | xargs kill -9
