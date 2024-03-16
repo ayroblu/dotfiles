@@ -1,4 +1,5 @@
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" pin to 0.9.2 due to https://github.com/tree-sitter-grammars/tree-sitter-markdown/issues/131#issuecomment-1903556950
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'tag': 'v0.9.2'}
 function! LoadTreesitter()
   if !b:is_minified_file
     exec 'TSBufEnable highlight'
