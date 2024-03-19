@@ -29,6 +29,13 @@ alias goctave='\octave -q'
 [ -x "$(command -v rg)" ] && [ -x "$(command -v ctags)" ] && alias maketags="rg --files | ctags --links=no --excmd=number -L-"
 [ -x "$(command -v rg)" ] && alias rg="rg --hidden --glob \"!tags\" --glob \"!.git\" -M 1000"
 [ -f /usr/local/bin/less ] && export LESS="$LESS -RF"
+alias cddot='~/ws/dotfiles'
+alias cddep='~/ws/deps'
+alias cdroot='cd "$(git root)"'
+# Ideas:
+# Find any file in indexed roots
+# Find based on git
+# Find based on project type (fastpass) - doable now (no other way to tell "project")
 
 # Editing aliases
 alias vivim='vi ~/.vimrc'
