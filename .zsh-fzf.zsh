@@ -170,6 +170,14 @@ fzf_gb() {
     sed 's#^remotes/##'
 }
 
+# Shouldn't really be here, but convenient
+fzf_gz() {
+  is_in_git_repo || return
+  echo "$(fastpass info)" | perl -pe 's/\/\.\.\.//g' | cut -c 1- | rargs -d, git ls-files {0} |
+    fzf-down -m --ansi \
+      --preview 'preview-unknown {}'
+}
+
 fzf_gm() {
   is_in_git_repo || return
   git for-each-ref --sort=-committerdate refs/{heads,remotes} --format='%(refname:short)' |
@@ -221,5 +229,5 @@ bind-git-helper() {
 # Remove default
 bindkey -r "^G"
 # Files, with Untracked files, merGebase diff files, Branches, reMote branches, Tags, Remotes, commit Hashes
-bind-git-helper f g b m t r h
+bind-git-helper f g b m t r h z
 unset -f bind-git-helper
