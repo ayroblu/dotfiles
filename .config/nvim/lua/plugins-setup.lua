@@ -1,6 +1,16 @@
 local function setupOil()
   require("oil").setup()
   vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
+  local nvim_oil_group = vim.api.nvim_create_augroup("oil", { clear = true })
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "oil" },
+    callback = function()
+      vim.cmd [[nnoremap <buffer> <silent> <leader><leader>tr :Files <C-R>=expand('%:h')[6:]<CR><CR>]]
+      vim.cmd [[nnoremap <buffer> <Leader><Leader>te :Files <C-R>=expand('%:h:h')[6:]<CR><CR>]]
+      -- vim.cmd [[nnoremap <silent> <Leader>e :Files <C-R>=split(expand('%:h')[6:],'/')[0]<CR><CR>]]
+    end,
+    group = nvim_oil_group,
+  })
 end
 
 pcall(setupOil)

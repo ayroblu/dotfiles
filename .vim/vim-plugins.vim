@@ -387,7 +387,7 @@ nnoremap <silent> <Leader>e :Files <C-R>=split(expand('%:h'),'/')[0]<CR><CR>
 " https://github.com/junegunn/fzf.vim/issues/360
 nnoremap <silent> <Leader><Leader>ts :QFiles <C-R>=expand('%:h')<CR><CR>
 nnoremap <silent> <Leader><Leader>tr :Files <C-R>=expand('%:h')<CR><CR>
-nnoremap <Leader><Leader>te :Files <C-R>=expand('%:h:h')<CR>
+nnoremap <silent> <Leader><Leader>te :Files <C-R>=expand('%:h:h')<CR><CR>
 nnoremap <silent> <Leader><Leader>tt :Files <C-R>=trim(system('git rev-parse --show-toplevel'))<CR><CR>
 nnoremap <silent> <Leader>/ :Rg <C-R><C-W>
 nnoremap <silent> <Leader>* :Rg <C-R><C-W><CR>
@@ -405,6 +405,11 @@ nnoremap <silent> <Leader>hh :History<CR>
 command! -bang -nargs=* Rg
 \ call fzf#vim#grep(
 \   'rg --column --line-number --no-heading --color=always '.<q-args>, 1,
+\   fzf#vim#with_preview(), <bang>0)
+
+command! -bang -count=1 -nargs=* Rrg
+\ call fzf#vim#grep(
+\   'rg --column --line-number --no-heading --color=always '.<q-args>.' '.expand('%'.repeat(':h', <count>)), 1,
 \   fzf#vim#with_preview(), <bang>0)
 
 command! -bang -nargs=* Ripgrep
