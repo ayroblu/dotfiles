@@ -582,6 +582,8 @@ command Reload :au! | so ~/.vimrc
 " https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one
 command BufOnly :%bd|e#
 
+autocmd BufWritePost temp.lua messages clear | luafile %
+
 " https://stackoverflow.com/questions/1534835/how-do-i-close-all-buffers-that-arent-shown-in-a-window-in-vim
 function! DeleteInactiveBufs()
     "From tabpagebuflist() help, get a list of all buffers in all tabs

@@ -74,23 +74,31 @@ local function setupTextObjects()
         lookahead = true,
 
         keymaps = {
+          -- t, b, w, are defined already
           -- You can use the capture groups defined in textobjects.scm
           ["af"] = "@function.outer",
           ["if"] = "@function.inner",
-          ["ac"] = "@class.outer",
-          ["ic"] = "@class.inner",
-          ["a="] = "@assignment.outer",
-          ["i="] = "@assignment.inner",
-          ["=l"] = "@assignment.lhs",
-          ["=r"] = "@assignment.rhs",
-          ["ie"] = "@call.inner",
-          ["ae"] = "@call.outer",
-          ["ib"] = "@block.inner",
-          ["ab"] = "@block.outer",
+          -- ["ac"] = "@class.outer",
+          -- ["ic"] = "@class.inner",
+          ["aa"] = "@assign.outer",
+          ["ia"] = "@assignment.inner",
+          ["il"] = "@assign_left.inner",
+          ["al"] = "@assign_left_outer",
+          ["ir"] = "@assign_right.inner",
+          ["ar"] = "@assign_right_outer",
+          ["ie"] = "@expression.inner",
+          ["ae"] = "@expression.outer",
+          ["io"] = "@struct.inner",
+          ["ao"] = "@struct.outer",
+          ["in"] = "@func_name",
+          ["an"] = "@func_decl_name",
+          ["iv"] = "@jsx_expression",
+          -- ["ie"] = "@call.inner",
+          -- ["ae"] = "@call.outer",
+          -- ["ib"] = "@block.inner",
+          -- ["ab"] = "@block.outer",
           ["i<"] = "@conditional.inner",
           ["a<"] = "@conditional.outer",
-          ["il"] = "@loop.inner",
-          ["al"] = "@loop.outer",
           ["ip"] = "@parameter.inner",
           ["ap"] = "@parameter.outer",
           -- You can optionally set descriptions to the mappings (used in the desc parameter of
@@ -126,61 +134,50 @@ local function setupTextObjects()
       swap = {
         enable = true,
         swap_next = {
-          [">,"] = "@parameter.inner",
+          [">,"] = { query = { "@parameter.inner", "@import_specifier", "@jsx_attribute" } },
         },
         swap_previous = {
-          ["<,"] = "@parameter.inner",
+          ["<,"] = { query = { "@parameter.inner", "@import_specifier", "@jsx_attribute" } },
         },
       },
       move = {
         enable = true,
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
-          ["]f"] = "@function.outer",
-          ["]="] = "@assignment.outer",
-          ["]<"] = "@conditional.outer",
-          ["]p"] = "@parameter.outer",
-          ["]("] = "@call.outer",
-          ["]b"] = "@block.inner",
-          -- ["]]"] = { query = "@class.outer", desc = "Next class start" },
-          --
-          -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
-          -- ["]l"] = "@loop.*",
-          -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
-          --
-          -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-          -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-          -- ["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
-          -- ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
+          ["]e"] = "@expression.inner",
+          ["]a"] = "@assignment.outer",
+          -- ["]f"] = "@function.outer",
+          -- ["]<"] = "@conditional.outer",
+          -- ["]p"] = "@parameter.outer",
+          -- ["]("] = "@call.outer",
+          -- ["]b"] = "@block.inner",
         },
-        goto_next_end = {
-          ["]F"] = "@function.outer",
-          ["]B"] = "@block.inner",
-          -- ["]["] = "@class.outer",
-        },
+        -- goto_next_end = {
+        --   ["]F"] = "@function.outer",
+        --   ["]B"] = "@block.inner",
+        --   -- ["]["] = "@class.outer",
+        -- },
         goto_previous_start = {
-          ["[F"] = "@function.outer",
-          ["[="] = "@assignment.outer",
-          ["[<"] = "@conditional.outer",
-          ["[p"] = "@parameter.outer",
-          ["[("] = "@call.outer",
-          ["[b"] = "@block.inner",
+          ["[e"] = "@expression.inner",
+          ["[a"] = "@assignment.outer",
+          -- ["[f"] = "@function.outer",
+          -- ["[<"] = "@conditional.outer",
+          -- ["[p"] = "@parameter.outer",
+          -- ["[("] = "@call.outer",
+          -- ["[b"] = "@block.inner",
           -- ["[["] = "@class.outer",
         },
-        goto_previous_end = {
-          ["[F"] = "@function.outer",
-          ["[B"] = "@block.inner",
-          -- ["[]"] = "@class.outer",
-        },
-        -- Below will go to either the start or the end, whichever is closer.
-        -- Use if you want more granular movements
-        -- Make it even more gradual by adding multiple queries and regex.
-        goto_next = {
-          ["]d"] = "@conditional.outer",
-        },
-        goto_previous = {
-          ["[d"] = "@conditional.outer",
-        }
+        -- goto_previous_end = {
+        -- ["[F"] = "@function.outer",
+        -- ["[B"] = "@block.inner",
+        -- ["[]"] = "@class.outer",
+        -- },
+        -- goto_next = {
+        --   ["]d"] = "@conditional.outer",
+        -- },
+        -- goto_previous = {
+        --   ["[d"] = "@conditional.outer",
+        -- }
       },
     },
   }
@@ -389,11 +386,11 @@ local function setupNoice()
     },
     -- you can enable a preset for easier configuration
     presets = {
-      bottom_search = true, -- use a classic bottom cmdline for search
-      command_palette = true, -- position the cmdline and popupmenu together
+      bottom_search = true,         -- use a classic bottom cmdline for search
+      command_palette = true,       -- position the cmdline and popupmenu together
       long_message_to_split = true, -- long messages will be sent to a split
-      inc_rename = false, -- enables an input dialog for inc-rename.nvim
-      lsp_doc_border = false, -- add a border to hover docs and signature help
+      inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+      lsp_doc_border = false,       -- add a border to hover docs and signature help
     },
     -- https://github.com/folke/noice.nvim/issues/226
     views = {
