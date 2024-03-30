@@ -42,7 +42,13 @@
 
 ; import_specifier: import {a, b} from '123';
 ; [a] - import_specifier
-(import_specifier) @import_specifier
+(import_specifier) @swappable.inner
+
+; array items
+(array (_) @swappable.inner)
+
+; object items
+(object (_) @swappable.inner)
 
 ; expressions, just the ones we care about
 (binary_expression (_) @expression.inner) @expression.outer
@@ -53,9 +59,12 @@
 (object_pattern) @struct.inner
 
 ; function call name
-(call_expression function: (_) @func_name) @func_name.outer
+(call_expression function: (_) @call_name.inner) @call_name.outer
 
 ; function declaration name
-(function_declaration name: (_) @func_decl_name) @func_decl_name.outer
-(lexical_declaration (variable_declarator (_) @func_decl_name value: (arrow_function))) @func_decl_name.outer
-(variable_declaration (variable_declarator (_) @func_decl_name value: (arrow_function))) @func_decl_name.outer
+(function_declaration name: (_) @func_decl_name.inner) @func_decl_name.outer
+(lexical_declaration (variable_declarator (_) @func_decl_name.inner value: (arrow_function))) @func_decl_name.outer
+(variable_declaration (variable_declarator (_) @func_decl_name.inner value: (arrow_function))) @func_decl_name.outer
+
+; exports
+(export_statement) @export.outer

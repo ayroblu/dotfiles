@@ -51,6 +51,12 @@ set complete+=kspell " autocomplete includes the dictionary if enabled
 set signcolumn=yes
 set foldmethod=syntax
 set foldlevel=20
+augroup foldConfig
+  au!
+  au Filetype typescript setl foldlevel=0
+augroup END
+
+"set foldnestmax=1
 
 set updatetime=1000 "event when cursor stops moving for a second, for swp normally, but now is for checktime call below
 " Ignore case except when there atleast one capital, use \C for case sensitive

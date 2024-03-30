@@ -77,7 +77,7 @@ Setting up my mac
 Font
 ----
 
-I like Monaco, I think it's a good fixed width font but it doesn't support bold, italics. Clone and add to font book: git@github.com:cseelus/monego.git
+I like Monaco, I think it's a good fixed width font but it doesn't support bold, italics, and nerd fonts. Clone and add to font book: git@github.com:krfantasy/monego.git (based on git@github.com:cseelus/monego.git)
 
 Custom git setup
 ----------------

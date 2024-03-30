@@ -1,6 +1,17 @@
 local function setupCmp()
+  local lspkind = require('lspkind')
   local cmp = require 'cmp'
   cmp.setup({
+    formatting = {
+      format = lspkind.cmp_format({
+        mode = 'symbol_text',
+        maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+        -- can also be a function to dynamically calculate max width such as
+        -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+        ellipsis_char = '...',    -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+        show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+      })
+    },
     snippet = {
       expand = function(args)
         vim.fn["vsnip#anonymous"](args.body)
@@ -12,7 +23,7 @@ local function setupCmp()
     mapping = {
       ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
       ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
-      ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs( -4), { 'i', 'c' }),
+      ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
       ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
       ['<C-space>'] = cmp.mapping.complete(),
@@ -38,12 +49,12 @@ local function setupLsp()
 
   -- ln -s ~/ws/dotfiles/custom_lsp/stratols.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua
   if vim.loop.fs_stat(vim.env.HOME ..
-      '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua') then
+        '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua') then
     lspconfig.stratols.setup {}
   end
   -- ln -s ~/ws/dotfiles/custom_lsp/llama_ls.lua ~/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua
   if vim.loop.fs_stat(vim.env.HOME ..
-      '/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua') then
+        '/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua') then
     lspconfig.llama_ls.setup {}
   end
 

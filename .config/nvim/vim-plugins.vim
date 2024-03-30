@@ -13,6 +13,8 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 Plug 'chrisgrieser/nvim-various-textobjs'
 
+Plug 'onsails/lspkind.nvim'
+
 " Plug 'Dkendal/nvim-treeclimber'
 
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
@@ -20,6 +22,9 @@ Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 Plug 'stevearc/aerial.nvim'
+
+Plug 'kevinhwang91/promise-async'
+Plug 'kevinhwang91/nvim-ufo'
 
 Plug 'MunifTanjim/nui.nvim'
 " Plug 'folke/noice.nvim'

@@ -58,9 +58,9 @@ lua <<EOF
 require('plugins-setup')
 EOF
 set foldmethod=expr
-"set foldexpr=nvim_treesitter#foldexpr()
+set foldexpr=nvim_treesitter#foldexpr()
 "https://www.reddit.com/r/neovim/comments/seq0q1/plugin_request_autofolding_file_imports_using/
-set foldexpr=v:lnum==1?'>1':getline(v:lnum)=~'import'?1:nvim_treesitter#foldexpr()
+" set foldexpr=v:lnum==1?'>1':getline(v:lnum)=~'import'?1:nvim_treesitter#foldexpr()
 
 "function! GetLongestLineLength()
 "  let maxlength   = 0

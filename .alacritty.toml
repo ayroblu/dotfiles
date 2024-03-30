@@ -47,11 +47,11 @@ TERM = "xterm-256color"
 
 [font]
 # default is 11
-size = 13.0
+size = 12.0
 
 [font.normal]
 # family = Monaco
-family = "Monego Nerd Font Fix"
+family = "Monego Nerd Font"
 
 [window]
 decorations = "none"

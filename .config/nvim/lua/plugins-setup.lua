@@ -48,9 +48,38 @@ local function setupTreeSitter()
     },
   }
   vim.treesitter.language.register('typescript', { 'javascriptflow' })
+
+  require('ufo').setup({
+    provider_selector = function(bufnr, filetype, buftype)
+      return { 'treesitter', 'indent' }
+    end
+  })
+  vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+  vim.o.foldcolumn = '1'
 end
 
 pcall(setupTreeSitter)
+
+-- Don't fold everything
+-- https://github.com/nvim-treesitter/nvim-treesitter/discussions/1513
+local treesitter_parsers = require('nvim-treesitter.parsers')
+
+if treesitter_parsers.has_parser "typescript" then
+  -- Note we don't fold (export_statement) because these are "important"
+  local folds_query = [[
+    (program [
+      (function_declaration)
+      (class_declaration)
+      (method_definition)
+    ] @fold)
+
+    ((import_statement)+ @fold)
+  ]]
+
+  require("vim.treesitter.query").set("typescript", "folds", folds_query)
+  -- require("vim.treesitter.query").set("tsx", "folds", folds_query)
+end
+
 
 local function setupTextObjects()
   -- example: `as` for outer subword, `is` for inner subword
@@ -90,11 +119,12 @@ local function setupTextObjects()
           ["ae"] = "@expression.outer",
           ["io"] = "@struct.inner",
           ["ao"] = "@struct.outer",
-          ["in"] = "@func_name",
-          ["an"] = "@func_decl_name",
-          ["iv"] = "@jsx_expression",
-          -- ["ie"] = "@call.inner",
-          -- ["ae"] = "@call.outer",
+          ["ic"] = "@call_name.inner",
+          ["ac"] = "@call_name.outer",
+          ["in"] = "@func_decl_name.inner",
+          ["an"] = "@func_decl_name.outer",
+          -- ["ic"] = "@call.inner",
+          -- ["ac"] = "@call.outer",
           -- ["ib"] = "@block.inner",
           -- ["ab"] = "@block.outer",
           ["i<"] = "@conditional.inner",
@@ -134,10 +164,10 @@ local function setupTextObjects()
       swap = {
         enable = true,
         swap_next = {
-          [">,"] = { query = { "@parameter.inner", "@import_specifier", "@jsx_attribute" } },
+          [">,"] = { query = { "@swappable.inner", "@parameter.inner" } },
         },
         swap_previous = {
-          ["<,"] = { query = { "@parameter.inner", "@import_specifier", "@jsx_attribute" } },
+          ["<,"] = { query = { "@swappable.inner", "@parameter.inner" } },
         },
       },
       move = {
@@ -146,6 +176,7 @@ local function setupTextObjects()
         goto_next_start = {
           ["]e"] = "@expression.inner",
           ["]a"] = "@assignment.outer",
+          ["]o"] = "@export.outer",
           -- ["]f"] = "@function.outer",
           -- ["]<"] = "@conditional.outer",
           -- ["]p"] = "@parameter.outer",
@@ -160,6 +191,7 @@ local function setupTextObjects()
         goto_previous_start = {
           ["[e"] = "@expression.inner",
           ["[a"] = "@assignment.outer",
+          ["[o"] = "@export.outer",
           -- ["[f"] = "@function.outer",
           -- ["[<"] = "@conditional.outer",
           -- ["[p"] = "@parameter.outer",
