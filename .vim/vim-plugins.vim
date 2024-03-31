@@ -1,14 +1,16 @@
 " === Theme
-Plug 'overcache/NeoSolarized'
-let g:neosolarized_italic = 1
-if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+if has('nvim')
+  Plug 'ishan9299/nvim-solarized-lua'
+else
+  " For termguicolors
+  if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  endif
+  Plug 'altercation/vim-colors-solarized'
+  "autocmd BufReadPost <buffer> hi MatchParen cterm=bold,underline ctermbg=none ctermfg=red
+  " silent! colorscheme solarized
 endif
-" silent! colorscheme NeoSolarized
-Plug 'altercation/vim-colors-solarized'
-"autocmd BufReadPost <buffer> hi MatchParen cterm=bold,underline ctermbg=none ctermfg=red
-" silent! colorscheme solarized
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'

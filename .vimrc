@@ -69,11 +69,15 @@ if !exists('$VIM_VERY_FAST')
   else
     " Copy paste of what's in vim-plugins.vim
     call plug#begin()
-    Plug 'overcache/NeoSolarized'
-    let g:neosolarized_italic = 1
-    if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
-      let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-      let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    if has('nvim')
+      Plug 'ishan9299/nvim-solarized-lua'
+    else
+      " For termguicolors
+      if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+      endif
+      Plug 'altercation/vim-colors-solarized'
     endif
 
     Plug 'vim-airline/vim-airline'
@@ -114,7 +118,7 @@ if has('nvim')
       set termguicolors
     endif
     set background=light
-    silent! colorscheme NeoSolarized
+    silent! colorscheme solarized
     " we want vim to follow terminal background
     hi Normal guibg=NONE
   endif

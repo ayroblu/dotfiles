@@ -59,6 +59,8 @@ require('plugins-setup')
 EOF
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
+" https://github.com/neovim/neovim/issues/28132
+" set foldexpr="v:lua.vim.treesitter.foldexpr()"
 "https://www.reddit.com/r/neovim/comments/seq0q1/plugin_request_autofolding_file_imports_using/
 " set foldexpr=v:lnum==1?'>1':getline(v:lnum)=~'import'?1:nvim_treesitter#foldexpr()
 
