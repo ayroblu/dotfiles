@@ -36,6 +36,20 @@
   (#make-range! "assign_left_outer" @_start @_end))
 (object (pair key: (_) _ @_start value: (_) @_end) @assign_right_outer.outer
   (#make-range! "assign_right_outer" @_start @_end))
+(object (pair) @assign.outer)
+
+; types
+(object_type
+  (property_signature
+    name: (_) @assign_left.inner @assignment.inner
+    type: (_) @assign_right.inner))
+(object_type (property_signature) @assign_left.outer @assign_right.outer)
+(object_type (property_signature name: (_) @_start _ @_end type: (_)) @assign_left_outer.outer
+  (#make-range! "assign_left_outer" @_start @_end))
+(object_type (property_signature name: (_) _ @_start type: (_) @_end) @assign_right_outer.outer
+  (#make-range! "assign_right_outer" @_start @_end))
+(object_type (property_signature) @_start @_end [";" ","]? @_end
+  (#make-range! "assign.outer" @_start @_end))
 
 (lexical_declaration) @assign.outer @assign_left.outer @assign_right.outer @assign_left_outer.outer @assign_right_outer.outer
 (variable_declaration) @assign.outer @assign_left.outer @assign_right.outer @assign_left_outer.outer @assign_right_outer.outer

@@ -51,10 +51,10 @@ set complete+=kspell " autocomplete includes the dictionary if enabled
 set signcolumn=yes
 set foldmethod=syntax
 set foldlevel=20
-augroup foldConfig
-  au!
-  au Filetype typescript setl foldlevel=0
-augroup END
+" augroup foldConfig
+"   au!
+"   au Filetype typescript setl foldlevel=0
+" augroup END
 
 "set foldnestmax=1
 
