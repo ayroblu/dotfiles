@@ -350,7 +350,7 @@ autocmd BufNewFile,BufRead coc-settings.json setl ft=jsonc
 autocmd BufNewFile,BufRead vscode_settings.json setl ft=jsonc
 
 " custom flow type
-au BufRead * if join(getline(0, 3)) =~ '@flow' | setlocal ft=javascriptflow syntax=javascript | endif
+au BufRead * if join(getline(0, 10)) =~ '@flow' | setlocal ft=javascriptflow syntax=javascript | endif
 
 autocmd BufNewFile,BufRead *.flow setl ft=javascriptflow
 autocmd FileType javascriptflow set syntax=javascript
@@ -400,8 +400,8 @@ function! s:RelGitRevPath()
 endfunction
 
 " Insert single character
-" nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
-" nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
+nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
+nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
 
 nnoremap ZS :w<cr>
 " quit vim all

@@ -26,6 +26,8 @@ Plug 'stevearc/aerial.nvim'
 Plug 'kevinhwang91/promise-async'
 Plug 'kevinhwang91/nvim-ufo'
 
+Plug 'petertriho/nvim-scrollbar'
+
 Plug 'MunifTanjim/nui.nvim'
 " Plug 'folke/noice.nvim'
 
