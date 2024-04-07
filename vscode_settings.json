@@ -415,5 +415,6 @@
   "flow.showUncovered": true,
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "editor.inlineSuggest.suppressSuggestions": true
 }

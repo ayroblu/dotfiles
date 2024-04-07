@@ -56,17 +56,30 @@
 
 ; import_specifier: import {a, b} from '123';
 ; [a] - import_specifier
-(import_specifier) @swappable.inner
+(import_specifier) @parameter.inner
+(named_imports (import_specifier) @parameter.inner)
+(named_imports (import_specifier) @parameter.inner "," @_end
+ (#make-range! "parameter.outer" @parameter.inner @_end))
+(named_imports "," @_start (import_specifier) @_end
+ (#make-range! "parameter.outer" @_start @_end))
+
+(required_parameter) @parameter.inner
 
 ; array items
-(array (_) @swappable.inner)
+(array (_) @parameter.inner)
+(array (_) @_start "," @_end
+ (#make-range! "parameter.outer" @_start @_end))
+(array "," @_start (_) @_end
+ (#make-range! "parameter.outer" @_start @_end))
 
 ; object items
-(object (_) @swappable.inner)
+(object (_) @parameter.inner)
 
 ; expressions, just the ones we care about
 (binary_expression (_) @expression.inner) @expression.outer
 (type_annotation (_) @expression.inner) @expression.outer
+(pair_pattern _ @_start value: (_) @expression.inner
+  (#make-range! "expression.outer" @_start @expression.inner))
 
 ; objects (structs)
 (object) @struct.inner

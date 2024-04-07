@@ -47,7 +47,7 @@ local function setupTreeSitter()
       additional_vim_regex_highlighting = false,
     },
   }
-  vim.treesitter.language.register('typescript', { 'javascriptflow' })
+  vim.treesitter.language.register('tsx', { 'javascriptflow' })
 
   require('ufo').setup({
     provider_selector = function(bufnr, filetype, buftype)
@@ -131,6 +131,7 @@ local function setupTextObjects()
           ["a<"] = "@conditional.outer",
           ["ip"] = "@parameter.inner",
           ["ap"] = "@parameter.outer",
+
           -- You can optionally set descriptions to the mappings (used in the desc parameter of
           -- nvim_buf_set_keymap) which plugins like which-key display
           -- ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
@@ -418,11 +419,11 @@ local function setupNoice()
     },
     -- you can enable a preset for easier configuration
     presets = {
-      bottom_search = true,         -- use a classic bottom cmdline for search
-      command_palette = true,       -- position the cmdline and popupmenu together
+      bottom_search = true, -- use a classic bottom cmdline for search
+      command_palette = true, -- position the cmdline and popupmenu together
       long_message_to_split = true, -- long messages will be sent to a split
-      inc_rename = false,           -- enables an input dialog for inc-rename.nvim
-      lsp_doc_border = false,       -- add a border to hover docs and signature help
+      inc_rename = false, -- enables an input dialog for inc-rename.nvim
+      lsp_doc_border = false, -- add a border to hover docs and signature help
     },
     -- https://github.com/folke/noice.nvim/issues/226
     views = {
