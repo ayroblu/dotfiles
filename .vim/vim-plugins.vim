@@ -654,9 +654,9 @@ Plug 'mattn/emmet-vim'
 " cin) - change in next parens, doesn't need to be inside
 " cil) - change in last parens, doesn't need to be inside
 
-"Plug 'bkad/CamelCaseMotion'
+Plug 'bkad/CamelCaseMotion'
 " Use , as camel case word object: i.e. ci,w
-let g:camelcasemotion_key = ','
+" let g:camelcasemotion_key = ','
 nnoremap <silent> ∑ <Plug>CamelCaseMotion_w
 nnoremap <silent> ∫ <Plug>CamelCaseMotion_b
 vnoremap <silent> ∑ <Plug>CamelCaseMotion_w

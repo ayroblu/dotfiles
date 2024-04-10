@@ -4,16 +4,16 @@
 ; [const a =] - outer
 (lexical_declaration
   _ @_start . (variable_declarator name: (_) @_end)
-  (#make-range! "assign_left.inner" @_start @_end))
+  (#make-range! "assign_left.inner" @_start @_end)) @assign_left.outer
 (variable_declaration
   _ @_start . (variable_declarator name: (_) @_end)
-  (#make-range! "assign_left.inner" @_start @_end))
+  (#make-range! "assign_left.inner" @_start @_end)) @assign_left.outer
 (lexical_declaration
   _ @_start . (variable_declarator  _ _ @_end . value: _)
-  (#make-range! "assign_left_outer" @_start @_end))
+  (#make-range! "assign_left_outer" @_start @_end)) @assign_left_outer.outer
 (variable_declaration
   _ @_start . (variable_declarator  _ _ @_end . value: _)
-  (#make-range! "assign_left_outer" @_start @_end))
+  (#make-range! "assign_left_outer" @_start @_end)) @assign_left_outer.outer
 
 (lexical_declaration
   (variable_declarator value: _ @_start) _ @_end
@@ -65,6 +65,10 @@
 
 (required_parameter) @parameter.inner
 
+; const { a, b } = value;
+; [a] - param
+(object_pattern (_) @parameter.inner)
+
 ; array items
 (array (_) @parameter.inner)
 (array (_) @_start "," @_end
@@ -92,6 +96,10 @@
 (function_declaration name: (_) @func_decl_name.inner) @func_decl_name.outer
 (lexical_declaration (variable_declarator (_) @func_decl_name.inner value: (arrow_function))) @func_decl_name.outer
 (variable_declaration (variable_declarator (_) @func_decl_name.inner value: (arrow_function))) @func_decl_name.outer
+
+; function parameters
+(arrow_function parameters: (_) @func_params.inner) @func_params.outer
+(function_declaration parameters: (_) @func_params.inner) @func_params.outer
 
 ; exports
 (export_statement) @export.outer

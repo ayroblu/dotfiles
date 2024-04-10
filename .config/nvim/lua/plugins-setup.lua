@@ -77,7 +77,7 @@ if treesitter_parsers.has_parser "typescript" then
   ]]
 
   require("vim.treesitter.query").set("typescript", "folds", folds_query)
-  -- require("vim.treesitter.query").set("tsx", "folds", folds_query)
+  require("vim.treesitter.query").set("tsx", "folds", folds_query)
 end
 
 
@@ -123,6 +123,7 @@ local function setupTextObjects()
           ["ac"] = "@call_name.outer",
           ["in"] = "@func_decl_name.inner",
           ["an"] = "@func_decl_name.outer",
+          ["ii"] = "@func_params.inner",
           -- ["ic"] = "@call.inner",
           -- ["ac"] = "@call.outer",
           -- ["ib"] = "@block.inner",
@@ -178,33 +179,35 @@ local function setupTextObjects()
           ["]e"] = "@expression.inner",
           ["]a"] = "@assignment.outer",
           ["]o"] = "@export.outer",
-          -- ["]f"] = "@function.outer",
+          ["]i"] = "@func_params.inner",
+          ["]f"] = "@function.outer",
           -- ["]<"] = "@conditional.outer",
           -- ["]p"] = "@parameter.outer",
           -- ["]("] = "@call.outer",
           -- ["]b"] = "@block.inner",
         },
-        -- goto_next_end = {
-        --   ["]F"] = "@function.outer",
-        --   ["]B"] = "@block.inner",
-        --   -- ["]["] = "@class.outer",
-        -- },
+        goto_next_end = {
+          ["]F"] = "@function.outer",
+          ["]B"] = "@block.inner",
+          -- ["]["] = "@class.outer",
+        },
         goto_previous_start = {
           ["[e"] = "@expression.inner",
           ["[a"] = "@assignment.outer",
           ["[o"] = "@export.outer",
-          -- ["[f"] = "@function.outer",
+          ["[i"] = "@func_params.inner",
+          ["[f"] = "@function.outer",
           -- ["[<"] = "@conditional.outer",
           -- ["[p"] = "@parameter.outer",
           -- ["[("] = "@call.outer",
           -- ["[b"] = "@block.inner",
           -- ["[["] = "@class.outer",
         },
-        -- goto_previous_end = {
-        -- ["[F"] = "@function.outer",
-        -- ["[B"] = "@block.inner",
-        -- ["[]"] = "@class.outer",
-        -- },
+        goto_previous_end = {
+          ["[F"] = "@function.outer",
+          ["[B"] = "@block.inner",
+          -- ["[]"] = "@class.outer",
+        },
         -- goto_next = {
         --   ["]d"] = "@conditional.outer",
         -- },
