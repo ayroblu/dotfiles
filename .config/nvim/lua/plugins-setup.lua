@@ -21,7 +21,7 @@ local function setupTreeSitter()
     ensure_installed = {
       "javascript", "typescript", "tsx", "graphql", "vim", "lua", "sql",
       "scala", "python", "markdown", "markdown_inline", "css", "bash",
-      "swift", "regex"
+      "swift", "regex", "starlark"
     },
 
     -- Install languages synchronously (only applied to `ensure_installed`)
@@ -54,8 +54,13 @@ local function setupTreeSitter()
       return { 'treesitter', 'indent' }
     end
   })
+  vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+  vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
   vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
   vim.o.foldcolumn = '1'
+  vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+  vim.o.foldlevelstart = 99
+  vim.o.foldenable = true
 end
 
 pcall(setupTreeSitter)
@@ -71,7 +76,12 @@ if treesitter_parsers.has_parser "typescript" then
       (function_declaration)
       (class_declaration)
       (method_definition)
+      (export_statement)
+      (lexical_declaration)
+      (variable_declaration)
+      (type_alias_declaration)
     ] @fold)
+    (class_declaration (class_body (_) @fold))
 
     ((import_statement)+ @fold)
   ]]

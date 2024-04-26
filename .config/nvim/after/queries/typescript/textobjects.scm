@@ -14,6 +14,14 @@
 (variable_declaration
   _ @_start . (variable_declarator  _ _ @_end . value: _)
   (#make-range! "assign_left_outer" @_start @_end)) @assign_left_outer.outer
+(expression_statement
+  (assignment_expression
+    left: (_) @assign_left.inner
+    right: (_) @assign_right.inner)) @assign_left.outer
+(expression_statement
+  (assignment_expression
+    left: (_) @_start _ @_end)
+  (#make-range! "assign_left_outer" @_start @_end)) @assign_left_outer.outer
 
 (lexical_declaration
   (variable_declarator value: _ @_start) _ @_end
@@ -24,6 +32,10 @@
 (lexical_declaration
   (variable_declarator (_) _ @_start value: (_)) _ @_end
   (#make-range! "assign_right_outer" @_start @_end))
+(expression_statement
+  (assignment_expression
+    _ @_start right: (_) @_end)
+  (#make-range! "assign_right_outer" @_start @_end)) @assign_right_outer.outer
 
 ; { key: value }
 ; [key] - left
