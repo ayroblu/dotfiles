@@ -84,12 +84,19 @@ if treesitter_parsers.has_parser "typescript" then
     (class_declaration (class_body (_) @fold))
 
     ((import_statement)+ @fold)
+
+    ; tests only
+    ((call_expression . function: (_) @variable.builtin (_) .)
+      (#eq? @variable.builtin "describe")) @fold
+    ((call_expression . function: (_) @variable.builtin (_) .)
+      (#eq? @variable.builtin "it")) @fold
+    ((call_expression . function: (_) @variable.builtin (_) .)
+      (#eq? @variable.builtin "test")) @fold
   ]]
 
   require("vim.treesitter.query").set("typescript", "folds", folds_query)
   require("vim.treesitter.query").set("tsx", "folds", folds_query)
 end
-
 
 local function setupTextObjects()
   -- example: `as` for outer subword, `is` for inner subword
@@ -224,6 +231,17 @@ local function setupTextObjects()
         -- goto_previous = {
         --   ["[d"] = "@conditional.outer",
         -- }
+      },
+    },
+    textsubjects = {
+      -- I don't love this, but . to select surrounding scope is kinda useful
+      enable = true,
+      prev_selection = ',', -- (Optional) keymap to select the previous selection
+      keymaps = {
+        ['.'] = 'textsubjects-smart',
+        -- [';'] = 'textsubjects-container-outer',
+        -- ['i;'] = 'textsubjects-container-inner',
+        -- ['i;'] = { 'textsubjects-container-inner', desc = "Select inside containers (classes, functions, etc.)" },
       },
     },
   }
@@ -432,11 +450,11 @@ local function setupNoice()
     },
     -- you can enable a preset for easier configuration
     presets = {
-      bottom_search = true, -- use a classic bottom cmdline for search
-      command_palette = true, -- position the cmdline and popupmenu together
+      bottom_search = true,         -- use a classic bottom cmdline for search
+      command_palette = true,       -- position the cmdline and popupmenu together
       long_message_to_split = true, -- long messages will be sent to a split
-      inc_rename = false, -- enables an input dialog for inc-rename.nvim
-      lsp_doc_border = false, -- add a border to hover docs and signature help
+      inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+      lsp_doc_border = false,       -- add a border to hover docs and signature help
     },
     -- https://github.com/folke/noice.nvim/issues/226
     views = {
