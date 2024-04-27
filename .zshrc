@@ -1,4 +1,5 @@
 #echo "zshrc loading..."
+# zsh -l --sourcetrace
 get-time() {
   perl -MTime::HiRes=time -e 'printf "%.3f\n", time'
 }
@@ -6,7 +7,7 @@ get-time() {
 TIMER_INIT=$(get-time)
 TIMER=()
 TIMER_NAMES=()
-#SKIP_TIMER=1
+SKIP_TIMER=1
 
 append-time() {
   if [ -n "$RUN" ] || [ -n "$SKIP_TIMER" ]; then
@@ -15,24 +16,26 @@ append-time() {
   local name="$1"
   TIMER_NAMES+=("$name")
   TIMER+=($(get-time))
-  #echo "$name"
 }
 print-time() {
   if [ -n "$RUN" ] || [ -n "$SKIP_TIMER" ]; then
     return
   fi
-  if ((TIMER[-1]-TIMER_INIT<1)); then return; fi
+  # skip if less than 1s
+  # if ((TIMER[-1]-TIMER_INIT<1)); then return; fi
 
   local arraylength=${#TIMER[@]}
   local diff
   local previous=$TIMER_INIT
 
   for (( i=1; i<=${arraylength}; i++ )); do
-    since_start=$(printf "%.2f" $((TIMER[$i]-TIMER_INIT)))
-    diff=$(printf "%.2f" $((TIMER[$i]-previous)))
+    since_start=$(printf "%.3f" $((TIMER[$i]-TIMER_INIT)))
+    diff=$(printf "%.3f" $((TIMER[$i]-previous)))
     echo "${since_start}s\t+${diff}s\t${TIMER_NAMES[$i]}"
     previous="${TIMER[$i]}"
   done
+  since_start=$(printf "%.3f" $(($(get-time)-TIMER_INIT)))
+  echo "${since_start}s\tTotal"
 }
 # benchmark with: for i in $(seq 1 10); do /usr/bin/time /bin/zsh -d -i -c exit; done
 #   -f to run without .zshrc

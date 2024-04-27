@@ -1,6 +1,6 @@
 ZPLUG_DIR="$HOME/.zsh-plugins"
 zplug-prep() {
-  mkdir -p "$ZPLUG_DIR"
+  [ ! -d "$ZPLUG_DIR" ] && mkdir "$ZPLUG_DIR"
 }
 zplug() {
   local name=$(echo "$1" | awk -F'/' '{print $2}')

@@ -26,6 +26,7 @@ get_git_color() {
 }
 get_git() {
   local ref
+  # the main cost of this file is evaluating the git refs: 15ms
   ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
   ref=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
   echo "$(get_git_color){${ref#refs/heads/}}%{$reset_color%}"

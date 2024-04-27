@@ -65,7 +65,10 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 zstyle :compinstall filename ~'/.zshrc'
 fpath=(~/.zsh/completion $fpath)
 
-# NOTE: costs 0.14s
-autoload -Uz compinit && compinit
-# End of lines added by compinstall
 
+# autoload -Uz compinit && compinit
+# https://gist.github.com/ctechols/ca1035271ad134841284?permalink_comment_id=4842464#gistcomment-4842464
+# saves 0.015s
+autoload -Uz compinit && compinit -C  # Use cache to reduce startup time by ~0.1s
+# Have another thread refresh the cache in the background (subshell to hide output)
+(autoload -Uz compinit && compinit &)
