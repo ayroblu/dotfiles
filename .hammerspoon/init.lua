@@ -138,7 +138,7 @@ end
 -- for laptop plus two external monitors, this is Alacritty on screen 1, Chrome etc screen 2, slack on laptop
 local function layoutSimple()
     -- get all windows, move everything to space 2 except alacritty, and slack
-    local screen1List = { "alacritty" }
+    local screen1List = { "alacritty", "Alacritty" }
     local smallScreenList = { "Slack" }
     local maximizeAppList = { "Chrome" }
     local wf = hs.window.filter.new():setOverrideFilter { fullscreen = false }
@@ -196,7 +196,7 @@ hs.hotkey.bind({ "shift", "alt", "ctrl" }, "f17", moveMouse)
 local function reloadConfig(files)
     local doReload = false
     for _, file in pairs(files) do
-        if file:sub( -4) == ".lua" then
+        if file:sub(-4) == ".lua" then
             doReload = true
         end
     end
