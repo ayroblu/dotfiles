@@ -23,7 +23,7 @@ local function setupCmp()
     mapping = {
       ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
       ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
-      ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs( -4), { 'i', 'c' }),
+      ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
       ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
       ['<C-space>'] = cmp.mapping.complete(),
@@ -50,12 +50,12 @@ local function setupLsp()
 
   -- ln -s ~/ws/dotfiles/custom_lsp/stratols.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua
   if vim.loop.fs_stat(vim.env.HOME ..
-      '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua') then
+        '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua') then
     lspconfig.stratols.setup {}
   end
   -- ln -s ~/ws/dotfiles/custom_lsp/llama_ls.lua ~/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua
   if vim.loop.fs_stat(vim.env.HOME ..
-      '/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua') then
+        '/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua') then
     lspconfig.llama_ls.setup {}
   end
 
@@ -238,6 +238,9 @@ local function setupLsp()
       ['rust-analyzer'] = {},
     },
   }
+
+  -- curl -OL https://get.bzl.io/darwin_amd64/bzl && chmod +x ./bzl
+  lspconfig.bzl.setup {}
 
   -- npm install -g svelte-language-server
   lspconfig.svelte.setup {}
