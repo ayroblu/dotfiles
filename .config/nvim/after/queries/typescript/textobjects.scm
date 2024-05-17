@@ -37,6 +37,19 @@
     _ @_start right: (_) @_end)
   (#make-range! "assign_right_outer" @_start @_end)) @assign_right_outer.outer
 
+; type a = b
+(type_alias_declaration
+  name: (_) @assignment.inner)
+(type_alias_declaration
+  _ @_start
+  name: (_) @_name
+  _ @_op
+  value: (_) @assign_right.inner @assignment.inner
+  (#make-range! "assign_left.inner" @_start @_name)
+  (#make-range! "assign_left_outer" @_start @_op)
+  (#make-range! "assign_right_outer" @_op @assign_right.inner)
+) @assign_left_outer.outer @assign_right_outer.outer
+
 ; { key: value }
 ; [key] - left
 (object
@@ -75,6 +88,9 @@
 (named_imports "," @_start (import_specifier) @_end
  (#make-range! "parameter.outer" @_start @_end))
 
+; Generics
+(type_arguments (_) @parameter.inner)
+
 (required_parameter) @parameter.inner
 
 ; const { a, b } = value;
@@ -100,6 +116,7 @@
 ; objects (structs)
 (object) @struct.inner
 (object_pattern) @struct.inner
+(object_type) @struct.inner
 
 ; function call name
 (call_expression function: (_) @call_name.inner) @call_name.outer

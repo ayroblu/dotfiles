@@ -233,17 +233,17 @@ local function setupTextObjects()
         -- }
       },
     },
-    textsubjects = {
-      -- I don't love this, but . to select surrounding scope is kinda useful
-      enable = true,
-      prev_selection = ',', -- (Optional) keymap to select the previous selection
-      keymaps = {
-        ['.'] = 'textsubjects-smart',
-        -- [';'] = 'textsubjects-container-outer',
-        -- ['i;'] = 'textsubjects-container-inner',
-        -- ['i;'] = { 'textsubjects-container-inner', desc = "Select inside containers (classes, functions, etc.)" },
-      },
-    },
+    -- textsubjects = {
+    --   -- I don't love this, but . to select surrounding scope is kinda useful
+    --   enable = true,
+    --   prev_selection = ',', -- (Optional) keymap to select the previous selection
+    --   keymaps = {
+    --     ['.'] = 'textsubjects-smart',
+    --     -- [';'] = 'textsubjects-container-outer',
+    --     -- ['i;'] = 'textsubjects-container-inner',
+    --     -- ['i;'] = { 'textsubjects-container-inner', desc = "Select inside containers (classes, functions, etc.)" },
+    --   },
+    -- },
   }
 
   local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
@@ -276,45 +276,45 @@ end
 
 pcall(setupTextObjects)
 
--- local function setupTreeClimber()
---   local tc = require('nvim-treeclimber')
---   -- tc.setup()
---   vim.keymap.set(
---     { "n", "x", "o" },
---     "©" --[[ <M-g> ]],
---     tc.select_top_level,
---     { desc = "select the top level node from the current position" }
---   )
---   vim.keymap.set({ "n", "x", "o" }, "“" --[[ <M-[> ]], tc.select_siblings_backward, {})
---   vim.keymap.set({ "n", "x", "o" }, "‘" --[[ <M-]> ]], tc.select_siblings_forward, {})
---   vim.keymap.set({ "n", "x", "o" }, "˙" --[[ <M-h> ]], tc.select_backward, { desc = "select previous node" })
---   vim.keymap.set({ "n", "x", "o" }, "∆" --[[ <M-j> ]], tc.select_shrink, { desc = "select child node" })
---   vim.keymap.set({ "n", "x", "o" }, "˚" --[[ <M-k> ]], tc.select_expand, { desc = "select parent node" })
---   vim.keymap.set({ "n", "x", "o" }, "¬" --[[ <M-l> ]], tc.select_forward, { desc = "select the next node" })
---   vim.keymap.set({ "n", "x", "o" }, "Ò" --[[ <M-S-l> ]], tc.select_grow_forward,
---     { desc = "Add the next node to the selection" })
---   vim.keymap.set({ "n", "x", "o" }, "Ó" --[[ <M-S-h> ]], tc.select_grow_backward,
---     { desc = "Add the next node to the selection" })
---
---
---   vim.keymap.set({ "x", "o" }, "i.", tc.select_current_node, { desc = "select current node" })
---   vim.keymap.set({ "x", "o" }, "a.", tc.select_expand, { desc = "select parent node" })
---   vim.keymap.set(
---     { "n", "x", "o" },
---     "´" --[[ <M-e> ]],
---     tc.select_forward_end,
---     { desc = "select and move to the end of the node, or the end of the next node" }
---   )
---   vim.keymap.set(
---     { "n", "x", "o" },
---     "∫" --[[ <M-b> ]],
---     tc.select_backward,
---     { desc = "select and move to the begining of the node, or the beginning of the next node" }
---   )
--- end
+local function setupTreeClimber()
+  local tc = require('nvim-treeclimber')
+  -- tc.setup()
+  vim.keymap.set(
+    { "n", "x", "o" },
+    "©" --[[ <M-g> ]],
+    tc.select_top_level,
+    { desc = "select the top level node from the current position" }
+  )
+  vim.keymap.set({ "n", "x", "o" }, "“" --[[ <M-[> ]], tc.select_siblings_backward, {})
+  vim.keymap.set({ "n", "x", "o" }, "‘" --[[ <M-]> ]], tc.select_siblings_forward, {})
+  vim.keymap.set({ "n", "x", "o" }, "˙" --[[ <M-h> ]], tc.select_backward, { desc = "select previous node" })
+  vim.keymap.set({ "n", "x", "o" }, "∆" --[[ <M-j> ]], tc.select_shrink, { desc = "select child node" })
+  vim.keymap.set({ "n", "x", "o" }, "˚" --[[ <M-k> ]], tc.select_expand, { desc = "select parent node" })
+  vim.keymap.set({ "n", "x", "o" }, "¬" --[[ <M-l> ]], tc.select_forward, { desc = "select the next node" })
+  vim.keymap.set({ "n", "x", "o" }, "Ò" --[[ <M-S-l> ]], tc.select_grow_forward,
+    { desc = "Add the next node to the selection" })
+  vim.keymap.set({ "n", "x", "o" }, "Ó" --[[ <M-S-h> ]], tc.select_grow_backward,
+    { desc = "Add the next node to the selection" })
+
+
+  vim.keymap.set({ "x", "o" }, "i.", tc.select_current_node, { desc = "select current node" })
+  vim.keymap.set({ "x", "o" }, "a.", tc.select_expand, { desc = "select parent node" })
+  vim.keymap.set(
+    { "n", "x", "o" },
+    "´" --[[ <M-e> ]],
+    tc.select_forward_end,
+    { desc = "select and move to the end of the node, or the end of the next node" }
+  )
+  vim.keymap.set(
+    { "n", "x", "o" },
+    "∫" --[[ <M-b> ]],
+    tc.select_backward,
+    { desc = "select and move to the begining of the node, or the beginning of the next node" }
+  )
+end
 
 -- this is cool and all, but it doesn't quite work the way I would like
--- setupTreeClimber()
+pcall(setupTreeClimber)
 
 local function setupAerial()
   require('aerial').setup({

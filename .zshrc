@@ -18,8 +18,11 @@ append-time() {
   TIMER+=($(get-time))
 }
 print-time() {
-  if [ -n "$RUN" ] || [ -n "$SKIP_TIMER" ]; then
+  if [ -n "$SKIP_DEFERRED" ]; then
     return
+  fi
+  if [ -n "$RUN" ] || [ -n "$SKIP_TIMER" ]; then
+    # return
   fi
   # skip if less than 1s
   # if ((TIMER[-1]-TIMER_INIT<1)); then return; fi

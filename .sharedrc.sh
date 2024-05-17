@@ -60,6 +60,8 @@ alias cdw='cd'
 alias cdws='cd'
 alias clearall="clear && printf '\e[3J'"
 
+alias ibazel='ibazel -run_output=false'
+
 # Rosetta prefix
 alias r="arch -arm64"
 

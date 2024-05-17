@@ -11,13 +11,13 @@ augroup END
 
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
-Plug 'rrethy/nvim-treesitter-textsubjects'
+" Plug 'rrethy/nvim-treesitter-textsubjects'
 
 Plug 'chrisgrieser/nvim-various-textobjs'
 
 Plug 'onsails/lspkind.nvim'
 
-" Plug 'Dkendal/nvim-treeclimber'
+Plug 'Dkendal/nvim-treeclimber'
 
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 
