@@ -111,6 +111,7 @@ local function setupTextObjects()
 
   -- vim.keymap.set({ "o", "x" }, "gc", "<cmd>lua require('various-textobjs').multiCommentedLines()<CR>")
 
+  ---@diagnostic disable-next-line: missing-fields
   require 'nvim-treesitter.configs'.setup {
     textobjects = {
       select = {
@@ -145,8 +146,8 @@ local function setupTextObjects()
           -- ["ac"] = "@call.outer",
           -- ["ib"] = "@block.inner",
           -- ["ab"] = "@block.outer",
-          ["i<"] = "@conditional.inner",
-          ["a<"] = "@conditional.outer",
+          -- ["i<"] = "@conditional.inner",
+          -- ["a<"] = "@conditional.outer",
           ["ip"] = "@parameter.inner",
           ["ap"] = "@parameter.outer",
 
