@@ -416,5 +416,6 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.inlineSuggest.suppressSuggestions": true
+  "editor.inlineSuggest.suppressSuggestions": true,
+  "bazel.lsp.command": "bazel-lsp"
 }

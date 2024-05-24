@@ -53,6 +53,12 @@ local function setupLsp()
         '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua') then
     lspconfig.stratols.setup {}
   end
+
+  -- ln -s ~/ws/dotfiles/custom_lsp/bazel_lsp.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/bazel_lsp.lua
+  if vim.loop.fs_stat(vim.env.HOME ..
+        '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/bazel_lsp.lua') then
+    lspconfig.bazel_lsp.setup {}
+  end
   -- ln -s ~/ws/dotfiles/custom_lsp/llama_ls.lua ~/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua
   if vim.loop.fs_stat(vim.env.HOME ..
         '/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua') then
@@ -238,9 +244,6 @@ local function setupLsp()
       ['rust-analyzer'] = {},
     },
   }
-
-  -- curl -OL https://get.bzl.io/darwin_amd64/bzl && chmod +x ./bzl
-  lspconfig.bzl.setup {}
 
   -- npm install -g svelte-language-server
   lspconfig.svelte.setup {}
