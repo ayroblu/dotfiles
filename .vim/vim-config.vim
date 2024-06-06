@@ -350,7 +350,7 @@ autocmd BufNewFile,BufRead coc-settings.json setl ft=jsonc
 autocmd BufNewFile,BufRead vscode_settings.json setl ft=jsonc
 
 " custom flow type
-au BufRead * if join(getline(0, 10)) =~ '@flow' | setlocal ft=javascriptflow syntax=javascript | endif
+au BufRead *.js if join(getline(0, 25)) =~ '@flow' | setlocal ft=javascriptflow syntax=javascript | endif
 
 autocmd BufNewFile,BufRead *.flow setl ft=javascriptflow
 autocmd FileType javascriptflow set syntax=javascript
