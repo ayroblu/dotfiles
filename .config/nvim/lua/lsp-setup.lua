@@ -65,6 +65,10 @@ local function setupLsp()
     lspconfig.llama_ls.setup {}
   end
 
+  lspconfig.sourcekit.setup {
+    filetypes = { "swift", "c", "cpp", "objective-c", "objective-cpp", "objc" }
+  }
+
   -- brew install lua-language-server
   lspconfig.lua_ls.setup {
     settings = {
