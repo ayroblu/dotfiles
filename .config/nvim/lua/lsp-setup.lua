@@ -249,8 +249,17 @@ local function setupLsp()
     },
   }
 
+  -- brew install kotlin-language-server
+  lspconfig.kotlin_language_server.setup {}
+
   -- npm install -g svelte-language-server
   lspconfig.svelte.setup {}
+
+  -- curl -fLO https://github.com/redhat-developer/vscode-xml/releases/download/0.27.1/lemminx-osx-aarch_64.zip
+  -- unzip lemminx-osx-aarch_64.zip
+  -- mv lemminx-osx-aarch_64 ~/bin/lemminx
+  -- xattr -d com.apple.quarantine ~/bin/lemminx
+  lspconfig.lemminx.setup {}
 
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -262,6 +271,28 @@ local function setupLsp()
   vim.keymap.set('n', '<leader>aw', '<cmd>lua vim.diagnostic.setqflist({severity = "W"})<cr>')
   vim.keymap.set('n', '<leader>al', vim.diagnostic.setloclist)
 
+  local conform = require("conform")
+  conform.setup({
+    formatters_by_ft = {
+      -- Conform will run multiple formatters sequentially
+      python = { "isort", "black" },
+      -- Use a sub-list to run only the first available formatter
+      javascript = { "eslint_d", { "prettierd", "prettier" } },
+      javascriptreact = { "eslint_d", { "prettierd", "prettier" } },
+      javascriptflow = { "eslint_d", { "prettierd", "prettier" } },
+      typescript = { "eslint_d", { "prettierd", "prettier" } },
+      typescriptreact = { "eslint_d", { "prettierd", "prettier" } },
+      graphql = { { "prettierd", "prettier" } },
+      json = { { "prettierd", "prettier" } },
+      kotlin = { "ktfmt" },
+    },
+  })
+  local function format()
+    conform.format({ bufnr = vim.api.nvim_get_current_buf(), timeout_ms = 10000, lsp_format = "fallback" })
+  end
+
+  vim.keymap.set('n', '<leader>j', format)
+
   -- Use LspAttach autocommand to only map the following keys
   -- after the language server attaches to the current buffer
   vim.api.nvim_create_autocmd('LspAttach', {
@@ -269,7 +300,7 @@ local function setupLsp()
     callback = function(ev)
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/1131
       -- Use internal formatting for bindings like gq.
-      vim.bo[ev.buf].formatexpr = nil
+      -- vim.bo[ev.buf].formatexpr = nil
 
       setupCmp()
       -- Enable completion triggered by <c-x><c-o>
@@ -340,28 +371,6 @@ local function setupLsp()
         end
         return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
       end
-      local supported_formatting_clients = Set { "null-ls", "lua_ls", "rust_analyzer", "metals" }
-      local function format()
-        -- local before = vim.loop.now()
-        -- print("before eslint", string.format("%s:%03d", os.date("%H:%M:%S"), vim.loop.now() % 1000))
-        -- print("after eslint", string.format("%s:%03d", os.date("%H:%M:%S"), vim.loop.now() % 1000),
-        --   vim.loop.now() - before)
-        -- vim.cmd "Prettier"
-        -- print("after prettier", string.format("%s:%03d", os.date("%H:%M:%S"), vim.loop.now() % 1000),
-        --   vim.loop.now() - before)
-        if vim.bo.filetype == 'python' then
-          if vim.fn.exists(':ALEFix') > 0 then vim.cmd('ALEFix') end
-        end
-        if vim.fn.exists(':EslintFixAll') > 0 then vim.cmd('EslintFixAll') end
-        -- prettier errors on non supported filetypes
-        -- if vim.fn.exists(':Prettier') > 0 then vim.cmd("Prettier") end
-        vim.lsp.buf.format({
-          filter = function(client)
-            return supported_formatting_clients[client.name]
-          end,
-          timeout_ms = 10000,
-        })
-      end
 
       vim.keymap.set('n', '<leader>j', format, opts)
       local bufnr = vim.api.nvim_get_current_buf()
@@ -383,39 +392,3 @@ local function setupLsp()
 end
 
 pcall(setupLsp)
-
-local function setupPrettier()
-  local null_ls = require("null-ls")
-
-  local sources = {
-    null_ls.builtins.formatting.prettier.with({
-      filetypes = { "javascriptflow", "javascript", "javascriptreact",
-        "typescript", "typescriptreact", "vue", "css", "scss", "less", "html",
-        "json", "jsonc", "graphql" },
-      only_local = "node_modules/.bin",
-    })
-  }
-  ---@diagnostic disable-next-line: redundant-parameter
-  null_ls.setup { sources = sources }
-
-  local prettier = require("prettier")
-
-  prettier.setup({
-    bin = 'prettier', -- or `'prettierd'` (v0.23.3+)
-    filetypes = {
-      "css",
-      "graphql",
-      "javascript",
-      "javascriptflow",
-      "javascriptreact",
-      "json",
-      "html",
-      "less",
-      "scss",
-      "typescript",
-      "typescriptreact",
-    },
-  })
-end
-
-pcall(setupPrettier)

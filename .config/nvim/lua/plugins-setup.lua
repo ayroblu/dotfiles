@@ -58,7 +58,7 @@ local function setupTreeSitter()
   vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
   vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
   vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-  vim.o.foldcolumn = '1'
+  -- vim.o.foldcolumn = '1'
   vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
   vim.o.foldlevelstart = 99
   vim.o.foldenable = true
@@ -617,3 +617,12 @@ if os.getenv("HOME") == "/home/sandbox" then
 else
   pcall(setupMetals)
 end
+
+local function setupFlash()
+  vim.keymap.set({ 'n', 'x', 'o' }, '<leader>f', require("flash").jump)
+  vim.keymap.set({ 'n', 'x', 'o' }, '<leader>F', require("flash").treesitter)
+  vim.keymap.set({ 'o' }, '<leader><leader>f', require("flash").remote)
+  vim.keymap.set({ 'x', 'o' }, '<leader><leader>F', require("flash").treesitter_search)
+end
+
+pcall(setupFlash)

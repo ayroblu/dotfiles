@@ -587,16 +587,16 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " !^music	inverse-prefix-exact-match	Items that do not start with music
 " !.mp3$	inverse-suffix-exact-match	Items that do not end with .mp3
 
-Plug 'easymotion/vim-easymotion'
-" Mainly use this to search
-" <leader>f<char>
-" <leader><leader>f<char><char>
-map <silent> <Leader>f <Plug>(easymotion-s)
-"map  <Leader>f <Plug>(easymotion-f)
-"nmap <Leader>f <Plug>(easymotion-overwin-f)
-"map  <Leader>F <Plug>(easymotion-F)
-map <silent> <Leader><leader>f <Plug>(easymotion-s2)
-let g:EasyMotion_do_mapping = 0
+" Plug 'easymotion/vim-easymotion'
+" " Mainly use this to search
+" " <leader>f<char>
+" " <leader><leader>f<char><char>
+" map <silent> <Leader>f <Plug>(easymotion-s)
+" "map  <Leader>f <Plug>(easymotion-f)
+" "nmap <Leader>f <Plug>(easymotion-overwin-f)
+" "map  <Leader>F <Plug>(easymotion-F)
+" map <silent> <Leader><leader>f <Plug>(easymotion-s2)
+" let g:EasyMotion_do_mapping = 0
 
 Plug 'tpope/vim-vinegar' " Making netrw file management easier
 "nnoremap - :Tex <cr>
@@ -771,7 +771,7 @@ let g:vmt_list_item_char='-'
 " Use :ImportName, also ~/.vim/python-imports.cfg
 "autocmd FileType python nnoremap <buffer> <leader>i :ImportName<cr>
 
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 "autocmd FileType typescript,typescript.jsx let g:ale_linters = findfile('.eslintrc', '.;') != '' ? {'typescript': ['eslint']} : {'typescript': []}
 autocmd FileType javascript,typescript,typescriptreact let b:ale_linters = []
 autocmd FileType javascript let b:ale_linters_ignore = ['tsserver']
