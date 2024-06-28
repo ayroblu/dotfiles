@@ -49,6 +49,7 @@ local function setupTreeSitter()
     },
   }
   vim.treesitter.language.register('tsx', { 'javascriptflow' })
+  vim.treesitter.language.register('python', { 'aurora' })
 
   require('ufo').setup({
     provider_selector = function(bufnr, filetype, buftype)

@@ -273,9 +273,24 @@ local function setupLsp()
 
   local conform = require("conform")
   conform.setup({
+    formatters = {
+      cblack = {
+        command = "cblack",
+        args = {
+          "--stdin-filename",
+          "$FILENAME",
+          "--quiet",
+          "-",
+        },
+        cwd = require("conform.util").root_file({
+          -- https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
+          "pyproject.toml",
+        }),
+      },
+    },
     formatters_by_ft = {
       -- Conform will run multiple formatters sequentially
-      python = { "isort", "black" },
+      python = { "isort", { "cblack", "black" } },
       -- Use a sub-list to run only the first available formatter
       javascript = { "eslint_d", { "prettierd", "prettier" } },
       javascriptreact = { "eslint_d", { "prettierd", "prettier" } },
