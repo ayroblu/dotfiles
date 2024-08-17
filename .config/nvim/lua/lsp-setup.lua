@@ -303,6 +303,7 @@ local function setupLsp()
     },
   })
   local function format()
+    if vim.fn.exists(':MetalsOrganizeImports') > 0 and vim.bo.filetype == 'scala' then vim.cmd('MetalsOrganizeImports') end
     conform.format({ bufnr = vim.api.nvim_get_current_buf(), timeout_ms = 10000, lsp_format = "fallback" })
   end
 

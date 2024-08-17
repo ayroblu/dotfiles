@@ -25,8 +25,13 @@ console.log(uniqueResults.join('\n'))
 // }
 // spaces not supported
 function findFiles(line) {
-  const parts = line.split(' ');
-  return parts.filter(part => {
+  const parts = line.split(/[\s:]+/g);
+  return parts
+    .map(part => part.startsWith('~/')
+      // ? (console.log(part, process.env.HOME, part.replace('~', process.env.HOME)), part.replace('~', process.env.HOME))
+      ? part.replace('~', process.env.HOME)
+      : part
+    ).filter(part => {
     return (currentDirFiles.some(f => part.startsWith(f)) || part.startsWith('/')) && fs.existsSync(part) && !fs.lstatSync(part).isDirectory()
   });
 }

@@ -68,7 +68,7 @@
 
   d = diff
   dbase = "!f() { git diff $(git merge-base HEAD \"$@\");}; f"
-  diff-name = !git diff $(git merge-base HEAD origin/$(git mainmaster)) --diff-filter=d --name-only | xargs
+  diff-name = !git diff $(git merge-base HEAD origin/$(git mainmaster)) --diff-filter=d --name-only
   ds = diff --staged
   dh = diff HEAD
   dt = difftool

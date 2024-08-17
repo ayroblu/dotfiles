@@ -17,7 +17,7 @@ endfunction
 augroup minifiedCheck
   autocmd!
   autocmd BufNewFile,BufReadPost,FileType * let b:is_minified_file = BufferTextExceedsLimit()
-        \| if b:is_minified_file | syntax off | endif
+        \| if b:is_minified_file | setl syntax=off | endif
 augroup END
 
 " ---------------------------------------- Main layout
@@ -697,6 +697,16 @@ tnoremap Ò <C-\><C-n><C-w>L
 highlight ColorColumn ctermbg=magenta
 set colorcolumn=+1
 
+" ------------------------------- Run any script with current buffer
+function! s:Script(cmd)
+  " Current file full path, see :help filename-modifiers
+  let filename = expand('%:p')
+  let tfile = tempname()
+  execute 'silent w! '.tfile
+  execute '!'.a:cmd.' '.tfile
+  execute '%!cat '.tfile
+endfunction
+command! -nargs=1 S call s:Script(<q-args>)
 
 " ---------------------------------------- Stuff I don't really understand
 

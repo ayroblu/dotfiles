@@ -434,6 +434,21 @@ command! -bang -nargs=? -complete=dir Files
 " https://github.com/junegunn/fzf.vim/issues/538
 command! -bang -nargs=? -complete=dir QFiles
   \ call fzf#vim#files('', fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline', '--query', <q-args>]}), <bang>0)
+
+function! s:list_buffers()
+  redir => list
+  silent ls
+  redir END
+  return split(list, "\n")
+endfunction
+function! s:delete_buffers(lines)
+  execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
+endfunction
+command! BD call fzf#run(fzf#wrap({
+  \ 'source': s:list_buffers(),
+  \ 'sink*': { lines -> s:delete_buffers(lines) },
+  \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+\ }))
 " command! -bang UnlistedBuffers
 " \ call fzf#vim#buffers('!i$ '.<q-args>, {
 " \   'down': '40%',
