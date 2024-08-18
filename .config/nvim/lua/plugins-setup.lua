@@ -1,5 +1,9 @@
 local function setupOil()
-  require("oil").setup()
+  require("oil").setup({
+    view_options = {
+      show_hidden = true,
+    }
+  })
   vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
   local nvim_oil_group = vim.api.nvim_create_augroup("oil", { clear = true })
   vim.api.nvim_create_autocmd("FileType", {
@@ -202,13 +206,14 @@ local function setupTextObjects()
           ["]i"] = "@func_params.inner",
           ["]f"] = "@function.outer",
           -- ["]<"] = "@conditional.outer",
-          -- ["]p"] = "@parameter.outer",
+          ["]p"] = "@parameter.outer",
           -- ["]("] = "@call.outer",
           -- ["]b"] = "@block.inner",
         },
         goto_next_end = {
           ["]F"] = "@function.outer",
           ["]B"] = "@block.inner",
+          ["]P"] = "@parameter.outer",
           -- ["]["] = "@class.outer",
         },
         goto_previous_start = {
@@ -218,7 +223,7 @@ local function setupTextObjects()
           ["[i"] = "@func_params.inner",
           ["[f"] = "@function.outer",
           -- ["[<"] = "@conditional.outer",
-          -- ["[p"] = "@parameter.outer",
+          ["[p"] = "@parameter.outer",
           -- ["[("] = "@call.outer",
           -- ["[b"] = "@block.inner",
           -- ["[["] = "@class.outer",
@@ -226,6 +231,7 @@ local function setupTextObjects()
         goto_previous_end = {
           ["[F"] = "@function.outer",
           ["[B"] = "@block.inner",
+          ["[P"] = "@parameter.outer",
           -- ["[]"] = "@class.outer",
         },
         -- goto_next = {
