@@ -592,7 +592,8 @@ command! -bang Tags
 " command! -bang Mapsx execute("normal \<plug>(fzf-maps-x)")
 " command! -bang Mapso execute("normal \<plug>(fzf-maps-o)")
 imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
+" imap <c-x><c-f> <plug>(fzf-complete-path)
+inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
 imap <c-x><c-l> <plug>(fzf-complete-line)
 " https://github.com/junegunn/fzf
 " sbtrkt	fuzzy-match	Items that match sbtrkt

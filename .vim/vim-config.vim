@@ -698,6 +698,8 @@ highlight ColorColumn ctermbg=magenta
 set colorcolumn=+1
 
 " ------------------------------- Run any script with current buffer
+" :S janus-filter.ts
+" Only works in terminal vim, not macvim (no janus-filter.ts env bin)
 function! s:Script(cmd)
   " Current file full path, see :help filename-modifiers
   let filename = expand('%:p')
