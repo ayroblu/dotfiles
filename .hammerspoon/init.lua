@@ -137,10 +137,11 @@ end
 -- for laptop with one external monitor, this is Alacritty on Desktop 1, Chrome etc on 2, slack on laptop
 -- for laptop plus two external monitors, this is Alacritty on screen 1, Chrome etc screen 2, slack on laptop
 local function layoutSimple()
+    print("layoutSimple")
     -- get all windows, move everything to space 2 except alacritty, and slack
     local screen1List = { "alacritty", "Alacritty" }
     local smallScreenList = { "Slack" }
-    local maximizeAppList = { "Chrome" }
+    local maximizeAppList = { "Chrome", "Safari" }
     local wf = hs.window.filter.new():setOverrideFilter { fullscreen = false }
     local windows = wf:getWindows()
     local numScreens = #hs.screen.allScreens()
@@ -152,6 +153,7 @@ local function layoutSimple()
         local applicationName = window:application():name()
         if ListStrContains(screen1List, applicationName) then
             moveWindowToSpaceNum(window, "1")
+            window:maximize(0)
         elseif ListStrContains(smallScreenList, applicationName) then
             if numScreens == 1 then
                 moveWindowToSpaceNum(window, "3")
