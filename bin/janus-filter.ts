@@ -6,6 +6,9 @@ console.log(arg);
 const list = JSON.parse(fs.readFileSync(arg, 'utf-8'))
 const filteredList = list.filter((item: any) => {
   const requestJanus = item?.request?.data?.janus;
+  // const vtoken = item?.request?.data?.body?.vidman_token;
+  // const jsep = item?.request?.data?.jsep;
+  // return vtoken && jsep
   const janus = item?.response?.body?.janus;
   const videoroom = item?.response?.body?.plugindata?.data?.videoroom;
   return !['trickle'].includes(requestJanus) && !['media'].includes(janus) && !['fs_metadata'].includes(videoroom)
