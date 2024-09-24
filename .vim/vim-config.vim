@@ -558,11 +558,10 @@ function! HandleURL()
   let s:uri = matchstr(getline('.'), '[a-z]*:\/\/[^ >,;]*')
   echo s:uri
   if s:uri !=# ''
-    silent exec "!open '".shellescape(s:uri, 1)."'"
+    silent exec "!open ".shellescape(s:uri, 1)
   else
     echo 'No URI found in line.'
   endif
-  redraw!
 endfunction
 map <leader>u :call HandleURL()<cr>
 
