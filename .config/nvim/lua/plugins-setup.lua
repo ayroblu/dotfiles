@@ -287,8 +287,8 @@ pcall(setupTextObjects)
 
 local function setupTreeClimber()
   local tc = require('nvim-treeclimber')
-  vim.keymap.set({ "x", "o" }, ",", tc.select_shrink, { desc = "select child node" })
-  vim.keymap.set({ "x", "o" }, ".", tc.select_expand, { desc = "select parent node" })
+  vim.keymap.set({ "x", "o" }, "<C-j>", tc.select_shrink, { desc = "select child node" })
+  vim.keymap.set({ "x", "o" }, "<C-k>", tc.select_expand, { desc = "select parent node" })
   -- tc.setup()
   -- vim.keymap.set(
   --   { "n", "x", "o" },

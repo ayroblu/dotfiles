@@ -587,10 +587,8 @@ command! -bang Tags
 \   '
 \ })
 " Only works in the same mode??? e.g. insert only in insert mode
-" command! -bang Mapsn execute("normal \<plug>(fzf-maps-n)")
-" command! -bang Mapsi execute("normal \<plug>(fzf-maps-i)")
-" command! -bang Mapsx execute("normal \<plug>(fzf-maps-x)")
-" command! -bang Mapso execute("normal \<plug>(fzf-maps-o)")
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
 imap <c-x><c-k> <plug>(fzf-complete-word)
 " imap <c-x><c-f> <plug>(fzf-complete-path)
 inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
