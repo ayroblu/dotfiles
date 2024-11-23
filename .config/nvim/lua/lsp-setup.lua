@@ -277,6 +277,20 @@ local function setupLsp()
   vim.keymap.set('n', '<leader>al', vim.diagnostic.setloclist)
 
   local conform = require("conform")
+  -- breaking change: https://github.com/stevearc/conform.nvim/issues/508#issuecomment-2272706085
+  ---@param bufnr integer
+  ---@param ... string
+  ---@return string
+  local function first(bufnr, ...)
+    for i = 1, select("#", ...) do
+      local formatter = select(i, ...)
+      if conform.get_formatter_info(formatter, bufnr).available then
+        return formatter
+      end
+    end
+    return select(1, ...)
+  end
+  local jsformat = function(bufnr) return { "eslint_d", first(bufnr, "prettierd", "prettier"), lsp_format = "never" } end
   conform.setup({
     formatters = {
       cblack = {
@@ -295,21 +309,23 @@ local function setupLsp()
     },
     formatters_by_ft = {
       -- Conform will run multiple formatters sequentially
-      python = { "isort", { "cblack", "black" } },
-      -- Use a sub-list to run only the first available formatter
-      javascript = { "eslint_d", { "prettierd", "prettier" } },
-      javascriptreact = { "eslint_d", { "prettierd", "prettier" } },
-      javascriptflow = { "eslint_d", { "prettierd", "prettier" } },
-      typescript = { "eslint_d", { "prettierd", "prettier" } },
-      typescriptreact = { "eslint_d", { "prettierd", "prettier" } },
-      graphql = { { "prettierd", "prettier" } },
-      json = { { "prettierd", "prettier" } },
+      python = function(bufnr) return { "isort", first(bufnr, "cblack", "black") } end,
+      javascript = jsformat,
+      javascriptreact = jsformat,
+      javascriptflow = jsformat,
+      typescript = jsformat,
+      typescriptreact = jsformat,
+      graphql = { "prettierd", "prettier", stop_after_first = true },
+      json = { "prettierd", "prettier", stop_after_first = true },
       kotlin = { "ktfmt" },
+    },
+    default_format_opts = {
+      lsp_format = "fallback",
     },
   })
   local function format()
     if vim.fn.exists(':MetalsOrganizeImports') > 0 and vim.bo.filetype == 'scala' then vim.cmd('MetalsOrganizeImports') end
-    conform.format({ bufnr = vim.api.nvim_get_current_buf(), timeout_ms = 10000, lsp_format = "fallback" })
+    conform.format({ bufnr = vim.api.nvim_get_current_buf(), timeout_ms = 10000 })
   end
 
   vim.keymap.set('n', '<leader>j', format)
