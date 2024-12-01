@@ -348,6 +348,8 @@ autocmd BufNewFile,BufRead *.keymap setl syntax=c
 autocmd BufNewFile,BufRead tsconfig.json setl ft=jsonc
 autocmd BufNewFile,BufRead coc-settings.json setl ft=jsonc
 autocmd BufNewFile,BufRead vscode_settings.json setl ft=jsonc
+autocmd BufNewFile,BufRead Podfile setl ft=Podfile
+autocmd BufNewFile,BufRead Podfile setl ft=Cakefile
 
 " custom flow type
 au BufRead *.js if join(getline(0, 25)) =~ '@flow' | setlocal ft=javascriptflow syntax=javascript | endif

@@ -48,20 +48,25 @@ local function setupLsp()
     },
   }
 
+  -- ln -s ~/ws/dotfiles/custom_lsp/stratols.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/configs/stratols.lua
+  if vim.loop.fs_stat(vim.env.HOME ..
+        '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/configs/stratols.lua') then
+    lspconfig.stratols.setup {}
+  end
   -- ln -s ~/ws/dotfiles/custom_lsp/stratols.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua
   if vim.loop.fs_stat(vim.env.HOME ..
         '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua') then
     lspconfig.stratols.setup {}
   end
 
-  -- ln -s ~/ws/dotfiles/custom_lsp/bazel_lsp.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/bazel_lsp.lua
+  -- ln -s ~/ws/dotfiles/custom_lsp/bazel_lsp.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/configs/bazel_lsp.lua
   if vim.loop.fs_stat(vim.env.HOME ..
-        '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/bazel_lsp.lua') then
+        '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/configs/bazel_lsp.lua') then
     lspconfig.bazel_lsp.setup {}
   end
-  -- ln -s ~/ws/dotfiles/custom_lsp/llama_ls.lua ~/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua
+  -- ln -s ~/ws/dotfiles/custom_lsp/llama_ls.lua ~/.vim/plugged/nvim-lspconfig/lua/lspconfig/configs/llama_ls.lua
   if vim.loop.fs_stat(vim.env.HOME ..
-        '/.vim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/llama_ls.lua') then
+        '/.vim/plugged/nvim-lspconfig/lua/lspconfig/configs/llama_ls.lua') then
     lspconfig.llama_ls.setup {}
   end
 
@@ -242,8 +247,8 @@ local function setupLsp()
   -- npm install -g cssmodules-language-server
   lspconfig.cssmodules_ls.setup {}
   -- rustup component add rust-analyzer
+  -- vim.lsp.set_log_level('info')
   lspconfig.rust_analyzer.setup {
-    -- Server-specific settings. See `:help lspconfig-setup`
     settings = {
       ['rust-analyzer'] = {},
     },
@@ -318,6 +323,7 @@ local function setupLsp()
       graphql = { "prettierd", "prettier", stop_after_first = true },
       json = { "prettierd", "prettier", stop_after_first = true },
       kotlin = { "ktfmt" },
+      rust = { "rustfmt" },
     },
     default_format_opts = {
       lsp_format = "fallback",

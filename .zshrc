@@ -163,6 +163,8 @@ run_deferred() {
 # homebrew lesspipe.sh
 #export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
 [ -d /usr/local/share/zsh/site-functions ] && fpath=(/usr/local/share/zsh/site-functions $fpath)
+# homebrew completions
+[ -d /opt/homebrew ] && fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
 
 append-time "zshrc configured"
 # ------------------------------------------------------ zsh plugins

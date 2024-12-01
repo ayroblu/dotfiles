@@ -68,6 +68,15 @@
   "vim.hlsearch": true,
   "vim.normalModeKeyBindingsNonRecursive": [
     {
+      "before": ["K"],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.showHover"
+        }
+      ]
+    },
+    {
       "before": ["˙"],
       "after": [],
       "commands": [
@@ -417,5 +426,5 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.inlineSuggest.suppressSuggestions": true,
-  "bazel.lsp.command": "bazel-lsp"
+  // "rust-analyzer.check.overrideCommand": [ "bazel", "--output_base=/tmp/bazel/rust", "build", "--@rules_rust//rust/settings:error_format=json", "//rust-code/..." ],
 }

@@ -56,6 +56,7 @@ endif
 
 lua <<EOF
 require('plugins-setup')
+require('commands')
 EOF
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
