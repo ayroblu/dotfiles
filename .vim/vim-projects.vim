@@ -28,22 +28,25 @@ function! s:ApplyProjectSettings()
   if l:git_root != ''
     let l:basename = fnamemodify(l:git_root, ':t')
     if l:basename == "bazel-demo"
-      autocmd BufWritePost BUILD.bazel,*.bzl silent execute '!bazel run //:format ' . s:GetRelativeFilePath() | edit
+      "autocmd BufWritePost BUILD.bazel,*.bzl silent execute '!bazel run //:format ' . s:GetRelativeFilePath() | edit
+      autocmd BufWritePost BUILD.bazel,*.bzl silent execute '!buildifier %' | edit
 
-      lua << EOF
-      -- Note that since this doesn't wait for lspconfig to setup, it outputs a soft error but still works
-      local lspconfig = require('lspconfig')
-      lspconfig.rust_analyzer.setup {
-        settings = {
-          ['rust-analyzer'] = {
-            check = {
-              overrideCommand = { "bazel", "--output_base=/tmp/bazel/rust", "build", "--@rules_rust//rust/settings:error_format=json", "//rust-code/..." },
-              enabled = true
+      if has('nvim')
+        lua << EOF
+        -- Note that since this doesn't wait for lspconfig to setup, it outputs a soft error but still works
+        local lspconfig = require('lspconfig')
+        lspconfig.rust_analyzer.setup {
+          settings = {
+            ['rust-analyzer'] = {
+              check = {
+                overrideCommand = { "bazel", "--output_base=/tmp/bazel/rust", "build", "--@rules_rust//rust/settings:error_format=json", "//rust-code/..." },
+                enabled = true
+              },
             },
           },
-        },
-      }
+        }
 EOF
+      endif
     elseif l:basename == "advent-of-code"
       let $PATH = $PATH . ':' . l:git_root . '/.venv/bin'
     endif

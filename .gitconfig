@@ -2,7 +2,7 @@
   name = Ben Lu
   email = ayroblu@gmail.com
 [merge]
-  tool = vimdiff
+  tool = nvimdiff
 [color]
   ui = true
 # [color "diff"]
@@ -175,7 +175,7 @@
   process = git-lfs filter-process
   required = true
 [diff]
-  tool = vimdiff
+  tool = nvimdiff
   # Default true
   renames = true
 [mergetool]
@@ -183,7 +183,7 @@
   # https://git-scm.com/docs/vimdiff
   # default
   #layout = "(LOCAL,BASE,REMOTE)/MERGED"
-[mergetool "vimdiff"]
+[mergetool "nvimdiff"]
   layout = "MERGED"
 [rerere]
   enabled = true
