@@ -49,6 +49,9 @@ runtime vim-checkbox.vim
 " Should eventually superseed: knsh14/vim-github-link
 runtime vim-links.vim
 
+" project specific configs
+runtime vim-projects.vim
+
 "" --------------------------plugin settings
 if has('nvim')
   autocmd BufReadPost * if getfsize(@%) > 10000 | execute('NoMatchParen') | endif

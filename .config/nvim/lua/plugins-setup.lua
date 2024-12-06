@@ -187,15 +187,15 @@ local function setupTextObjects()
         -- and should return true of false
         -- include_surrounding_whitespace = true,
       },
-      swap = {
-        enable = true,
-        swap_next = {
-          [">,"] = { query = { "@swappable.inner", "@parameter.inner" } },
-        },
-        swap_previous = {
-          ["<,"] = { query = { "@swappable.inner", "@parameter.inner" } },
-        },
-      },
+      -- swap = {
+      --   enable = true,
+      --   swap_next = {
+      --     [">,"] = { query = { "@swappable.inner", "@parameter.inner" } },
+      --   },
+      --   swap_previous = {
+      --     ["<,"] = { query = { "@swappable.inner", "@parameter.inner" } },
+      --   },
+      -- },
       move = {
         enable = true,
         set_jumps = true, -- whether to set jumps in the jumplist
