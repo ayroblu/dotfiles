@@ -25,6 +25,7 @@ augroup END
 
 function! s:ApplyProjectSettings()
   let l:git_root = s:FindGitRoot()
+  let b:git_root = l:git_root
   if l:git_root != ''
     let l:basename = fnamemodify(l:git_root, ':t')
     if l:basename == "bazel-demo"
@@ -32,20 +33,7 @@ function! s:ApplyProjectSettings()
       autocmd BufWritePost BUILD.bazel,*.bzl silent execute '!buildifier %' | edit
 
       if has('nvim')
-        lua << EOF
-        -- Note that since this doesn't wait for lspconfig to setup, it outputs a soft error but still works
-        local lspconfig = require('lspconfig')
-        lspconfig.rust_analyzer.setup {
-          settings = {
-            ['rust-analyzer'] = {
-              check = {
-                overrideCommand = { "bazel", "--output_base=/tmp/bazel/rust", "build", "--@rules_rust//rust/settings:error_format=json", "//rust-code/..." },
-                enabled = true
-              },
-            },
-          },
-        }
-EOF
+        lua require('nvim-projects').setup_bazel_demo()
       endif
     elseif l:basename == "advent-of-code"
       let $PATH = $PATH . ':' . l:git_root . '/.venv/bin'

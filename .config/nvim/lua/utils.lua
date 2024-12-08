@@ -44,6 +44,19 @@ function Set(list)
   return set
 end
 
+local function flat_map(tbl, func)
+  local result = {}
+  for _, v in ipairs(tbl) do
+    -- Apply the function and add the result to the result table
+    local mapped = func(v)
+    -- Flatten the result by concatenating into the result table
+    for _, item in ipairs(mapped) do
+      table.insert(result, item)
+    end
+  end
+  return result
+end
+
 -- print("plugins", dump(str_not_contains(vim.api.nvim_get_runtime_file("", true), ".vim")))
 local exports = {
   dump = dump,
@@ -51,6 +64,7 @@ local exports = {
   str_contains = str_contains,
   str_not_contains = str_not_contains,
   table_concat = table_concat,
+  flat_map = flat_map,
 }
 
 return exports

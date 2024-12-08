@@ -62,6 +62,8 @@ alias cdws='cd'
 alias clearall="clear && printf '\e[3J'"
 
 alias ibazel='ibazel -run_output=false'
+[ -x "$(command -v bazel-args)" ] && alias bazel='bazel-args "$@"'
+[ -x "$(command -v ibazel-args)" ] && alias ibazel='ibazel-args "$@"'
 
 # Rosetta prefix
 alias r="arch -arm64"
