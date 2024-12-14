@@ -105,6 +105,8 @@ if treesitter_parsers.has_parser "typescript" then
 end
 
 local function setupTextObjects()
+  -- debug with :InspectTree
+
   -- example: `as` for outer subword, `is` for inner subword
   vim.keymap.set({ "o", "x" }, "as", '<cmd>lua require("various-textobjs").subword("outer")<CR>')
   vim.keymap.set({ "o", "x" }, "is", '<cmd>lua require("various-textobjs").subword("inner")<CR>')

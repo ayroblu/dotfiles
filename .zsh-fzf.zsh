@@ -228,6 +228,6 @@ bind-git-helper() {
 }
 # Remove default
 bindkey -r "^G"
-# Files, with Untracked files, merGebase diff files, Branches, reMote branches, Tags, Remotes, commit Hashes
+# Files, merGebase diff files, Branches, reMote branches, Tags, Remotes, commit Hashes
 bind-git-helper f g b m t r h z
 unset -f bind-git-helper

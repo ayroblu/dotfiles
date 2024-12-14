@@ -346,17 +346,15 @@ nmap ysa" ys2i"
 nmap ysa` ys2i`
 
 Plug 'machakann/vim-sandwich'
-" similar to surround
-" sr"' - change existing
-" sr'<tag> - tags
-" srt' - reverse tag -> '
-" sd" - delete "
-" saiw] - insert no space
-" sas) - line
+" prefer, vim-surround, use this for:
 " saiwffunc<cr> - func, param -> func(param)
+"   <visual>saffunc<cr>
+"   <visual>saifunc(<cr>)<cr>
+"   <visual>saI (repeats previous "instant")
 " sdf - delete, func(param) -> param
 " sdF - delete surrounding func
 " saiwt div.class1 - insert html tag with emmet syntax
+"   <visual> sat div.class1
 
 Plug 'tommcdo/vim-exchange'
 " visual: X to select text to swap, same on the text to swap with

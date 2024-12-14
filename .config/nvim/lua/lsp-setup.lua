@@ -251,7 +251,7 @@ local function setupLsp()
   }
 
   -- brew install kotlin-language-server
-  lspconfig.kotlin_language_server.setup {}
+  -- lspconfig.kotlin_language_server.setup {}
 
   -- included by default with xcode dev tools? https://github.com/apple/sourcekit-lsp
   lspconfig.sourcekit.setup {}
