@@ -23,83 +23,12 @@
 -- --     [237] = "Desktop 3"
 -- --   }
 -- -- }
+
 require('utils')
-
--- MARK: this is for ⌃ ⌘ ⌥ 1 to trigger move the current window to desktop 1
-local function getNameToSpaceId()
-    local screenToSpaceToName = hs.spaces.missionControlSpaceNames()
-    local result = {}
-    for screenId, screenDetails in pairs(screenToSpaceToName) do
-        for spaceId, spaceName in pairs(screenDetails) do
-            result[spaceName] = spaceId
-        end
-    end
-    return result
-end
-
-local function getAllSpaceIds()
-    local spaces = hs.spaces.allSpaces()
-    local result = {}
-    for screenId, spaceIds in pairs(spaces) do
-        for i, v in ipairs(spaceIds) do
-            table.insert(result, v)
-        end
-    end
-    return Set(result)
-end
-
-local function moveCurrentWindowToSpaceId(spaceId)
-    local currentWindow = hs.window.focusedWindow()
-    hs.spaces.moveWindowToSpace(currentWindow, spaceId)
-end
-
--- local nameToSpaceId = getNameToSpaceId()
-local nameToSpaceId = {}
-local function moveCurrentWindowToSpaceNumFn(numStr)
-    return function()
-        local spaceId = nameToSpaceId['Desktop ' .. numStr] or nameToSpaceId['select Desktop ' .. numStr]
-        local spaceIds = getAllSpaceIds()
-        if spaceIds[spaceId] then
-            moveCurrentWindowToSpaceId(spaceId)
-            hs.eventtap.keyStroke({ "ctrl" }, numStr)
-        else
-            nameToSpaceId = getNameToSpaceId()
-            spaceId = nameToSpaceId['Desktop ' .. numStr] or nameToSpaceId['select Desktop ' .. numStr]
-            if spaceIds[spaceId] then
-                moveCurrentWindowToSpaceId(spaceId)
-                hs.eventtap.keyStroke({ "ctrl" }, numStr)
-            else
-                print('spaceId', spaceId, 'nameToSpaceId', nameToSpaceId)
-                print(hs.inspect(spaceIds))
-            end
-        end
-    end
-end
-
-hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "1", moveCurrentWindowToSpaceNumFn("1"))
-hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "2", moveCurrentWindowToSpaceNumFn("2"))
-hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "3", moveCurrentWindowToSpaceNumFn("3"))
-
-local function moveWindowToSpaceNum(window, numStr)
-    local spaceId = nameToSpaceId['Desktop ' .. numStr] or nameToSpaceId['select Desktop ' .. numStr]
-    local spaceIds = getAllSpaceIds()
-    if spaceIds[spaceId] then
-        hs.spaces.moveWindowToSpace(window, spaceId)
-    else
-        nameToSpaceId = getNameToSpaceId()
-        spaceId = nameToSpaceId['Desktop ' .. numStr] or nameToSpaceId['select Desktop ' .. numStr]
-        if spaceIds[spaceId] then
-            hs.spaces.moveWindowToSpace(window, spaceId)
-        else
-            print('spaceId', spaceId, 'nameToSpaceId', nameToSpaceId)
-            print(hs.inspect(spaceIds))
-        end
-    end
-end
 
 local function getSmallestScreen()
     local screens = hs.screen.allScreens()
-    local result = nil
+    local result = screens[0]
     local minScreenSize = nil
     for i, screen in ipairs(screens) do
         local screenArea = screen:frame().area
@@ -111,13 +40,7 @@ local function getSmallestScreen()
     return result
 end
 
-local function getSpaceIdsForSmallestScreen()
-    local smallestScreenId = getSmallestScreen():getUUID()
-    local spaces = hs.spaces.allSpaces()
-    return spaces[smallestScreenId]
-end
-
-local function getSecondBigScreenSpaceIds()
+local function getSecondBigScreen()
     local screens = hs.screen.allScreens()
     if #screens <= 2 then
         return screens[1]
@@ -127,9 +50,7 @@ local function getSecondBigScreenSpaceIds()
     local smallestScreen = getSmallestScreen()
     local removeSets = Set({ smallestScreen:id(), primaryScreen:id() })
     RemoveWhere(screens, function(screen) return removeSets[screen:id()] end)
-    local spaces = hs.spaces.allSpaces()
-    local screenId = screens[1]:getUUID()
-    return spaces[screenId]
+    return screens[1]
 end
 
 -- MARK: this is for ⌃ ⌘ ⌥ 0 reset window positions to my "main" layout
@@ -145,26 +66,27 @@ local function layoutSimple()
     local wf = hs.window.filter.new():setOverrideFilter { fullscreen = false }
     local windows = wf:getWindows()
     local numScreens = #hs.screen.allScreens()
-    local smallestScreenSpaceId = getSpaceIdsForSmallestScreen()[1]
-    local secondBigScreenSpaceId = getSecondBigScreenSpaceIds()[1]
+    local primaryScreen = hs.screen.primaryScreen()
+    local smallestScreen = getSmallestScreen()
+    local secondBigScreen = getSecondBigScreen()
 
     for i, window in ipairs(windows) do
         -- Perform operations on each window
         local applicationName = window:application():name()
         if ListStrContains(screen1List, applicationName) then
-            moveWindowToSpaceNum(window, "1")
+            window:moveToScreen(primaryScreen)
             window:maximize(0)
         elseif ListStrContains(smallScreenList, applicationName) then
             if numScreens == 1 then
-                moveWindowToSpaceNum(window, "3")
+                -- moveWindowToSpaceNum(window, "3")
             else
-                hs.spaces.moveWindowToSpace(window, smallestScreenSpaceId)
+                window:moveToScreen(smallestScreen)
             end
         else
             if numScreens <= 2 then
-                moveWindowToSpaceNum(window, "2")
+                window:moveToScreen(primaryScreen)
             else
-                hs.spaces.moveWindowToSpace(window, secondBigScreenSpaceId)
+                window:moveToScreen(secondBigScreen)
             end
             if ListStrContains(maximizeAppList, applicationName) then
                 window:maximize(0)
