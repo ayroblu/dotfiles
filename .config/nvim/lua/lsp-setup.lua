@@ -32,6 +32,11 @@ local function setupCmp()
   })
 end
 
+local function get_git_root()
+  local dot_git_path = vim.fn.finddir(".git", ".;")
+  return vim.fn.fnamemodify(dot_git_path, ":h")
+end
+
 local function setupLsp()
   require("scrollbar").setup()
   local lspconfig = require('lspconfig')
@@ -244,17 +249,38 @@ local function setupLsp()
   lspconfig.cssmodules_ls.setup {}
   -- rustup component add rust-analyzer
   -- vim.lsp.set_log_level('info')
-  lspconfig.rust_analyzer.setup {
-    settings = {
-      ['rust-analyzer'] = {},
-    },
-  }
+  -- setup per project
+  local git_root = get_git_root()
+  local project_name = vim.fn.fnamemodify(git_root, ":t")
+  if project_name == "bazel-demo" then
+    lspconfig.rust_analyzer.setup {
+      settings = {
+        ['rust-analyzer'] = {
+          check = {
+            overrideCommand = { "bazel", "--output_base=/tmp/bazel/rust", "build", "--@rules_rust//rust/settings:error_format=json", "//rust-code/..." },
+            enabled = true
+          },
+        },
+      },
+    }
+  else
+    lspconfig.rust_analyzer.setup {}
+  end
 
   -- brew install kotlin-language-server
   -- lspconfig.kotlin_language_server.setup {}
 
   -- included by default with xcode dev tools? https://github.com/apple/sourcekit-lsp
-  lspconfig.sourcekit.setup {}
+  -- setup per project
+  if project_name == "bazel-demo" then
+    local swiftmodule_dirs = { "JsWrap", "Log", "utils" }
+    local args = utils.flat_map(swiftmodule_dirs, function(dir)
+      return { "-Xswiftc", "-I" .. git_root .. "/.bazel/bin/example-ios-app/" .. dir }
+    end)
+    lspconfig.sourcekit.setup { cmd = { 'sourcekit-lsp', unpack(args) } }
+  else
+    lspconfig.sourcekit.setup {}
+  end
 
   -- npm install -g svelte-language-server
   lspconfig.svelte.setup {}

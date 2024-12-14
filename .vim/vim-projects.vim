@@ -20,7 +20,7 @@ endfunction
 " Autocommand to apply settings when editing files in a Git repository
 augroup s:ProjectSettings
   autocmd!
-  autocmd BufEnter * call s:ApplyProjectSettings()
+  autocmd VimEnter * call s:ApplyProjectSettings()
 augroup END
 
 function! s:ApplyProjectSettings()
@@ -31,10 +31,6 @@ function! s:ApplyProjectSettings()
     if l:basename == "bazel-demo"
       "autocmd BufWritePost BUILD.bazel,*.bzl silent execute '!bazel run //:format ' . s:GetRelativeFilePath() | edit
       autocmd BufWritePost BUILD.bazel,*.bzl silent execute '!buildifier %' | edit
-
-      if has('nvim')
-        lua require('nvim-projects').setup_bazel_demo()
-      endif
     elseif l:basename == "advent-of-code"
       let $PATH = $PATH . ':' . l:git_root . '/.venv/bin'
     endif

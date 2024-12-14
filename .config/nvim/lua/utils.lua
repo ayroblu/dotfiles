@@ -57,6 +57,14 @@ local function flat_map(tbl, func)
   return result
 end
 
+local function keys(t)
+  local keys = {}
+  for key, _ in pairs(t) do
+    table.insert(keys, key)
+  end
+  return keys
+end
+
 -- print("plugins", dump(str_not_contains(vim.api.nvim_get_runtime_file("", true), ".vim")))
 local exports = {
   dump = dump,
@@ -65,6 +73,7 @@ local exports = {
   str_not_contains = str_not_contains,
   table_concat = table_concat,
   flat_map = flat_map,
+  keys = keys,
 }
 
 return exports
