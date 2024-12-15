@@ -406,24 +406,16 @@ endfunction
 nnoremap s :exec "normal i".nr2char(getchar())."\el"<CR>
 nnoremap S :exec "normal a".nr2char(getchar())."\el"<CR>
 
-nnoremap ZS :w<cr>
-" quit vim all
-nnoremap ZE :wqa<cr>
-nnoremap ZT :q<cr>
-nnoremap ZX :qa<cr>
-" quit vim with exit code
-nnoremap ZC :cq<cr>
-nnoremap ZV :qa!<cr>
-nnoremap <Leader>ss :w<CR>
-nnoremap <Leader>sh :wq<CR>
-nnoremap <Leader>se :wq<CR>
-nnoremap <Leader>sa :wqa<CR>
-nnoremap <Leader>sn :wqa<CR>
-nnoremap <Leader>st :q<CR>
-nnoremap <Leader>sx :qa<CR>
-nnoremap <Leader>sr :qa<CR>
-nnoremap <Leader>sc :cq<CR>
-nnoremap <Leader>sv :qa!<CR>
+nnoremap <silent> <Leader>ss :w<CR>
+nnoremap <silent> <Leader>sh :wq<CR>
+nnoremap <silent> <Leader>se :wq<CR>
+nnoremap <silent> <Leader>sa :wqa<CR>
+nnoremap <silent> <Leader>sn :wqa<CR>
+nnoremap <silent> <Leader>st :q<CR>
+nnoremap <silent> <Leader>sx :qa<CR>
+nnoremap <silent> <Leader>sr :qa<CR>
+nnoremap <silent> <Leader>sc :cq<CR>
+nnoremap <silent> <Leader>sv :qa!<CR>
 
 " https://stackoverflow.com/questions/40289706/execute-selection-from-script-in-vim
 "autocmd FileType rust xnoremap <buffer> <leader>e :w !echo 'fn main() {' "$(cat)" '}' > __temp.rs && cargo script __temp.rs; \rm __temp.rs<cr>

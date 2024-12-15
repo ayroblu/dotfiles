@@ -33,7 +33,7 @@ Plug 'kevinhwang91/nvim-ufo'
 Plug 'petertriho/nvim-scrollbar'
 
 Plug 'MunifTanjim/nui.nvim'
-" Plug 'folke/noice.nvim'
+Plug 'folke/noice.nvim'
 
 Plug 'lewis6991/gitsigns.nvim'
 

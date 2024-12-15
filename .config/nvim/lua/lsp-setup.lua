@@ -105,6 +105,9 @@ local function setupLsp()
         telemetry = {
           enable = false,
         },
+        hint = {
+          enable = true,
+        }
       },
     },
   }
@@ -154,8 +157,14 @@ local function setupLsp()
   lspconfig.graphql.setup {
     root_dir = root_pattern(".graphqlrc.yml")
   }
+
   -- npm install -g pyright
-  lspconfig.pyright.setup {}
+  -- lspconfig.pyright.setup {}
+
+  -- basically better than pyright
+  -- brew install basedpyright
+  lspconfig.basedpyright.setup {}
+
   -- npm i -g typescript-language-server
   -- lspconfig.tsserver.setup {
   --   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
@@ -217,6 +226,15 @@ local function setupLsp()
       tsserver_format_options = {},
       tsserver_file_preferences = {
         importModuleSpecifierEnding = 'js',
+        includeInlayParameterNameHints = "all",
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+        includeCompletionsForModuleExports = true,
       },
       -- locale of all tsserver messages, supported locales you can find here:
       -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
@@ -357,6 +375,7 @@ local function setupLsp()
   end
 
   vim.keymap.set('n', '<leader>j', format)
+  vim.keymap.set('n', '<leader>K', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 
   -- Use LspAttach autocommand to only map the following keys
   -- after the language server attaches to the current buffer
@@ -423,19 +442,19 @@ local function setupLsp()
 
       -- https://github.com/neovim/neovim/issues/20457#issuecomment-1266782345
       ---@diagnostic disable-next-line: duplicate-set-field
-      vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)
-        config = config or {}
-        config.focus_id = ctx.method
-        if not (result and result.contents) then
-          return
-        end
-        local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
-        markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
-        if vim.tbl_isempty(markdown_lines) then
-          return
-        end
-        return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
-      end
+      -- vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)
+      --   config = config or {}
+      --   config.focus_id = ctx.method
+      --   if not (result and result.contents) then
+      --     return
+      --   end
+      --   local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+      --   markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
+      --   if vim.tbl_isempty(markdown_lines) then
+      --     return
+      --   end
+      --   return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
+      -- end
 
       vim.keymap.set('n', '<leader>j', format, opts)
       local bufnr = vim.api.nvim_get_current_buf()
@@ -455,5 +474,19 @@ local function setupLsp()
     end,
   })
 end
+local function show_popup_under_cursor(content)
+  local opts = {
+    border = "rounded", -- Border style: "rounded", "double", "single", etc.
+    focus_id = "test-1",
+  }
+  vim.lsp.util.open_floating_preview(content, "plaintext", opts)
+end
+
+-- Call the function with some sample content
+local function doit()
+  show_popup_under_cursor({ "This is a hover popup!", "It works under your cursor." })
+end
+vim.keymap.set("n", "<leader>L", doit)
+
 
 pcall(setupLsp)
