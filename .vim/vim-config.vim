@@ -130,6 +130,8 @@ set exrc
 " Add characters for tabs and spaces on the end of lines
 if &listchars ==# 'eol:$'
   set listchars=tab:>\ ,trail:·,extends:>,precedes:<,nbsp:+
+else
+  set listchars=tab:·\ ,trail:·,nbsp:+
 endif
 set list
 

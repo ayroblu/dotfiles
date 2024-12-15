@@ -66,7 +66,8 @@ alias ibazel='ibazel -run_output=false'
 [ -x "$(command -v ibazel-args)" ] && alias ibazel='ibazel-args "$@"'
 
 # Rosetta prefix
-alias r="arch -arm64"
+# alias r="arch -arm64"
+alias r="arch -x86_64"
 
 # https://apple.stackexchange.com/questions/20547/how-do-i-find-my-ip-address-from-the-command-line
 alias exip="curl ifconfig.me"
@@ -176,6 +177,10 @@ createRamDisk() {
   echo "remove with:"
   echo "umount ${mount_point}"
   echo "diskutil eject ${ramdisk_dev}"
+}
+
+curltar() {
+  curl -sfL "$1" | tar xzf -
 }
 
 encodeURIComponent(){
