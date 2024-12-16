@@ -192,6 +192,10 @@ stash(){
   "$@"
   git stash pop
 }
+groot() {(set -e
+  cd "$(git root)"
+  "$@"
+)}
 nohooks(){
   HUSKY_SKIP_HOOKS=1 "$@"
 }

@@ -58,11 +58,6 @@ local function setupLsp()
         '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/configs/stratols.lua') then
     lspconfig.stratols.setup {}
   end
-  -- ln -s ~/ws/dotfiles/custom_lsp/stratols.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua
-  if vim.loop.fs_stat(vim.env.HOME ..
-        '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/server_configurations/stratols.lua') then
-    lspconfig.stratols.setup {}
-  end
 
   -- ln -s ~/ws/dotfiles/custom_lsp/bazel_lsp.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/configs/bazel_lsp.lua
   if vim.loop.fs_stat(vim.env.HOME ..

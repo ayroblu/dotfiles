@@ -577,9 +577,13 @@ local function setupMetals()
 
   -- Example of settings
   metals_config.settings = {
-    showImplicitArguments = true,
-    showImplicitConversionsAndClasses = true,
-    showInferredType = true,
+    inlayHints = {
+      hintsInPatternMatch = { enable = true },
+      implicitArguments = { enable = true },
+      implicitConversions = { enable = true },
+      inferredTypes = { enable = true },
+      typeParameters = { enable = true },
+    },
     excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
   }
 
@@ -604,6 +608,8 @@ local function setupMetals()
       metals = {
         runType = "runOrTestFile",
         --args = { "firstArg", "secondArg", "thirdArg" }, -- here just as an example
+        cmd = { "bazel" },
+        args = { "bazel", "run", "strato/src/main/scala/com/twitter/strato/lsp:bin", "--", "--server" },
       },
     },
     {
@@ -628,6 +634,8 @@ local function setupMetals()
     -- something like nvim-jdtls which also works on a java filetype autocmd.
     pattern = { "scala", "sbt", "java" },
     callback = function()
+      vim.env.JAVA_HOME =
+      "/Users/benlu/Library/Caches/Coursier/arc/https/github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.13%252B11/OpenJDK17U-jdk_aarch64_mac_hotspot_17.0.13_11.tar.gz/jdk-17.0.13+11/Contents/Home"
       require("metals").initialize_or_attach(metals_config)
     end,
     group = nvim_metals_group,
