@@ -30,6 +30,7 @@ alias goctave='\octave -q'
 [ -x "$(command -v rg)" ] && [ -x "$(command -v ctags)" ] && alias maketags="rg --files | ctags --links=no --excmd=number -L-"
 [ -x "$(command -v rg)" ] && alias rg="rg --hidden --glob \"!tags\" --glob \"!.git\" -M 1000"
 [ -f /usr/local/bin/less ] && export LESS="$LESS -RF"
+[ -x "$(command -v uv)" ] && alias uvp='uv run python'
 alias cddot='~/ws/dotfiles'
 alias cddep='~/ws/deps'
 alias cdroot='cd "$(git root)"'
@@ -128,6 +129,16 @@ pathadd /opt/homebrew/opt/python/libexec/bin
 pathadd "/opt/homebrew/opt/avr-gcc@8/bin"
 pathadd "/opt/homebrew/opt/arm-gcc-bin@8/bin"
 pathadd "/usr/local/anaconda3/bin"
+
+# android and java
+[ -z ${JAVA_HOME+x} ] && [ -d /Applications/Android\ Studio.app/Contents/jbr/Contents/Home ] && export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
+if [ -z ${ANDROID_HOME+x} ] && [ -d "$HOME/Library/Android/sdk" ]; then
+  export ANDROID_HOME="$HOME/Library/Android/sdk"
+  # export ANDROID_NDK_HOME="$HOME/Library/Android/Sdk/ndk/21.3.6528147/"?
+
+  pathadd $ANDROID_HOME/platform-tools
+  pathadd $ANDROID_HOME/emulator
+fi
 
 #
 # Checkout bat --list-themes, Light themes: GitHub, Monokai Extended Light, OneHalfLight, ansi-light
@@ -378,14 +389,15 @@ portscan() {
   done
 }
 
-setup-pythonpath() {
+setup-pythonpath() {( set -e
+  source .venv/bin/activate
   # uses legacy distutils: https://stackoverflow.com/questions/4757178/how-do-you-set-your-pythonpath-in-an-already-created-virtualenv/47184788#47184788
   # with updated sysconfig: https://stackoverflow.com/questions/122327/how-do-i-find-the-location-of-my-python-site-packages-directory/52638888#52638888
   local current_path="$(pwd)"
   cd $(python -c "from sysconfig import get_path; print(get_path('purelib'))")
+  echo "Writing '$current_path' to $(pwd)/pypath.pth"
   echo "$current_path" > pypath.pth
-  cd -
-}
+)}
 
 tmpl-tool() {
   # https://stackoverflow.com/questions/2013547/assigning-default-values-to-shell-variables-with-a-single-command-in-bash
