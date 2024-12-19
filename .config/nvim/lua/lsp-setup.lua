@@ -298,7 +298,24 @@ local function setupLsp()
   -- npm install -g svelte-language-server
   lspconfig.svelte.setup {}
 
-  lspconfig.gopls.setup {}
+  lspconfig.gopls.setup {
+    settings = {
+      gopls = {
+        analyses = {
+          unusedvariable = true,
+        },
+        hints = {
+          assignVariableTypes = true,
+          compositeLiteralFields = true,
+          compositeLiteralTypes = true,
+          constantValues = true,
+          functionTypeParameters = true,
+          parameterNames = true,
+          rangeVariableTypes = true,
+        },
+      },
+    }
+  }
 
   -- curl -fLO https://github.com/redhat-developer/vscode-xml/releases/download/0.27.1/lemminx-osx-aarch_64.zip
   -- unzip lemminx-osx-aarch_64.zip
