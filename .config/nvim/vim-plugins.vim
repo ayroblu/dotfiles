@@ -26,6 +26,7 @@ Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'stevearc/aerial.nvim'
 
 Plug 'folke/flash.nvim'
+autocmd ColorScheme * highlight FlashLabel guifg=#ffffff guibg=#ff0000
 
 Plug 'kevinhwang91/promise-async'
 Plug 'kevinhwang91/nvim-ufo'
