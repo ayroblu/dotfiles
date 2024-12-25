@@ -87,32 +87,32 @@ local function lang_move(lang, action)
     end
   end)
 end
-local function lang_move_js_prev()
-  lang_move("TypeScript", "Prev")
+local lang_move_config = {
+  {
+    filetype = { "javascript", "javascriptflow", "javascriptreact", "typescript", "typescriptreact" },
+    lang = "TypeScript",
+  },
+  {
+    filetype = { "rust" },
+    lang = "Rust",
+  },
+  {
+    filetype = { "python" },
+    lang = "Python",
+  },
+  {
+    filetype = { "scala" },
+    lang = "Scala",
+  },
+}
+for _, config in ipairs(lang_move_config) do
+  local filetype, lang = config.filetype, config.lang
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = filetype,
+    callback = function()
+      vim.keymap.set("n", "<,", function() lang_move(lang, "Prev") end, { desc = "move prev", buffer = true })
+      vim.keymap.set("n", ">,", function() lang_move(lang, "Next") end, { desc = "move next", buffer = true })
+    end,
+    group = nvim_commands_group,
+  })
 end
-local function lang_move_js_next()
-  lang_move("TypeScript", "Next")
-end
-local function lang_move_rs_prev()
-  lang_move("Rust", "Prev")
-end
-local function lang_move_rs_next()
-  lang_move("Rust", "Next")
-end
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "javascript", "javascriptflow", "javascriptreact", "typescript", "typescriptreact" },
-  callback = function()
-    vim.keymap.set("n", "<,", lang_move_js_prev, { desc = "move prev", buffer = true })
-    vim.keymap.set("n", ">,", lang_move_js_next, { desc = "move next", buffer = true })
-  end,
-  group = nvim_commands_group,
-})
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "rust" },
-  callback = function()
-    vim.keymap.set("n", "<,", lang_move_rs_prev, { desc = "move prev", buffer = true })
-    vim.keymap.set("n", ">,", lang_move_rs_next, { desc = "move next", buffer = true })
-  end,
-  group = nvim_commands_group,
-})
