@@ -65,6 +65,16 @@ local function keys(t)
   return keys
 end
 
+local function merge_tables(base, other)
+  for key, value in pairs(other) do
+    base[key] = value
+  end
+  return base
+end
+local function trim(s)
+  return (s:gsub("^%s*(.-)%s*$", "%1"))
+end
+
 -- print("plugins", dump(str_not_contains(vim.api.nvim_get_runtime_file("", true), ".vim")))
 local exports = {
   dump = dump,
@@ -74,6 +84,8 @@ local exports = {
   table_concat = table_concat,
   flat_map = flat_map,
   keys = keys,
+  merge_tables = merge_tables,
+  trim = trim,
 }
 
 return exports
