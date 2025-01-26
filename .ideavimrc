@@ -1,5 +1,13 @@
 set visualbell
 set noerrorbells
 
+let mapleader=" "
+" Plugins
+set exchange
+
 imap jj <Esc>l
 imap jk <Esc>l
+nmap ]] <Action>(GotoNextError)
+nmap [[ <Action>(GotoPreviousError)
+nmap <leader>ss <Action>(SaveAll)
+nmap <leader>st <Action>(CloseContent)
