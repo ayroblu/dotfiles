@@ -658,6 +658,12 @@ Plug 'mattn/emmet-vim'
 "   - if you have visually selected normal text then you will get a text
 "   prompt to insert with placeholder like Tag: div>*
 
+Plug 'AndrewRadev/linediff.vim'
+" Select text then :Linediff to select diff, again to do diff.
+" :LinediffReset to reset
+vnoremap <Leader>d :Linediff<CR>
+nnoremap <Leader><Leader>d :LinediffReset<CR>
+
 " === Text objects
 " Plug 'wellle/targets.vim'
 " changes behaviour to also perform seeking so you don't need to wory as much about cursor
@@ -996,7 +1002,7 @@ let g:ale_open_list=0
 
 " Twitter specific
 "Plug 'jrozner/vim-antlr'
-Plug 'pantsbuild/vim-pants'
+"Plug 'pantsbuild/vim-pants'
 
 " included in polyglot
 "Plug 'othree/html5.vim'
