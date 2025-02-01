@@ -108,6 +108,8 @@ local function setupLsp()
   }
   -- npm i -g bash-language-server
   lspconfig.bashls.setup {}
+  -- brew tap dart-lang/dart && brew install dart
+  lspconfig.dartls.setup {}
   -- npm i -g vscode-langservers-extracted
   lspconfig.eslint.setup {
     filetypes = { "javascriptflow", "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte", "astro" }
@@ -288,11 +290,30 @@ local function setupLsp()
   -- included by default with xcode dev tools? https://github.com/apple/sourcekit-lsp
   -- setup per project
   if project_name == "bazel-demo" then
-    local swiftmodule_dirs = { "JsWrap", "Log", "utils" }
-    local args = utils.flat_map(swiftmodule_dirs, function(dir)
-      return { "-Xswiftc", "-I" .. git_root .. "/.bazel/bin/example-ios-app/" .. dir }
-    end)
-    lspconfig.sourcekit.setup { cmd = { 'sourcekit-lsp', unpack(args) } }
+    if vim.fn.getcwd():find("example-ios-app", 1, true) then
+      local swiftmodule_dirs = { "JsWrap", "Log", "utils" }
+      local args = utils.flat_map(swiftmodule_dirs, function(dir)
+        return { "-Xswiftc", "-I" .. git_root .. "/.bazel/bin/example-ios-app/" .. dir }
+      end)
+      lspconfig.sourcekit.setup { cmd = { 'sourcekit-lsp', unpack(args) } }
+    elseif vim.fn.getcwd():find("g1-app", 1, true) then
+      local swiftmodule_dirs = { "content", "Connect", "Log", "utils" }
+      local args = utils.flat_map(swiftmodule_dirs, function(dir)
+        return { "-Xswiftc", "-I" .. git_root .. "/.bazel/bin/g1-app/" .. dir }
+      end)
+      lspconfig.sourcekit.setup { cmd = utils.concat({ 'sourcekit-lsp', unpack(args) }, {
+        -- "-Xswiftc", "-sdk",
+        -- "-Xswiftc", "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk",
+        -- "-Xswiftc", "-target",
+        -- "-Xswiftc", "arm64-apple-ios18.2",
+
+        -- simulator
+        "-Xswiftc", "-sdk",
+        "-Xswiftc", "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk",
+        "-Xswiftc", "-target",
+        "-Xswiftc", "arm64-apple-ios18.2-simulator",
+      }) }
+    end
   else
     lspconfig.sourcekit.setup {}
   end

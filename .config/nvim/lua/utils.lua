@@ -23,6 +23,17 @@ local function filter(input, predicate)
   return filteredArray
 end
 
+local function concat(t1, t2)
+  local result = {}
+  for i = 1, #t1 do
+    table.insert(result, t1[i])
+  end
+  for i = 1, #t2 do
+    table.insert(result, t2[i])
+  end
+  return result
+end
+
 local function str_contains(input, str_search)
   return filter(input, function(x) return string.find(x, str_search, 1, true) end)
 end
@@ -86,6 +97,7 @@ local exports = {
   keys = keys,
   merge_tables = merge_tables,
   trim = trim,
+  concat = concat,
 }
 
 return exports

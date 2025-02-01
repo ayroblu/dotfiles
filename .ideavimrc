@@ -1,13 +1,27 @@
 set visualbell
 set noerrorbells
 
-let mapleader=" "
 " Plugins
 set exchange
 
+let mapleader=" "
+set so=5
+set incsearch
+set relativenumber
+set ignorecase
+set smartcase
+
 imap jj <Esc>l
 imap jk <Esc>l
+" :actionlist <pattern>
 nmap ]] <Action>(GotoNextError)
 nmap [[ <Action>(GotoPreviousError)
 nmap <leader>ss <Action>(SaveAll)
 nmap <leader>st <Action>(CloseContent)
+nmap <leader><tab> <Action>(RecentFiles)
+nmap <leader>t <Action>(GotoFile)
+nmap <leader>ac <Action>(ShowIntentionActions)
+nmap <leader>j <Action>(ReformatCode)
+nmap <leader>rn <Action>(RenameElement)
+nmap <leader>ao <Action>(OptimizeImports)
+nmap <leader>aa <Action>(ActivateProblemsViewToolWindow)
