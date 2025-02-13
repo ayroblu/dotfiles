@@ -63,8 +63,8 @@ setopt hist_verify             # show command with history expansion to user bef
 # Init setup
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=50000
-SAVEHIST=10000
+HISTSIZE=500000
+SAVEHIST=100000
 
 # -------------------------------------- Directories
 setopt auto_pushd # automatically push to stack

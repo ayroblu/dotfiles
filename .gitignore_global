@@ -45,3 +45,7 @@ tags
 .metals
 # virtualenv venv # always set up virtualenv this way for personal stuff
 venv
+
+.ccls-cache
+compile_commands.json
+.ccls

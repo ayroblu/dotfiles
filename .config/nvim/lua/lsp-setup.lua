@@ -399,6 +399,7 @@ local function setupLsp()
       json = { "prettierd", "prettier", stop_after_first = true },
       kotlin = { "ktfmt" },
       rust = { "rustfmt" },
+      cpp = { lsp_format = "never" },
     },
     default_format_opts = {
       lsp_format = "fallback",

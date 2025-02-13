@@ -24,7 +24,7 @@ local function setupTreeSitter()
   require 'nvim-treesitter.configs'.setup {
     -- One of "all", "maintained" (parsers with maintainers), or a list of languages
     ensure_installed = {
-      "javascript", "typescript", "tsx", "graphql", "vim", "lua", "sql",
+      "cpp", "javascript", "typescript", "tsx", "graphql", "vim", "lua", "sql",
       "scala", "python", "markdown", "markdown_inline", "css", "bash",
       "swift", "regex", "starlark", "kotlin"
     },

@@ -357,12 +357,18 @@ videoToGif1280x4() {
   # https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/
   ffmpeg -i "$filename" -filter_complex "[0:v] fps=12,scale=1280:-1,setpts=0.25*PTS,split [a][b];[a] palettegen [p];[b][p] paletteuse" "$new_filename"
 }
-video-transcode() {
+video-transcode-h265() {
   # https://unix.stackexchange.com/questions/28803/how-can-i-reduce-a-videos-size-with-ffmpeg
   local filename="$1"
   local new_filename="${filename%.*}.h265.mp4"
   ffmpeg -i "$filename" -vcodec libx265 -crf 28 "$new_filename"
-  # ffmpeg -i input.mp4 -c:v libaom-av1 -crf 30 av1_test.mkv - av1
+}
+video-transcode() {
+  # https://unix.stackexchange.com/questions/28803/how-can-i-reduce-a-videos-size-with-ffmpeg
+  local filename="$1"
+  local new_filename="${filename%.*}.h264.mp4"
+  ffmpeg  -hide_banner -loglevel warning -i "$filename" -vcodec libx264 -crf 20 "$new_filename"
+  echo "created: $new_filename"
 }
 video-720p() {
   local filename="$1"

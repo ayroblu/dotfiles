@@ -33,6 +33,7 @@
 
   aa = add -A
   amend = commit -a --amend --no-edit
+  amend-staged = commit --amend --no-edit
   abandon = !BRANCH=`git rev-parse --abbrev-ref HEAD` && git reset --hard && git checkout $(git mainmaster) && git branch -D $BRANCH
   # get main branch
   #bm = !git remote show upstream | grep "HEAD branch" | sed 's/.*: //'
@@ -52,6 +53,7 @@
   blo = !git for-each-ref --sort=committerdate refs/heads/ refs/remotes/origin/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
   # To clean everything
   cfd = clean -fd
+  clean-all = clean -xfd
   ci = commit -am
   cm = commit -m
   cf = commit -a --fixup
@@ -129,6 +131,7 @@
   # https://git-scm.com/book/en/v2/Git-Tools-Searching -L line log search is way more powerful
   searchlog = log -p -G
   s = status
+  sha = rev-parse --verify --short HEAD
   ss = status -uno
   si = status --ignored
 
@@ -191,6 +194,7 @@
   autosquash = true
 [fetch]
   prune = true
+  parallel = 8
 [http]
   postBuffer = 524288000
 [init]
