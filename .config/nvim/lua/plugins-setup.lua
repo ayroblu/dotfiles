@@ -26,7 +26,7 @@ local function setupTreeSitter()
     ensure_installed = {
       "cpp", "javascript", "typescript", "tsx", "graphql", "vim", "lua", "sql",
       "scala", "python", "markdown", "markdown_inline", "css", "bash",
-      "swift", "regex", "starlark", "kotlin"
+      "swift", "regex", "starlark", "kotlin", "go"
     },
 
     -- Install languages synchronously (only applied to `ensure_installed`)
