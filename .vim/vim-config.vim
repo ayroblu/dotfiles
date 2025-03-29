@@ -353,6 +353,7 @@ autocmd BufNewFile,BufRead vscode_settings.json setl ft=jsonc
 autocmd BufNewFile,BufRead Podfile setl ft=ruby
 autocmd BufNewFile,BufRead Cakefile setl ft=ruby
 autocmd BufNewFile,BufRead *.swiftinterface setl ft=swift
+autocmd BufNewFile,BufRead *.overlay setl ft=dts
 
 " custom flow type
 au BufRead *.js if join(getline(0, 25)) =~ '@flow' | setlocal ft=javascriptflow syntax=javascript | endif

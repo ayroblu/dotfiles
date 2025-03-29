@@ -486,3 +486,7 @@ infill13() {
 infill() {
   infill7 "$1"
 }
+
+raw_hex() {
+  perl -e 'print pack "H*", "'"$1"'"'
+}
