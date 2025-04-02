@@ -28,6 +28,7 @@ alias cddropbox='cd ~/Library/CloudStorage/Dropbox'
 alias goctave='\octave -q'
 [ -x "$(command -v octave)" ] && alias octave='octave -W -q'
 [ -x "$(command -v rg)" ] && [ -x "$(command -v ctags)" ] && alias maketags="rg --files | ctags --links=no --excmd=number -L-"
+[ -x "$(command -v rg)" ] && alias rgweb="rg -g !__tests__ -g !__stories__ -g !__fixtures__"
 [ -x "$(command -v rg)" ] && alias rg="rg --hidden --glob \"!tags\" --glob \"!.git\" -M 1000"
 [ -f /usr/local/bin/less ] && export LESS="$LESS -RF"
 [ -x "$(command -v uv)" ] && alias uvp='uv run python'
