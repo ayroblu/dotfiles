@@ -83,6 +83,12 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'mfussenegger/nvim-dap'
 Plug 'scalameta/nvim-metals'
 
+" dap setup
+Plug 'leoluz/nvim-dap-go'
+Plug 'nvim-neotest/nvim-nio'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'theHamsta/nvim-dap-virtual-text'
+
 " Plugins to provide code completion
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-vsnip'

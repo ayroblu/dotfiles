@@ -38,6 +38,41 @@ local function get_git_root()
   return vim.fn.fnamemodify(dot_git_path, ":p:h:h")
 end
 
+local function setupDap()
+  local dap, dapui = require("dap"), require("dapui")
+  dapui.setup()
+  require("nvim-dap-virtual-text").setup()
+
+  -- make breakpoint red circle
+  vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
+
+  vim.keymap.set("n", "<leader>dc", function() dap.continue() end)
+  -- vim.keymap.set("n", "<leader>dr", function() dap.repl.toggle() end)
+  -- vim.keymap.set("n", "<leader>dK", function() require("dap.ui.widgets").hover() end)
+  vim.keymap.set("n", "<leader>dx", function() dap.toggle_breakpoint() end)
+
+  vim.keymap.set("n", "<leader>dso", function() dap.step_over() end)
+  vim.keymap.set("n", "<leader>dsi", function() dap.step_into() end)
+  vim.keymap.set("n", "<leader>dsr", function() dap.restart() end)
+  vim.keymap.set("n", "<leader>dsc", function() dap.run_to_cursor() end)
+  vim.keymap.set("n", "<leader>dss", function()
+    dap.terminate()
+    dapui.close()
+  end)
+  -- very limited support
+  vim.keymap.set("n", "<leader>dsb", function() dap.step_back() end)
+  vim.keymap.set("n", "<leader>dsv", function() dap.reverse_continue() end)
+
+  -- vim.keymap.set("n", "<leader>dl", function() dap.run_last() end)
+  vim.keymap.set("n", "<leader>d?", function() dapui.eval(nil, { enter = true }) end)
+
+  -- auto open debugger
+  dap.listeners.before.attach.dapui_config = function() dapui.open() end
+  dap.listeners.before.launch.dapui_config = function() dapui.open() end
+  dap.listeners.before.event_terminated.dapui_config = function() dapui.close() end
+  dap.listeners.before.event_exited.dapui_config = function() dapui.close() end
+end
+
 local function setupLsp()
   require("scrollbar").setup()
   local lspconfig = require('lspconfig')
@@ -356,6 +391,15 @@ local function setupLsp()
       },
     }
   }
+  require('dap-go').setup {}
+  -- https://github.com/go-delve/delve/tree/master/Documentation/installation
+  -- ensure: go install github.com/go-delve/delve/cmd/dlv@latest
+  -- sudo /usr/sbin/DevToolsSecurity -enable
+  -- sudo dscl . append /Groups/_developer GroupMembership $(whoami)
+  vim.keymap.set("n", "<leader>dt", function() require("dap-go").debug_test() end)
+  vim.keymap.set("n", "<leader><leader>dt", function() require("dap-go").debug_last_test() end)
+
+  setupDap()
 
   -- curl -fLO https://github.com/redhat-developer/vscode-xml/releases/download/0.27.1/lemminx-osx-aarch_64.zip
   -- unzip lemminx-osx-aarch_64.zip
@@ -464,9 +508,9 @@ local function setupLsp()
       vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
       vim.keymap.set({ "n", "v" }, "<leader>ac", "<cmd>Lspsaga code_action<CR>")
       vim.keymap.set("n", "gt", "<cmd>Lspsaga goto_type_definition<CR>")
-      vim.keymap.set("n", "<leader>dl", "<cmd>Lspsaga show_line_diagnostics<CR>")
-      vim.keymap.set("n", "<leader>dc", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
-      vim.keymap.set("n", "<leader>db", "<cmd>Lspsaga show_buf_diagnostics<CR>")
+      -- vim.keymap.set("n", "<leader>dl", "<cmd>Lspsaga show_line_diagnostics<CR>")
+      -- vim.keymap.set("n", "<leader>dc", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
+      -- vim.keymap.set("n", "<leader>db", "<cmd>Lspsaga show_buf_diagnostics<CR>")
       vim.keymap.set("n", "[[", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
       vim.keymap.set("n", "]]", "<cmd>Lspsaga diagnostic_jump_next<CR>")
 
@@ -527,6 +571,7 @@ local function setupLsp()
     end,
   })
 end
+
 local function show_popup_under_cursor(content)
   local opts = {
     border = "rounded", -- Border style: "rounded", "double", "single", etc.
