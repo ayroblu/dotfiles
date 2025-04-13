@@ -318,13 +318,13 @@ local function setupLsp()
           -- "-Xswiftc", "-sdk",
           -- "-Xswiftc", "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk",
           -- "-Xswiftc", "-target",
-          -- "-Xswiftc", "arm64-apple-ios18.2",
+          -- "-Xswiftc", "arm64-apple-ios18.4",
 
           -- simulator
           "-Xswiftc", "-sdk",
           "-Xswiftc", "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk",
           "-Xswiftc", "-target",
-          "-Xswiftc", "arm64-apple-ios18.2-simulator",
+          "-Xswiftc", "arm64-apple-ios18.4-simulator",
         }) }
       end
     else
@@ -337,6 +337,7 @@ local function setupLsp()
   -- npm install -g svelte-language-server
   lspconfig.svelte.setup {}
 
+  -- go install golang.org/x/tools/gopls@latest
   lspconfig.gopls.setup {
     settings = {
       gopls = {

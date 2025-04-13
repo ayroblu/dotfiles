@@ -1,2 +1,4 @@
 MODULE.bazel.lock
 .ccls-cache
+# for dotfiles only: ignore plover since it is a dictionary of all words
+plover
