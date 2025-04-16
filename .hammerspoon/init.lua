@@ -81,6 +81,7 @@ local function layoutSimple()
                 -- moveWindowToSpaceNum(window, "3")
             else
                 window:moveToScreen(smallestScreen)
+                window:maximize(0)
             end
         else
             if numScreens <= 2 then

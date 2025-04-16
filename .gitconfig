@@ -70,7 +70,7 @@
 
   d = diff
   dbase = "!f() { git diff $(git merge-base HEAD \"$@\");}; f"
-  diff-name = !git diff $(git merge-base HEAD origin/$(git mainmaster)) --diff-filter=d --name-only
+  diff-name = !git diff $(git merge-base HEAD $(git main)) --diff-filter=d --name-only
   ds = diff --staged
   dh = diff HEAD
   dt = difftool
@@ -80,7 +80,7 @@
   #du = "!cd \"${GIT_PREFIX:-.}\"; git diff $(git merge-base HEAD $(git upstream))...HEAD"
   du = "!git diff \"$(git mb)\""
   dus = du --stat
-  dm = "!git diff $(git merge-base HEAD origin/$(git mainmaster))"
+  dm = "!git diff $(git merge-base HEAD $(git main))"
   #du = "!f() { git diff $(git merge-base HEAD $(git upstream)) \"$@\"; }; f"
   dw = d --color-words
   dc = d --color-words=.
@@ -104,14 +104,15 @@
   llfsc = ll -c --first-parent --stat
   #lfa = lf --author-date-order  --no-merges
   mb = !git merge-base HEAD $(git upstream)
-  mbm = "!git merge-base HEAD origin/$(git mainmaster)"
+  merge-base-main = "!git merge-base HEAD $(git main)"
 
   mainmaster = !"git branch --format='%(refname:short)' | rg '^(main|master)$'"
+  main = symbolic-ref --short refs/remotes/origin/HEAD
 
   m = merge --no-ff
   mt = mergetool
   # New branch
-  new = !"git checkout origin/$(git mainmaster) -b"
+  new = !"git checkout origin/$(git main) -b"
   newdep = checkout -t HEAD -b
   upstream = rev-parse --abbrev-ref --symbolic-full-name @{u}
   p = push origin HEAD
