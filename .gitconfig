@@ -112,7 +112,7 @@
   m = merge --no-ff
   mt = mergetool
   # New branch
-  new = !"git checkout origin/$(git main) -b"
+  new = !"git checkout $(git main) -b"
   newdep = checkout -t HEAD -b
   upstream = rev-parse --abbrev-ref --symbolic-full-name @{u}
   p = push origin HEAD

@@ -491,3 +491,17 @@ infill() {
 raw_hex() {
   perl -e 'print pack "H*", "'"$1"'"'
 }
+
+run-once-per-day() {
+  local id="$1"
+  local stamp_file="$HOME/.run-once-per-day-${id}"
+  local today="$(date +%F)"
+
+  if [[ -f "$stamp_file" && "$(cat "$stamp_file")" == "$today" ]]; then
+    echo "$id already ran today ($today), skipping."
+    return
+  fi
+
+  "$@"
+  echo "$today" > "$stamp_file"
+}
