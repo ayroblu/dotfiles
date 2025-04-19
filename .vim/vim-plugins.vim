@@ -654,6 +654,9 @@ nnoremap <silent> <leader>o :TagbarToggle<cr>
 "autocmd VimEnter * nested :call tagbar#autoopen(1)
 
 Plug 'mattn/emmet-vim'
+let g:user_emmet_install_global = 0
+autocmd FileType html,css,javascriptreact,typescriptreact EmmetInstall
+let g:user_emmet_leader_key='<C-x>'
 " <c-y>, - perform action under cursor e.g. div>ul.class>li
 "   - if you have visually selected normal text then you will get a text
 "   prompt to insert with placeholder like Tag: div>*

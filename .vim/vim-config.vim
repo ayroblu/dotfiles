@@ -318,6 +318,10 @@ nnoremap <silent> Ô :resize +5<cr>
 " nnoremap <silent> ˆ :resize -5<cr>
 nnoremap <silent> Ò :vertical resize +5<cr>
 
+nnoremap <silent> gv :vsplit<cr>
+nnoremap <silent> gt :tab split<cr>
+nnoremap <silent> gs :split<cr>
+
 " Incrementing and decrementing visual blocks
 " https://stackoverflow.com/questions/23481635/how-to-use-vims-normal-mode-ctrl-a-number-increment-in-visual-block-mode
 xnoremap <C-a> :<C-u>let vcount = v:count ? v:count : 1 <bar> '<,'>s/\%V\d\+/\=submatch(0) + vcount <cr>gv
@@ -671,7 +675,7 @@ endif
 "autocmd BufEnter term://* startinsert
 
 " https://github.com/neovim/neovim/issues/3192
-nnoremap <leader>gt :vs\|:te<cr>
+" nnoremap <leader>gt :vs\|:te<cr>
 
 tnoremap ˙ <C-\><C-n><C-w>h
 tnoremap ∆ <C-\><C-n><C-w>j
@@ -708,13 +712,18 @@ command! -nargs=1 S call s:Script(<q-args>)
 
 " ---------------------------------------- Stuff I don't really understand
 
+" https://neovim.io/doc/user/usr_05.html#last-position-jump
 " When editing a file, always jump to the last cursor position
-autocmd BufReadPost *
-\ if ! exists("g:leave_my_cursor_position_alone") |
-  \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-    \ exe "normal g'\"" |
-  \ endif |
-\ endif
+augroup RestoreCursor
+  autocmd!
+  autocmd BufReadPre * autocmd FileType <buffer> ++once
+    \ let s:line = line("'\"")
+    \ | if s:line >= 1 && s:line <= line("$") && &filetype !~# 'commit'
+    \      && index(['xxd', 'gitrebase'], &filetype) == -1
+    \      && !&diff
+    \ |   execute "normal! g`\""
+    \ | endif
+augroup END
 
 " Comparing the file with what's saved on disk for conflicts
 " From https://www.reddit.com/r/vim/comments/2rnraa/indicator_if_a_saved_file_has_changed/
