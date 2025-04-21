@@ -95,6 +95,10 @@ pathadd() {
   fi
 }
 
+pathremove() {
+  PATH="${PATH//"$1"/}"
+}
+
 # /opt/homebrew/bin/brew shellenv
 if [ -f /opt/homebrew/bin/brew ]; then
   export HOMEBREW_PREFIX="/opt/homebrew";
