@@ -107,7 +107,7 @@
   merge-base-main = "!git merge-base HEAD $(git main)"
 
   mainmaster = !"git branch --format='%(refname:short)' | rg '^(main|master)$'"
-  main = symbolic-ref --short refs/remotes/origin/HEAD
+  main = !"git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null || git mainmaster"
 
   m = merge --no-ff
   mt = mergetool
