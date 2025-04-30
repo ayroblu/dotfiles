@@ -59,6 +59,7 @@ local function setupDap()
     dap.terminate()
     dapui.close()
   end)
+  vim.keymap.set("n", "<leader>dsp", function() dapui.open() end)
   -- very limited support
   vim.keymap.set("n", "<leader>dsb", function() dap.step_back() end)
   vim.keymap.set("n", "<leader>dsv", function() dap.reverse_continue() end)

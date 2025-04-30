@@ -318,9 +318,7 @@ nnoremap <silent> Ô :resize +5<cr>
 " nnoremap <silent> ˆ :resize -5<cr>
 nnoremap <silent> Ò :vertical resize +5<cr>
 
-nnoremap <silent> gv :vsplit<cr>
 nnoremap <silent> gt :tab split<cr>
-nnoremap <silent> gs :split<cr>
 
 " Incrementing and decrementing visual blocks
 " https://stackoverflow.com/questions/23481635/how-to-use-vims-normal-mode-ctrl-a-number-increment-in-visual-block-mode
