@@ -107,18 +107,10 @@ local lang_move_config = {
     filetype = { "javascript", "javascriptflow", "javascriptreact", "typescript", "typescriptreact" },
     lang = "TypeScript",
   },
-  {
-    filetype = { "rust" },
-    lang = "Rust",
-  },
-  {
-    filetype = { "python" },
-    lang = "Python",
-  },
-  {
-    filetype = { "scala" },
-    lang = "Scala",
-  },
+  { filetype = { "rust" },   lang = "Rust" },
+  { filetype = { "python" }, lang = "Python" },
+  { filetype = { "scala" },  lang = "Scala" },
+  { filetype = { "go" },     lang = "Go" },
 }
 for _, config in ipairs(lang_move_config) do
   local filetype, lang = config.filetype, config.lang
