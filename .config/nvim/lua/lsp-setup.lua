@@ -375,6 +375,27 @@ local function setupLsp()
 
   -- go install golang.org/x/tools/gopls@latest
   lspconfig.gopls.setup {
+    on_attach = function(client, bufnr)
+      -- print(vim.inspect(client.server_capabilities))
+      vim.keymap.set('n', '<leader>ag', function()
+        local uri = vim.uri_from_bufnr(bufnr)
+        client:exec_cmd({ command = "gopls.gc_details", arguments = { uri } }, { bufnr = bufnr })
+      end)
+      vim.api.nvim_buf_create_user_command(bufnr, "GoTest", function(opts)
+        local uri = vim.uri_from_bufnr(bufnr)
+        client:exec_cmd({ command = "gopls.run_tests", arguments = { { URI = uri, Tests = opts.fargs } } },
+          { bufnr = bufnr },
+          function(err, result, ctx)
+            if err then
+              print(err)
+              return
+            end
+            if result then
+              print(result)
+            end
+          end)
+      end, { nargs = '*' })
+    end,
     settings = {
       gopls = {
         analyses = {
@@ -408,11 +429,20 @@ local function setupLsp()
   -- xattr -d com.apple.quarantine ~/bin/lemminx
   lspconfig.lemminx.setup {}
 
+  -- brew install terraform-ls
+  lspconfig.terraformls.setup {}
+
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
   vim.keymap.set('n', '<leader>ai', vim.diagnostic.open_float)
-  vim.keymap.set('n', '[[', vim.diagnostic.goto_prev)
-  vim.keymap.set('n', ']]', vim.diagnostic.goto_next)
+  -- vim.keymap.set('n', '[[', vim.diagnostic.goto_prev)
+  -- vim.keymap.set('n', ']]', vim.diagnostic.goto_next)
+  vim.keymap.set('n', '[[', function() vim.diagnostic.jump({ count = -1 }) end)
+  vim.keymap.set('n', ']]', function() vim.diagnostic.jump({ count = 1 }) end)
+  vim.diagnostic.config({
+    jump = { float = true },
+    virtual_text = true,
+  })
   vim.keymap.set('n', '<leader>aa', vim.diagnostic.setqflist)
   vim.keymap.set('n', '<leader>ae', '<cmd>lua vim.diagnostic.setqflist({severity = "E"})<cr>')
   vim.keymap.set('n', '<leader>aw', '<cmd>lua vim.diagnostic.setqflist({severity = "W"})<cr>')
@@ -462,6 +492,7 @@ local function setupLsp()
       kotlin = { "ktfmt" },
       rust = { "rustfmt" },
       cpp = { lsp_format = "never" },
+      terraform = { "terraform_fmt" },
     },
     default_format_opts = {
       lsp_format = "fallback",

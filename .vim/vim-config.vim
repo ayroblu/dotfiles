@@ -389,6 +389,9 @@ if &diff
   nnoremap dg1 :diffget 1<cr>
   nnoremap dg2 :diffget 2<cr>
   nnoremap dg3 :diffget 3<cr>
+
+  " https://stackoverflow.com/questions/1265410/is-there-a-way-to-configure-vimdiff-to-ignore-all-whitespaces
+  set diffopt+=iwhiteall
 endif
 
 " Yank current file path

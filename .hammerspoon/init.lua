@@ -59,6 +59,7 @@ end
 -- for laptop plus two external monitors, this is Alacritty on screen 1, Chrome etc screen 2, slack on laptop
 local function layoutSimple()
     print("layoutSimple")
+    hs.alert.show("Performing layout")
     -- get all windows, move everything to space 2 except alacritty, and slack
     local screen1List = { "alacritty", "Alacritty" }
     local smallScreenList = { "Slack" }

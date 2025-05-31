@@ -107,7 +107,7 @@
   merge-base-main = "!git merge-base HEAD $(git main)"
 
   mainmaster = !"git branch --format='%(refname:short)' | rg '^(main|master)$'"
-  main = !"git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null || git mainmaster"
+  main = !"git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null || echo origin/$(git mainmaster)"
 
   m = merge --no-ff
   mt = mergetool
@@ -162,7 +162,7 @@
   show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
 
   # Delete old branches
-  dell = "!git branch --merged | egrep -v '(^\\*|main|master|dev)' | xargs git branch -d"
+  dell = "!git branch --merged | egrep -v '(^\\*|main|master|dev|develop)' | xargs git branch -d"
   delo = "!git branch -r --merged | grep -v 'master|main' | sed 's/origin\\///' | xargs git push --delete origin"
 
 [core]
