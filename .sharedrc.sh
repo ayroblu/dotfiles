@@ -233,6 +233,12 @@ killport() {
   kill -9 $(lsof -ti "$@")
 }
 
+adddate() {
+  while IFS= read -r line; do
+    printf '%s %s\n' "$(date +"%H:%M:%S")" "$line";
+  done
+}
+
 regexReplace() {
   # Requires ripgrep: https://github.com/BurntSushi/ripgrep
   BEFORE="$1"

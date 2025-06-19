@@ -299,6 +299,10 @@ local function setupLsp()
   }
   -- npm install -g cssmodules-language-server
   lspconfig.cssmodules_ls.setup {}
+
+  -- npm install -g @tailwindcss/language-server
+  lspconfig.tailwindcss.setup {}
+
   -- rustup component add rust-analyzer
   -- vim.lsp.set_log_level('info')
   -- setup per project
@@ -448,62 +452,6 @@ local function setupLsp()
   vim.keymap.set('n', '<leader>aw', '<cmd>lua vim.diagnostic.setqflist({severity = "W"})<cr>')
   vim.keymap.set('n', '<leader>al', vim.diagnostic.setloclist)
 
-  local conform = require("conform")
-  -- breaking change: https://github.com/stevearc/conform.nvim/issues/508#issuecomment-2272706085
-  ---@param bufnr integer
-  ---@param ... string
-  ---@return string
-  local function first(bufnr, ...)
-    for i = 1, select("#", ...) do
-      local formatter = select(i, ...)
-      if conform.get_formatter_info(formatter, bufnr).available then
-        return formatter
-      end
-    end
-    return select(1, ...)
-  end
-  local jsformat = function(bufnr) return { "eslint_d", first(bufnr, "prettierd", "prettier"), lsp_format = "never" } end
-  conform.setup({
-    formatters = {
-      cblack = {
-        command = "cblack",
-        args = {
-          "--stdin-filename",
-          "$FILENAME",
-          "--quiet",
-          "-",
-        },
-        cwd = require("conform.util").root_file({
-          -- https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
-          "pyproject.toml",
-        }),
-      },
-    },
-    formatters_by_ft = {
-      -- Conform will run multiple formatters sequentially
-      python = function(bufnr) return { "isort", first(bufnr, "cblack", "black") } end,
-      javascript = jsformat,
-      javascriptreact = jsformat,
-      javascriptflow = jsformat,
-      typescript = jsformat,
-      typescriptreact = jsformat,
-      graphql = { "prettierd", "prettier", stop_after_first = true },
-      json = { "prettierd", "prettier", stop_after_first = true },
-      kotlin = { "ktfmt" },
-      rust = { "rustfmt" },
-      cpp = { lsp_format = "never" },
-      terraform = { "terraform_fmt" },
-    },
-    default_format_opts = {
-      lsp_format = "fallback",
-    },
-  })
-  local function format()
-    if vim.fn.exists(':MetalsOrganizeImports') > 0 and vim.bo.filetype == 'scala' then vim.cmd('MetalsOrganizeImports') end
-    conform.format({ bufnr = vim.api.nvim_get_current_buf(), timeout_ms = 10000 })
-  end
-
-  vim.keymap.set('n', '<leader>j', format)
   vim.keymap.set('n', '<leader>K', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 
   -- Use LspAttach autocommand to only map the following keys
@@ -588,16 +536,6 @@ local function setupLsp()
       --   return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
       -- end
 
-      vim.keymap.set('n', '<leader>j', format, opts)
-      local bufnr = vim.api.nvim_get_current_buf()
-      local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
-      vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        callback = format,
-        buffer = bufnr,
-        group = group,
-        desc = "[lsp] format on save",
-      })
       --   if client.supports_method("textDocument/rangeFormatting") then
       --     vim.keymap.set("x", "<Leader>j", function()
       --       vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })

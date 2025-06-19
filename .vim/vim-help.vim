@@ -10,8 +10,9 @@ function ShowPersonalHelp()
   execute 0
 endfunction
 
+let s:dir = expand('<sfile>:p:h')
 function GetPersonalHelpText()
-  let l:text = join(readfile(expand('%:p:h') . "/help.md"), "\n")
+  let l:text = join(readfile(s:dir . "/help.md"), "\n")
   if &filetype ==# 'python'
     let l:text .= "\n\n## python:
       \\n <leader>r to rename

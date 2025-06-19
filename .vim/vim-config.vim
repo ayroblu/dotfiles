@@ -356,6 +356,7 @@ autocmd BufNewFile,BufRead Podfile setl ft=ruby
 autocmd BufNewFile,BufRead Cakefile setl ft=ruby
 autocmd BufNewFile,BufRead *.swiftinterface setl ft=swift
 autocmd BufNewFile,BufRead *.overlay setl ft=dts
+autocmd BufNewFile,BufRead *.tf setl ft=hcl
 
 " custom flow type
 au BufRead *.js if join(getline(0, 25)) =~ '@flow' | setlocal ft=javascriptflow syntax=javascript | endif

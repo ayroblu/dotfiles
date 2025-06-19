@@ -26,7 +26,7 @@ local function setupTreeSitter()
     ensure_installed = {
       "cpp", "javascript", "typescript", "tsx", "graphql", "vim", "lua", "sql",
       "scala", "python", "markdown", "markdown_inline", "css", "bash",
-      "swift", "regex", "starlark", "kotlin", "go"
+      "swift", "regex", "starlark", "kotlin", "go", "hcl"
     },
 
     -- Install languages synchronously (only applied to `ensure_installed`)
@@ -655,3 +655,85 @@ local function setupFlash()
 end
 
 pcall(setupFlash)
+
+local function setupConform()
+  local conform = require("conform")
+  -- breaking change: https://github.com/stevearc/conform.nvim/issues/508#issuecomment-2272706085
+  ---@param bufnr integer
+  ---@param ... string
+  ---@return string
+  local function first(bufnr, ...)
+    for i = 1, select("#", ...) do
+      local formatter = select(i, ...)
+      if conform.get_formatter_info(formatter, bufnr).available then
+        return formatter
+      end
+    end
+    return select(1, ...)
+  end
+  local jsformat = function(bufnr)
+    return { "eslint_d", "biome", first(bufnr, "prettierd", "prettier"), lsp_format = "never" }
+  end
+  local util = require("conform.util")
+  conform.setup({
+    formatters = {
+      eslint_d = {
+        cwd = util.root_file({
+          ".eslintrc",
+          ".eslintrc.js",
+        }),
+        require_cwd = true
+      },
+      cblack = {
+        command = "cblack",
+        args = {
+          "--stdin-filename",
+          "$FILENAME",
+          "--quiet",
+          "-",
+        },
+        cwd = util.root_file({
+          -- https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
+          "pyproject.toml",
+        }),
+      },
+    },
+    formatters_by_ft = {
+      -- Conform will run multiple formatters sequentially
+      python = function(bufnr) return { "isort", first(bufnr, "cblack", "black") } end,
+      javascript = jsformat,
+      javascriptreact = jsformat,
+      javascriptflow = jsformat,
+      typescript = jsformat,
+      typescriptreact = jsformat,
+      graphql = { "prettierd", "prettier", stop_after_first = true },
+      json = { "prettierd", "prettier", stop_after_first = true },
+      kotlin = { "ktfmt" },
+      rust = { "rustfmt" },
+      cpp = { lsp_format = "never" },
+      terraform = { "terraform_fmt" },
+      hcl = { "terraform_fmt" },
+      go = { "goimports", "gofmt" },
+    },
+    default_format_opts = {
+      lsp_format = "fallback",
+    },
+  })
+  local function format()
+    if vim.fn.exists(':MetalsOrganizeImports') > 0 and vim.bo.filetype == 'scala' then vim.cmd('MetalsOrganizeImports') end
+    conform.format({ bufnr = vim.api.nvim_get_current_buf(), timeout_ms = 10000 })
+  end
+
+  vim.keymap.set('n', '<leader>j', format)
+
+  local bufnr = vim.api.nvim_get_current_buf()
+  local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+  vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    callback = format,
+    buffer = bufnr,
+    group = group,
+    desc = "[conform] format on save",
+  })
+end
+pcall(setupConform)
