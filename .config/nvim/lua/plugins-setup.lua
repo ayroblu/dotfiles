@@ -714,6 +714,7 @@ local function setupConform()
       terraform = { "terraform_fmt" },
       hcl = { "terraform_fmt" },
       go = { "goimports", "gofmt" },
+      swift = { "swift" },
     },
     default_format_opts = {
       lsp_format = "fallback",
