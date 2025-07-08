@@ -719,6 +719,10 @@ local function setupConform()
     default_format_opts = {
       lsp_format = "fallback",
     },
+    format_on_save = {
+      timeout_ms = 5000,
+      lsp_format = "fallback",
+    },
   })
   local function format()
     if vim.fn.exists(':MetalsOrganizeImports') > 0 and vim.bo.filetype == 'scala' then vim.cmd('MetalsOrganizeImports') end
@@ -727,14 +731,14 @@ local function setupConform()
 
   vim.keymap.set('n', '<leader>j', format)
 
-  local bufnr = vim.api.nvim_get_current_buf()
-  local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
-  vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    callback = format,
-    buffer = bufnr,
-    group = group,
-    desc = "[conform] format on save",
-  })
+  -- local bufnr = vim.api.nvim_get_current_buf()
+  -- local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+  -- vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+  -- vim.api.nvim_create_autocmd("BufWritePre", {
+  --   callback = format,
+  --   buffer = bufnr,
+  --   group = group,
+  --   desc = "[conform] format on save",
+  -- })
 end
 pcall(setupConform)

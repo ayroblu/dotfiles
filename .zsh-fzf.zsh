@@ -143,7 +143,7 @@ is_in_git_repo() {
 }
 
 fzf-down() {
-  fzf --height 90% "$@" --border --preview-window "$(fzf-preview-window-calc)"
+  fzf --height 60% "$@" --border --preview-window "$(fzf-preview-window-calc)"
 }
 
 fzf_gf() {
