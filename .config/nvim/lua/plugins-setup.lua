@@ -1,5 +1,6 @@
-local function setupOil()
-  require("oil").setup({
+local oil_success, oil = pcall(require, "oil")
+if oil_success then
+  oil.setup({
     view_options = {
       show_hidden = true,
     }
@@ -17,11 +18,10 @@ local function setupOil()
   })
 end
 
-pcall(setupOil)
-
-local function setupTreeSitter()
+local ts_success, ts = pcall(require, "nvim-treesitter.configs")
+if ts_success then
   ---@diagnostic disable-next-line: missing-fields
-  require 'nvim-treesitter.configs'.setup {
+  ts.setup {
     -- One of "all", "maintained" (parsers with maintainers), or a list of languages
     ensure_installed = {
       "cpp", "javascript", "typescript", "tsx", "graphql", "vim", "lua", "sql",
@@ -68,8 +68,6 @@ local function setupTreeSitter()
   vim.o.foldlevelstart = 99
   vim.o.foldenable = true
 end
-
-pcall(setupTreeSitter)
 
 -- Don't fold everything
 -- https://github.com/nvim-treesitter/nvim-treesitter/discussions/1513
@@ -742,3 +740,8 @@ local function setupConform()
   -- })
 end
 pcall(setupConform)
+
+local typr_success, typr = pcall(require, "typr")
+if typr_success then
+  typr.setup({})
+end

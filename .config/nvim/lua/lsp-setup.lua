@@ -1,3 +1,13 @@
+local function is_executable(name)
+  -- Determine the OS for the appropriate command
+  local command = package.config:sub(1, 1) == "\\" and "where" or "which"
+  -- Run the command and capture the result
+  local cmd = command .. " " .. name
+  local success, exit_code = os.execute(cmd .. " > /dev/null 2>&1")
+  -- Return true if the command executed successfully (exit code 0)
+  return success and exit_code == 0
+end
+
 local function setupCmp()
   local lspkind = require('lspkind')
   local cmp = require 'cmp'
@@ -301,7 +311,9 @@ local function setupLsp()
   lspconfig.cssmodules_ls.setup {}
 
   -- npm install -g @tailwindcss/language-server
-  lspconfig.tailwindcss.setup {}
+  if is_executable("tailwindcss-language-server") then
+    lspconfig.tailwindcss.setup {}
+  end
 
   -- rustup component add rust-analyzer
   -- vim.lsp.set_log_level('info')
@@ -330,7 +342,7 @@ local function setupLsp()
 
   -- included by default with xcode dev tools? https://github.com/apple/sourcekit-lsp
   -- setup per project
-  if project_name == "bazel-demo" then
+  if project_name == "bazel-demo" or project_name == "monorepo" then
     local package_modules = { "swiftpkg_swift_snapshot_testing" }
     local package_args = utils.flat_map(package_modules, function(pack)
       return { "-Xswiftc", "-I" .. git_root .. "/.bazel/bin/external/rules_swift_package_manager~~swift_deps~" .. pack }
@@ -344,7 +356,8 @@ local function setupLsp()
       table.move(package_args, 1, #package_args, #args + 1, args)
       lspconfig.sourcekit.setup { cmd = { 'sourcekit-lsp', unpack(args) } }
     elseif vim.fn.getcwd():find("g1-app", 1, true) then
-      local swiftmodule_dirs = { "content", "../swift-shared/Log", "../swift-shared/LogUtils", "../swift-shared/Jotai", "utils", "maps", "snapshot-testing" }
+      local swiftmodule_dirs = { "content", "../swift-shared/Log", "../swift-shared/LogUtils", "../swift-shared/Jotai",
+        "utils", "maps", "snapshot-testing" }
       local args = utils.flat_map(swiftmodule_dirs, function(dir)
         return { "-Xswiftc", "-I" .. git_root .. "/.bazel/bin/g1-app/" .. dir }
       end)
@@ -368,27 +381,30 @@ local function setupLsp()
         }) }
       end
     elseif vim.fn.getcwd():find("card-wallet-app", 1, true) then
-      local swiftmodule_dirs = { "LogUtils", "Log", "Jotai", "SwiftUIUtils" }
-      local args = utils.flat_map(swiftmodule_dirs, function(dir)
-        return { "-Xswiftc", "-I" .. git_root .. "/.bazel/bin/swift-shared/" .. dir }
-      end)
-      table.move(package_args, 1, #package_args, #args + 1, args)
-      lspconfig.sourcekit.setup { cmd = { 'sourcekit-lsp', unpack(args) } }
+      -- local swiftmodule_dirs = { "LogUtils", "Log", "Jotai", "SwiftUIUtils" }
+      -- local args = utils.flat_map(swiftmodule_dirs, function(dir)
+      --   return { "-Xswiftc", "-I" .. git_root .. "/.bazel/bin/swift-shared/" .. dir }
+      -- end)
+      -- table.move(package_args, 1, #package_args, #args + 1, args)
+      -- lspconfig.sourcekit.setup { cmd = { 'sourcekit-lsp', unpack(args) } }
+
+      lspconfig.sourcekit.setup {}
+
       -- if vim.fn.expand('%:t'):match("Tests.swift") then
       --   lspconfig.sourcekit.setup { cmd = { 'sourcekit-lsp', unpack(args) } }
       -- else
-      --   lspconfig.sourcekit.setup { cmd = utils.concat({ 'sourcekit-lsp', unpack(args) }, {
-      --     -- "-Xswiftc", "-sdk",
-      --     -- "-Xswiftc", "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk",
-      --     -- "-Xswiftc", "-target",
-      --     -- "-Xswiftc", "arm64-apple-ios18.4",
+      -- lspconfig.sourcekit.setup { cmd = utils.concat({ 'sourcekit-lsp' }, {
+      --   -- "-Xswiftc", "-sdk",
+      --   -- "-Xswiftc", "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk",
+      --   -- "-Xswiftc", "-target",
+      --   -- "-Xswiftc", "arm64-apple-ios18.4",
 
-      --     -- simulator
-      --     "-Xswiftc", "-sdk",
-      --     "-Xswiftc", "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk",
-      --     "-Xswiftc", "-target",
-      --     "-Xswiftc", "arm64-apple-ios18.4-simulator",
-      --   }) }
+      --   -- simulator
+      --   "-Xswiftc", "-sdk",
+      --   "-Xswiftc", "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk",
+      --   "-Xswiftc", "-target",
+      --   "-Xswiftc", "arm64-apple-ios18.4-simulator",
+      -- }) }
       -- end
     else
       lspconfig.sourcekit.setup { cmd = { 'sourcekit-lsp', unpack(package_args) } }

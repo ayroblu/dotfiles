@@ -392,6 +392,10 @@ video-1080p() {
   ffmpeg -i "$filename" -filter:v scale=-2:1080 "$new_filename"
 }
 
+swift-build-ios() {
+  swift build --sdk $(xcrun --sdk iphonesimulator --show-sdk-path) -Xswiftc -target -Xswiftc arm64-apple-ios18.4-simulator
+}
+
 killport() {
   lsof -nti:"$1" | xargs kill -9
 }

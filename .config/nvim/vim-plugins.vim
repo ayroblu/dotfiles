@@ -21,6 +21,10 @@ Plug 'Dkendal/nvim-treeclimber'
 
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 
+Plug 'nvzone/volt'
+Plug 'nvzone/typr'
+" :Typr and :TyprStats
+
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 Plug 'stevearc/aerial.nvim'
