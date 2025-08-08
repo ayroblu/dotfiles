@@ -104,7 +104,7 @@ Plug 'tpope/vim-sleuth'
 " Indentation detection
 
 function! LoadVimSleuth()
-  if b:is_minified_file
+  if exists("b:is_minified_file") && b:is_minified_file
     let g:sleuth_heuristics = 0
   endif
 endfunction

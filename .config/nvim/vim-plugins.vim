@@ -1,6 +1,6 @@
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 function! LoadTreesitter()
-  if !b:is_minified_file
+  if exists("b:is_minified_file") && !b:is_minified_file
     exec 'TSBufEnable highlight'
   endif
 endfunction

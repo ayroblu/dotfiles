@@ -638,6 +638,7 @@ local function setupMetals()
     end,
     group = nvim_metals_group,
   })
+  vim.opt.cmdheight = 2
 end
 if os.getenv("HOME") == "/home/sandbox" then
   setupMetals()
