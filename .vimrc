@@ -61,7 +61,6 @@ endif
 
 if !exists('$VIM_VERY_FAST')
   if !exists('$VIM_FAST')
-    " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
     if filereadable(expand('~/.vim/autoload/plug.vim'))
       call plug#begin()
       runtime! vim-plugins.vim

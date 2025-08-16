@@ -84,15 +84,17 @@ set foldexpr=nvim_treesitter#foldexpr()
 " vim sandwich: add dict version with <visual>sad to surround with [] and
 " insert
 " https://github.com/machakann/vim-sandwich/wiki/Magic-characters
-let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
-let g:sandwich#recipes += [
-  \   {
-  \     'buns': ['[', ']'],
-  \     'cursor': 'head',
-  \     'command': ['startinsert'],
-  \     'kind': ['add', 'replace'],
-  \     'action': ['add'],
-  \     'input': ['d']
-  \   },
-  \ ]
+if exists("g:sandwich#default_recipes")
+  let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+  let g:sandwich#recipes += [
+    \   {
+    \     'buns': ['[', ']'],
+    \     'cursor': 'head',
+    \     'command': ['startinsert'],
+    \     'kind': ['add', 'replace'],
+    \     'action': ['add'],
+    \     'input': ['d']
+    \   },
+    \ ]
+endif
 

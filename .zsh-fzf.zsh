@@ -231,3 +231,5 @@ bindkey -r "^G"
 # Files, merGebase diff files, Branches, reMote branches, Tags, Remotes, commit Hashes
 bind-git-helper f g b m t r h z
 unset -f bind-git-helper
+
+source <(fzf --zsh)

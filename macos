@@ -37,6 +37,7 @@ defaults write com.apple.dock autohide-delay -float 2000; killall Dock
 # defaults write com.colliderli.iina AppleMenuBarVisibleInFullscreen -bool false
 # defaults delete com.colliderli.iina AppleMenuBarVisibleInFullscreen
 
+# Reduce spacing between menubar icons (may require reboot)
 defaults -currentHost write -globalDomain NSStatusItemSpacing -int 12
 # defaults -currentHost delete -globalDomain NSStatusItemSpacing
 defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 6

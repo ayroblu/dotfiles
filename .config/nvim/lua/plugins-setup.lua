@@ -69,37 +69,40 @@ if ts_success then
   vim.o.foldenable = true
 end
 
--- Don't fold everything
--- https://github.com/nvim-treesitter/nvim-treesitter/discussions/1513
-local treesitter_parsers = require('nvim-treesitter.parsers')
+local tsp_success, ts = pcall(require, "nvim-treesitter.parsers")
+if tsp_success then
+  -- Don't fold everything
+  -- https://github.com/nvim-treesitter/nvim-treesitter/discussions/1513
+  local treesitter_parsers = require('nvim-treesitter.parsers')
 
-if treesitter_parsers.has_parser "typescript" then
-  -- Note we don't fold (export_statement) because these are "important"
-  local folds_query = [[
-    (program [
-      (function_declaration)
-      (class_declaration)
-      (method_definition)
-      (export_statement)
-      (lexical_declaration)
-      (variable_declaration)
-      (type_alias_declaration)
-    ] @fold)
-    (class_declaration (class_body (_) @fold))
+  if treesitter_parsers.has_parser "typescript" then
+    -- Note we don't fold (export_statement) because these are "important"
+    local folds_query = [[
+      (program [
+        (function_declaration)
+        (class_declaration)
+        (method_definition)
+        (export_statement)
+        (lexical_declaration)
+        (variable_declaration)
+        (type_alias_declaration)
+      ] @fold)
+      (class_declaration (class_body (_) @fold))
 
-    ((import_statement)+ @fold)
+      ((import_statement)+ @fold)
 
-    ; tests only
-    ((call_expression . function: (_) @variable.builtin (_) .)
-      (#eq? @variable.builtin "describe")) @fold
-    ((call_expression . function: (_) @variable.builtin (_) .)
-      (#eq? @variable.builtin "it")) @fold
-    ((call_expression . function: (_) @variable.builtin (_) .)
-      (#eq? @variable.builtin "test")) @fold
-  ]]
+      ; tests only
+      ((call_expression . function: (_) @variable.builtin (_) .)
+        (#eq? @variable.builtin "describe")) @fold
+      ((call_expression . function: (_) @variable.builtin (_) .)
+        (#eq? @variable.builtin "it")) @fold
+      ((call_expression . function: (_) @variable.builtin (_) .)
+        (#eq? @variable.builtin "test")) @fold
+    ]]
 
-  require("vim.treesitter.query").set("typescript", "folds", folds_query)
-  require("vim.treesitter.query").set("tsx", "folds", folds_query)
+    require("vim.treesitter.query").set("typescript", "folds", folds_query)
+    require("vim.treesitter.query").set("tsx", "folds", folds_query)
+  end
 end
 
 local function setupTextObjects()
@@ -632,13 +635,13 @@ local function setupMetals()
     -- something like nvim-jdtls which also works on a java filetype autocmd.
     pattern = { "scala", "sbt", "java" },
     callback = function()
+      vim.opt.cmdheight = 2
       vim.env.JAVA_HOME =
       "/Users/benlu/Library/Caches/Coursier/arc/https/github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.13%252B11/OpenJDK17U-jdk_aarch64_mac_hotspot_17.0.13_11.tar.gz/jdk-17.0.13+11/Contents/Home"
       require("metals").initialize_or_attach(metals_config)
     end,
     group = nvim_metals_group,
   })
-  vim.opt.cmdheight = 2
 end
 if os.getenv("HOME") == "/home/sandbox" then
   setupMetals()

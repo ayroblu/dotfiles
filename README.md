@@ -22,9 +22,7 @@ Table of Contents
 - [zsh](#zsh)
 - [Making symlinks](#making-symlinks)
 - [Deleting symlinks](#deleting-symlinks)
-- [Tmux Setup](#tmux-setup)
 - [Vim Setup](#vim-setup)
-- [FZF setup](#fzf-setup)
 - [VS Code Setup](#vs-code-setup)
 	- [History](#history)
 - [Vrapper Setup](#vrapper-setup)
@@ -44,6 +42,7 @@ Table of Contents
 - [Remote pbcopy (deprecated)](#remote-pbcopy-deprecated)
 - [Auto Fetch](#auto-fetch)
 - [Print to ReMarkable](#print-to-remarkable)
+- [Log of usage](#log-of-usage)
 
 <!-- vim-markdown-toc -->
 
@@ -62,7 +61,7 @@ Setting up my mac
 
 ### How to setup packages
 1. Install [homebrew](https://brew.sh/) `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
-3. Install tmux, fzf, ripgrep, zsh, git, node, python
+3. Install tmux, fzf, ripgrep, node
 4. Clone dotfiles repo `git clone git@github.com:ayroblu/dotfiles.git` and deps `git clone git@github.com:ayroblu/deps.git`
 5. Run the run.sh file to symlink: `bash scripts/run.sh`
 6. Install [tpm](https://github.com/tmux-plugins/tpm), `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`, open tmux (you might need `tmux source ~/.tmux.conf`) and run `<prefix> + I`
@@ -70,10 +69,8 @@ Setting up my mac
 8. Install macvim with `brew install --cask macvim --no-binaries`
 
 ### Common brew packages
-- brew install vldmrkl/formulae/airdrop-cli
-  - Doesn't work?
-- python jq fd gitdelta node neovim fzf ripgrep tmux bat tree chafa coursier exiftool extract_url htop less make rustup-init trash urlview
-- charles vimmotion keepingyouawake espanso rectangle raycast dbeaver-community docker dropbox fuwari finestructure/Hummingbird/hummingbird imageoptim keycastr visual-studio-code flipper android-studio macvim
+- jq fd git-delta neovim fzf ripgrep tmux bat tree chafa coursier exiftool extract_url htop less make rustup-init urlview
+- charles vimmotion keepingyouawake espanso rectangle raycast dbeaver-community docker dropbox fuwari finestructure/Hummingbird/hummingbird imageoptim keycastr visual-studio-code flipper android-studio
 
 Font
 ----
@@ -169,28 +166,12 @@ With zsh
 rm -- *(-@D)
 ```
 
-Tmux Setup
-----------
-This requires TPM:
-
-```bash
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-```
-
 Vim Setup
 ---------
 Install vim-plug: https://github.com/junegunn/vim-plug
 Run `:PlugInstall` in vim
 
 Do the same for neovim
-
-FZF setup
----------
-After brew install fzf, make sure you run the key bindings setup
-
-```bash
-/usr/local/opt/fzf/install
-```
 
 VS Code Setup
 -------------
@@ -451,3 +432,8 @@ do
   /Users/blu/ws/rmapi/rmapi put "$f" "To read"
 done
 ```
+
+Log of usage
+------------
+
+2015-08-16: 85GB after setup (including XCode and simulator)
