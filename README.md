@@ -58,6 +58,7 @@ Setting up my mac
 8. Migrate these changes to `.macos` file
 9. system settings -> accessibility -> zoom -> trackpad gestures + advanced (ctrl + option) to zoom
 10. Keyboard -> keyboard shortcuts -> services: uncheck all shortcuts with cmd+shift+L etc
+11. Copy shell history (.histfile) from previous computers
 
 ### How to setup packages
 1. Install [homebrew](https://brew.sh/) `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
@@ -70,7 +71,7 @@ Setting up my mac
 
 ### Common brew packages
 - jq fd git-delta neovim fzf ripgrep tmux bat tree chafa coursier exiftool extract_url htop less make rustup-init urlview
-- charles vimmotion keepingyouawake espanso rectangle raycast dbeaver-community docker dropbox fuwari finestructure/Hummingbird/hummingbird imageoptim keycastr visual-studio-code flipper android-studio
+- casks: charles vimmotion keepingyouawake espanso rectangle raycast dbeaver-community docker dropbox fuwari finestructure/Hummingbird/hummingbird imageoptim keycastr visual-studio-code flipper android-studio
 
 Font
 ----

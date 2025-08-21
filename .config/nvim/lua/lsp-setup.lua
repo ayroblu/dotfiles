@@ -308,7 +308,9 @@ local function setupLsp()
     capabilities = capabilities,
   }
   -- npm install -g cssmodules-language-server
-  lspconfig.cssmodules_ls.setup {}
+  if is_executable("cssmodules-language-server") then
+    lspconfig.cssmodules_ls.setup {}
+  end
 
   -- npm install -g @tailwindcss/language-server
   if is_executable("tailwindcss-language-server") then
