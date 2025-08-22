@@ -1,5 +1,6 @@
 #!/bin/bash
 mkdir -p ~/bin
+mkdir -p ~/.vim
 mkdir -p ~/.config/bat
 for file in .* bin/* .vim/* .config/nvim .config/bat/*; do
   ignorelist=". .. .git .DS_Store .vim .config"
