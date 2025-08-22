@@ -580,8 +580,8 @@ command Notes :n ~/Dropbox/Notes/Notes.md
 \ ~/Dropbox/Documents/ambitus/*.md
 
 nnoremap <leader>nn :Notes<cr>
-nnoremap <leader>nd :tabe<cr>:lcd ~/ws/dotfiles<cr>:n .sharedrc.sh .vimrc .vim/*.vim .config/nvim/*.vim .config/nvim/lua/*.lua<cr>
-nnoremap <leader>ns :tabe<cr>:lcd ~/ws/deps/espanso/match<cr>:n twitter.yml *.yml<cr>
+" nnoremap <leader>nd :tabe<cr>:lcd ~/ws/dotfiles<cr>:n .sharedrc.sh .vimrc .vim/*.vim .config/nvim/*.vim .config/nvim/lua/*.lua<cr>
+" nnoremap <leader>ns :tabe<cr>:lcd ~/ws/deps/espanso/match<cr>:n twitter.yml *.yml<cr>
 
 " clear auto commands with !au (if you want) and reload vim, can use RestartVim in MacVim?
 command Reload :au! | so ~/.vimrc

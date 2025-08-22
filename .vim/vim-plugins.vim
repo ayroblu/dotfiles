@@ -389,6 +389,7 @@ nnoremap <silent> <Leader><Leader>ts :QFiles <C-R>=expand('%:h')<CR><CR>
 nnoremap <silent> <Leader><Leader>tr :Files <C-R>=expand('%:h')<CR><CR>
 nnoremap <silent> <Leader><Leader>te :Files <C-R>=expand('%:h:h')<CR><CR>
 nnoremap <silent> <Leader><Leader>tt :Files <C-R>=trim(system('git rev-parse --show-toplevel'))<CR><CR>
+nnoremap <silent> <Leader>nd :Files <C-R>=$HOME . '/ws/dotfiles'<CR><CR>
 nnoremap <silent> <Leader>/ :Rg <C-R><C-W>
 nnoremap <silent> <Leader>* :Rg <C-R><C-W><CR>
 vnoremap <silent> <Leader>/ y:Rg \b<C-R>0\b<CR>
