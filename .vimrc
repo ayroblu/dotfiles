@@ -62,6 +62,9 @@ endif
 if !exists('$VIM_VERY_FAST')
   if !exists('$VIM_FAST')
     if filereadable(expand('~/.vim/autoload/plug.vim'))
+      " stdpath('data') . '/plugged'
+      " ~/.vim/plugged
+      " ~/.local/share/nvim/plugged
       call plug#begin()
       runtime! vim-plugins.vim
       call plug#end()

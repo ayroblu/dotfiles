@@ -166,6 +166,24 @@ let g:session_default_overwrite = 1
 " Too much drawing, a bit slow
 " Plug 'RRethy/vim-illuminate'
 
+Plug 'SirVer/ultisnips'
+" Note that I also needed to run `pip3 install pynvim` to get python3 to work
+" ^engine, below is predefined snippets config
+" Plug 'honza/vim-snippets'
+if has('nvim')
+  Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+  " Adds snippets to autocomplete nvim-cmp source
+endif
+
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-n>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+" " If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
+
+" Don't override <c-k> for UltiSnipsJumpBackwardTrigger
+inoremap <c-x><c-k> <c-x><c-k>
+
 " === Commands and functions
 Plug 'knsh14/vim-github-link'
 nnoremap <Leader>yg :GetCommitLink<CR>

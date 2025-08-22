@@ -29,6 +29,7 @@ local function setupCmp()
     },
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
+      { name = 'ultisnips' },
     }),
     mapping = {
       ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
