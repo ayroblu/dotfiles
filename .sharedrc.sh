@@ -134,6 +134,8 @@ pathadd /opt/homebrew/opt/python/libexec/bin
 pathadd "/opt/homebrew/opt/avr-gcc@8/bin"
 pathadd "/opt/homebrew/opt/arm-gcc-bin@8/bin"
 pathadd "/usr/local/anaconda3/bin"
+# sgpt with pip
+pathadd ~/Library/Python/3.9/bin
 
 # android and java
 [ -z ${JAVA_HOME+x} ] && [ -d /Applications/Android\ Studio.app/Contents/jbr/Contents/Home ] && export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
