@@ -32,7 +32,6 @@ Table of Contents
 - [Vimium C](#vimium-c)
 	- [Custom CSS](#custom-css)
 - [CRKBD Keyboard Layout](#crkbd-keyboard-layout)
-	- [Required steps to build](#required-steps-to-build)
 	- [OS steps](#os-steps)
 	- [2021-03-28 layout](#2021-03-28-layout)
 	- [Building a new layout from qmk configurator](#building-a-new-layout-from-qmk-configurator)
@@ -258,17 +257,22 @@ This works better than vimium because of it's better support for jumping in and 
 
 CRKBD Keyboard Layout
 ---------------------
-This is for the Corne keyboard, you need qmk_firmware (github), and QMK Toolbox (cask) to flash it.
+This is for the QMK keyboard
+
+```
+brew install qmk/qmk/qmk
+brew install --cask qmk-toolbox
+git clone git@github.com:ayroblu/qmk_firmware.git
+cd qmk_firmware
+zsh
+qmk setup
+zsh
+make crkbd:ayroblu
+```
 
 After cloning qmk_firmware, run: `make crkbd:default` to build the default firmware, run through the steps provided to download dependencies etc.
 
 To play around with the layout, consider using this tool: https://config.qmk.fm/#/crkbd/rev1/common/LAYOUT_split_3x6_3
-
-### Required steps to build
-
-See the qmk fork for my keymap
-
-Convert the json file to a keymap and install it with `make crkbd:ayroblu`.
 
 ### OS steps
 

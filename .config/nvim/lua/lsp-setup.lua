@@ -338,6 +338,7 @@ local function setupLsp()
     lspconfig.rust_analyzer.setup {}
   end
 
+  -- brew install ccls
   lspconfig.ccls.setup {}
 
   -- brew install kotlin-language-server
