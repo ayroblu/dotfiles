@@ -61,6 +61,7 @@ alias apple-enable='xattr -d com.apple.quarantine'
 # aliases for fzf
 alias cdw='cd'
 alias cdws='cd'
+alias cdg='cd'
 alias clearall="clear && printf '\e[3J'"
 
 alias ibazel='ibazel -run_output=false'

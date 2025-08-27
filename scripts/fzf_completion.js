@@ -2,6 +2,16 @@ const fs = require("fs");
 
 const allCmds = [
   {
+    name: "cdg",
+    cmds: [
+      {
+        cmdTrigger: "cdg ",
+        cmdListOptions: "git ls-files $(git rev-parse --show-toplevel) | awk -F/ '{OFS=\"/\"; $NF=\"\"; print $0}' | sort -u",
+        fzfOptions: "--preview 'tree -C {} | head -200'"
+      }
+    ]
+  },
+  {
     name: "cdw",
     cmds: [
       {

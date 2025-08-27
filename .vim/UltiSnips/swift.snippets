@@ -57,3 +57,13 @@ public struct ${1:StructName} {
     }
 }
 endsnippet
+
+snippet view
+struct ${1:MyView}: View {
+  var body: some View {
+    ${2:Button("Todo") \{
+      // Todo
+    \}}
+  }
+}$0
+endsnippet

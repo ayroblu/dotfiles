@@ -2,6 +2,17 @@
 ## fzf examples - completion
 # https://github.com/junegunn/fzf/wiki/Examples-(completion)
 
+_fzf_complete_cdg() {
+  ARGS="$@"
+  if [[ $ARGS == 'cdg '* ]]; then
+    local options="$(git ls-files $(git rev-parse --show-toplevel) | awk -F/ '{OFS="/"; $NF=""; print $0}' | sort -u)"
+    _fzf_complete --preview 'tree -C {} | head -200' -- "$@" < <(
+      echo $options
+    )
+  else
+    return 1
+  fi
+}
 _fzf_complete_cdw() {
   ARGS="$@"
   if [[ $ARGS == 'cdw '* ]]; then
