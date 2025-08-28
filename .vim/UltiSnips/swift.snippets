@@ -8,26 +8,26 @@ snippet class "Swift class with auto-generated let variables and initializer" b
 `!p
 # Python code to process variables and generate init assignments
 def generate_init_assignments(variables):
-    if not variables.strip():
-        return "// No variables defined"
-    # Split variables by comma and generate self.x = x for each
-    assignments = []
-    for var in variables.split(","):
-        var_name = var.split(":")[0].strip()
-        assignments.append(f"self.{var_name} = {var_name}")
-    return "\n        ".join(assignments)
+  if not variables.strip():
+    return "// No variables defined"
+  # Split variables by comma and generate self.x = x for each
+  assignments = []
+  for var in variables.split(","):
+    var_name = var.split(":")[0].strip()
+    assignments.append(f"self.{var_name} = {var_name}")
+  return "\n    ".join(assignments)
 
 def format_variables(variables):
-    if not variables.strip():
-        return "// No variables defined"
-    return "\n    ".join(f"let {var.strip()}" for var in variables.split(","))
+  if not variables.strip():
+    return "// No variables defined"
+  return "\n  ".join(f"let {var.strip()}" for var in variables.split(","))
 `
 class ${1:ClassName} {
-    `!p snip.rv = format_variables(t[2])`
+  `!p snip.rv = format_variables(t[2])`
 
-    init(${2:name: Type}) {
-        `!p snip.rv = generate_init_assignments(t[2])`
-    }
+  init(${2:name: Type}) {
+    `!p snip.rv = generate_init_assignments(t[2])`
+  }
 }
 endsnippet
 
@@ -35,26 +35,26 @@ snippet pubstruct "Public Swift struct with auto-generated let variables and ini
 `!p
 # Python code to process variables and generate init assignments
 def generate_init_assignments(variables):
-    if not variables.strip():
-        return "// No variables defined"
-    # Split variables by comma and generate self.x = x for each
-    assignments = []
-    for var in variables.split(","):
-        var_name = var.split(":")[0].strip()
-        assignments.append(f"self.{var_name} = {var_name}")
-    return "\n        ".join(assignments)
+  if not variables.strip():
+    return "// No variables defined"
+  # Split variables by comma and generate self.x = x for each
+  assignments = []
+  for var in variables.split(","):
+    var_name = var.split(":")[0].strip()
+    assignments.append(f"self.{var_name} = {var_name}")
+  return "\n    ".join(assignments)
 
 def format_variables(variables):
-    if not variables.strip():
-        return "// No variables defined"
-    return "\n    ".join(f"public let {var.strip()}" for var in variables.split(","))
+  if not variables.strip():
+    return "// No variables defined"
+  return "\n  ".join(f"public let {var.strip()}" for var in variables.split(","))
 `
 public struct ${1:StructName} {
-    `!p snip.rv = format_variables(t[2])`
+  `!p snip.rv = format_variables(t[2])`
 
-    public init(${2:name: Type}) {
-        `!p snip.rv = generate_init_assignments(t[2])`
-    }
+  public init(${2:name: Type}) {
+    `!p snip.rv = generate_init_assignments(t[2])`
+  }
 }
 endsnippet
 
@@ -66,4 +66,13 @@ struct ${1:MyView}: View {
     \}}
   }
 }$0
+endsnippet
+
+# Lists fonts
+# https://developer.apple.com/documentation/uikit/adding-a-custom-font-to-your-app
+snippet fonts
+for family in UIFont.familyNames.sorted() {
+  let names = UIFont.fontNames(forFamilyName: family)
+  print("Family: \(family) Font names: \(names)")
+}
 endsnippet

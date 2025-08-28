@@ -538,7 +538,7 @@ local function setupLsp()
       vim.keymap.set("n", "[[", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
       vim.keymap.set("n", "]]", "<cmd>Lspsaga diagnostic_jump_next<CR>")
 
-      vim.keymap.set('n', 'gv', ':vsplit | lua vim.lsp.buf.definition()<CR>', opts)
+      -- vim.keymap.set('n', 'gv', ':vsplit | lua vim.lsp.buf.definition()<CR>', opts)
 
       -- -- lspsaga versions: don't want
       -- vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>")
