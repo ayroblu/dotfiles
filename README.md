@@ -41,6 +41,7 @@ Table of Contents
 - [Remote pbcopy (deprecated)](#remote-pbcopy-deprecated)
 - [Auto Fetch](#auto-fetch)
 - [Print to ReMarkable](#print-to-remarkable)
+- [Safari](#safari)
 - [Log of usage](#log-of-usage)
 
 <!-- vim-markdown-toc -->
@@ -437,6 +438,18 @@ do
   /Users/blu/ws/rmapi/rmapi put "$f" "To read"
 done
 ```
+
+Safari
+------
+
+- Advanced -> Show full website address
+- Advanced -> Press tab to highlight each item
+- Advanced -> Show features for web developers
+- Websites -> Location -> Deny
+- Add `||accounts.google.com/gsi/iframe/select$subdocument` to AdGuard -> Filters -> User rules
+	- https://discussions.apple.com/thread/254503178?answerId=258989345022&sortBy=rank#258989345022
+	- AdGuard Cookie Notices filter
+- Consider checking out: https://github.com/celenityy/adguard-safari-settings-ios
 
 Log of usage
 ------------
