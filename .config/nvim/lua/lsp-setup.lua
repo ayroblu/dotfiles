@@ -420,6 +420,9 @@ local function setupLsp()
   -- npm install -g svelte-language-server
   lspconfig.svelte.setup {}
 
+  -- cargo install protols
+  lspconfig.protols.setup {}
+
   -- go install golang.org/x/tools/gopls@latest
   lspconfig.gopls.setup {
     on_attach = function(client, bufnr)
