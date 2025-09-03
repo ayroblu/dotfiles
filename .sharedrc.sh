@@ -57,6 +57,7 @@ alias apple-enable='xattr -d com.apple.quarantine'
 # alias sshpb='ssh -R 2324:localhost:2324 -R 2325:localhost:2325'
 # exists pbcopy || alias pbcopy='nc -q0 localhost 2324'
 # exists pbpaste || alias pbpaste='nc localhost 2325'
+alias s='sgpt --role dev'
 
 # aliases for fzf
 alias cdw='cd'

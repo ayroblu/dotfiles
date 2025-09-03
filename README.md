@@ -42,6 +42,7 @@ Table of Contents
 - [Auto Fetch](#auto-fetch)
 - [Print to ReMarkable](#print-to-remarkable)
 - [Safari](#safari)
+- [ShellGPT with Grok](#shellgpt-with-grok)
 - [Log of usage](#log-of-usage)
 
 <!-- vim-markdown-toc -->
@@ -450,6 +451,18 @@ Safari
 	- https://discussions.apple.com/thread/254503178?answerId=258989345022&sortBy=rank#258989345022
 	- AdGuard Cookie Notices filter
 - Consider checking out: https://github.com/celenityy/adguard-safari-settings-ios
+
+ShellGPT with Grok
+------------------
+```
+pip3 install shell-gpt
+sgpt "hi"
+# insert xai key
+# Update ~/.config/shell_gpt/.sgptrc API_BASE_URL=https://api.x.ai/v1
+sgpt --create-role dev
+# System prompt: You are an experienced senior software engineer. Code should be terse and simple as reasonable
+s "Hi"
+```
 
 Log of usage
 ------------
