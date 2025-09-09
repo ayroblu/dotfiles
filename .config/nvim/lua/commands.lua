@@ -70,56 +70,59 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 ----------------------------------------------------------- Lang Move
-local function lang_move(lang, action)
-  local bufnr = vim.api.nvim_get_current_buf()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  row = row - 1
+-- disabled for now due to swift incompatibility
+-- local function lang_move(lang, action)
+--   local bufnr = vim.api.nvim_get_current_buf()
+--   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+--   row = row - 1
 
-  local buffer = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-  local input = {
-    line = row,
-    column = col,
-    source = table.concat(buffer, "\n"),
-    lang = lang,
-    action = action,
-  }
-  local input_str = vim.fn.json_encode(input)
+--   local buffer = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+--   local input = {
+--     line = row,
+--     column = col,
+--     source = table.concat(buffer, "\n"),
+--     lang = lang,
+--     action = action,
+--   }
+--   local input_str = vim.fn.json_encode(input)
 
-  vim.system({ "lang-move" }, {
-    stdin = { input_str, "\n" },
-    text = true
-  }, function(obj)
-    if obj.code ~= 0 then
-      print(obj.code)
-      vim.notify("Error executing action: " .. obj.stderr, vim.log.levels.ERROR)
-    else
-      if string.len(obj.stdout) > 0 then
-        -- nvim_buf_set_lines must not be called in a lua loop callback
-        vim.schedule(function()
-          vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(obj.stdout, "\n"))
-        end)
-      end
-    end
-  end)
-end
-local lang_move_config = {
-  {
-    filetype = { "javascript", "javascriptflow", "javascriptreact", "typescript", "typescriptreact" },
-    lang = "TypeScript",
-  },
-  { filetype = { "rust" },   lang = "Rust" },
-  { filetype = { "python" }, lang = "Python" },
-  { filetype = { "scala" },  lang = "Scala" },
-  { filetype = { "go" },     lang = "Go" },
-}
-for _, config in ipairs(lang_move_config) do
-  local filetype, lang = config.filetype, config.lang
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = filetype,
-    callback = function()
-      vim.keymap.set("n", "<,", function() lang_move(lang, "Prev") end, { desc = "move prev", buffer = true })
-      vim.keymap.set("n", ">,", function() lang_move(lang, "Next") end, { desc = "move next", buffer = true })
-    end,
-    group = nvim_commands_group,
-  })
-end
+--   vim.system({ "lang-move" }, {
+--     stdin = { input_str, "\n" },
+--     text = true
+--   }, function(obj)
+--     if obj.code ~= 0 then
+--       print(obj.code)
+--       print("Error executing action: " .. obj.stderr)
+--       vim.notify("Error executing action: " .. obj.stderr, vim.log.levels.ERROR)
+--     else
+--       if string.len(obj.stdout) > 0 then
+--         -- nvim_buf_set_lines must not be called in a lua loop callback
+--         vim.schedule(function()
+--           vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(obj.stdout, "\n"))
+--         end)
+--       end
+--     end
+--   end)
+-- end
+-- local lang_move_config = {
+--   {
+--     filetype = { "javascript", "javascriptflow", "javascriptreact", "typescript", "typescriptreact" },
+--     lang = "TypeScript",
+--   },
+--   { filetype = { "rust" },   lang = "Rust" },
+--   { filetype = { "python" }, lang = "Python" },
+--   { filetype = { "scala" },  lang = "Scala" },
+--   { filetype = { "go" },     lang = "Go" },
+--   { filetype = { "swift" },  lang = "Swift" },
+-- }
+-- for _, config in ipairs(lang_move_config) do
+--   local filetype, lang = config.filetype, config.lang
+--   vim.api.nvim_create_autocmd("FileType", {
+--     pattern = filetype,
+--     callback = function()
+--       vim.keymap.set("n", "<,", function() lang_move(lang, "Prev") end, { desc = "move prev", buffer = true })
+--       vim.keymap.set("n", ">,", function() lang_move(lang, "Next") end, { desc = "move next", buffer = true })
+--     end,
+--     group = nvim_commands_group,
+--   })
+-- end

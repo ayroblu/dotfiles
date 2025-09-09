@@ -76,3 +76,7 @@ for family in UIFont.familyNames.sorted() {
   print("Family: \(family) Font names: \(names)")
 }
 endsnippet
+
+snippet sleep
+try await Task.sleep(for: .milliseconds($1))$0
+endsnippet

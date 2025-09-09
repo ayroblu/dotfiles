@@ -500,6 +500,8 @@ local function setupLsp()
 
   vim.keymap.set('n', '<leader>K', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 
+  setupCmp()
+
   -- Use LspAttach autocommand to only map the following keys
   -- after the language server attaches to the current buffer
   vim.api.nvim_create_autocmd('LspAttach', {
@@ -509,7 +511,6 @@ local function setupLsp()
       -- Use internal formatting for bindings like gq.
       -- vim.bo[ev.buf].formatexpr = nil
 
-      setupCmp()
       -- Enable completion triggered by <c-x><c-o>
       -- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 

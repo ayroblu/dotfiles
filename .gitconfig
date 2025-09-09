@@ -82,6 +82,7 @@
   dus = du --stat
   dm = "!git diff $(git merge-base HEAD $(git main))"
   #du = "!f() { git diff $(git merge-base HEAD $(git upstream)) \"$@\"; }; f"
+  dl = "!f() { git diff \"$1\"^..\"$1\"; }; f"
   dw = d --color-words
   dc = d --color-words=.
   # Delete push
