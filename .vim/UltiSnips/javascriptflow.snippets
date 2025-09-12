@@ -1,0 +1,102 @@
+extends javascript
+
+snippet importi18n
+import I18N from '@twitter/i18n';
+endsnippet
+
+snippet importhweb
+import { Button } from '@twitter/horizon-web';
+endsnippet
+
+snippet view
+import { View } from 'react-native';
+endsnippet
+
+snippet stylesheet
+import { StyleSheet } from '@twitter/horizon-web';
+
+const styles = StyleSheet.create((theme) => {
+  return {
+    example: {
+      backgroundColor: 'red',
+    }
+  }
+})
+endsnippet
+
+snippet relayquery
+  // @flow strict
+import * as React from 'react';
+import { graphql } from 'react-relay';
+import I18N from '@twitter/i18n';
+import typeof `!v expand('%:r')`Query from '@twitter/responsive-web/src/__generated__/`!v expand('%:r')`Query.graphql';
+import { useLazyLoadQuery } from '../../../relay/useLazyLoadQuery';
+import { RelayQueryBoundary } from '../../RelayQueryBoundary';
+
+export function `!v expand('%:r')`(): React.Node {
+  return (
+    <RelayQueryBoundary errorConfig={errorConfig} key={userId}>
+      <div />
+    </RelayQueryBoundary>
+  );
+}
+
+type `!v expand('%:r')`InnerProps = {|
+  userId: string,
+|};
+function `!v expand('%:r')`InnerWrapper(props: `!v expand('%:r')`InnerProps) {
+  const { userId } = props;
+  const data = useLazyLoadQuery(usersQuery, { userId });
+  return <Component user={data.user.result} />;
+}
+const usersQuery: `!v expand('%:r')`Query = graphql`
+  query `!v expand('%:r')`Query($userId: NumericString!) {
+    user: user_result_by_rest_id(
+      rest_id: $userId
+      safety_level: UserProfileHeader
+    ) {
+      result @required(action: THROW) {
+        ... on User {
+          ...Component_user
+        }
+      }
+    }
+  }
+`;
+
+const errorConfig = { context: 'TODO' };
+endsnippet
+
+snippet fragment
+import * as React from 'react';
+import { graphql, useFragment } from 'react-relay';
+import typeof `!v expand('%:r')`_user from '@twitter/responsive-web/src/__generated__/`!v expand('%:r')`_user.graphql';
+import type { `!v expand('%:r')`_user$key } from '@twitter/responsive-web/src/__generated__/`!v expand('%:r')`_user.graphql';
+
+type Props = {|
+  user: `!v expand('%:r')`_user$key,
+  onClick: () => void,
+  style?: RNW$Styles,
+|};
+export function `!v expand('%:r')`(props: Props): React.Node {
+  const { onClick, style, user } = props;
+  const {
+    core: { name },
+  } = useFragment(userFragment, user);
+
+  return (
+    <div>{name}</div>
+  );
+}
+
+const userFragment: `!v expand('%:r')`_user = graphql`
+  fragment `!v expand('%:r')`_user on User {
+    core @required(action: THROW) {
+      name @required(action: THROW)
+    }
+    avatar {
+      image_url
+    }
+  }
+`;
+endsnippet
