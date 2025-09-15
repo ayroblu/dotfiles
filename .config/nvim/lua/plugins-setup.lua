@@ -710,6 +710,8 @@ local function setupConform()
       typescriptreact = jsformat,
       graphql = { "prettierd", "prettier", stop_after_first = true },
       json = { "prettierd", "prettier", stop_after_first = true },
+      -- npm i -g @bazel/buildifier
+      bzl = { "buildifier" },
       kotlin = { "ktfmt" },
       rust = { "rustfmt" },
       cpp = { lsp_format = "never" },
