@@ -121,10 +121,10 @@
 (pair_pattern _ @_start value: (_) @expression.inner
   (#make-range! "expression.outer" @_start @expression.inner))
 
-; objects (structs)
-(object) @struct.inner
-(object_pattern) @struct.inner
-(object_type) @struct.inner
+; objects (dicts)
+(object) @params.inner
+(object_pattern) @params.inner
+(object_type) @params.inner
 
 ; function call name
 (call_expression function: (_) @call_name.inner) @call_name.outer

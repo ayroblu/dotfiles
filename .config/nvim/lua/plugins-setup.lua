@@ -131,26 +131,25 @@ local function setupTextObjects()
 
         keymaps = {
           -- t, b, w, are defined already
+          -- s is subword plugin
           -- You can use the capture groups defined in textobjects.scm
           ["af"] = "@function.outer",
           ["if"] = "@function.inner",
           -- ["ac"] = "@class.outer",
           -- ["ic"] = "@class.inner",
-          ["aa"] = "@assign.outer",
-          ["ia"] = "@assignment.inner",
+          ["ad"] = "@assign.outer",
+          ["id"] = "@assignment.inner",
           ["il"] = "@assign_left.inner",
           ["al"] = "@assign_left_outer",
           ["ir"] = "@assign_right.inner",
           ["ar"] = "@assign_right_outer",
           ["ie"] = "@expression.inner",
           ["ae"] = "@expression.outer",
-          ["io"] = "@struct.inner",
-          ["ao"] = "@struct.outer",
           ["ic"] = "@call_name.inner",
           ["ac"] = "@call_name.outer",
           ["in"] = "@func_decl_name.inner",
           ["an"] = "@func_decl_name.outer",
-          ["ii"] = "@func_params.inner",
+          ["ii"] = "@params.inner",
           -- ["ic"] = "@call.inner",
           -- ["ac"] = "@call.outer",
           -- ["ib"] = "@block.inner",
@@ -159,6 +158,8 @@ local function setupTextObjects()
           -- ["a<"] = "@conditional.outer",
           ["ip"] = "@parameter.inner",
           ["ap"] = "@parameter.outer",
+          ["ia"] = "@type_annotation.inner",
+          ["aa"] = "@type_annotation.outer",
 
           -- You can optionally set descriptions to the mappings (used in the desc parameter of
           -- nvim_buf_set_keymap) which plugins like which-key display
@@ -204,10 +205,11 @@ local function setupTextObjects()
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
           ["]e"] = "@expression.inner",
-          ["]a"] = "@assignment.outer",
+          ["]d"] = "@assignment.outer",
           ["]o"] = "@export.outer",
-          ["]i"] = "@func_params.inner",
+          ["]i"] = "@params.inner",
           ["]f"] = "@function.outer",
+          ["]a"] = "@type_annotation.inner",
           -- ["]<"] = "@conditional.outer",
           ["]p"] = "@parameter.outer",
           -- ["]("] = "@call.outer",
@@ -221,10 +223,11 @@ local function setupTextObjects()
         },
         goto_previous_start = {
           ["[e"] = "@expression.inner",
-          ["[a"] = "@assignment.outer",
+          ["[d"] = "@assignment.outer",
           ["[o"] = "@export.outer",
-          ["[i"] = "@func_params.inner",
+          ["[i"] = "@params.inner",
           ["[f"] = "@function.outer",
+          ["[a"] = "@type_annotation.inner",
           -- ["[<"] = "@conditional.outer",
           ["[p"] = "@parameter.outer",
           -- ["[("] = "@call.outer",
