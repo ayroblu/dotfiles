@@ -1,4 +1,6 @@
-; extends
+(value_arguments (value_argument) @parameter.inner)
+(function_declaration (parameter) @parameter.inner)
+
 ; todo: Not correct for default arguments with nil
 (init_declaration
   (parameter) @parameter.inner . ",")

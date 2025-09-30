@@ -87,7 +87,6 @@ end
 
 local function setupLsp()
   require("scrollbar").setup()
-  local lspconfig = require('lspconfig')
   local root_pattern = require('lspconfig.util').root_pattern
   local utils = require('utils')
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -104,22 +103,22 @@ local function setupLsp()
   -- ln -s ~/ws/dotfiles/custom_lsp/stratols.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/configs/stratols.lua
   if vim.loop.fs_stat(vim.env.HOME ..
         '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/configs/stratols.lua') then
-    lspconfig.stratols.setup {}
+    vim.lsp.enable('stratols')
   end
 
   -- ln -s ~/ws/dotfiles/custom_lsp/bazel_lsp.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/configs/bazel_lsp.lua
   if vim.loop.fs_stat(vim.env.HOME ..
         '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/configs/bazel_lsp.lua') then
-    lspconfig.bazel_lsp.setup {}
+    vim.lsp.enable('bazel_lsp')
   end
   -- ln -s ~/ws/dotfiles/custom_lsp/llama_ls.lua ~/.vim/plugged/nvim-lspconfig/lua/lspconfig/configs/llama_ls.lua
   if vim.loop.fs_stat(vim.env.HOME ..
-        '/.vim/plugged/nvim-lspconfig/lua/lspconfig/configs/llama_ls.lua') then
-    lspconfig.llama_ls.setup {}
+        '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/configs/llama_ls.lua') then
+    vim.lsp.enable('llama_ls')
   end
 
   -- brew install lua-language-server
-  lspconfig.lua_ls.setup {
+  vim.lsp.config('lua_ls', {
     settings = {
       Lua = {
         runtime = {
@@ -153,35 +152,40 @@ local function setupLsp()
         }
       },
     },
-  }
+  })
+  vim.lsp.enable('lua_ls')
   -- npm i -g bash-language-server
-  lspconfig.bashls.setup {}
+  vim.lsp.enable('bashls')
   -- brew tap dart-lang/dart && brew install dart
-  lspconfig.dartls.setup {}
+  vim.lsp.enable('dartls')
   -- npm i -g vscode-langservers-extracted
-  lspconfig.eslint.setup {
+  vim.lsp.config('eslint', {
     filetypes = { "javascriptflow", "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte", "astro" }
-  }
+  })
+  vim.lsp.enable('eslint')
   -- npx flow
-  lspconfig.flow.setup {
+  vim.lsp.config('flow', {
     cmd = { "npx", "--no-install", "flow", "lsp" },
     filetypes = { "javascriptflow" }
     -- default: filetypes = { "javascript", "javascriptreact", "javascript.jsx" }
     -- cmd = { "web-flow-lsp" }
-  }
+  })
+  vim.lsp.enable('flow')
   -- npx relay-compiler
   -- lspconfig.relay_lsp.setup {
   --   cmd = { "./scripts/relay-for-extension", "lsp" },
   --   root_dir = root_pattern("relay.config.*")
   -- }
   -- npm i -g vscode-langservers-extracted
-  lspconfig.html.setup {
+  vim.lsp.config('html', {
     capabilities = capabilities,
-  }
+  })
+  vim.lsp.enable('html')
   -- npm i -g vscode-langservers-extracted
-  lspconfig.jsonls.setup {
+  vim.lsp.config('jsonls', {
     capabilities = capabilities,
-  }
+  })
+  vim.lsp.enable('jsonls')
   -- npm i -g yaml-language-server
   --lspconfig.yamlls.setup {
   --  capabilities = capabilities,
@@ -197,18 +201,19 @@ local function setupLsp()
   --  -- }
   --}
   -- npm install -g vim-language-server
-  lspconfig.vimls.setup {}
+  vim.lsp.enable('vimls')
   -- npm install -g graphql-language-service-cli
-  lspconfig.graphql.setup {
+  vim.lsp.config('graphql', {
     root_dir = root_pattern(".graphqlrc.yml")
-  }
+  })
+  vim.lsp.enable('graphql')
 
   -- npm install -g pyright
   -- lspconfig.pyright.setup {}
 
   -- basically better than pyright
   -- brew install basedpyright
-  lspconfig.basedpyright.setup {}
+  vim.lsp.enable('basedpyright')
 
   -- npm i -g typescript-language-server
   -- lspconfig.tsserver.setup {
@@ -305,17 +310,18 @@ local function setupLsp()
   }
 
   -- npm i -g vscode-langservers-extracted
-  lspconfig.cssls.setup {
+  vim.lsp.config('cssls', {
     capabilities = capabilities,
-  }
+  })
+  vim.lsp.enable('cssls')
   -- npm install -g cssmodules-language-server
   if is_executable("cssmodules-language-server") then
-    lspconfig.cssmodules_ls.setup {}
+    vim.lsp.enable('cssmodules_ls')
   end
 
   -- npm install -g @tailwindcss/language-server
   if is_executable("tailwindcss-language-server") then
-    lspconfig.tailwindcss.setup {}
+    vim.lsp.enable('tailwindcss')
   end
 
   -- rustup component add rust-analyzer
@@ -324,7 +330,7 @@ local function setupLsp()
   local git_root = get_git_root()
   local project_name = vim.fn.fnamemodify(git_root, ":t")
   if project_name == "bazel-demo" then
-    lspconfig.rust_analyzer.setup {
+      vim.lsp.config('rust_analyzer', {
       settings = {
         ['rust-analyzer'] = {
           check = {
@@ -333,13 +339,15 @@ local function setupLsp()
           },
         },
       },
-    }
+  })
+  vim.lsp.enable('rust_analyzer')
+
   else
-    lspconfig.rust_analyzer.setup {}
+  vim.lsp.enable('rust_analyzer')
   end
 
   -- brew install ccls
-  lspconfig.ccls.setup {}
+  vim.lsp.enable('ccls')
 
   -- brew install kotlin-language-server
   -- lspconfig.kotlin_language_server.setup {}
@@ -358,7 +366,9 @@ local function setupLsp()
         return { "-Xswiftc", "-I" .. git_root .. "/.bazel/bin/example-ios-app/" .. dir }
       end)
       table.move(package_args, 1, #package_args, #args + 1, args)
-      lspconfig.sourcekit.setup { cmd = { 'sourcekit-lsp', unpack(args) } }
+        vim.lsp.config('sourcekit', { cmd = { 'sourcekit-lsp', unpack(args) } })
+  vim.lsp.enable('sourcekit')
+
     elseif vim.fn.getcwd():find("g1-app", 1, true) then
       local swiftmodule_dirs = { "content", "../swift-shared/Log", "../swift-shared/LogUtils", "../swift-shared/Jotai",
         "utils", "maps", "snapshot-testing" }
@@ -369,9 +379,10 @@ local function setupLsp()
       -- print(vim.inspect(args))
       -- tests run in macOS mode
       if vim.fn.expand('%:t'):match("Tests.swift") then
-        lspconfig.sourcekit.setup { cmd = { 'sourcekit-lsp', unpack(args) } }
+        vim.lsp.config('sourcekit', { cmd = { 'sourcekit-lsp', unpack(args) } })
+  vim.lsp.enable('sourcekit')
       else
-        lspconfig.sourcekit.setup { cmd = utils.concat({ 'sourcekit-lsp', unpack(args) }, {
+        vim.lsp.config('sourcekit', { cmd = utils.concat({ 'sourcekit-lsp', unpack(args) }, {
           -- "-Xswiftc", "-sdk",
           -- "-Xswiftc", "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk",
           -- "-Xswiftc", "-target",
@@ -382,7 +393,8 @@ local function setupLsp()
           "-Xswiftc", "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk",
           "-Xswiftc", "-target",
           "-Xswiftc", "arm64-apple-ios18.4-simulator",
-        }) }
+        }) })
+  vim.lsp.enable('sourcekit')
       end
     elseif vim.fn.getcwd():find("card-wallet-app", 1, true) then
       -- local swiftmodule_dirs = { "LogUtils", "Log", "Jotai", "SwiftUIUtils" }
@@ -392,7 +404,7 @@ local function setupLsp()
       -- table.move(package_args, 1, #package_args, #args + 1, args)
       -- lspconfig.sourcekit.setup { cmd = { 'sourcekit-lsp', unpack(args) } }
 
-      lspconfig.sourcekit.setup {}
+      vim.lsp.enable('sourcekit')
 
       -- if vim.fn.expand('%:t'):match("Tests.swift") then
       --   lspconfig.sourcekit.setup { cmd = { 'sourcekit-lsp', unpack(args) } }
@@ -411,20 +423,21 @@ local function setupLsp()
       -- }) }
       -- end
     else
-      lspconfig.sourcekit.setup { cmd = { 'sourcekit-lsp', unpack(package_args) } }
+        vim.lsp.config('sourcekit', { cmd = { 'sourcekit-lsp', unpack(package_args) } })
+  vim.lsp.enable('sourcekit')
     end
   else
-    lspconfig.sourcekit.setup {}
+    vim.lsp.enable('sourcekit')
   end
 
   -- npm install -g svelte-language-server
-  lspconfig.svelte.setup {}
+  vim.lsp.enable('svelte')
 
   -- cargo install protols
-  lspconfig.protols.setup {}
+  vim.lsp.enable('protols')
 
   -- go install golang.org/x/tools/gopls@latest
-  lspconfig.gopls.setup {
+  vim.lsp.config('gopls', {
     on_attach = function(client, bufnr)
       -- print(vim.inspect(client.server_capabilities))
       vim.keymap.set('n', '<leader>ag', function()
@@ -462,7 +475,7 @@ local function setupLsp()
         },
       },
     }
-  }
+  })
   require('dap-go').setup {}
   -- https://github.com/go-delve/delve/tree/master/Documentation/installation
   -- ensure: go install github.com/go-delve/delve/cmd/dlv@latest
@@ -477,10 +490,10 @@ local function setupLsp()
   -- unzip lemminx-osx-aarch_64.zip
   -- mv lemminx-osx-aarch_64 ~/bin/lemminx
   -- xattr -d com.apple.quarantine ~/bin/lemminx
-  lspconfig.lemminx.setup {}
+  vim.lsp.enable('lemminx')
 
   -- brew install terraform-ls
-  lspconfig.terraformls.setup {}
+  vim.lsp.enable('terraformls')
 
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
