@@ -330,7 +330,7 @@ local function setupLsp()
   local git_root = get_git_root()
   local project_name = vim.fn.fnamemodify(git_root, ":t")
   if project_name == "bazel-demo" then
-      vim.lsp.config('rust_analyzer', {
+    vim.lsp.config('rust_analyzer', {
       settings = {
         ['rust-analyzer'] = {
           check = {
@@ -339,11 +339,10 @@ local function setupLsp()
           },
         },
       },
-  })
-  vim.lsp.enable('rust_analyzer')
-
+    })
+    vim.lsp.enable('rust_analyzer')
   else
-  vim.lsp.enable('rust_analyzer')
+    vim.lsp.enable('rust_analyzer')
   end
 
   -- brew install ccls
@@ -366,9 +365,8 @@ local function setupLsp()
         return { "-Xswiftc", "-I" .. git_root .. "/.bazel/bin/example-ios-app/" .. dir }
       end)
       table.move(package_args, 1, #package_args, #args + 1, args)
-        vim.lsp.config('sourcekit', { cmd = { 'sourcekit-lsp', unpack(args) } })
-  vim.lsp.enable('sourcekit')
-
+      vim.lsp.config('sourcekit', { cmd = { 'sourcekit-lsp', unpack(args) } })
+      vim.lsp.enable('sourcekit')
     elseif vim.fn.getcwd():find("g1-app", 1, true) then
       local swiftmodule_dirs = { "content", "../swift-shared/Log", "../swift-shared/LogUtils", "../swift-shared/Jotai",
         "utils", "maps", "snapshot-testing" }
@@ -380,21 +378,24 @@ local function setupLsp()
       -- tests run in macOS mode
       if vim.fn.expand('%:t'):match("Tests.swift") then
         vim.lsp.config('sourcekit', { cmd = { 'sourcekit-lsp', unpack(args) } })
-  vim.lsp.enable('sourcekit')
+        vim.lsp.enable('sourcekit')
       else
-        vim.lsp.config('sourcekit', { cmd = utils.concat({ 'sourcekit-lsp', unpack(args) }, {
-          -- "-Xswiftc", "-sdk",
-          -- "-Xswiftc", "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk",
-          -- "-Xswiftc", "-target",
-          -- "-Xswiftc", "arm64-apple-ios18.4",
+        vim.lsp.config('sourcekit', {
+          cmd = utils.concat({ 'sourcekit-lsp', unpack(args) }, {
+            -- "-Xswiftc", "-sdk",
+            -- "-Xswiftc", "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk",
+            -- "-Xswiftc", "-target",
+            -- "-Xswiftc", "arm64-apple-ios18.4",
 
-          -- simulator
-          "-Xswiftc", "-sdk",
-          "-Xswiftc", "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk",
-          "-Xswiftc", "-target",
-          "-Xswiftc", "arm64-apple-ios18.4-simulator",
-        }) })
-  vim.lsp.enable('sourcekit')
+            -- simulator
+            "-Xswiftc", "-sdk",
+            "-Xswiftc",
+            "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk",
+            "-Xswiftc", "-target",
+            "-Xswiftc", "arm64-apple-ios18.4-simulator",
+          })
+        })
+        vim.lsp.enable('sourcekit')
       end
     elseif vim.fn.getcwd():find("card-wallet-app", 1, true) then
       -- local swiftmodule_dirs = { "LogUtils", "Log", "Jotai", "SwiftUIUtils" }
@@ -423,8 +424,8 @@ local function setupLsp()
       -- }) }
       -- end
     else
-        vim.lsp.config('sourcekit', { cmd = { 'sourcekit-lsp', unpack(package_args) } })
-  vim.lsp.enable('sourcekit')
+      vim.lsp.config('sourcekit', { cmd = { 'sourcekit-lsp', unpack(package_args) } })
+      vim.lsp.enable('sourcekit')
     end
   else
     vim.lsp.enable('sourcekit')
