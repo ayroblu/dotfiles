@@ -1,4 +1,4 @@
-extends javascript
+# extends javascript
 
 snippet importi18n
 import I18N from '@twitter/i18n';
@@ -10,6 +10,32 @@ endsnippet
 
 snippet view
 import { View } from 'react-native';
+endsnippet
+
+snippet comp
+import * as React from 'react';
+import I18N from '@twitter/i18n';
+import { Button, StyleSheet } from '@twitter/horizon-web';
+import { View } from 'react-native';
+
+type Props = {|
+  // todo
+|}
+export function `!v expand('%:t:r')`(props: Props): React.Node {
+  return (
+    <View style={styles.example}>
+      <Button>Todo</Button>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create((theme) => {
+  return {
+    example: {
+      backgroundColor: 'red',
+    }
+  }
+})
 endsnippet
 
 snippet stylesheet
@@ -25,15 +51,15 @@ const styles = StyleSheet.create((theme) => {
 endsnippet
 
 snippet relayquery
-  // @flow strict
+// @flow strict
 import * as React from 'react';
 import { graphql } from 'react-relay';
 import I18N from '@twitter/i18n';
-import typeof `!v expand('%:r')`Query from '@twitter/responsive-web/src/__generated__/`!v expand('%:r')`Query.graphql';
-import { useLazyLoadQuery } from '../../../relay/useLazyLoadQuery';
-import { RelayQueryBoundary } from '../../RelayQueryBoundary';
+import typeof `!v expand('%:t:r')`Query from '@twitter/responsive-web/src/__generated__/`!v expand('%:t:r')`Query.graphql';
+import { useLazyLoadQuery } from '@twitter/responsive-web/src/app/relay/useLazyLoadQuery';
+import { RelayQueryBoundary } from '@twitter/responsive-web/src/app/containers/RelayQueryBoundary';
 
-export function `!v expand('%:r')`(): React.Node {
+export function `!v expand('%:t:r')`(): React.Node {
   return (
     <RelayQueryBoundary errorConfig={errorConfig} key={userId}>
       <div />
@@ -41,16 +67,16 @@ export function `!v expand('%:r')`(): React.Node {
   );
 }
 
-type `!v expand('%:r')`InnerProps = {|
+type `!v expand('%:t:r')`InnerProps = {|
   userId: string,
 |};
-function `!v expand('%:r')`InnerWrapper(props: `!v expand('%:r')`InnerProps) {
+function `!v expand('%:t:r')`InnerWrapper(props: `!v expand('%:t:r')`InnerProps) {
   const { userId } = props;
   const data = useLazyLoadQuery(usersQuery, { userId });
   return <Component user={data.user.result} />;
 }
-const usersQuery: `!v expand('%:r')`Query = graphql`
-  query `!v expand('%:r')`Query($userId: NumericString!) {
+const usersQuery: `!v expand('%:t:r')`Query = graphql\`
+  query `!v expand('%:t:r')`Query($userId: NumericString!) {
     user: user_result_by_rest_id(
       rest_id: $userId
       safety_level: UserProfileHeader
@@ -62,23 +88,23 @@ const usersQuery: `!v expand('%:r')`Query = graphql`
       }
     }
   }
-`;
+\`;
 
-const errorConfig = { context: 'TODO' };
+const errorConfig = { context: '`!v expand('%:t:r')`' };
 endsnippet
 
 snippet fragment
 import * as React from 'react';
 import { graphql, useFragment } from 'react-relay';
-import typeof `!v expand('%:r')`_user from '@twitter/responsive-web/src/__generated__/`!v expand('%:r')`_user.graphql';
-import type { `!v expand('%:r')`_user$key } from '@twitter/responsive-web/src/__generated__/`!v expand('%:r')`_user.graphql';
+import typeof `!v expand('%:t:r')`_user from '@twitter/responsive-web/src/__generated__/`!v expand('%:t:r')`_user.graphql';
+import type { `!v expand('%:t:r')`_user$key } from '@twitter/responsive-web/src/__generated__/`!v expand('%:t:r')`_user.graphql';
 
 type Props = {|
-  user: `!v expand('%:r')`_user$key,
+  user: `!v expand('%:t:r')`_user$key,
   onClick: () => void,
   style?: RNW$Styles,
 |};
-export function `!v expand('%:r')`(props: Props): React.Node {
+export function `!v expand('%:t:r')`(props: Props): React.Node {
   const { onClick, style, user } = props;
   const {
     core: { name },
@@ -89,8 +115,8 @@ export function `!v expand('%:r')`(props: Props): React.Node {
   );
 }
 
-const userFragment: `!v expand('%:r')`_user = graphql`
-  fragment `!v expand('%:r')`_user on User {
+const userFragment: `!v expand('%:t:r')`_user = graphql`
+  fragment `!v expand('%:t:r')`_user on User {
     core @required(action: THROW) {
       name @required(action: THROW)
     }

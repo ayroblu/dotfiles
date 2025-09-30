@@ -216,6 +216,6 @@
   conflictstyle = diff3
 [diff]
   colorMoved = default
-[submodule]
-  recurse = true
+; [submodule]
+;   recurse = true
 
