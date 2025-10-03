@@ -41,6 +41,8 @@ Plug 'MunifTanjim/nui.nvim'
 " Performance issue maybe?
 " Plug 'folke/noice.nvim'
 
+Plug '3rd/image.nvim'
+
 Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'nvim-tree/nvim-web-devicons'

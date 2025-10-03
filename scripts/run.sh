@@ -1,8 +1,7 @@
 #!/bin/bash
 mkdir -p ~/bin
 mkdir -p ~/.vim
-mkdir -p ~/.config/bat
-for file in .* bin/* .vim/* .config/nvim .config/bat/*; do
+for file in .* bin/* .vim/* .config/*; do
   ignorelist=". .. .git .DS_Store .vim .config"
   # https://stackoverflow.com/questions/8063228/check-if-a-variable-exists-in-a-list-in-bash
   if ! [[ $ignorelist =~ (^|[[:space:]])$file($|[[:space:]]) ]]; then

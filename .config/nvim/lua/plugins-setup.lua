@@ -754,3 +754,16 @@ local typr_success, typr = pcall(require, "typr")
 if typr_success then
   typr.setup({})
 end
+
+local image_success, image = pcall(require, "image")
+if image_success then
+  image.setup({
+    integrations = {
+      markdown = {
+        -- floating_windows = true,
+      }
+    },
+    tmux_show_only_in_active_window = true,
+    window_overlap_clear_enabled = true,
+  })
+end
