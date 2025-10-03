@@ -61,7 +61,7 @@ local function layoutSimple()
     print("layoutSimple")
     hs.alert.show("Performing layout")
     -- get all windows, move everything to space 2 except alacritty, and slack
-    local screen1List = { "alacritty", "Alacritty" }
+    local screen1List = { "alacritty", "Alacritty", "kitty" }
     local smallScreenList = { "Slack" }
     local maximizeAppList = { "Chrome", "Safari" }
     local wf = hs.window.filter.new():setOverrideFilter { fullscreen = false }
