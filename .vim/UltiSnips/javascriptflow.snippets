@@ -62,7 +62,7 @@ import { RelayQueryBoundary } from '@twitter/responsive-web/src/app/containers/R
 export function `!v expand('%:t:r')`(): React.Node {
   return (
     <RelayQueryBoundary errorConfig={errorConfig} key={userId}>
-      <div />
+      <`!v expand('%:t:r')`Inner userId={userId} />
     </RelayQueryBoundary>
   );
 }
@@ -70,7 +70,7 @@ export function `!v expand('%:t:r')`(): React.Node {
 type `!v expand('%:t:r')`InnerProps = {|
   userId: string,
 |};
-function `!v expand('%:t:r')`InnerWrapper(props: `!v expand('%:t:r')`InnerProps) {
+function `!v expand('%:t:r')`Inner(props: `!v expand('%:t:r')`InnerProps) {
   const { userId } = props;
   const data = useLazyLoadQuery(usersQuery, { userId });
   return <Component user={data.user.result} />;

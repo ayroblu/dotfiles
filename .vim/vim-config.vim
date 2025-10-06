@@ -359,10 +359,10 @@ autocmd BufNewFile,BufRead *.overlay setl ft=dts
 autocmd BufNewFile,BufRead *.tf setl ft=hcl
 
 " custom flow type
-au BufRead *.js if join(getline(0, 25)) =~ '@flow' | setlocal ft=javascriptflow syntax=javascript | endif
+au BufRead *.js if join(getline(0, 25)) =~ '@flow' | setlocal ft=javascriptflow syntax=typescript | endif
 
 autocmd BufNewFile,BufRead *.flow setl ft=javascriptflow
-autocmd FileType javascriptflow set syntax=javascript
+autocmd FileType javascriptflow set syntax=typescript
 
 
 " nnoremap <C-L> :redraw!

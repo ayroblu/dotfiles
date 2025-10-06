@@ -169,6 +169,10 @@ let g:session_default_overwrite = 1
 Plug 'SirVer/ultisnips'
 " Note that I also needed to run `pip3 install pynvim` to get python3 to work
 
+" au BufRead *.js if join(getline(0, 25)) =~ '@flow' | UltiSnipsAddFiletypes javascriptflow | endif
+" Also useful:
+" :call UltiSnips#RefreshSnippets()
+
 " let g:UltiSnipsExpandTrigger="<tab>"
 " let g:UltiSnipsJumpForwardTrigger="<c-j>"
 " let g:UltiSnipsJumpBackwardTrigger="<c-k>"
