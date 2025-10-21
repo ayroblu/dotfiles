@@ -677,7 +677,7 @@ local function setupConform()
     return select(1, ...)
   end
   local jsformat = function(bufnr)
-    return { "eslint_d", "biome", first(bufnr, "prettierd", "prettier"), lsp_format = "never" }
+    return { "biome-check", "eslint_d", first(bufnr, "prettierd", "prettier"), lsp_format = "never" }
   end
   local util = require("conform.util")
   conform.setup({
@@ -711,8 +711,8 @@ local function setupConform()
       javascriptflow = jsformat,
       typescript = jsformat,
       typescriptreact = jsformat,
-      graphql = { "prettierd", "prettier", stop_after_first = true },
-      json = { "prettierd", "prettier", stop_after_first = true },
+      graphql = { "biome-check", "prettierd", "prettier", stop_after_first = true },
+      json = { "biome-check", "prettierd", "prettier", stop_after_first = true },
       -- npm i -g @bazel/buildifier
       bzl = { "buildifier" },
       kotlin = { "ktfmt" },

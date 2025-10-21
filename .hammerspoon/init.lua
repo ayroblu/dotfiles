@@ -26,6 +26,47 @@
 
 require('utils')
 
+-- from: https://github.com/Hammerspoon/hammerspoon/issues/3698#issuecomment-3030151832
+-- Function to move window to space using mouse drag simulation
+local function moveWindowToSpaceByDrag(spaceNumber)
+    local win = hs.window.focusedWindow()
+    if not win then
+        hs.alert.show("No focused window")
+        return
+    end
+
+    -- Calculate window header position (near top-left)
+    local frame = win:frame()
+    local headerX = frame.x + 50
+    local headerY = frame.y + 5
+
+    -- Store current mouse position
+    local currentMouse = hs.mouse.getAbsolutePosition()
+
+    -- Move mouse to window header
+    hs.mouse.setAbsolutePosition({ x = headerX, y = headerY })
+    hs.timer.usleep(10000) -- Wait 10ms
+
+    -- Mouse down (press and hold)
+    local mouseDown = hs.eventtap.event.newMouseEvent(hs.eventtap.event.types.leftMouseDown, { x = headerX, y = headerY })
+    mouseDown:post()
+    hs.timer.usleep(10000) -- Wait 10ms
+
+    -- Press Alt + number key (while holding mouse)
+    hs.eventtap.keyStroke({ "ctrl" }, tostring(spaceNumber), 0)
+    hs.timer.usleep(10000) -- Wait 10ms
+
+    -- Mouse up (release)
+    local mouseUp = hs.eventtap.event.newMouseEvent(hs.eventtap.event.types.leftMouseUp, { x = headerX, y = headerY })
+    mouseUp:post()
+    hs.timer.usleep(10000) -- Wait 10ms
+
+    -- Restore original mouse position
+    hs.mouse.setAbsolutePosition(currentMouse)
+
+    hs.alert.show("Moved window to space " .. spaceNumber)
+end
+
 local function getSmallestScreen()
     local screens = hs.screen.allScreens()
     local result = screens[0]
@@ -98,6 +139,10 @@ local function layoutSimple()
 end
 
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "0", layoutSimple)
+hs.hotkey.bind({ "ctrl", "alt" }, "0", function() moveWindowToSpaceByDrag(0) end)
+hs.hotkey.bind({ "ctrl", "alt" }, "1", function() moveWindowToSpaceByDrag(1) end)
+hs.hotkey.bind({ "ctrl", "alt" }, "2", function() moveWindowToSpaceByDrag(2) end)
+hs.hotkey.bind({ "ctrl", "alt" }, "3", function() moveWindowToSpaceByDrag(3) end)
 
 local function moveMouse()
     local window = hs.window.focusedWindow()
