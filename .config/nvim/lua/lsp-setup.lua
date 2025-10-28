@@ -477,6 +477,7 @@ local function setupLsp()
       },
     }
   })
+  vim.lsp.enable('gopls')
   require('dap-go').setup {}
   -- https://github.com/go-delve/delve/tree/master/Documentation/installation
   -- ensure: go install github.com/go-delve/delve/cmd/dlv@latest
