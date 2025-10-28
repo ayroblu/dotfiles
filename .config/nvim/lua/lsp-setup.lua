@@ -275,7 +275,7 @@ local function setupLsp()
       -- described below
       tsserver_format_options = {},
       tsserver_file_preferences = {
-        importModuleSpecifierEnding = 'js',
+        -- importModuleSpecifierEnding = 'js',
         includeInlayParameterNameHints = "all",
         includeInlayParameterNameHintsWhenArgumentMatchesName = true,
         includeInlayFunctionParameterTypeHints = true,
@@ -290,7 +290,7 @@ local function setupLsp()
       -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
       tsserver_locale = "en",
       -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
-      complete_function_calls = false,
+      complete_function_calls = true,
       include_completions_with_insert_text = true,
       -- CodeLens
       -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
@@ -308,6 +308,9 @@ local function setupLsp()
       },
     },
   }
+
+  -- npm install [-g] @biomejs/biome
+  vim.lsp.enable('biome')
 
   -- npm i -g vscode-langservers-extracted
   vim.lsp.config('cssls', {

@@ -706,6 +706,7 @@ local function setupConform()
     formatters_by_ft = {
       -- Conform will run multiple formatters sequentially
       python = function(bufnr) return { "isort", first(bufnr, "cblack", "black") } end,
+      css = { "biome-check", stop_after_first = true },
       javascript = jsformat,
       javascriptreact = jsformat,
       javascriptflow = jsformat,
@@ -713,6 +714,7 @@ local function setupConform()
       typescriptreact = jsformat,
       graphql = { "biome-check", "prettierd", "prettier", stop_after_first = true },
       json = { "biome-check", "prettierd", "prettier", stop_after_first = true },
+      jsonc = { "biome-check", "prettierd", "prettier", stop_after_first = true },
       -- npm i -g @bazel/buildifier
       bzl = { "buildifier" },
       kotlin = { "ktfmt" },
