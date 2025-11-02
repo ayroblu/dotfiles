@@ -97,9 +97,6 @@ autoload -U colors && colors # named colours?
 
 _comp_options+=(globdots)		# Include hidden files.
 
-export PAGER='less'
-export LESS='-R'
-
 # -----------vim cursor
 # https://unix.stackexchange.com/questions/433273/changing-cursor-style-based-on-mode-in-both-zsh-and-vim
 # vim mode config

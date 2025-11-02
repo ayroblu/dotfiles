@@ -3,6 +3,8 @@
 #if [ -f /usr/local/bin/brew ]; then
 #  eval "$(/usr/local/bin/brew shellenv)"
 #fi
+[ -x "$(command -v less)" ] && export PAGER='less'
+[ -x "$(command -v less)" ] && export LESS="$LESS -RF"
 
 # -------------------- Aliases
 alias rand='date +%s | shasum -a 256 | base64 | head -c 32 ; echo'
@@ -30,7 +32,6 @@ alias goctave='\octave -q'
 [ -x "$(command -v rg)" ] && [ -x "$(command -v ctags)" ] && alias maketags="rg --files | ctags --links=no --excmd=number -L-"
 [ -x "$(command -v rg)" ] && alias rgweb="rg -g !__tests__ -g !__stories__ -g !__fixtures__"
 [ -x "$(command -v rg)" ] && alias rg="rg --hidden --glob \"!tags\" --glob \"!.git\" -M 1000"
-[ -f /usr/local/bin/less ] && export LESS="$LESS -RF"
 [ -x "$(command -v uv)" ] && alias uvp='uv run python'
 alias cddot='~/ws/dotfiles'
 alias cddep='~/ws/deps'
