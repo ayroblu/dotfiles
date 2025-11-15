@@ -350,85 +350,21 @@ local function setupLsp()
   -- brew install kotlin-language-server
   -- lspconfig.kotlin_language_server.setup {}
 
-  -- included by default with xcode dev tools? https://github.com/apple/sourcekit-lsp
-  -- setup per project
-  if project_name == "bazel-demo" or project_name == "monorepo" then
-    local package_modules = { "swiftpkg_swift_snapshot_testing" }
-    local package_args = utils.flat_map(package_modules, function(pack)
-      return { "-Xswiftc", "-I" .. git_root .. "/.bazel/bin/external/rules_swift_package_manager~~swift_deps~" .. pack }
-    end)
-    -- .bazel/bin/external/rules_swift_package_manager~~swift_deps~swiftpkg_swift_snapshot_testing
-    if vim.fn.getcwd():find("example-ios-app", 1, true) then
-      local swiftmodule_dirs = { "JsWrap", "Log", "utils" }
-      local args = utils.flat_map(swiftmodule_dirs, function(dir)
-        return { "-Xswiftc", "-I" .. git_root .. "/.bazel/bin/example-ios-app/" .. dir }
-      end)
-      table.move(package_args, 1, #package_args, #args + 1, args)
-      vim.lsp.config('sourcekit', { cmd = { 'sourcekit-lsp', unpack(args) } })
-      vim.lsp.enable('sourcekit')
-    elseif vim.fn.getcwd():find("g1-app", 1, true) then
-      local swiftmodule_dirs = { "content", "../swift-shared/Log", "../swift-shared/LogUtils", "../swift-shared/Jotai",
-        "utils", "maps", "snapshot-testing" }
-      local args = utils.flat_map(swiftmodule_dirs, function(dir)
-        return { "-Xswiftc", "-I" .. git_root .. "/.bazel/bin/g1-app/" .. dir }
-      end)
-      table.move(package_args, 1, #package_args, #args + 1, args)
-      -- print(vim.inspect(args))
-      -- tests run in macOS mode
-      if vim.fn.expand('%:t'):match("Tests.swift") then
-        vim.lsp.config('sourcekit', { cmd = { 'sourcekit-lsp', unpack(args) } })
-        vim.lsp.enable('sourcekit')
-      else
-        vim.lsp.config('sourcekit', {
-          cmd = utils.concat({ 'sourcekit-lsp', unpack(args) }, {
-            -- "-Xswiftc", "-sdk",
-            -- "-Xswiftc", "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk",
-            -- "-Xswiftc", "-target",
-            -- "-Xswiftc", "arm64-apple-ios18.4",
-
-            -- simulator
-            "-Xswiftc", "-sdk",
-            "-Xswiftc",
-            "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk",
-            "-Xswiftc", "-target",
-            "-Xswiftc", "arm64-apple-ios18.4-simulator",
-          })
-        })
-        vim.lsp.enable('sourcekit')
-      end
-    elseif vim.fn.getcwd():find("card-wallet-app", 1, true) then
-      -- local swiftmodule_dirs = { "LogUtils", "Log", "Jotai", "SwiftUIUtils" }
-      -- local args = utils.flat_map(swiftmodule_dirs, function(dir)
-      --   return { "-Xswiftc", "-I" .. git_root .. "/.bazel/bin/swift-shared/" .. dir }
-      -- end)
-      -- table.move(package_args, 1, #package_args, #args + 1, args)
-      -- lspconfig.sourcekit.setup { cmd = { 'sourcekit-lsp', unpack(args) } }
-
-      vim.lsp.enable('sourcekit')
-
-      -- if vim.fn.expand('%:t'):match("Tests.swift") then
-      --   lspconfig.sourcekit.setup { cmd = { 'sourcekit-lsp', unpack(args) } }
-      -- else
-      -- lspconfig.sourcekit.setup { cmd = utils.concat({ 'sourcekit-lsp' }, {
-      --   -- "-Xswiftc", "-sdk",
-      --   -- "-Xswiftc", "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk",
-      --   -- "-Xswiftc", "-target",
-      --   -- "-Xswiftc", "arm64-apple-ios18.4",
-
-      --   -- simulator
-      --   "-Xswiftc", "-sdk",
-      --   "-Xswiftc", "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk",
-      --   "-Xswiftc", "-target",
-      --   "-Xswiftc", "arm64-apple-ios18.4-simulator",
-      -- }) }
-      -- end
-    else
-      vim.lsp.config('sourcekit', { cmd = { 'sourcekit-lsp', unpack(package_args) } })
-      vim.lsp.enable('sourcekit')
-    end
-  else
-    vim.lsp.enable('sourcekit')
-  end
+  vim.lsp.config('sourcekit', {
+    root_dir = function(bufnr, on_dir)
+      local util = require 'lspconfig.util'
+      local filename = vim.api.nvim_buf_get_name(bufnr)
+      on_dir(
+      -- https://github.com/neovim/nvim-lspconfig/pull/4186
+        util.root_pattern('buildServer.json', '.bsp')(filename)
+        or util.root_pattern('*.xcodeproj', '*.xcworkspace')(filename)
+        -- better to keep it at the end, because some modularized apps contain multiple Package.swift files
+        or util.root_pattern('compile_commands.json', 'Package.swift')(filename)
+        or vim.fs.dirname(vim.fs.find('.git', { path = filename, upward = true })[1])
+      )
+    end,
+  })
+  vim.lsp.enable('sourcekit')
 
   -- npm install -g svelte-language-server
   vim.lsp.enable('svelte')

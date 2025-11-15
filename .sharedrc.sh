@@ -142,9 +142,10 @@ pathadd ~/Library/Python/3.9/bin
 
 # android and java
 [ -z ${JAVA_HOME+x} ] && [ -d /Applications/Android\ Studio.app/Contents/jbr/Contents/Home ] && export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
-if [ -z ${ANDROID_HOME+x} ] && [ -d "$HOME/Library/Android/sdk" ]; then
+# if [ -z ${ANDROID_HOME+x} ] && [ -d "$HOME/Library/Android/sdk" ]; then
+if [ -d "$HOME/Library/Android/sdk" ]; then
   export ANDROID_HOME="$HOME/Library/Android/sdk"
-  # export ANDROID_NDK_HOME="$HOME/Library/Android/Sdk/ndk/21.3.6528147/"?
+  export ANDROID_NDK_HOME="$HOME/Library/Android/sdk/ndk/26.1.10909125"
 
   pathadd $ANDROID_HOME/platform-tools
   pathadd $ANDROID_HOME/emulator

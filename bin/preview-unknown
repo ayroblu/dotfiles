@@ -23,8 +23,15 @@ kind=${mime##*/}
 if [ -d "$1" ]; then
   tree -C "$1" | head -${LINES}
 elif [ "$category" = image ]; then
-  chafa --margin-right 6 "$1"
-  exiftool "$1"
+  if [ -x "$(command -v kitten)" ]; then
+    # kitten icat "$1"
+    kitten icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 "$1" >&2
+    echo ''
+    exiftool "$1"
+  else
+    chafa --margin-right 6 "$1"
+    exiftool "$1"
+  fi
 elif [ "$kind" = vnd.openxmlformats-officedocument.spreadsheetml.sheet ] || \
   [ "$kind" = vnd.ms-excel ]; then
   echo mime $mime
