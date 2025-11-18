@@ -30,7 +30,7 @@ function! s:ApplyProjectSettings()
     let l:basename = fnamemodify(l:git_root, ':t')
     if l:basename == "bazel-demo"
       "autocmd BufWritePost BUILD.bazel,*.bzl silent execute '!bazel run //:format ' . s:GetRelativeFilePath() | edit
-      autocmd BufWritePost BUILD.bazel,*.bzl silent execute '!buildifier %' | edit
+      " autocmd BufWritePost BUILD.bazel,*.bzl silent execute '!buildifier %' | edit
     elseif l:basename == "advent-of-code"
       let $PATH = $PATH . ':' . l:git_root . '/.venv/bin'
     endif
