@@ -185,7 +185,8 @@ inoremap <c-x><c-k> <c-x><c-k>
 " example snippets
 " Plug 'honza/vim-snippets'
 if has('nvim')
-  Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+  " Adds 4s of startup latency
+  " Plug 'quangnguyen30192/cmp-nvim-ultisnips'
   " Adds snippets to autocomplete nvim-cmp source
 endif
 

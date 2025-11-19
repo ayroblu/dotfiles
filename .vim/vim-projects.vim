@@ -20,7 +20,7 @@ endfunction
 " Autocommand to apply settings when editing files in a Git repository
 augroup s:ProjectSettings
   autocmd!
-  autocmd VimEnter * call s:ApplyProjectSettings()
+  " autocmd VimEnter * call s:ApplyProjectSettings()
 augroup END
 
 function! s:ApplyProjectSettings()

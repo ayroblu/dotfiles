@@ -498,7 +498,9 @@ end
 
 pcall(setupNoice)
 
-require('lsp-setup')
+vim.fn.timer_start(10, function()
+  require('lsp-setup')
+end)
 
 local function setupMetals()
   -- Configure completion
@@ -757,15 +759,16 @@ if typr_success then
   typr.setup({})
 end
 
-local image_success, image = pcall(require, "image")
-if image_success then
-  image.setup({
-    integrations = {
-      markdown = {
-        -- floating_windows = true,
-      }
-    },
-    tmux_show_only_in_active_window = true,
-    window_overlap_clear_enabled = true,
-  })
-end
+-- Adds an extra second of latency
+-- local image_success, image = pcall(require, "image")
+-- if image_success then
+--   image.setup({
+--     integrations = {
+--       markdown = {
+--         -- floating_windows = true,
+--       }
+--     },
+--     tmux_show_only_in_active_window = true,
+--     window_overlap_clear_enabled = true,
+--   })
+-- end

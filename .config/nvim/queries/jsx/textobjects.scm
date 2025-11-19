@@ -1,4 +1,4 @@
-; extends
+; inherits ecma
 (jsx_attribute) @jsx_attribute
 (jsx_expression (_) @assignment.inner)
 (jsx_attribute . (_) @assignment.inner) @assign.outer
