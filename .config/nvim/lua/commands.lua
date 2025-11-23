@@ -46,25 +46,60 @@ end
 local function ternary_condition(action, lang)
   edit("ternary-condition", { action = action, lang = lang })
 end
-local function js_ternary()
-  ternary_condition("Ternary", "TypeScript")
-end
-local function js_condition()
-  ternary_condition("Condition", "TypeScript")
-end
+local function js_ternary() ternary_condition("Ternary", "TypeScript") end
+local function js_condition() ternary_condition("Condition", "TypeScript") end
+local function js_cond_true() ternary_condition("ResolveTrue", "TypeScript") end
+local function js_cond_false() ternary_condition("ResolveFalse", "TypeScript") end
+local function rust_cond_true() ternary_condition("ResolveTrue", "Rust") end
+local function rust_cond_false() ternary_condition("ResolveFalse", "Rust") end
+local function scala_cond_true() ternary_condition("ResolveTrue", "Scala") end
+local function scala_cond_false() ternary_condition("ResolveFalse", "Scala") end
+local function go_cond_true() ternary_condition("ResolveTrue", "Go") end
+local function go_cond_false() ternary_condition("ResolveFalse", "Go") end
 
 vim.api.nvim_create_user_command('EditJsArrowBlock', js_arrow_block, {})
 vim.api.nvim_create_user_command('EditJsArrowInline', js_arrow_inline, {})
 vim.api.nvim_create_user_command('EditJsFunction', js_function, {})
-local nvim_commands_group = vim.api.nvim_create_augroup("js_commands", { clear = true })
+local nvim_commands_group = vim.api.nvim_create_augroup("tree_sitter_commands", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "javascript", "javascriptflow", "javascriptreact", "typescript", "typescriptreact" },
   callback = function()
-    vim.keymap.set("n", "ciab", js_arrow_block, { desc = "Convert to arrow block", buffer = true })
-    vim.keymap.set("n", "ciai", js_arrow_inline, { desc = "Convert to arrow inline", buffer = true })
-    vim.keymap.set("n", "cif", js_function, { desc = "Convert to function", buffer = true })
-    vim.keymap.set("n", "cit", js_ternary, { desc = "Convert to ternary", buffer = true })
-    vim.keymap.set("n", "cic", js_condition, { desc = "Convert to condition", buffer = true })
+    -- o - why? d, m, o, p, q, u, y are the only ones available
+    -- Also looks like "convert"
+    vim.keymap.set("n", "coab", js_arrow_block, { desc = "Convert to arrow block", buffer = true })
+    vim.keymap.set("n", "coai", js_arrow_inline, { desc = "Convert to arrow inline", buffer = true })
+    vim.keymap.set("n", "cof", js_function, { desc = "Convert to function", buffer = true })
+    vim.keymap.set("n", "cot", js_ternary, { desc = "Convert to ternary", buffer = true })
+    vim.keymap.set("n", "coc", js_condition, { desc = "Convert to condition", buffer = true })
+    vim.keymap.set("n", "cort", js_cond_true, { desc = "Convert condition to true side", buffer = true })
+    vim.keymap.set("n", "corf", js_cond_false, { desc = "Convert condition to false side", buffer = true })
+  end,
+  group = nvim_commands_group,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "rust" },
+  callback = function()
+    vim.keymap.set("n", "cort", rust_cond_true, { desc = "Convert condition to true side", buffer = true })
+    vim.keymap.set("n", "corf", rust_cond_false, { desc = "Convert condition to false side", buffer = true })
+  end,
+  group = nvim_commands_group,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "scala" },
+  callback = function()
+    vim.keymap.set("n", "cort", scala_cond_true, { desc = "Convert condition to true side", buffer = true })
+    vim.keymap.set("n", "corf", scala_cond_false, { desc = "Convert condition to false side", buffer = true })
+  end,
+  group = nvim_commands_group,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "go" },
+  callback = function()
+    vim.keymap.set("n", "cort", go_cond_true, { desc = "Convert condition to true side", buffer = true })
+    vim.keymap.set("n", "corf", go_cond_false, { desc = "Convert condition to false side", buffer = true })
   end,
   group = nvim_commands_group,
 })

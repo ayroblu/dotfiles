@@ -26,7 +26,7 @@ if ts_success then
     ensure_installed = {
       "cpp", "javascript", "typescript", "tsx", "graphql", "vim", "lua", "sql",
       "scala", "python", "markdown", "markdown_inline", "css", "bash",
-      "swift", "regex", "starlark", "kotlin", "go", "hcl"
+      "swift", "regex", "starlark", "kotlin", "go", "hcl", "rust"
     },
 
     -- Install languages synchronously (only applied to `ensure_installed`)
