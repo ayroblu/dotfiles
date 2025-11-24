@@ -498,9 +498,10 @@ end
 
 pcall(setupNoice)
 
-vim.fn.timer_start(10, function()
-  require('lsp-setup')
-end)
+-- vim.fn.timer_start(10, function()
+--   require('lsp-setup')
+-- end)
+require('lsp-setup')
 
 local function setupMetals()
   -- Configure completion
