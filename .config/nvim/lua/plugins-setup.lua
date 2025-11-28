@@ -291,10 +291,11 @@ end
 
 pcall(setupTextObjects)
 
-local function setupTreeClimber()
-  local tc = require('nvim-treeclimber')
-  vim.keymap.set({ "x", "o" }, "<C-j>", tc.select_shrink, { desc = "select child node" })
-  vim.keymap.set({ "x", "o" }, "<C-k>", tc.select_expand, { desc = "select parent node" })
+local treeclimber_success, treeclimber = pcall(require, "nvim-treeclimber")
+if treeclimber_success then
+  vim.keymap.set({ "x", "o" }, "<C-j>", "<Plug>(treeclimber-select-shrink)", { desc = "select child node" })
+  vim.keymap.set({ "x", "o" }, "<C-k>", "<Plug>(treeclimber-select-expand)", { desc = "select parent node" })
+  -- local tc = require('nvim-treeclimber')
   -- tc.setup()
   -- vim.keymap.set(
   --   { "n", "x", "o" },
@@ -329,9 +330,6 @@ local function setupTreeClimber()
   --   { desc = "select and move to the begining of the node, or the beginning of the next node" }
   -- )
 end
-
--- this is cool and all, but it doesn't quite work the way I would like
-pcall(setupTreeClimber)
 
 local function setupAerial()
   require('aerial').setup({
