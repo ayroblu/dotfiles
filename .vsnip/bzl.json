@@ -1,0 +1,20 @@
+{
+  "subpackage visibility": {
+    "prefix": [
+      "vissub"
+    ],
+    "body": [
+      "package(default_visibility = [\"//$1:__subpackages__\"])$0"
+    ],
+    "description": "visibility subpackage"
+  },
+  "public visibility": {
+    "prefix": [
+      "vispub"
+    ],
+    "body": [
+      "package(default_visibility = [\"//visibility:public\"])"
+    ],
+    "description": "visibility public"
+  }
+}

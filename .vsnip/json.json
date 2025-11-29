@@ -1,0 +1,19 @@
+{
+  "snip": {
+    "prefix": [
+      "snip"
+    ],
+    "body": [
+      "  \"$1\": {",
+      "    \"prefix\": [",
+      "      \"${2:$1}\"",
+      "    ],",
+      "    \"body\": [",
+      "      \"$0\"",
+      "    ],",
+      "    \"description\": \"$1\"",
+      "  },"
+    ],
+    "description": "json vsnip snippet stub"
+  }
+}

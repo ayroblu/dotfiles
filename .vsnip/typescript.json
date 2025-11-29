@@ -1,0 +1,13 @@
+{
+  "wait": {
+    "prefix": [
+      "wait"
+    ],
+    "body": [
+      "function wait(numMillis: number): Promise<void> {",
+      "  return new Promise((resolve) => setTimeout(resolve, numMillis));",
+      "}"
+    ],
+    "description": "wait"
+  }
+}

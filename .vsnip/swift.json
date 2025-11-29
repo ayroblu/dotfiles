@@ -1,0 +1,48 @@
+{
+  "enum": {
+    "prefix": [
+      "enum"
+    ],
+    "body": [
+      "enum ${1:name} {",
+      "  case ${2:variant}",
+      "}$0"
+    ],
+    "description": "enum stub"
+  },
+  "fonts": {
+    "prefix": [
+      "fonts"
+    ],
+    "body": [
+      "for family in UIFont.familyNames.sorted() {",
+      "  let names = UIFont.fontNames(forFamilyName: family)",
+      "  print(\"Family: \\(family) Font names: \\(names)\")",
+      "}$0"
+    ],
+    "description": "list of fonts"
+  },
+  "sleep": {
+    "prefix": [
+      "sleep"
+    ],
+    "body": [
+      "try await Task.sleep(for: .milliseconds($1))$0"
+    ],
+    "description": "sleep in a task"
+  },
+  "view": {
+    "prefix": [
+      "view"
+    ],
+    "body": [
+      "struct ${1:MyView}: View {",
+      "  var body: some View {",
+      "    ${2:Button(\"Todo\") {",
+      "      // Todo",
+      "    \\}}",
+      "}$0"
+    ],
+    "description": "enum stub"
+  }
+}
