@@ -166,7 +166,7 @@ let g:session_default_overwrite = 1
 " Too much drawing, a bit slow
 " Plug 'RRethy/vim-illuminate'
 
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 " Note that I also needed to run `pip3 install pynvim` to get python3 to work
 
 " au BufRead *.js if join(getline(0, 25)) =~ '@flow' | UltiSnipsAddFiletypes javascriptflow | endif
@@ -180,15 +180,15 @@ Plug 'SirVer/ultisnips'
 " let g:UltiSnipsEditSplit="vertical"
 
 " Don't override <c-k> for UltiSnipsJumpBackwardTrigger
-inoremap <c-x><c-k> <c-x><c-k>
+" inoremap <c-x><c-k> <c-x><c-k>
 
 " example snippets
 " Plug 'honza/vim-snippets'
-if has('nvim')
+" if has('nvim')
   " Adds 4s of startup latency
   " Plug 'quangnguyen30192/cmp-nvim-ultisnips'
   " Adds snippets to autocomplete nvim-cmp source
-endif
+" endif
 
 
 " === Commands and functions
