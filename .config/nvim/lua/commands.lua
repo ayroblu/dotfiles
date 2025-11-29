@@ -57,6 +57,13 @@ local function scala_cond_false() ternary_condition("ResolveFalse", "Scala") end
 local function go_cond_true() ternary_condition("ResolveTrue", "Go") end
 local function go_cond_false() ternary_condition("ResolveFalse", "Go") end
 
+local function func_del()
+  print("hello")
+  edit("func-del", { action = "FuncDel" })
+end
+
+vim.keymap.set("n", "codf", func_del, { desc = "delete surrounding function" })
+
 vim.api.nvim_create_user_command('EditJsArrowBlock', js_arrow_block, {})
 vim.api.nvim_create_user_command('EditJsArrowInline', js_arrow_inline, {})
 vim.api.nvim_create_user_command('EditJsFunction', js_function, {})
