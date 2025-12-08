@@ -365,6 +365,7 @@ Plug 'tpope/vim-surround'
 " ysiw] - for insert no space square bracket, use `[` for with space
 " ysiw<em> - for insert tags
 " <VISUAL> S<p class="important"> - insert p tag around
+" <VISUAL> Sffunc( - insert function
 " See issue: https://github.com/tpope/vim-surround/issues/276
 nmap ysa' ys2i'
 nmap ysa" ys2i"
