@@ -370,7 +370,7 @@ nmap ysa' ys2i'
 nmap ysa" ys2i"
 nmap ysa` ys2i`
 
-Plug 'machakann/vim-sandwich'
+" Plug 'machakann/vim-sandwich'
 " prefer, vim-surround, use this for:
 " saiwffunc<cr> - func, param -> func(param)
 "   <visual>saffunc<cr>
