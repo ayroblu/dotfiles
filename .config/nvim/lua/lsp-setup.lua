@@ -382,6 +382,11 @@ local function setupLsp()
   -- lspconfig.kotlin_language_server.setup {}
 
   vim.lsp.config('sourcekit', {
+    init_options = {
+      -- https://github.com/swiftlang/vscode-swift/blob/1b136a0f7738e3324a8e797777657d5945bca55f/src/sourcekit-lsp/LanguageClientConfiguration.ts#L75
+      backgroundIndexing = true,
+      backgroundPreparationMode = "enabled",
+    },
     root_dir = function(bufnr, on_dir)
       local util = require 'lspconfig.util'
       local filename = vim.api.nvim_buf_get_name(bufnr)
