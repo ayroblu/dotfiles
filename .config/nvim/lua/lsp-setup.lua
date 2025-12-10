@@ -8,6 +8,17 @@ local function is_executable(name)
   return success and exit_code == 0
 end
 
+local function message_type(type_num)
+  local names = {
+    [vim.lsp.protocol.MessageType.Error]   = "Error",
+    [vim.lsp.protocol.MessageType.Warning] = "Warning",
+    [vim.lsp.protocol.MessageType.Info]    = "Info",
+    [vim.lsp.protocol.MessageType.Log]     = "Log",
+    [vim.lsp.protocol.MessageType.Debug]   = "Debug", -- Lua 5.4+ / recent Neovim
+  }
+  return names[type_num] or ("Unknown(" .. type_num .. ")")
+end
+
 local function setupCmp()
   local lspkind = require('lspkind')
 
@@ -131,6 +142,16 @@ local function setupLsp()
     },
   }
 
+  vim.lsp.config('stratols', {
+    handlers = {
+      ["window/showMessage"] = function(err, result, ctx, config)
+        -- consider truncating and logging to LspLog:
+        -- local client_name = vim.lsp.get_client_by_id(ctx.client_id).name
+        -- vim.lsp.log.info("[showMessage from %s] %s", client_name, result.message)
+        print("LSP[stratols][" .. message_type(result.type) .. "] " .. result.message)
+      end,
+    },
+  })
   vim.lsp.enable('stratols')
 
   -- ln -s ~/ws/dotfiles/custom_lsp/bazel_lsp.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/configs/bazel_lsp.lua
@@ -591,6 +612,5 @@ local function doit()
   show_popup_under_cursor({ "This is a hover popup!", "It works under your cursor." })
 end
 vim.keymap.set("n", "<leader>L", doit)
-
 
 pcall(setupLsp)
