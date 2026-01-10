@@ -164,6 +164,18 @@ export GOBIN=~/ws/go/bin
 pathadd $GOBIN
 
 # ------------- Functions
+# Useful for logs that output in a timestamp format: 23:14:49.394
+# 2>&1 | grey-logs
+alias grey-logs="awk '{ print (\$0 ~ /^[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}/) ? \$0 : \"\033[2m\"\$0\"\033[0m\" }'"
+
+sim() {
+  # xcrun simctl list devices | grep "iPhone 17 Pro"
+  xcrun simctl boot 4CDB2822-8BB1-4CD5-A532-8027361FF397
+  open -a Simulator
+  # Also useful:
+  # xcrun simctl delete unavailable
+}
+
 take() {
   mkdir -p -- "$1" &&
     cd -P -- "$1"

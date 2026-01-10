@@ -320,9 +320,10 @@ local function setupLsp()
       -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
       -- memory limit in megabytes or "auto"(basically no limit)
       tsserver_max_memory = "auto",
-      -- described below
+      -- https://github.com/microsoft/TypeScript/blob/v5.0.4/src/server/protocol.ts#L3418
       tsserver_format_options = {},
       tsserver_file_preferences = {
+        -- https://github.com/microsoft/TypeScript/blob/v5.0.4/src/server/protocol.ts#L3439
         -- importModuleSpecifierEnding = 'js',
         includeInlayParameterNameHints = "all",
         includeInlayParameterNameHintsWhenArgumentMatchesName = true,
@@ -356,6 +357,14 @@ local function setupLsp()
       },
     },
   }
+  require("tsc").setup({
+    auto_start_watch_mode = true,
+    auto_open_qf = true,
+    enable_progress_notifications = false,
+    flags = {
+      watch = true,
+    },
+  })
 
   -- npm install [-g] @biomejs/biome
   vim.lsp.enable('biome')

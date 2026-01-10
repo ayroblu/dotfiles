@@ -16,5 +16,28 @@
       "package(default_visibility = [\"//visibility:public\"])"
     ],
     "description": "visibility public"
+  },
+  "rust": {
+    "prefix": [
+      "rust"
+    ],
+    "body": [
+      "load(\"@rules_rust//rust:defs.bzl\", \"rust_library\", \"rust_test\")",
+      "",
+      "package(default_visibility = [\"//visibility:public\"])",
+      "",
+      "rust_library(",
+      "    name = \"$1\",",
+      "    srcs = glob([\"*.rs\"]),",
+      "    deps = [$0],",
+      ")",
+      "",
+      "rust_test(",
+      "    name = \"tests\",",
+      "    crate = \":$1\",",
+      "    # env = {\"RUST_BACKTRACE\": \"1\"},",
+      ")"
+    ],
+    "description": "stub for rust project"
   }
 }
