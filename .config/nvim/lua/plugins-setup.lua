@@ -703,6 +703,15 @@ local function setupConform()
           "pyproject.toml",
         }),
       },
+      goimports = {
+        args = function(self, ctx)
+          local module = vim.fn.trim(vim.fn.system("go list -m"))
+          if vim.v.shell_error ~= 0 or module == "" then
+            return { "-srcdir", "$DIRNAME" } -- default
+          end
+          return { "-local", module, "-srcdir", "$DIRNAME" }
+        end,
+      },
     },
     formatters_by_ft = {
       -- Conform will run multiple formatters sequentially
