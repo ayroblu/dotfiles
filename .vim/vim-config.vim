@@ -58,7 +58,7 @@ set foldlevel=20
 
 "set foldnestmax=1
 
-set updatetime=1000 "event when cursor stops moving for a second, for swp normally, but now is for checktime call below
+set updatetime=500 "event when cursor stops moving for a second, for swp normally, but now is for checktime call below
 " Ignore case except when there atleast one capital, use \C for case sensitive
 " Position of \c / \C is irrelevant
 set ignorecase

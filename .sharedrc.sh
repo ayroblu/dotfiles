@@ -326,6 +326,17 @@ replace() {
 # files: rename 's/^/MyVacation2011_/g' *.jpg
 # for f in *.jpg; do mv "$f" "$(echo "$f" | sed s/IMG/VACATION/)"; done
 
+update-fdb() {
+  local version # SC2155 preserving return code
+  version="$(curl -s --fail "https://api.github.com/repos/FoundationDB/fdb-kubernetes-operator/releases/latest" \
+    | jq -r '.tag_name // empty')"
+
+  curl -LO https://github.com/FoundationDB/fdb-kubernetes-operator/releases/download/"$version"/kubectl-fdb_"$version"_darwin_arm64
+  rm ~/bin/kubectl-fdb
+  mv kubectl-fdb_"$version"_darwin_arm64 ~/bin/kubectl-fdb
+  chmod +x ~/bin/kubectl-fdb
+}
+
 # https://askubuntu.com/questions/113544/how-can-i-reduce-the-file-size-of-a-scanned-pdf-file (2nd answer)
 shrinkpdf() {
   INPUT="$1"

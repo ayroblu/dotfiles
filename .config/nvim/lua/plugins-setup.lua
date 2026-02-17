@@ -51,9 +51,33 @@ if ts_success then
       -- Instead of true it can also be a list of languages
       additional_vim_regex_highlighting = false,
     },
+    -- nvim-treesitter-refactor is deprecated
+    refactor = {
+      highlight_current_scope = { enable = true },
+      highlight_definitions = {
+        enable = true,
+        clear_on_cursor_move = true,
+      },
+    },
   }
   vim.treesitter.language.register('tsx', { 'javascriptflow' })
   vim.treesitter.language.register('python', { 'aurora' })
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = "*",
+    callback = function()
+      vim.api.nvim_set_hl(0, 'TSCurrentScope', {
+        -- bg = '#fdf6e3',
+        bg = '#faf1e0',
+        -- link = "CursorLine",
+      })
+      vim.api.nvim_set_hl(0, 'TSDefinition', {
+        underline = true
+      })
+      vim.api.nvim_set_hl(0, 'TSDefinitionUsage', {
+        underline = true
+      })
+    end,
+  })
 
   require('ufo').setup({
     provider_selector = function(bufnr, filetype, buftype)

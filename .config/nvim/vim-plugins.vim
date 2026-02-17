@@ -10,7 +10,8 @@ augroup minifiedTreesitterLoad
 augroup END
 
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-
+" Too slow for large files
+" Plug 'nvim-treesitter/nvim-treesitter-refactor'
 " Plug 'rrethy/nvim-treesitter-textsubjects'
 
 Plug 'chrisgrieser/nvim-various-textobjs'
