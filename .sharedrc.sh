@@ -342,7 +342,7 @@ shrinkpdf() {
   INPUT="$1"
   OUTPUT="${INPUT:r}-compressed.pdf"
   # -dQUIET
-  gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
+  gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen \
     -dNOPAUSE -dBATCH -sOutputFile="$OUTPUT" "$INPUT"
   ## Much faster
   # ps2pdf -dPDFSETTINGS=/ebook "$INPUT" "$OUTPUT"

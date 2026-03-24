@@ -23,7 +23,7 @@ kind=${mime##*/}
 if [ -d "$1" ]; then
   tree -C "$1" | head -${LINES}
 elif [ "$category" = image ]; then
-  if [ -x "$(command -v kitten)" ]; then
+  if [ -x "$(command -v kitten)" ] && [ -n "$KITTY_PID" ]; then
     # kitten icat "$1"
     kitten icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 "$1" >&2
     echo ''

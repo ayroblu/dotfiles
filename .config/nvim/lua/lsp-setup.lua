@@ -152,7 +152,9 @@ local function setupLsp()
       end,
     },
   })
-  vim.lsp.enable('stratols')
+  if vim.fn.executable("strato-lsp") == 1 then
+    vim.lsp.enable('stratols')
+  end
 
   -- ln -s ~/ws/dotfiles/custom_lsp/bazel_lsp.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/configs/bazel_lsp.lua
   if vim.loop.fs_stat(vim.env.HOME ..
@@ -205,7 +207,9 @@ local function setupLsp()
   -- npm i -g bash-language-server
   vim.lsp.enable('bashls')
   -- brew tap dart-lang/dart && brew install dart
-  vim.lsp.enable('dartls')
+  if vim.fn.executable("dart") == 1 then
+    vim.lsp.enable('dartls')
+  end
   -- npm i -g vscode-langservers-extracted
   vim.lsp.config('eslint', {
     filetypes = { "javascriptflow", "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte", "astro" }
@@ -254,7 +258,9 @@ local function setupLsp()
   vim.lsp.config('graphql', {
     root_dir = root_pattern(".graphqlrc.yml")
   })
-  vim.lsp.enable('graphql')
+  if vim.fn.executable("graphql-lsp") == 1 then
+    vim.lsp.enable('graphql')
+  end
 
   -- npm install -g pyright
   -- lspconfig.pyright.setup {}
@@ -496,7 +502,9 @@ local function setupLsp()
   vim.lsp.enable('lemminx')
 
   -- brew install terraform-ls
-  vim.lsp.enable('terraformls')
+  if vim.fn.executable("terraform-ls") == 1 then
+    vim.lsp.enable('terraformls')
+  end
 
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions

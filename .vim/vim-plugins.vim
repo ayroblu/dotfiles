@@ -415,6 +415,11 @@ nnoremap <silent> <Leader><Leader>ts :QFiles <C-R>=expand('%:h')<CR><CR>
 nnoremap <silent> <Leader><Leader>tr :Files <C-R>=expand('%:h')<CR><CR>
 nnoremap <silent> <Leader><Leader>te :Files <C-R>=expand('%:h:h')<CR><CR>
 nnoremap <silent> <Leader><Leader>tt :Files <C-R>=trim(system('git rev-parse --show-toplevel'))<CR><CR>
+nnoremap <silent> <Leader><Leader>ts :GFiles?<CR>
+nnoremap <silent> <Leader><Leader>tg :call fzf#run(fzf#wrap({
+\ 'source': 'git du --name-only --relative=$(git rev-parse --show-prefix) 2> /dev/null',
+\ 'options': '-m --ansi'
+\ }))<CR>
 nnoremap <silent> <Leader>nd :Files <C-R>=$HOME . '/ws/dotfiles'<CR><CR>
 nnoremap <silent> <Leader>/ :Rg <C-R><C-W>
 nnoremap <silent> <Leader>* :Rg <C-R><C-W><CR>
