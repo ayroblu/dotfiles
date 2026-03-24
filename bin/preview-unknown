@@ -29,7 +29,7 @@ elif [ "$category" = image ]; then
     echo ''
     exiftool "$1"
   else
-    chafa --margin-right 6 "$1"
+    chafa --margin-right 6 --size ${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES} "$1"
     exiftool "$1"
   fi
 elif [ "$kind" = vnd.openxmlformats-officedocument.spreadsheetml.sheet ] || \
