@@ -614,6 +614,7 @@ local function setupMetals()
       typeParameters = { enable = true },
     },
     excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+    serverVersion = "1.3.4",
   }
 
   -- *READ THIS*

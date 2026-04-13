@@ -445,9 +445,30 @@ local function setupLsp()
   vim.lsp.enable('protols')
 
   -- go install golang.org/x/tools/gopls@latest
+  local gopls_settings = {
+    gopls = {
+      analyses = { unusedvariable = true },
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
+      },
+    },
+  }
+  if project_name == "exodus" then
+    gopls_settings.gopls.env = {
+      GOPROXY = "https://artifactory.local.twitter.com/artifactory/api/go/go-virtual",
+      GOSUMDB = "off",
+      GOPACKAGESDRIVER = git_root .. "/bin/gopackagesdriver",
+      GOPACKAGESDRIVER_BAZEL_BUILD_FLAGS = "--@rules_go//go/config:pure=false",
+    }
+  end
   vim.lsp.config('gopls', {
     on_attach = function(client, bufnr)
-      -- print(vim.inspect(client.server_capabilities))
       vim.keymap.set('n', '<leader>ag', function()
         local uri = vim.uri_from_bufnr(bufnr)
         client:exec_cmd({ command = "gopls.gc_details", arguments = { uri } }, { bufnr = bufnr })
@@ -458,31 +479,13 @@ local function setupLsp()
           { bufnr = bufnr },
           function(err, result, ctx)
             if err then
-              print(err)
-              return
+              print(err); return
             end
-            if result then
-              print(result)
-            end
+            if result then print(result) end
           end)
       end, { nargs = '*' })
     end,
-    settings = {
-      gopls = {
-        analyses = {
-          unusedvariable = true,
-        },
-        hints = {
-          assignVariableTypes = true,
-          compositeLiteralFields = true,
-          compositeLiteralTypes = true,
-          constantValues = true,
-          functionTypeParameters = true,
-          parameterNames = true,
-          rangeVariableTypes = true,
-        },
-      },
-    }
+    settings = gopls_settings,
   })
   vim.lsp.enable('gopls')
   require('dap-go').setup {}

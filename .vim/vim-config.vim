@@ -645,12 +645,19 @@ function! s:CopyGitPath() range
   redraw!
 endfunction
 function! s:CopyPath() range
-  execute 'silent !printf "\%s" "$(git ls-tree --name-only --full-name HEAD %)" | pbcopy'
-  redraw!
+  let path = expand('%')
+  call setreg('+', path)
+  echo 'Copied (repo-relative path): ' . path
+endfunction
+function! s:CopyAbsPath() range
+  let abs_path = expand('%:p')
+  call setreg('+', abs_path)
+  echo 'Copied absolute path: ' . abs_path
 endfunction
 
 nnoremap <Leader>ygp :call <SID>CopyGitPath()<CR>
 nnoremap <Leader>ycp :call <SID>CopyPath()<CR>
+nnoremap <Leader>yca :call <SID>CopyAbsPath()<CR>
 
 if !has('nvim')
   " Set pasting to automatically go paste mode

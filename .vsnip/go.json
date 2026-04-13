@@ -1,0 +1,14 @@
+{
+  "wait": {
+    "prefix": [
+      "map"
+    ],
+    "body": [
+      "${4:result} := make([]${1:string}, 0, len($2))",
+      "for _, v := range $2 {",
+      "  ${4:result} = append(${4:result}, ${3:f}(v))",
+      "}$0"
+    ],
+    "description": "slice.map equivalent"
+  }
+}

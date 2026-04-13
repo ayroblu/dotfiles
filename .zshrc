@@ -209,3 +209,6 @@ print-time
 # same but for web command
 ###-begin-web-script-content-###
 ###-end-web-script-content-###
+
+# Added by xctl installer
+export PATH="$HOME/.local/bin:$PATH"
