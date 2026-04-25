@@ -101,15 +101,17 @@ pathadd() {
 pathremove() {
   PATH="${PATH//"$1"/}"
 }
+path-print() { echo "${1:-$PATH}" | tr ':' '\n' | nl; }
 
 # /opt/homebrew/bin/brew shellenv
 if [ -f /opt/homebrew/bin/brew ]; then
   export HOMEBREW_PREFIX="/opt/homebrew";
   export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
   export HOMEBREW_REPOSITORY="/opt/homebrew";
-  #export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
-  pathadd /opt/homebrew/bin
-  pathadd /opt/homebrew/sbin
+  # use export path rather than pathadd to force start homebrew
+  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+  # pathadd /opt/homebrew/bin
+  # pathadd /opt/homebrew/sbin
   export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
   export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 fi

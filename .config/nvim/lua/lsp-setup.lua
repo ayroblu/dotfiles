@@ -148,7 +148,7 @@ local function setupLsp()
         -- consider truncating and logging to LspLog:
         -- local client_name = vim.lsp.get_client_by_id(ctx.client_id).name
         -- vim.lsp.log.info("[showMessage from %s] %s", client_name, result.message)
-        print("LSP[stratols][" .. message_type(result.type) .. "] " .. result.message)
+        -- print("LSP[stratols][" .. message_type(result.type) .. "] " .. result.message)
       end,
     },
   })

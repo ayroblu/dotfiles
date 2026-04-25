@@ -212,3 +212,7 @@ print-time
 
 # Added by xctl installer
 export PATH="$HOME/.local/bin:$PATH"
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+# <<< grok installer <<<
