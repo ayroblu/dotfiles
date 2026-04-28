@@ -13,7 +13,9 @@ Table of Contents
 
 - [Setting up my mac](#setting-up-my-mac)
 	- [How to setup packages](#how-to-setup-packages)
+		- [Maybe](#maybe)
 	- [Common brew packages](#common-brew-packages)
+	- [mac settings](#mac-settings)
 - [Font](#font)
 - [Custom git setup](#custom-git-setup)
 - [Custom Caching setup](#custom-caching-setup)
@@ -49,35 +51,49 @@ Table of Contents
 
 Setting up my mac
 -----------------
+### How to setup packages
+
+1. Install [homebrew](https://brew.sh/) `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+2. `brew install jq fd git-delta neovim fzf ripgrep tmux bat tree chafa coursier exiftool extract_url htop less make rustup-init urlview`
+3. `brew install --cask alacritty charles rectangle raycast fuwari keepingyouawake moves`
+3. `xattr -d com.apple.quarantine /Applications/Alacritty.app`
+3. Also may want to get AltTab.app, Flutooth.app
+4. Clone dotfiles repo `git clone git@github.com:ayroblu/dotfiles.git` and deps `git clone git@github.com:ayroblu/deps.git`
+5. Run the run.sh file to symlink: `bash scripts/run.sh`
+6. Install [tpm](https://github.com/tmux-plugins/tpm), `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`, open tmux (you might need `tmux source ~/.tmux.conf`) and run `<prefix> + I`
+7. Install [vim-plug](https://github.com/junegunn/vim-plug) `curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
+7. vim run `:PlugInstall`
+
+#### Maybe
+
+1. Install macvim with `brew install --cask macvim --no-binaries`
+
+### Common brew packages
+- casks: imageoptim keycastr visual-studio-code flipper android-studio
+
+### mac settings
+
 1. Touchpad tap to click, keypress repeat time, alt left right to move spaces, don't auto rearrange spaces
 2. accessibility drag + reduce motion
 3. screen saver and screen off
 4. Download chrome - disable third party cookies
 5. Show on toolbar - full datetime, bluetooth, sound, battery percentage
 6. Adjust all the finder settings
-7. Download install packages (see next section)
-8. Migrate these changes to `.macos` file
-9. system settings -> accessibility -> zoom -> trackpad gestures + advanced (ctrl + option) to zoom
-10. Keyboard -> keyboard shortcuts -> services: uncheck all shortcuts with cmd+shift+L etc
+8. See `.macos` file
+9. Keyboard -> keyboard shortcuts -> services: uncheck all shortcuts with cmd+shift+L etc
+10. system settings -> accessibility -> zoom -> trackpad gestures + advanced (ctrl + option) to zoom
 11. Copy shell history (.histfile) from previous computers
-
-### How to setup packages
-1. Install [homebrew](https://brew.sh/) `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
-3. Install tmux, fzf, ripgrep, node
-4. Clone dotfiles repo `git clone git@github.com:ayroblu/dotfiles.git` and deps `git clone git@github.com:ayroblu/deps.git`
-5. Run the run.sh file to symlink: `bash scripts/run.sh`
-6. Install [tpm](https://github.com/tmux-plugins/tpm), `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`, open tmux (you might need `tmux source ~/.tmux.conf`) and run `<prefix> + I`
-7. Install vim plug and run `:PlugInstall`
-8. Install macvim with `brew install --cask macvim --no-binaries`
-
-### Common brew packages
-- jq fd git-delta neovim fzf ripgrep tmux bat tree chafa coursier exiftool extract_url htop less make rustup-init urlview
-- casks: charles vimmotion keepingyouawake espanso rectangle raycast dbeaver-community docker dropbox fuwari finestructure/Hummingbird/hummingbird imageoptim keycastr visual-studio-code flipper android-studio
 
 Font
 ----
 
-I like Monaco, I think it's a good fixed width font but it doesn't support bold, italics, and nerd fonts. Clone and add to font book: git@github.com:krfantasy/monego.git (based on git@github.com:cseelus/monego.git)
+I like Monaco, I think it's a good fixed width font but it doesn't support bold, italics, and nerd fonts. Clone and add to font book: (based on git@github.com:cseelus/monego.git)
+
+```
+cd ~/ws
+git clone git@github.com:krfantasy/monego.git
+open '/System/Applications/Font Book.app'
+```
 
 Custom git setup
 ----------------

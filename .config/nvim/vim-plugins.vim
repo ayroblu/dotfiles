@@ -1,13 +1,13 @@
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-function! LoadTreesitter()
-  if exists("b:is_minified_file") && !b:is_minified_file
-    exec 'TSBufEnable highlight'
-  endif
-endfunction
-augroup minifiedTreesitterLoad
-  autocmd!
-  autocmd FileType * call LoadTreesitter()
-augroup END
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" function! LoadTreesitter()
+"   if exists("b:is_minified_file") && !b:is_minified_file
+"     exec 'TSBufEnable highlight'
+"   endif
+" endfunction
+" augroup minifiedTreesitterLoad
+"   autocmd!
+"   autocmd FileType * call LoadTreesitter()
+" augroup END
 
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 " Too slow for large files
