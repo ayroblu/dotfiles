@@ -8,6 +8,16 @@
 "   autocmd!
 "   autocmd FileType * call LoadTreesitter()
 " augroup END
+Plug 'romus204/tree-sitter-manager.nvim'
+" Usage
+" :TSManager - Open the parser management interface
+"
+" Keybindings
+" i - Install parser under cursor
+" x - Remove parser under cursor
+" u - Update parser under cursor
+" r - Refresh installation status
+" q / <Esc> - Close window
 
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 " Too slow for large files

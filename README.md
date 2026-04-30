@@ -54,7 +54,7 @@ Setting up my mac
 ### How to setup packages
 
 1. Install [homebrew](https://brew.sh/) `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
-2. `brew install jq fd git-delta neovim fzf ripgrep tmux bat tree chafa coursier exiftool extract_url htop less make rustup-init urlview`
+2. `brew install jq fd git-delta neovim fzf ripgrep tmux bat tree chafa coursier exiftool extract_url htop less make rustup-init urlview coreutils`
 3. `brew install --cask alacritty charles rectangle raycast fuwari keepingyouawake moves`
 3. `xattr -d com.apple.quarantine /Applications/Alacritty.app`
 3. Also may want to get AltTab.app, Flutooth.app

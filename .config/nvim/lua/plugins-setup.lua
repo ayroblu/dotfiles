@@ -18,6 +18,64 @@ if oil_success then
   })
 end
 
+local tsm_success, tsm = pcall(require, "tree-sitter-manager")
+if tsm_success then
+  tsm.setup({
+    -- Default Options
+    ensure_installed = {
+      "cpp", "javascript", "typescript", "tsx", "graphql", "vim", "lua", "sql",
+      "scala", "python", "markdown", "markdown_inline", "css", "bash",
+      "swift", "regex", "starlark", "kotlin", "go", "hcl", "rust"
+    },
+    auto_install = true,
+    -- ensure_installed = {}, -- list of parsers to install at the start of a neovim session
+    -- border = nil, -- border style for the window (e.g. "rounded", "single"), if nil, use the default border style defined by 'vim.o.winborder'. See :h 'winborder' for more info.
+    -- auto_install = false, -- if enabled, install missing parsers when editing a new file
+    -- highlight = true, -- treesitter highlighting is enabled by default
+    -- languages = {}, -- override or add new parser sources
+    -- parser_dir = vim.fn.stdpath("data") .. "/site/parser",
+    -- query_dir = vim.fn.stdpath("data") .. "/site/queries",
+  })
+
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = { '*' },  -- or specific filetypes
+    callback = function()
+      pcall(vim.treesitter.start)  -- Safe start for current buffer
+    end,
+  })
+  vim.treesitter.language.register('tsx', { 'javascriptflow' })
+  vim.treesitter.language.register('python', { 'aurora' })
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = "*",
+    callback = function()
+      vim.api.nvim_set_hl(0, 'TSCurrentScope', {
+        -- bg = '#fdf6e3',
+        bg = '#faf1e0',
+        -- link = "CursorLine",
+      })
+      vim.api.nvim_set_hl(0, 'TSDefinition', {
+        underline = true
+      })
+      vim.api.nvim_set_hl(0, 'TSDefinitionUsage', {
+        underline = true
+      })
+    end,
+  })
+
+  require('ufo').setup({
+    provider_selector = function(bufnr, filetype, buftype)
+      return { 'treesitter', 'indent' }
+    end
+  })
+  vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+  vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+  vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+  -- vim.o.foldcolumn = '1'
+  vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+  vim.o.foldlevelstart = 99
+  vim.o.foldenable = true
+end
+
 local ts_success, ts = pcall(require, "nvim-treesitter.configs")
 if ts_success then
   ---@diagnostic disable-next-line: missing-fields
@@ -60,37 +118,6 @@ if ts_success then
       },
     },
   }
-  vim.treesitter.language.register('tsx', { 'javascriptflow' })
-  vim.treesitter.language.register('python', { 'aurora' })
-  vim.api.nvim_create_autocmd("ColorScheme", {
-    pattern = "*",
-    callback = function()
-      vim.api.nvim_set_hl(0, 'TSCurrentScope', {
-        -- bg = '#fdf6e3',
-        bg = '#faf1e0',
-        -- link = "CursorLine",
-      })
-      vim.api.nvim_set_hl(0, 'TSDefinition', {
-        underline = true
-      })
-      vim.api.nvim_set_hl(0, 'TSDefinitionUsage', {
-        underline = true
-      })
-    end,
-  })
-
-  require('ufo').setup({
-    provider_selector = function(bufnr, filetype, buftype)
-      return { 'treesitter', 'indent' }
-    end
-  })
-  vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
-  vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
-  vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-  -- vim.o.foldcolumn = '1'
-  vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-  vim.o.foldlevelstart = 99
-  vim.o.foldenable = true
 end
 
 local tsp_success, ts = pcall(require, "nvim-treesitter.parsers")
