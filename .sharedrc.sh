@@ -259,6 +259,27 @@ adddate() {
   done
 }
 
+# \e[?25l / \e[?25h — Hide/show cursor.
+# \e[A or \e[<N>A — Move cursor up N lines (cuu = cursor up).
+# \e[K or \e[2K — Clear from cursor to end of line (or whole line).
+# \r — Carriage return (start of current line).
+# \e[J — Clear screen from cursor down (sometimes used).
+clear-watch() {
+  local out
+  local prev_lines=0   # number of lines printed last iteration
+  while true; do
+    out="$("$@")"
+    if (( prev_lines > 0 )); then
+      printf '\e[%dA' $prev_lines
+      printf '\e[J'
+    fi
+    echo "$out"
+    sleep 2
+    prev_lines=$(wc -l <<< "$out")
+    (( prev_lines += 1 ))
+  done
+}
+
 regexReplace() {
   # Requires ripgrep: https://github.com/BurntSushi/ripgrep
   BEFORE="$1"

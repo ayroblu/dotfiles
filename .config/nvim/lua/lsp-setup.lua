@@ -463,8 +463,8 @@ local function setupLsp()
     gopls_settings.gopls.env = {
       GOPROXY = "https://artifactory.local.twitter.com/artifactory/api/go/go-virtual",
       GOSUMDB = "off",
-      GOPACKAGESDRIVER = git_root .. "/bin/gopackagesdriver",
-      GOPACKAGESDRIVER_BAZEL_BUILD_FLAGS = "--@rules_go//go/config:pure=false",
+      -- GOPACKAGESDRIVER = git_root .. "/bin/gopackagesdriver",
+      -- GOPACKAGESDRIVER_BAZEL_BUILD_FLAGS = "--@rules_go//go/config:pure=false",
     }
   end
   vim.lsp.config('gopls', {
@@ -514,6 +514,8 @@ local function setupLsp()
   vim.keymap.set('n', '<leader>ai', vim.diagnostic.open_float)
   -- vim.keymap.set('n', '[[', vim.diagnostic.goto_prev)
   -- vim.keymap.set('n', ']]', vim.diagnostic.goto_next)
+  -- stops ftplugin overriding
+  vim.g.no_plugin_maps = 1
   vim.keymap.set('n', '[[', function() vim.diagnostic.jump({ count = -1 }) end)
   vim.keymap.set('n', ']]', function() vim.diagnostic.jump({ count = 1 }) end)
   vim.diagnostic.config({
@@ -566,8 +568,8 @@ local function setupLsp()
       -- vim.keymap.set("n", "<leader>dl", "<cmd>Lspsaga show_line_diagnostics<CR>")
       -- vim.keymap.set("n", "<leader>dc", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
       -- vim.keymap.set("n", "<leader>db", "<cmd>Lspsaga show_buf_diagnostics<CR>")
-      vim.keymap.set("n", "[[", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
-      vim.keymap.set("n", "]]", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+      -- vim.keymap.set("n", "[[", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
+      -- vim.keymap.set("n", "]]", "<cmd>Lspsaga diagnostic_jump_next<CR>")
 
       -- vim.keymap.set('n', 'gv', ':vsplit | lua vim.lsp.buf.definition()<CR>', opts)
 
