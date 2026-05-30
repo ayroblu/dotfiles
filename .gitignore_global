@@ -49,3 +49,5 @@ venv
 .ccls-cache
 compile_commands.json
 .ccls
+
+/.bazelbsp

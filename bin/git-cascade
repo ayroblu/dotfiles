@@ -1,50 +1,66 @@
 #!/usr/bin/env zsh
 set -euo pipefail
 
-CURRENT="$(git rev-parse --abbrev-ref HEAD)"
-if [ -z "$CURRENT" ]; then
-    echo "Not on a branch"
-    exit 1
+# git-cascade: Checkout and rebase all local branches that have the current
+# branch (or a previously cascaded branch) as their upstream. If any rebase
+# encounters a conflict, abort the rebase and the cascade.
+
+if ! git rev-parse --git-dir >/dev/null 2>&1; then
+  echo "Not a git repository" >&2
+  exit 1
 fi
 
-echo "Rebasing branches that depend on $CURRENT..."
+CURRENT="$(git rev-parse --abbrev-ref HEAD)"
+if [[ -z "$CURRENT" || "$CURRENT" == "HEAD" ]]; then
+  echo "Not on a branch" >&2
+  exit 1
+fi
 
-# Collect dependent branches with depth (commits since current)
-# Use git branch --contains to get only descendants, not all branches
-deps=()
-while read -r branch; do
-    depth=$(git rev-list --count "$CURRENT..$branch")
-    deps+=("$depth:$branch")
-done < <(git branch --contains "$CURRENT" --format='%(refname:short)' | grep -v "^$CURRENT$")
+echo "Cascading rebases for branches tracking '$CURRENT'..."
 
-# Extract just branch names for parent-finding
-dep_branches=()
-for item in $deps; do
-    dep_branches+=(${item#*:})
-done
+cascade() {
+  local base="$1"
+  local -a dependents
 
-# Sort by depth ascending and rebase each onto its direct parent
-for item in ${(on)deps}; do
-    branch=${item#*:}
+  # Find branches whose upstream is exactly $base
+  while read -r ref upstream; do
+    if [[ -n "$ref" && "$upstream" == "$base" ]]; then
+      dependents+=("$ref")
+    fi
+  done < <(git for-each-ref --format='%(refname:short) %(upstream:short)' refs/heads/)
 
-    # Find direct parent: closest ancestor among current + other dependents
-    parent="$CURRENT"
-    best_count=999999
-    for candidate in $CURRENT $dep_branches; do
-        if [[ "$candidate" != "$branch" ]] && git merge-base --is-ancestor "$candidate" "$branch" 2>/dev/null; then
-            count=$(git rev-list --count "$candidate..$branch")
-            if (( count < best_count )); then
-                best_count=$count
-                parent=$candidate
-            fi
-        fi
-    done
+  local dep
+  for dep in "${dependents[@]}"; do
+    echo "Rebasing '$dep' (upstream: $base)..."
 
-    echo "Rebasing $branch onto $parent..."
-    git checkout "$branch" && git rebase "$parent" && git checkout "$CURRENT" || {
-        echo "Rebase failed for $branch, aborting..."
-        git rebase --abort 2>/dev/null || true
-        git checkout "$CURRENT"
-    }
-done
+    if ! git checkout -q "$dep"; then
+      echo "Failed to checkout $dep" >&2
+      git checkout -q "$CURRENT" 2>/dev/null || true
+      return 1
+    fi
 
+    if ! git rebase; then
+      echo "Rebase conflict for '$dep', aborting..."
+      git rebase --abort 2>/dev/null || true
+      git checkout -q "$CURRENT" 2>/dev/null || true
+      return 1
+    fi
+
+    echo "Rebased '$dep' successfully."
+
+    # Recurse to handle any branches tracking this one
+    if ! cascade "$dep"; then
+      return 1
+    fi
+  done
+
+  return 0
+}
+
+if cascade "$CURRENT"; then
+  git checkout -q "$CURRENT"
+  echo "Cascade complete."
+else
+  echo "Cascade aborted."
+  exit 1
+fi

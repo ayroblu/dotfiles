@@ -264,19 +264,29 @@ adddate() {
 # \e[K or \e[2K — Clear from cursor to end of line (or whole line).
 # \r — Carriage return (start of current line).
 # \e[J — Clear screen from cursor down (sometimes used).
+# clear-watch() {
+#   local out
+#   local prev_lines=0   # number of lines printed last iteration
+#   while true; do
+#     out="$("$@")"
+#     if (( prev_lines > 0 )); then
+#       printf '\e[%dA' $prev_lines
+#       printf '\e[J'
+#     fi
+#     echo "$out"
+#     sleep 2
+#     prev_lines=$(wc -l <<< "$out")
+#     (( prev_lines += 1 ))
+#   done
+# }
 clear-watch() {
   local out
-  local prev_lines=0   # number of lines printed last iteration
+  printf '\e7'
   while true; do
     out="$("$@")"
-    if (( prev_lines > 0 )); then
-      printf '\e[%dA' $prev_lines
-      printf '\e[J'
-    fi
+    printf '\e8\e[J'
     echo "$out"
     sleep 2
-    prev_lines=$(wc -l <<< "$out")
-    (( prev_lines += 1 ))
   done
 }
 
