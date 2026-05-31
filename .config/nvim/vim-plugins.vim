@@ -19,7 +19,7 @@ Plug 'romus204/tree-sitter-manager.nvim'
 " r - Refresh installation status
 " q / <Esc> - Close window
 
-Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+" Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 " Too slow for large files
 " Plug 'nvim-treesitter/nvim-treesitter-refactor'
 " Plug 'rrethy/nvim-treesitter-textsubjects'

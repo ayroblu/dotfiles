@@ -832,3 +832,11 @@ end
 --     window_overlap_clear_enabled = true,
 --   })
 -- end
+
+local to = require("textobjects")
+
+vim.keymap.set({ "o", "x" }, "ip", function() to.select("parameter.inner") end)
+vim.keymap.set({ "o", "x" }, "ap", function() to.select("parameter.outer") end)
+
+-- Very handy while working on this
+vim.keymap.set("n", "<leader>td", function() to.debug("parameter.inner") end, { desc = "Debug textobject" })
