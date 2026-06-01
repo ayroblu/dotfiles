@@ -62,24 +62,14 @@
 ; MyStruct(key: "", value: "")
 (value_arguments (value_argument
   (value_argument_label) @assign_left.inner
-  value: (_) @assign_right.inner) @parameter.inner @assign_left.outer @assign_right.outer)
-(value_arguments
-  (value_argument) @_start . "," @_end
-    (#make-range! "parameter.outer" @_start @_end))
-(value_arguments
-  "," @_start . (value_argument) @_end
-    (#make-range! "parameter.outer" @_start @_end))
+  value: (_) @assign_right.inner) @assign_left.outer @assign_right.outer)
+(value_arguments (value_argument) @parameter.inner)
 
 ; func doThing(key: "", value: "")
 (function_declaration (parameter
   (simple_identifier) @assign_left.inner
-  (user_type) @assign_right.inner) @parameter.inner @assign_left.outer @assign_right.outer)
-(function_declaration
-  (parameter) @_start . "," @_end
-    (#make-range! "parameter.outer" @_start @_end))
-(function_declaration
-  "," @_start . (parameter) @_end
-    (#make-range! "parameter.outer" @_start @_end))
+  (user_type) @assign_right.inner) @assign_left.outer @assign_right.outer)
+(function_declaration (parameter) @parameter.inner)
 (function_declaration
   (parameter) @_start . default_value: (_) @_end
     (#make-range! "parameter.inner" @_start @_end))
@@ -101,36 +91,8 @@
 (property_declaration "=" @_start . value: (_) @_end
   (#make-range! "assign_right_outer" @_start @_end)) @assign_right_outer.outer
 
-; todo: Not correct for default arguments with nil
-(init_declaration
-  (parameter) @parameter.inner . ",")
-
-; not last outer param
-(init_declaration
-  (parameter) @_start . "," @_end
-    (#make-range! "parameter.outer" @_start @_end))
-
-; inner: all with non nil default value
-(init_declaration
-  (parameter) @_start . "=" . default_value: (_) @_end
-    (#make-range! "parameter.inner" @_start @_end))
-
-; inner: nil default don't have default_value
-(init_declaration
-  (parameter) @_start . "=" . _ @_end
-    (#eq? @_end "nil")
-    (#make-range! "parameter.inner" @_start @_end))
-
-; last param outer
-(init_declaration
-  "," @_start (parameter) . "=" . default_value: (_) @_end . ")"
-    (#make-range! "parameter.outer" @_start @_end))
-
-; specifically nil end
-(init_declaration
-  "," @_start (parameter) . "=" . _ @_end . ")"
-    (#eq? @_end "nil")
-    (#make-range! "parameter.outer" @_start @_end))
+; parameter patterns for init (keeping simple inners for now)
+(init_declaration (parameter) @parameter.inner)
 
 
 (array_literal (_) @swappable.inner)

@@ -83,10 +83,6 @@
 ; [a] - import_specifier
 (import_specifier) @parameter.inner
 (named_imports (import_specifier) @parameter.inner)
-(named_imports (import_specifier) @parameter.inner "," @_end
- (#make-range! "parameter.outer" @parameter.inner @_end))
-(named_imports "," @_start (import_specifier) @_end
- (#make-range! "parameter.outer" @_start @_end))
 
 ; Generics
 (type_arguments (_) @parameter.inner)
@@ -96,24 +92,12 @@
 ; const { a, b } = value;
 ; [a] - param
 (object_pattern (_) @parameter.inner)
-(object_pattern (_) @_start "," @_end
- (#make-range! "parameter.outer" @_start @_end))
-(object_pattern "," @_start (_) @_end
- (#make-range! "parameter.outer" @_start @_end))
 
 ; array items
 (array (_) @parameter.inner)
-(array (_) @_start "," @_end
- (#make-range! "parameter.outer" @_start @_end))
-(array "," @_start (_) @_end
- (#make-range! "parameter.outer" @_start @_end))
 
 ; object items
 (object (_) @parameter.inner)
-(object (_) @_start "," @_end
- (#make-range! "parameter.outer" @_start @_end))
-(object "," @_start (_) @_end
- (#make-range! "parameter.outer" @_start @_end))
 
 ; expressions, just the ones we care about
 (binary_expression (_) @expression.inner) @expression.outer
