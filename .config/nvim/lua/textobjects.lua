@@ -50,8 +50,45 @@ function M.find_captures(capture_name, bufnr)
   return results
 end
 
+--- Find the smallest capture of the given name whose range actually contains the cursor.
+--- Returns nil if the cursor is not inside any matching capture (intentionally no fallback).
+--- Used by swap operations so they only trigger when "hovered over" a swappable.
+---@param capture_name string
+---@param bufnr integer?
+---@return TSNode|nil
+function M.find_containing_capture(capture_name, bufnr)
+  bufnr = bufnr or 0
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local cur_row, cur_col = cursor[1] - 1, cursor[2]
+
+  local candidates = M.find_captures(capture_name, bufnr)
+  if #candidates == 0 then return nil end
+
+  local best
+  local best_size = math.huge
+
+  for _, node in ipairs(candidates) do
+    local sr, sc, er, ec = node:range()
+
+    local contains = (sr < cur_row or (sr == cur_row and sc <= cur_col))
+                 and (er > cur_row or (er == cur_row and ec >= cur_col))
+
+    if contains then
+      local size = (er - sr) * 10000 + (ec - sc)
+      if size < best_size then
+        best_size = size
+        best = node
+      end
+    end
+  end
+
+  return best
+end
+
 --- Choose the "best" node for a capture near the cursor.
---- Strategy: smallest node that contains the cursor position.
+--- Strategy: smallest node that contains the cursor position; if none, falls back
+--- to the nearest capture starting at/after the cursor (or first in buffer).
+--- The fallback enables "select next" style behavior for motions/selections.
 ---@param capture_name string
 ---@param bufnr integer?
 ---@return TSNode|nil
@@ -81,37 +118,36 @@ function M.find_best_capture(capture_name, bufnr)
     end
   end
 
-  if not best and #candidates > 0 then
-    local cur_row, cur_col = cursor[1] - 1, cursor[2]
+  if best then return best end
 
-    -- Prefer the nearest capture that starts *at or after* the cursor position.
-    -- This gives the nice "when I'm not on one, go to the next one" behavior.
-    local after_cursor = {}
-    for _, node in ipairs(candidates) do
-      local sr, sc = node:range()
-      if sr > cur_row or (sr == cur_row and sc >= cur_col) then
-        table.insert(after_cursor, node)
-      end
+  -- Fallback when not hovering on any: pick nearest after cursor, else first in buffer.
+  -- Prefer the nearest capture that starts *at or after* the cursor position.
+  -- This gives the nice "when I'm not on one, go to the next one" behavior.
+  local after_cursor = {}
+  for _, node in ipairs(candidates) do
+    local sr, sc = node:range()
+    if sr > cur_row or (sr == cur_row and sc >= cur_col) then
+      table.insert(after_cursor, node)
     end
+  end
 
-    if #after_cursor > 0 then
-      table.sort(after_cursor, function(a, b)
-        local ar, ac = a:range()
-        local br, bc = b:range()
-        if ar == br then return ac < bc end
-        return ar < br
-      end)
-      best = after_cursor[1]
-    else
-      -- Nothing after the cursor → fall back to the first capture in the buffer
-      table.sort(candidates, function(a, b)
-        local ar, ac = a:range()
-        local br, bc = b:range()
-        if ar == br then return ac < bc end
-        return ar < br
-      end)
-      best = candidates[1]
-    end
+  if #after_cursor > 0 then
+    table.sort(after_cursor, function(a, b)
+      local ar, ac = a:range()
+      local br, bc = b:range()
+      if ar == br then return ac < bc end
+      return ar < br
+    end)
+    best = after_cursor[1]
+  else
+    -- Nothing after the cursor → fall back to the first capture in the buffer
+    table.sort(candidates, function(a, b)
+      local ar, ac = a:range()
+      local br, bc = b:range()
+      if ar == br then return ac < bc end
+      return ar < br
+    end)
+    best = candidates[1]
   end
 
   return best

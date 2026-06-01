@@ -25,7 +25,8 @@ local function is_allowed_capture(name, allowed)
   return false
 end
 
---- Find the best captured node under the cursor that matches one of the allowed captures.
+--- Find the smallest captured node that actually contains the cursor and matches
+--- one of the allowed captures. Returns nil (no swap) if not hovered over any.
 local function find_captured_node_under_cursor(allowed_captures, bufnr)
   bufnr = bufnr or 0
   local main = get_main()
@@ -35,7 +36,7 @@ local function find_captured_node_under_cursor(allowed_captures, bufnr)
   end
 
   for _, cap in ipairs(allowed_captures) do
-    local node = main.find_best_capture(cap, bufnr)
+    local node = main.find_containing_capture(cap, bufnr)
     if node then
       return node
     end
