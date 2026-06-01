@@ -266,4 +266,9 @@ M.debug                  = debug_mod.debug
 M.list_captures          = debug_mod.list_captures
 M.show_textobject_captures = debug_mod.show_textobject_captures
 
+-- Re-export swap tools (live in textobjects/swap.lua)
+local swap = require('textobjects.swap')
+M.swap_next = swap.swap_next
+M.swap_prev = swap.swap_prev
+
 return M

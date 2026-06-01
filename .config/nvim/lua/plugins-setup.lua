@@ -838,5 +838,8 @@ local to = require("textobjects")
 vim.keymap.set({ "o", "x" }, "ip", function() to.select("parameter.inner") end)
 vim.keymap.set({ "o", "x" }, "ap", function() to.select("parameter.outer") end)
 
+vim.keymap.set({ "n", "v" }, ">,", function() to.swap_next({ "parameter.inner", "swappable.inner" }) end)
+vim.keymap.set({ "n", "v" }, "<,", function() to.swap_prev({ "parameter.inner", "swappable.inner" }) end)
+
 -- Very handy while working on this
-vim.keymap.set("n", "<leader>td", function() to.debug("parameter.inner") end, { desc = "Debug textobject" })
+vim.keymap.set("n", "<leader><leader>td", function() to.debug("parameter.inner") end, { desc = "Debug textobject" })

@@ -103,4 +103,57 @@ function example(aaaaaaaaa, bbbbbbbbb = 42, { ccccccccc, ddddddddd: eeeeeeeee })
   print("If inner/outer ranges are identical, the Lua extension logic did not find a comma sibling.")
 end
 
+--- Diagnostic test for the swap implementation.
+--- Run with: :lua require('textobjects.test').test_swap()
+function M.test_swap()
+  local bufnr = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_option(bufnr, "filetype", "typescript")
+
+  local code = [[
+function example(aaaaaaaaa, bbbbbbbbb = 42, { ccccccccc, ddddddddd: eeeeeeeee }) {
+  const x = aaaaaaaaa + bbbbbbbbb;
+}
+]]
+
+  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(code, "\n", { plain = true }))
+
+  local win = vim.api.nvim_get_current_win()
+  vim.api.nvim_win_set_buf(win, bufnr)
+
+  print("=== Swap Diagnostic Test ===")
+  print("Original buffer (line 1):")
+  print("  " .. vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[1])
+
+  -- Test 1: Swap first ↔ second
+  vim.api.nvim_win_set_cursor(win, { 1, 20 })  -- inside aaaaaaaaa
+  local before = vim.api.nvim_win_get_cursor(win)
+  print(string.format("\n[1] Cursor on first param (row %d, col %d) → swap_next", before[1], before[2]))
+  require('textobjects').swap_next({ "parameter.inner" })
+  local after = vim.api.nvim_win_get_cursor(win)
+  print(string.format("  After (cursor at row %d, col %d): %s", after[1], after[2], vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[1]))
+
+  -- Reset buffer
+  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(code, "\n", { plain = true }))
+
+  -- Test 2: Swap second ↔ third (the one that was producing garbage before)
+  vim.api.nvim_win_set_cursor(win, { 1, 38 })  -- inside bbbbbbbbb
+  before = vim.api.nvim_win_get_cursor(win)
+  print(string.format("\n[2] Cursor on middle param (row %d, col %d) → swap_next (this used to mangle)", before[1], before[2]))
+  require('textobjects').swap_next({ "parameter.inner" })
+  after = vim.api.nvim_win_get_cursor(win)
+  print(string.format("  After (cursor at row %d, col %d): %s", after[1], after[2], vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[1]))
+
+  -- Reset again
+  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(code, "\n", { plain = true }))
+
+  vim.api.nvim_win_set_cursor(win, { 1, 38 })
+  before = vim.api.nvim_win_get_cursor(win)
+  print(string.format("\n[3] Cursor on middle param (row %d, col %d) → swap_prev", before[1], before[2]))
+  require('textobjects').swap_prev({ "parameter.inner" })
+  after = vim.api.nvim_win_get_cursor(win)
+  print(string.format("  After (cursor at row %d, col %d): %s", after[1], after[2], vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[1]))
+
+  print("\n=== Swap test complete ===")
+end
+
 return M
