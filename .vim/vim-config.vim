@@ -363,6 +363,7 @@ au BufRead *.js if join(getline(0, 25)) =~ '@flow' | setlocal ft=javascriptflow 
 
 autocmd BufNewFile,BufRead *.flow setl ft=javascriptflow
 autocmd FileType javascriptflow set syntax=typescript
+autocmd BufNewFile,BufRead *.gotmpl setl ft=gotmpl
 
 
 " nnoremap <C-L> :redraw!
