@@ -355,6 +355,7 @@ autocmd BufNewFile,BufRead vscode_settings.json setl ft=jsonc
 autocmd BufNewFile,BufRead Podfile setl ft=ruby
 autocmd BufNewFile,BufRead Cakefile setl ft=ruby
 autocmd BufNewFile,BufRead *.swiftinterface setl ft=swift
+autocmd BufNewFile,BufRead *.strings setl syntax=swift
 autocmd BufNewFile,BufRead *.overlay setl ft=dts
 autocmd BufNewFile,BufRead *.tf setl ft=hcl
 

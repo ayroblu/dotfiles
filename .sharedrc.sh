@@ -435,6 +435,7 @@ video-transcode-h265() {
   local filename="$1"
   local new_filename="${filename%.*}.h265.mp4"
   ffmpeg -i "$filename" -vcodec libx265 -crf 28 "$new_filename"
+  # ffmpeg -i "$filename" -c:v hevc_videotoolbox -q:v 55 "$new_filename"
 }
 video-transcode() {
   # https://unix.stackexchange.com/questions/28803/how-can-i-reduce-a-videos-size-with-ffmpeg
@@ -447,11 +448,13 @@ video-720p() {
   local filename="$1"
   local new_filename="${filename%.*}.h264.mp4"
   ffmpeg -i "$filename" -filter:v scale=-2:720 "$new_filename"
+  # ffmpeg -i "$filename" -filter:v scale=-2:720 -c:v h264_videotoolbox "$new_filename"
 }
 video-1080p() {
   local filename="$1"
   local new_filename="${filename%.*}.h264.mp4"
   ffmpeg -i "$filename" -filter:v scale=-2:1080 "$new_filename"
+  # ffmpeg -i "$filename" -filter:v scale=-2:1080 -c:v h264_videotoolbox "$new_filename"
 }
 
 swift-build-ios() {
