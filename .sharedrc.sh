@@ -178,6 +178,59 @@ sim() {
   # xcrun simctl delete unavailable
 }
 
+setup-tmux-session() {
+  local session="$1"
+  local dir="${2:-$HOME/workspace/$session}"
+
+  if [ ! -d "$dir" ]; then
+    echo "$dir does not exist" >&2
+    return 1
+  fi
+
+  tmux has-session -t "$session" 2>/dev/null || tmux new-session -d -s "$session" -n "$session" -c "$dir"
+}
+
+setup-tmux-window() {
+  local session="$1"
+  local window="$2"
+  local dir="${3:-$HOME/workspace/$window}"
+
+  if [ ! -d "$dir" ]; then
+    echo "$dir does not exist" >&2
+    return 1
+  fi
+
+  tmux list-windows -t "$session" -F '#{window_name}' | grep -qxF "$window" || tmux new-window -d -t "$session:" -n "$window" -c "$dir"
+}
+
+setup-tmux() {( set -e
+  if ! exists tmux; then
+    echo "tmux not found" >&2
+    return 1
+  fi
+
+  setup-tmux-session config "$HOME/ws/dotfiles"
+  setup-tmux-window config deps "$HOME/ws/deps"
+
+  setup-tmux-session exodus
+  setup-tmux-window exodus exodus-2
+  setup-tmux-window exodus exodus-3
+
+  setup-tmux-session source
+
+  setup-tmux-session web
+  setup-tmux-window web web-2
+  setup-tmux-window web x-web "$HOME/ws/x-web"
+
+  setup-tmux-session xai "$HOME/ws/xai"
+
+  if [ -n "$TMUX" ]; then
+    tmux switch-client -t exodus
+  else
+    tmux attach-session -t exodus
+  fi
+)}
+
 take() {
   mkdir -p -- "$1" &&
     cd -P -- "$1"
@@ -221,6 +274,10 @@ curltar() {
 
 encodeURIComponent(){
   node -e 'console.log(encodeURIComponent('"'$1'"'))'
+}
+
+hb(){
+  PATH="/opt/homebrew/bin:$PATH" "$@"
 }
 
 stash(){
@@ -365,7 +422,7 @@ update-fdb() {
     | jq -r '.tag_name // empty')"
 
   curl -LO https://github.com/FoundationDB/fdb-kubernetes-operator/releases/download/"$version"/kubectl-fdb_"$version"_darwin_arm64
-  rm ~/bin/kubectl-fdb
+  [ -f ~/bin/kubectl-fdb ] && rm ~/bin/kubectl-fdb
   mv kubectl-fdb_"$version"_darwin_arm64 ~/bin/kubectl-fdb
   chmod +x ~/bin/kubectl-fdb
 }

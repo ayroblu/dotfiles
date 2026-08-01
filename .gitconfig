@@ -89,6 +89,7 @@
   dp = !git push -d origin $(git rev-parse --abbrev-ref HEAD) && git p
   f = fetch
   fo = !git fetch origin
+  foo = "!git fetch origin $(git branch -vv | awk '/\\[origin\\// {print \"+refs/heads/\"$1\":refs/remotes/origin/\"$1}')"
   fou = !"git fetch origin && git branch -f $(git mainmaster) origin/$(git mainmaster)"
   is-sparse = config --get core.sparseCheckout
   last-message = log -1 --pretty=%B
