@@ -1,0 +1,67 @@
+#!/usr/bin/env zsh
+# e.g. git downstream-run "bazel test feature/directory/..."
+set -euo pipefail
+
+if [[ $# -ne 1 ]]; then
+  echo "Usage: git downstream-run '<command>'" >&2
+  exit 1
+fi
+
+COMMAND="$1"
+
+if ! git rev-parse --git-dir >/dev/null 2>&1; then
+  echo "Not a git repository" >&2
+  exit 1
+fi
+
+CURRENT="$(git rev-parse --abbrev-ref HEAD)"
+if [[ -z "$CURRENT" || "$CURRENT" == "HEAD" ]]; then
+  echo "Not on a branch" >&2
+  exit 1
+fi
+
+echo "Running command for downstream branches tracking '$CURRENT': $COMMAND"
+
+cascade() {
+  local base="$1"
+  local -a dependents
+
+  while read -r ref upstream; do
+    if [[ -n "$ref" && "$upstream" == "$base" ]]; then
+      dependents+=("$ref")
+    fi
+  done < <(git for-each-ref --format='%(refname:short) %(upstream:short)' refs/heads/)
+
+  local dep
+  for dep in "${dependents[@]}"; do
+    echo "Checking '$dep' (upstream: $base)..."
+
+    if ! git checkout -q "$dep"; then
+      echo "Failed to checkout $dep" >&2
+      git checkout -q "$CURRENT" 2>/dev/null || true
+      return 1
+    fi
+
+    echo "Running command for '$dep': $COMMAND"
+    if ! zsh -ic "$COMMAND"; then
+      echo "Command failed for '$dep': $COMMAND" >&2
+      git checkout -q "$CURRENT" 2>/dev/null || true
+      return 1
+    fi
+    echo "Ran command for '$dep' successfully."
+
+    if ! cascade "$dep"; then
+      return 1
+    fi
+  done
+
+  return 0
+}
+
+if cascade "$CURRENT"; then
+  git checkout -q "$CURRENT"
+  echo "Downstream command complete."
+else
+  echo "Downstream command aborted."
+  exit 1
+fi
