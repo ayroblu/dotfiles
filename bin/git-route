@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+# branch upstream routes (probably to origin/master) e.g. branch-b -> branch-a -> origin/master
+branch=${1:-$(git branch --show-current)}
+
+while [[ -n $branch ]]; do
+  printf '%s\n' "$branch"
+  branch=$(git rev-parse --abbrev-ref --symbolic-full-name "$branch@{upstream}" 2>/dev/null) || break
+done
