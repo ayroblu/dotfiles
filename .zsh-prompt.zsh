@@ -59,17 +59,23 @@ RPS1="$(get_git)$CURRENT_TIME $EXIT_CODE"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}"
 
+if [[ "$(date +%N)" == <-> ]]; then
+  MS_DATE=date
+elif [ -x "$(command -v gdate)" ]; then
+  MS_DATE=gdate
+fi
+
 preexec() {
-  if [ -x "$(command -v gdate)" ]; then
-    timer=$(($(gdate +%s%N)/1000000))
+  if [ -n "$MS_DATE" ]; then
+    timer=$(($($MS_DATE +%s%N)/1000000))
   else
     timer=$(date +%s)
   fi
 }
 precmd() {
   if [ $timer  ]; then
-    if [ -x "$(command -v gdate)" ]; then
-      local now=$(($(gdate +%s%N)/1000000))
+    if [ -n "$MS_DATE" ]; then
+      local now=$(($($MS_DATE +%s%N)/1000000))
       local unit='ms'
     else
       local now=$(date +%s)
