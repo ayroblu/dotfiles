@@ -347,7 +347,8 @@ adddate() {
     rows=0
     while IFS= read -r line; do
       (( rows += ${#line} > COLUMNS ? (${#line} + COLUMNS - 1) / COLUMNS : 1 ))
-    done <<< "$out"
+    # strip colour codes when counting number of rows and columns
+    done < <(sed $'s/\e\\[[0-9;]*m//g' <<< "$out")
     # \e[<N>A — Move cursor up N rows to the top of the frame just drawn (after any scrolling).
     # \e7     — Save that as the anchor for the next redraw.
     # \e[<N>B — Move cursor back down N rows so Ctrl-C leaves the prompt below the frame.
