@@ -322,15 +322,25 @@ adddate() {
 # \e[A or \e[<N>A — Move cursor up N lines (cuu = cursor up).
 # \e[K or \e[2K — Clear from cursor to end of line (or whole line).
 # \r — Carriage return (start of current line).
-# \e[J — Clear screen from cursor down (sometimes used).
 -watch() {
-  local out code dims rows line
+  local out code dims rows line max
   dims="$LINES:$COLUMNS"
   # \e7 — Save cursor position (DECSC); this is the anchor the frame redraws from.
   printf '\e7'
   while true; do
     out="$("$@" 2>&1)"
     code=$?
+    max=$(( LINES - 3 ))
+    # keep the frame within the screen: drop trailing lines once the wrapped row count
+    # (colour codes excluded) would exceed the terminal height
+    out="$(awk -v c="$COLUMNS" -v max="$max" '
+      { s = $0; gsub(/\033\[[0-9;]*m/, "", s)
+        r = length(s) > c ? int((length(s) + c - 1) / c) : 1
+        if (rows + r > max) exit
+        rows += r; print }' <<< "$out")"
+    # simpler alternative: keep the first max lines and clip each at the terminal width
+    # (truncates long lines and can split a colour code at the boundary)
+    # out="$(head -n "$max" <<< "$out" | cut -c "1-$COLUMNS")"
     if (( code != 0 )); then
       out+=$'\n'"exit code $code"
     fi
