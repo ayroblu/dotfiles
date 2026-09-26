@@ -231,6 +231,8 @@ setup-tmux() {( set -e
   fi
 )}
 
+tsv() { column -ts$'\t' "$@"; }
+
 take() {
   mkdir -p -- "$1" &&
     cd -P -- "$1"
@@ -321,31 +323,36 @@ adddate() {
 # \e[K or \e[2K — Clear from cursor to end of line (or whole line).
 # \r — Carriage return (start of current line).
 # \e[J — Clear screen from cursor down (sometimes used).
-# clear-watch() {
-#   local out
-#   local prev_lines=0   # number of lines printed last iteration
-#   while true; do
-#     out="$("$@")"
-#     if (( prev_lines > 0 )); then
-#       printf '\e[%dA' $prev_lines
-#       printf '\e[J'
-#     fi
-#     echo "$out"
-#     sleep 2
-#     prev_lines=$(wc -l <<< "$out")
-#     (( prev_lines += 1 ))
-#   done
-# }
-clear-watch() {
-  local out
+-watch() {
+  local out code dims
+  dims="$LINES:$COLUMNS"
   printf '\e7'
   while true; do
-    out="$("$@")"
+    out="$("$@" 2>&1)"
+    code=$?
+    if [[ "$LINES:$COLUMNS" != "$dims" ]]; then
+      dims="$LINES:$COLUMNS"
+      printf '\e[2J\e[H\e7'
+    fi
     printf '\e8\e[J'
     echo "$out"
+    if (( code != 0 )); then
+      echo "exit code $code"
+    fi
     sleep 2
   done
 }
+# fix for wrapping / overflow, but forces new screen, doesn't show in normal
+# -watch() {
+#   local out
+#   tput smcup                      # switch to alternate screen
+#   trap 'tput rmcup; return' INT   # restore main screen on Ctrl+C
+#   while true; do
+#     out="$("$@" 2>&1)"
+#     printf '\e[H\e[J%s\n' "$out"  # home + clear, then draw
+#     sleep 2
+#   done
+# }
 
 regexReplace() {
   # Requires ripgrep: https://github.com/BurntSushi/ripgrep
