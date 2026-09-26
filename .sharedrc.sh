@@ -324,21 +324,34 @@ adddate() {
 # \r — Carriage return (start of current line).
 # \e[J — Clear screen from cursor down (sometimes used).
 -watch() {
-  local out code dims
+  local out code dims rows line
   dims="$LINES:$COLUMNS"
+  # \e7 — Save cursor position (DECSC); this is the anchor the frame redraws from.
   printf '\e7'
   while true; do
     out="$("$@" 2>&1)"
     code=$?
+    if (( code != 0 )); then
+      out+=$'\n'"exit code $code"
+    fi
     if [[ "$LINES:$COLUMNS" != "$dims" ]]; then
       dims="$LINES:$COLUMNS"
+      # \e[2J — Clear entire screen.
+      # \e[H  — Move cursor to top-left (row 1, col 1).
+      # \e7   — Save that position as the new anchor (resize reflow invalidated the old one).
       printf '\e[2J\e[H\e7'
     fi
-    printf '\e8\e[J'
-    echo "$out"
-    if (( code != 0 )); then
-      echo "exit code $code"
-    fi
+    # \e8  — Restore cursor to the saved anchor (DECRC).
+    # \e[J — Clear from cursor to end of screen, then print the frame.
+    printf '\e8\e[J%s\n' "$out"
+    rows=0
+    while IFS= read -r line; do
+      (( rows += ${#line} > COLUMNS ? (${#line} + COLUMNS - 1) / COLUMNS : 1 ))
+    done <<< "$out"
+    # \e[<N>A — Move cursor up N rows to the top of the frame just drawn (after any scrolling).
+    # \e7     — Save that as the anchor for the next redraw.
+    # \e[<N>B — Move cursor back down N rows so Ctrl-C leaves the prompt below the frame.
+    printf '\e[%dA\e7\e[%dB' "$rows" "$rows"
     sleep 2
   done
 }
