@@ -328,16 +328,27 @@ adddate() {
   # \e7 — Save cursor position (DECSC); this is the anchor the frame redraws from.
   printf '\e7'
   while true; do
-    out="$("$@" 2>&1)"
+    # a single argument is evaluated as shell, so pipes work: -watch 'cmd | head'
+    if (( $# == 1 )); then
+      out="$(eval "$1" 2>&1)"
+    else
+      out="$("$@" 2>&1)"
+    fi
     code=$?
     max=$(( LINES - 3 ))
     # keep the frame within the screen: drop trailing lines once the wrapped row count
     # (colour codes excluded) would exceed the terminal height
+    # out="$(awk -v c="$COLUMNS" -v max="$max" '
+    #   { s = $0; gsub(/\033\[[0-9;]*m/, "", s)
+    #     r = length(s) > c ? int((length(s) + c - 1) / c) : 1
+    #     if (rows + r > max) exit
+    #     rows += r; print }' <<< "$out")"
+    # tail variant: keep the last lines that fit instead of the first
     out="$(awk -v c="$COLUMNS" -v max="$max" '
-      { s = $0; gsub(/\033\[[0-9;]*m/, "", s)
-        r = length(s) > c ? int((length(s) + c - 1) / c) : 1
-        if (rows + r > max) exit
-        rows += r; print }' <<< "$out")"
+      { l[NR] = $0; s = $0; gsub(/\033\[[0-9;]*m/, "", s)
+        h[NR] = length(s) > c ? int((length(s) + c - 1) / c) : 1 }
+      END { for (i = NR; i > 0 && rows + h[i] <= max; i--) rows += h[i]
+            for (i++; i <= NR; i++) print l[i] }' <<< "$out")"
     # simpler alternative: keep the first max lines and clip each at the terminal width
     # (truncates long lines and can split a colour code at the boundary)
     # out="$(head -n "$max" <<< "$out" | cut -c "1-$COLUMNS")"
