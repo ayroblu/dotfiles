@@ -1,11 +1,41 @@
-local function is_executable(name)
-  -- Determine the OS for the appropriate command
-  local command = package.config:sub(1, 1) == "\\" and "where" or "which"
-  -- Run the command and capture the result
-  local cmd = command .. " " .. name
-  local success, exit_code = os.execute(cmd .. " > /dev/null 2>&1")
-  -- Return true if the command executed successfully (exit code 0)
-  return success and exit_code == 0
+local skipped_servers = {}
+local missing_plugins = {}
+
+local function enable(name)
+  local config = vim.lsp.config[name]
+  if not config then
+    skipped_servers[name] = "no config"
+    return
+  end
+  if type(config.cmd) == "table" and vim.fn.executable(config.cmd[1]) == 0 then
+    skipped_servers[name] = config.cmd[1] .. " not installed"
+    return
+  end
+  vim.lsp.enable(name)
+end
+
+local function has_plugins(...)
+  local found = true
+  for _, name in ipairs({ ... }) do
+    if #vim.loader.find(name) == 0 then
+      table.insert(missing_plugins, name)
+      found = false
+    end
+  end
+  return found
+end
+
+local function report_missing()
+  vim.api.nvim_create_user_command("LspSkipped", function()
+    for name, reason in pairs(skipped_servers) do
+      print(name .. ": " .. reason)
+    end
+  end, {})
+  if #missing_plugins > 0 then
+    vim.schedule(function()
+      vim.notify("Missing plugins, run :PlugInstall: " .. table.concat(missing_plugins, ", "), vim.log.levels.WARN)
+    end)
+  end
 end
 
 local function message_type(type_num)
@@ -128,19 +158,22 @@ local function setupDap()
 end
 
 local function setupLsp()
-  require("scrollbar").setup()
-  local root_pattern = require('lspconfig.util').root_pattern
+  if has_plugins("scrollbar") then
+    require("scrollbar").setup()
+  end
   local utils = require('utils')
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  require("lspsaga").setup {
-    symbol_in_winbar = {
-      enable = false,
-    },
-    lightbulb = {
-      enable = false,
-      enable_in_insert = false,
-    },
-  }
+  local capabilities = has_plugins("cmp_nvim_lsp") and require('cmp_nvim_lsp').default_capabilities() or nil
+  if has_plugins("lspsaga") then
+    require("lspsaga").setup {
+      symbol_in_winbar = {
+        enable = false,
+      },
+      lightbulb = {
+        enable = false,
+        enable_in_insert = false,
+      },
+    }
+  end
 
   vim.lsp.config('stratols', {
     handlers = {
@@ -152,20 +185,12 @@ local function setupLsp()
       end,
     },
   })
-  if vim.fn.executable("strato-lsp") == 1 then
-    vim.lsp.enable('stratols')
-  end
+  enable('stratols')
 
   -- ln -s ~/ws/dotfiles/custom_lsp/bazel_lsp.lua ~/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/configs/bazel_lsp.lua
-  if vim.loop.fs_stat(vim.env.HOME ..
-        '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/configs/bazel_lsp.lua') then
-    vim.lsp.enable('bazel_lsp')
-  end
+  enable('bazel_lsp')
   -- ln -s ~/ws/dotfiles/custom_lsp/llama_ls.lua ~/.vim/plugged/nvim-lspconfig/lua/lspconfig/configs/llama_ls.lua
-  if vim.loop.fs_stat(vim.env.HOME ..
-        '/.local/share/nvim/plugged/nvim-lspconfig/lua/lspconfig/configs/llama_ls.lua') then
-    vim.lsp.enable('llama_ls')
-  end
+  enable('llama_ls')
 
   -- brew install lua-language-server
   vim.lsp.config('lua_ls', {
@@ -203,18 +228,16 @@ local function setupLsp()
       },
     },
   })
-  vim.lsp.enable('lua_ls')
+  enable('lua_ls')
   -- npm i -g bash-language-server
-  vim.lsp.enable('bashls')
+  enable('bashls')
   -- brew tap dart-lang/dart && brew install dart
-  if vim.fn.executable("dart") == 1 then
-    vim.lsp.enable('dartls')
-  end
+  enable('dartls')
   -- npm i -g vscode-langservers-extracted
   vim.lsp.config('eslint', {
     filetypes = { "javascriptflow", "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte", "astro" }
   })
-  vim.lsp.enable('eslint')
+  enable('eslint')
   -- npx flow
   vim.lsp.config('flow', {
     cmd = { "npx", "--no-install", "flow", "lsp" },
@@ -222,7 +245,7 @@ local function setupLsp()
     -- default: filetypes = { "javascript", "javascriptreact", "javascript.jsx" }
     -- cmd = { "web-flow-lsp" }
   })
-  vim.lsp.enable('flow')
+  enable('flow')
   -- npx relay-compiler
   -- lspconfig.relay_lsp.setup {
   --   cmd = { "./scripts/relay-for-extension", "lsp" },
@@ -232,12 +255,12 @@ local function setupLsp()
   vim.lsp.config('html', {
     capabilities = capabilities,
   })
-  vim.lsp.enable('html')
+  enable('html')
   -- npm i -g vscode-langservers-extracted
   vim.lsp.config('jsonls', {
     capabilities = capabilities,
   })
-  vim.lsp.enable('jsonls')
+  enable('jsonls')
   -- npm i -g yaml-language-server
   --lspconfig.yamlls.setup {
   --  capabilities = capabilities,
@@ -253,21 +276,19 @@ local function setupLsp()
   --  -- }
   --}
   -- npm install -g vim-language-server
-  vim.lsp.enable('vimls')
+  enable('vimls')
   -- npm install -g graphql-language-service-cli
   vim.lsp.config('graphql', {
-    root_dir = root_pattern(".graphqlrc.yml")
+    root_markers = { ".graphqlrc.yml" },
   })
-  if vim.fn.executable("graphql-lsp") == 1 then
-    vim.lsp.enable('graphql')
-  end
+  enable('graphql')
 
   -- npm install -g pyright
   -- lspconfig.pyright.setup {}
 
   -- basically better than pyright
   -- brew install basedpyright
-  vim.lsp.enable('basedpyright')
+  enable('basedpyright')
 
   -- npm i -g typescript-language-server
   -- lspconfig.tsserver.setup {
@@ -292,103 +313,103 @@ local function setupLsp()
   --     end,
   --   },
   -- })
-  local api = require("typescript-tools.api")
-  require("typescript-tools").setup {
-    on_attach = function()
-      vim.keymap.set('n', '<leader>am', '<cmd>TSToolsAddMissingImports<cr>')
-      vim.keymap.set('n', '<leader>ao', '<cmd>TSToolsOrganizeImports<cr>')
-      vim.keymap.set('n', '<leader>ar', '<cmd>TSToolsRemoveUnused<cr>')
-      vim.keymap.set('n', 'gD', '<cmd>TSToolsGoToSourceDefinition<cr>')
-      vim.keymap.set('n', '<leader>rf', '<cmd>TSToolsRenameFile<cr>')
-    end,
-    handlers = {
-      ["textDocument/publishDiagnostics"] = api.filter_diagnostics(
-      -- Ignore 'This may be converted to an async function' diagnostics.
-        { 80006 }
-      ),
-    },
-    settings = {
-      -- spawn additional tsserver instance to calculate diagnostics on it
-      separate_diagnostic_server = true,
-      -- "change"|"insert_leave" determine when the client asks the server about diagnostic
-      publish_diagnostic_on = "insert_leave",
-      -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
-      -- "remove_unused_imports"|"organize_imports") -- or string "all"
-      -- to include all supported code actions
-      -- specify commands exposed as code_actions
-      expose_as_code_action = {},
-      -- string|nil - specify a custom path to `tsserver.js` file, if this is nil or file under path
-      -- not exists then standard path resolution strategy is applied
-      tsserver_path = nil,
-      -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
-      -- (see 💅 `styled-components` support section)
-      tsserver_plugins = {},
-      -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
-      -- memory limit in megabytes or "auto"(basically no limit)
-      tsserver_max_memory = "auto",
-      -- https://github.com/microsoft/TypeScript/blob/v5.0.4/src/server/protocol.ts#L3418
-      tsserver_format_options = {},
-      tsserver_file_preferences = {
-        -- https://github.com/microsoft/TypeScript/blob/v5.0.4/src/server/protocol.ts#L3439
-        -- importModuleSpecifierEnding = 'js',
-        includeInlayParameterNameHints = "all",
-        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayVariableTypeHints = true,
-        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayEnumMemberValueHints = true,
-        includeCompletionsForModuleExports = true,
+  if has_plugins("typescript-tools") then
+    local api = require("typescript-tools.api")
+    require("typescript-tools").setup {
+      on_attach = function()
+        vim.keymap.set('n', '<leader>am', '<cmd>TSToolsAddMissingImports<cr>')
+        vim.keymap.set('n', '<leader>ao', '<cmd>TSToolsOrganizeImports<cr>')
+        vim.keymap.set('n', '<leader>ar', '<cmd>TSToolsRemoveUnused<cr>')
+        vim.keymap.set('n', 'gD', '<cmd>TSToolsGoToSourceDefinition<cr>')
+        vim.keymap.set('n', '<leader>rf', '<cmd>TSToolsRenameFile<cr>')
+      end,
+      handlers = {
+        ["textDocument/publishDiagnostics"] = api.filter_diagnostics(
+        -- Ignore 'This may be converted to an async function' diagnostics.
+          { 80006 }
+        ),
       },
-      -- locale of all tsserver messages, supported locales you can find here:
-      -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
-      tsserver_locale = "en",
-      -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
-      complete_function_calls = true,
-      include_completions_with_insert_text = true,
-      -- CodeLens
-      -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
-      -- possible values: ("off"|"all"|"implementations_only"|"references_only")
-      code_lens = "off",
-      -- by default code lenses are displayed on all referencable values and for some of you it can
-      -- be too much this option reduce count of them by removing member references from lenses
-      disable_member_code_lens = true,
-      -- JSXCloseTag
-      -- WARNING: it is disabled by default (maybe you configuration or distro already uses nvim-ts-autotag,
-      -- that maybe have a conflict if enable this feature. )
-      jsx_close_tag = {
-        enable = false,
-        filetypes = { "javascriptreact", "typescriptreact" },
+      settings = {
+        -- spawn additional tsserver instance to calculate diagnostics on it
+        separate_diagnostic_server = true,
+        -- "change"|"insert_leave" determine when the client asks the server about diagnostic
+        publish_diagnostic_on = "insert_leave",
+        -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
+        -- "remove_unused_imports"|"organize_imports") -- or string "all"
+        -- to include all supported code actions
+        -- specify commands exposed as code_actions
+        expose_as_code_action = {},
+        -- string|nil - specify a custom path to `tsserver.js` file, if this is nil or file under path
+        -- not exists then standard path resolution strategy is applied
+        tsserver_path = nil,
+        -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
+        -- (see 💅 `styled-components` support section)
+        tsserver_plugins = {},
+        -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
+        -- memory limit in megabytes or "auto"(basically no limit)
+        tsserver_max_memory = "auto",
+        -- https://github.com/microsoft/TypeScript/blob/v5.0.4/src/server/protocol.ts#L3418
+        tsserver_format_options = {},
+        tsserver_file_preferences = {
+          -- https://github.com/microsoft/TypeScript/blob/v5.0.4/src/server/protocol.ts#L3439
+          -- importModuleSpecifierEnding = 'js',
+          includeInlayParameterNameHints = "all",
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
+          includeCompletionsForModuleExports = true,
+        },
+        -- locale of all tsserver messages, supported locales you can find here:
+        -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
+        tsserver_locale = "en",
+        -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
+        complete_function_calls = true,
+        include_completions_with_insert_text = true,
+        -- CodeLens
+        -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
+        -- possible values: ("off"|"all"|"implementations_only"|"references_only")
+        code_lens = "off",
+        -- by default code lenses are displayed on all referencable values and for some of you it can
+        -- be too much this option reduce count of them by removing member references from lenses
+        disable_member_code_lens = true,
+        -- JSXCloseTag
+        -- WARNING: it is disabled by default (maybe you configuration or distro already uses nvim-ts-autotag,
+        -- that maybe have a conflict if enable this feature. )
+        jsx_close_tag = {
+          enable = false,
+          filetypes = { "javascriptreact", "typescriptreact" },
+        },
       },
-    },
-  }
-  require("tsc").setup({
-    auto_start_watch_mode = true,
-    auto_open_qf = true,
-    enable_progress_notifications = false,
-    flags = {
-      watch = true,
-    },
-  })
+    }
+  end
+  if has_plugins("tsc") then
+    require("tsc").setup({
+      auto_start_watch_mode = true,
+      auto_open_qf = true,
+      enable_progress_notifications = false,
+      flags = {
+        watch = true,
+      },
+    })
+  end
 
   -- npm install [-g] @biomejs/biome
-  vim.lsp.enable('biome')
+  enable('biome')
 
   -- npm i -g vscode-langservers-extracted
   vim.lsp.config('cssls', {
     capabilities = capabilities,
   })
-  vim.lsp.enable('cssls')
+  enable('cssls')
   -- npm install -g cssmodules-language-server
-  if is_executable("cssmodules-language-server") then
-    vim.lsp.enable('cssmodules_ls')
-  end
+  enable('cssmodules_ls')
 
   -- npm install -g @tailwindcss/language-server
-  if is_executable("tailwindcss-language-server") then
-    vim.lsp.enable('tailwindcss')
-  end
+  enable('tailwindcss')
 
   -- rustup component add rust-analyzer
   -- vim.lsp.set_log_level('info')
@@ -406,13 +427,11 @@ local function setupLsp()
         },
       },
     })
-    vim.lsp.enable('rust_analyzer')
-  else
-    vim.lsp.enable('rust_analyzer')
   end
+  enable('rust_analyzer')
 
   -- brew install ccls
-  vim.lsp.enable('ccls')
+  enable('ccls')
 
   -- brew install kotlin-language-server
   -- lspconfig.kotlin_language_server.setup {}
@@ -436,13 +455,13 @@ local function setupLsp()
       )
     end,
   })
-  vim.lsp.enable('sourcekit')
+  enable('sourcekit')
 
   -- npm install -g svelte-language-server
-  vim.lsp.enable('svelte')
+  enable('svelte')
 
   -- cargo install protols
-  vim.lsp.enable('protols')
+  enable('protols')
 
   -- go install golang.org/x/tools/gopls@latest
   local gopls_settings = {
@@ -487,8 +506,10 @@ local function setupLsp()
     end,
     settings = gopls_settings,
   })
-  vim.lsp.enable('gopls')
-  require('dap-go').setup {}
+  enable('gopls')
+  if has_plugins("dap-go") then
+    require('dap-go').setup {}
+  end
   -- https://github.com/go-delve/delve/tree/master/Documentation/installation
   -- ensure: go install github.com/go-delve/delve/cmd/dlv@latest
   -- sudo /usr/sbin/DevToolsSecurity -enable
@@ -496,18 +517,18 @@ local function setupLsp()
   vim.keymap.set("n", "<leader>dt", function() require("dap-go").debug_test() end)
   vim.keymap.set("n", "<leader><leader>dt", function() require("dap-go").debug_last_test() end)
 
-  setupDap()
+  if has_plugins("dap", "dapui", "nvim-dap-virtual-text") then
+    setupDap()
+  end
 
   -- curl -fLO https://github.com/redhat-developer/vscode-xml/releases/download/0.27.1/lemminx-osx-aarch_64.zip
   -- unzip lemminx-osx-aarch_64.zip
   -- mv lemminx-osx-aarch_64 ~/bin/lemminx
   -- xattr -d com.apple.quarantine ~/bin/lemminx
-  vim.lsp.enable('lemminx')
+  enable('lemminx')
 
   -- brew install terraform-ls
-  if vim.fn.executable("terraform-ls") == 1 then
-    vim.lsp.enable('terraformls')
-  end
+  enable('terraformls')
 
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -529,7 +550,9 @@ local function setupLsp()
 
   vim.keymap.set('n', '<leader>K', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 
-  setupCmp()
+  if has_plugins("cmp", "lspkind") then
+    setupCmp()
+  end
 
   -- Use LspAttach autocommand to only map the following keys
   -- after the language server attaches to the current buffer
@@ -619,6 +642,8 @@ local function setupLsp()
       --   end
     end,
   })
+
+  report_missing()
 end
 
 local function show_popup_under_cursor(content)
@@ -635,4 +660,4 @@ local function doit()
 end
 vim.keymap.set("n", "<leader>L", doit)
 
-pcall(setupLsp)
+setupLsp()
