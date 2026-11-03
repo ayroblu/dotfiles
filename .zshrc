@@ -213,6 +213,9 @@ print-time
 # Added by xctl installer
 export PATH="$HOME/.local/bin:$PATH"
 
+
 # >>> grok installer >>>
 export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
 # <<< grok installer <<<
