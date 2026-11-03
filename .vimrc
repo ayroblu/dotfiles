@@ -54,7 +54,7 @@ runtime vim-projects.vim
 
 "" --------------------------plugin settings
 if has('nvim')
-  autocmd BufReadPost * if getfsize(@%) > 10000 | execute('NoMatchParen') | endif
+  autocmd BufReadPost * if getfsize(@%) > 10000 | let b:matchparen_timeout = 20 | let b:matchparen_insert_timeout = 20 | endif
 else
   runtime macros/matchit.vim
 endif
