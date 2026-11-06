@@ -41,6 +41,7 @@
 
   b = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
   base = !git merge-base HEAD $(git upstream)
+  bum = !git branch -u $(git main)
   # Branch Name
   bn = rev-parse --abbrev-ref HEAD
   # Include remote branches
