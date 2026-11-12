@@ -1,14 +1,15 @@
 local skipped_servers = {}
 local missing_plugins = {}
 
-local function enable(name)
+local function enable(name, bin)
   local config = vim.lsp.config[name]
   if not config then
     skipped_servers[name] = "no config"
     return
   end
-  if type(config.cmd) == "table" and vim.fn.executable(config.cmd[1]) == 0 then
-    skipped_servers[name] = config.cmd[1] .. " not installed"
+  bin = bin or (type(config.cmd) == "table" and config.cmd[1])
+  if bin and vim.fn.executable(bin) == 0 then
+    skipped_servers[name] = bin .. " not installed"
     return
   end
   vim.lsp.enable(name)
@@ -409,7 +410,7 @@ local function setupLsp()
   enable('cssmodules_ls')
 
   -- npm install -g @tailwindcss/language-server
-  enable('tailwindcss')
+  enable('tailwindcss', 'tailwindcss-language-server')
 
   -- rustup component add rust-analyzer
   -- vim.lsp.set_log_level('info')
