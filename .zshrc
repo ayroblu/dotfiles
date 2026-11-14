@@ -160,6 +160,7 @@ run_deferred() {
 [ -d /usr/local/share/zsh/site-functions ] && fpath=(/usr/local/share/zsh/site-functions $fpath)
 # homebrew completions
 [ -d /opt/homebrew ] && fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+[ -d ~/.grok/completions/zsh ] && fpath=(~/.grok/completions/zsh $fpath)
 
 append-time "zshrc configured"
 # ------------------------------------------------------ zsh plugins
@@ -208,12 +209,4 @@ print-time
 ###-begin-web-script-content-###
 ###-end-web-script-content-###
 
-# Added by xctl installer
-export PATH="$HOME/.local/bin:$PATH"
 
-
-# >>> grok installer >>>
-export PATH="$HOME/.grok/bin:$PATH"
-fpath=(~/.grok/completions/zsh $fpath)
-autoload -Uz compinit && compinit -C
-# <<< grok installer <<<

@@ -132,6 +132,7 @@ pathadd /usr/local/opt/mysql-client/bin
 pathadd ~/.emacs.d/bin
 pathadd ~/.local/bin
 pathadd ~/bin
+pathadd ~/.grok/bin
 pathadd /usr/local/opt/make/libexec/gnubin
 pathadd /opt/homebrew/opt/make/libexec/gnubin
 pathadd /opt/homebrew/opt/python/libexec/bin
