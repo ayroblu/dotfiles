@@ -52,7 +52,7 @@ function zle-line-init {
 zle -N zle-line-init
 
 PROMPT="$(ssh_name)%(?,%{$fg[yellow]%},%{$fg[red]%})%4~>%{$reset_color%} "
-RPS1="$(get_git)$CURRENT_TIME $EXIT_CODE"
+RPS1="$CURRENT_TIME $EXIT_CODE"
 
 #ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[cyan]%}("
 #ZSH_THEME_GIT_PROMPT_SUFFIX=")%{$reset_color%}"

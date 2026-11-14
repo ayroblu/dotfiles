@@ -3,7 +3,7 @@ zplug-prep() {
   [ ! -d "$ZPLUG_DIR" ] && mkdir "$ZPLUG_DIR"
 }
 zplug() {
-  local name=$(echo "$1" | awk -F'/' '{print $2}')
+  local name="${1#*/}"
   if ! [ -d "$ZPLUG_DIR/$name" ]; then
     git clone https://github.com/"$1" "$ZPLUG_DIR/$name"
   fi
